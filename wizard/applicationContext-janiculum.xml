@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+<beans>
+	<bean id="SessionAspect" class="org.romaframework.aspect.session.html.HttpSessionAspect"
+		singleton="true" />
+
+	<bean id="ViewAspect" depends-on="SessionAspect"
+		class="org.romaframework.aspect.view.html.HtmlViewAspect" singleton="true" />
+
+	<bean id="DataBindingAspect" depends-on="ViewAspect"
+		class="org.romaframework.aspect.data.DataBindingAspect" singleton="true">
+		<!-- Enable this entry if you want set additional Paths outside the classpath 
+			Key: class SimpleName Value: class full name -->
+		<!--<property name="configuration"><map></map> </property> -->
+	</bean>
+
+	<bean id="RequestParser" class="org.romaframework.aspect.view.html.RequestParserImpl"
+		singleton="true" />
+
+	<bean id="ScreenManager"
+		class="org.romaframework.aspect.view.html.screen.ViewHtmlScreenManager"
+		singleton="true" />
+
+	<bean id="ImageManager" class="org.romaframework.aspect.view.html.image.ImageManager"
+		singleton="true">
+
+		<!-- Enable this entry if you want set additional Paths outside the classpath -->
+		<!-- property name="additionalPaths"> <list> <value></value> </list> </property -->
+
+		<property name="config">
+			<ref bean="ApplicationConfiguration" />
+		</property>
+	</bean>
+
+	<bean id="FreeMarkerTemplateManager"
+		class="org.romaframework.aspect.view.html.template.freemarker.FreeMarkerTemplateManager"
+		singleton="true">
+		<property name="cacheTemplates" value="false" />
+
+		<!-- Switch this property to enable/disable Ajax rendering mode -->
+		<property name="templatesPath" value="WEB-INF/freemarker/transformers/ajax/" />
+		<!-- <property name="templatesPath" value="WEB-INF/freemarker/transformers/"/> -->
+
+	</bean>
+
+	<!-- The pretty printer is used by the transformers to indent the code -->
+	<bean id="ViewHtmlBinderFactory"
+		class="org.romaframework.aspect.view.html.binder.DefaultHtmlBinderFactory"></bean>
+
+	<!-- List of binders -->
+
+	<bean id="NullBinder" class="org.romaframework.aspect.view.html.binder.NullBinder"></bean>
+
+
+	<bean id="EventHelper"
+		class="org.romaframework.aspect.view.html.actionhandler.EventHelper">
+		<property name="events">
+			<set>
+				<value>click</value>
+				<value>change</value>
+				<value>blur</value>
+				<value>dblclick</value>
+				<value>focus</value>
+				<value>keydown</value>
+				<value>keyup</value>
+				<value>mousedown</value>
+				<value>mousemove</value>
+				<value>mouseout</value>
+				<value>mouseover</value>
+				<value>mouseup</value>
+				<value>resize</value>
+				<value>.DEFAULT_EVENT</value>
+			</set>
+		</property>
+	</bean>
+
+
+	<!-- The HtmlViewTransformerManager manages the components used for any 
+		single render type, if you want to change a transformer it must be added 
+		to the list and removed the old one. -->
+	<bean id="HtmlViewTransformerManager"
+		class="org.romaframework.aspect.view.html.transformer.manager.HtmlViewTransformerManager"
+		singleton="true">
+		<property name="components">
+			<!-- Freemarker transformers -->
+			<list>
+
+				<!-- <bean class="org.romaframework.aspect.view.html.transformer.plain.HtmlViewDefaultTransformer"></bean> -->
+
+				<bean
+					class="org.romaframework.aspect.view.html.transformer.freemarker.HtmlViewFreeMarkerObjectEmbeddedTransformer"></bean>
+				<bean
+					class="org.romaframework.aspect.view.html.transformer.plain.HtmlViewPopupTransformer"></bean>
+
+				<!-- <bean class="org.romaframework.aspect.view.html.transformer.plain.HtmlViewMenuTransformer"></bean> -->
+				<bean
+					class="org.romaframework.aspect.view.html.transformer.freemarker.HtmlViewFreeMarkerPojoTransformer"></bean>
+
+
+				<!-- EMBEDDED -->
+				<bean
+					class="org.romaframework.aspect.view.html.transformer.plain.HtmlViewScreenTransformer"></bean>
+				<!-- <bean class="org.romaframework.aspect.view.html.transformer.plain.HtmlViewColumnAreaTransformerTable"></bean> -->
+				<!-- <bean class="org.romaframework.aspect.view.html.transformer.plain.HtmlViewGridAreaTransformerTable"></bean> -->
+				<!-- <bean class="org.romaframework.aspect.view.html.transformer.plain.HtmlViewPlaceholderAreaTransformer"></bean> -->
+				<!-- <bean class="org.romaframework.aspect.view.html.transformer.plain.HtmlViewRowAreaTransformerTable"></bean> -->
+				<!-- <bean class="org.romaframework.aspect.view.html.transformer.plain.HtmlViewCellAreaTransformer"></bean> -->
+
+			</list>
+		</property>
+	</bean>
+
+</beans>

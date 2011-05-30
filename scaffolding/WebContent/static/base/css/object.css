@@ -1,0 +1,103 @@
+@CHARSET "ISO-8859-1";
+
+body {
+    background: url("back.gif") repeat-x scroll 0 0 #006E89;
+    color: #555555;
+    font: 90%/180% Arial,Helvetica,sans-serif;
+    margin: 0;
+    padding: 0;
+    text-align: left;
+}
+
+img {
+    display: block;
+}
+
+ul {
+	list-style-type: none;	
+}
+
+/* 0 - Feature & Object STYLES */
+/* Object */
+div.className_Object a.advancedSearch,
+div.className_Object a.simpleSearch,
+div.className_Object a.search,
+div.className_Object a.create,
+div.className_Object a.showAll,
+div.className_Object a.read,
+div.className_Object a.update,
+div.className_Object a.delete,
+div.className_Object a.report,
+div.className_Object a.exportToCsv,
+div.className_Object a.selectAll,
+div.className_Object a.deselectAll
+{
+    padding-left: 25px;
+}
+
+div.className_Object a.advancedSearch {
+    background-image: url(../image/more.png);
+}
+
+div.className_Object a.simpleSearch {
+    background-image: url(../image/less.png);
+}
+
+div.className_Object a.search {
+    background-image: url(../image/search.png);
+}
+
+div.className_Object a.create {
+    background-image: url(../image/add.png);
+}
+
+div.className_Object a.showAll {
+    background-image: url(../image/view.png);
+}
+
+div.className_Object a.read {
+    background-image: url(../image/view.png);
+}
+
+div.className_Object a.update {
+    background-image: url(../image/edit.png);
+}
+
+div.className_Object a.delete {
+    background-image: url(../image/remove.png);
+}
+
+div.className_Object a.report {
+    background-image: url(../image/print.gif);
+}
+
+div.className_Object a.exportToCsv {
+    background-image: url(../image/CSVCrud.png);
+}
+
+div.className_Object a.selectAll {
+    background-image: url(../image/selectall.png);
+}
+
+div.className_Object a.deselectAll {
+    background-image: url(../image/deselectall.png);
+}
+
+
+/* ViewField.disabled */
+
+select:disabled {
+    background-color: #f6f6f6;
+    border: 1px solid #eee;
+}
+
+input:disabled, textarea:disabled {
+    background-color: #f6f6f6;
+    border: 1px solid #eee;
+}
+
+/* Validate.invalid */
+
+.text_content_invalid {
+    color: red;
+}

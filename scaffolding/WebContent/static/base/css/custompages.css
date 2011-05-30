@@ -1,0 +1,63 @@
+/* 4 - CUSTOM PAGES */ 
+/* Login form */
+
+.loginbox {
+    background-image: url("../image/form_back.gif");
+    background-repeat: no-repeat;
+    width: 340px;
+    height: 180px;
+    padding-left: 30px;
+    padding-top: 30px;
+    color: white;
+}
+
+.login button {
+    padding-left: 20px;
+    border: 1px solid #bbbbbb;
+    background-image: url(../image/login.png);
+    background-repeat: no-repeat;
+    color: #333;
+    background-color: #F7F9F9;
+}
+
+.login
+
+/*  ChangePassword */
+
+.className_ChangePassword .change a {
+    background-image: url(../image/save.png);
+    background-repeat: no-repeat;
+    text-align: left;
+    background-color: white;
+}
+
+/* ErrorMessageTextDetail */
+
+#screen_main_popups_popup_ErrorMessageTextDetail {
+    min-width: 600px;
+    width: 600px;
+    height: 100%;
+}
+
+#screen_main_popups_popup_ErrorMessageTextDetail textarea {
+    width: 600px;
+    border-width: 1px;
+    border-style: solid;
+    border-color: #555;
+}
+
+#screen_main_popups_popup_ErrorMessageTextDetail_main_customMessage {
+    width: 600px;
+}
+
+#screen_main_popups_popup_ErrorMessageTextDetail_detail textarea {
+    width: 600px;
+    height: 280px;
+    color: #555;
+    background-color: #eee;
+}
+
+#screen_main_popups_popup_ErrorMessageTextDetail_main_actions {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}

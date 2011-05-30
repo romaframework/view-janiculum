@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project basedir="." default="add-module" name="roma-aspect-view-janiculum-wizard">
+	<property environment="env" />
+	<property name="roma.home" value="${env.ROMA_HOME}" />
+
+	<import file="${roma.home}/common/wizard/base-wizard.xml" />
+
+
+	<target name="add-ioc">		
+		<delete file="${project.path}/${project.ioc-path}/${module.ioc-file-session}" />
+		<copy file="${module.ioc-file-session}" todir="${project.path}/${project.ioc-path}">
+			<filterset>
+				<filter token="project.package" value="${project.package}" />
+				<filter token="project.name" value="${project.name}" />
+			</filterset>
+		</copy>
+	</target>
+
+	<target name="add-module" depends="load-project-info">
+		<echo>----- ADDING MODULE VIEW HTML ---</echo>
+		<property name="module.ioc-file" value="applicationContext-janiculum.xml" />
+		<antcall target="copy-module-ioc-file" />
+		
+		<echo>----- UPDATING VIEW AND SESSION ASPECTS DEFINITIONS ---</echo>
+		<antcall target="register-def-aspect">
+			<param name="module.aspect-name" value="view" />
+			<param name="module.aspect-component" value="ViewAspect" />
+		</antcall>
+
+		<antcall target="register-def-aspect">
+			<param name="module.aspect-name" value="session" />
+			<param name="module.aspect-component" value="SessionAspect" />
+		</antcall>
+		
+		<antcall target="register-def-aspect">
+					<param name="module.aspect-name" value="data" />
+					<param name="module.aspect-component" value="DataBindingAspect" />
+				</antcall>
+		
+		<echo>----- REMOVING MODULE VIEW ECHO2 IF ANY ---</echo>
+		<delete failonerror="false" file="${project.path}/${project.run-time-lib}/roma-view-echo2.jar" />
+		<delete failonerror="false" file="${project.path}/${project.run-time-lib}/Echo2_App.jar" />
+		<delete failonerror="false" file="${project.path}/${project.run-time-lib}/Echo2_Extras_App.jar" />
+		<delete failonerror="false" file="${project.path}/${project.run-time-lib}/Echo2_Extras_WebContainer.jar" />
+		<delete failonerror="false" file="${project.path}/${project.run-time-lib}/Echo2_FileTransfer_App.jar" />
+		<delete failonerror="false" file="${project.path}/${project.run-time-lib}/Echo2_FileTransfer_WebContainer.jar" />
+		<delete failonerror="false" file="${project.path}/${project.run-time-lib}/Echo2_WebContainer.jar" />
+		<delete failonerror="false" file="${project.path}/${project.run-time-lib}/Echo2_WebRender.jar" />
+		<delete failonerror="false" file="${project.path}/${project.run-time-lib}/echopointng-2.2.0rc2.jar" />
+		<delete failonerror="false" file="${project.path}/${project.run-time-lib}/informagen-echo-components-1.0.jar" />
+		<delete failonerror="false" file="${project.path}/${project.run-time-lib}/jcommon-1.0.0.jar" />
+		<delete failonerror="false" file="${project.path}/${project.ioc-path}/applicationContext-echo2.xml" />
+		<delete failonerror="false" dir="${project.path}/${project.src}/${project.package-path}/view/style" />
+		
+		<echo>----- MOVING VIEW ECHO2 IMAGES IF ANY ---</echo>
+		<copy failonerror="false" todir="${project.path}/WebContent/static/base/image" >
+			<fileset dir="${project.path}/${project.src}/${project.package-path}/view/image" includes="*.*" />
+		</copy>
+		<delete failonerror="false" dir="${project.path}/${project.src}/${project.package-path}/view/image" />
+
+		<echo>Adding 'html view aspect configuration' on project's web.xml </echo>
+		<xmltask source="${project.path}/WebContent/WEB-INF/web.xml" dest="${project.path}/WebContent/WEB-INF/web.xml" preservetype="true" outputter="${ident}">
+			<xmlcatalog refid="dtds" />
+			<remove path="/web-app/servlet[@id='servlet-es-primary']" />
+			<!-- OLD ECHO2 NAME -->
+			<remove path="/web-app/servlet[@id='roma-app-servlet']" />
+			<remove path="/web-app/servlet[@id='roma-css-servlet']" />
+			<remove path="/web-app/servlet[@id='roma-js-servlet']" />
+			<remove path="/web-app/servlet[@id='roma-chart-servlet']" />
+			<remove path="/web-app/servlet[@id='roma-image-servlet']" />
+			<remove path="/web-app/servlet-mapping[@id='servlet-mapping-es-primary']" />
+			<!-- OLD ECHO2 NAME -->
+			<remove path="/web-app/servlet-mapping[@id='roma-app-servlet-mapping']" />
+			<remove path="/web-app/servlet-mapping[@id='roma-css-servlet-mapping']" />
+			<remove path="/web-app/servlet-mapping[@id='roma-js-servlet-mapping']" />
+			<remove path="/web-app/servlet-mapping[@id='roma-chart-servlet-mapping']" />
+			<remove path="/web-app/servlet-mapping[@id='roma-image-servlet-mapping']" />
+			<remove path="/web-app/welcome-file-list" />
+			<remove path="/web-app/session-config" />
+
+			<insert path="/web-app/listener[last()]" position="after">
+				<![CDATA[
+	    <servlet id="roma-app-servlet">
+				<servlet-name>HtmlServlet</servlet-name>
+				<servlet-class>
+			org.romaframework.aspect.view.html.HtmlServlet
+		</servlet-class>
+				<load-on-startup>0</load-on-startup>
+			</servlet>
+
+			<servlet id="roma-css-servlet">
+				<servlet-name>CssServlet</servlet-name>
+				<servlet-class>
+			org.romaframework.aspect.view.html.CssServlet
+		</servlet-class>
+				<load-on-startup>0</load-on-startup>
+			</servlet>
+
+			<servlet id="roma-js-servlet">
+				<servlet-name>JsServlet</servlet-name>
+				<servlet-class>
+			org.romaframework.aspect.view.html.JsServlet
+		</servlet-class>
+				<load-on-startup>0</load-on-startup>
+			</servlet>
+
+			<servlet id="roma-chart-servlet">
+				<servlet-name>ChartServlet</servlet-name>
+				<servlet-class>
+			org.romaframework.aspect.view.html.ChartServlet
+		</servlet-class>
+				<load-on-startup>0</load-on-startup>
+			</servlet>
+
+			<servlet id="roma-image-servlet">
+				<servlet-name>ImageServlet</servlet-name>
+				<servlet-class>
+			org.romaframework.aspect.view.html.ImageServlet
+		</servlet-class>
+				<load-on-startup>0</load-on-startup>
+			</servlet>
+
+			<servlet id="ajax-servlet">
+				<servlet-name>AjaxServlet</servlet-name>
+				<servlet-class>
+			org.romaframework.aspect.view.html.AjaxServlet
+		</servlet-class>
+			</servlet>
+			<servlet id="download-servlet">
+				<servlet-name>DownloadServlet</servlet-name>
+				<servlet-class>org.romaframework.aspect.view.html.DownloadStreamServlet</servlet-class>
+			</servlet>
+			<servlet id="upload-servlet">
+			    <servlet-name>UploadServlet</servlet-name>
+			    <servlet-class>org.romaframework.aspect.view.html.UploadServlet</servlet-class>
+			</servlet>
+						    
+]]></insert>
+
+		<!--
+			<insert path="/web-app/display-name" position="after">
+	<![CDATA[
+	<filter>
+        <filter-name>JTidyFilter</filter-name>
+        <filter-class>org.w3c.tidy.servlet.filter.JTidyFilter</filter-class>
+        <init-param>
+            <param-name>tee</param-name>
+            <param-value>false</param-value>
+        </init-param>
+        <init-param>
+            <param-name>config</param-name>
+            <param-value>indent: auto; indent-spaces: 2</param-value>
+        </init-param>
+        <init-param>
+            <param-name>doubleValidation</param-name>
+            <param-value>false</param-value>
+        </init-param>
+        <init-param>
+            <param-name>validateOnly</param-name>
+            <param-value>false</param-value>
+        </init-param>
+    </filter>
+	
+	<filter-mapping>
+	    <filter-name>JTidyFilter</filter-name>
+	    <url-pattern>/app</url-pattern>
+	</filter-mapping>
+	]]>
+			</insert>
+			-->
+
+		<insert path="/web-app/servlet[last()]" position="after">
+			<![CDATA[
+	<servlet-mapping id="roma-app-servlet-mapping">
+			<servlet-name>HtmlServlet</servlet-name>
+			<url-pattern>/app/*</url-pattern>
+		</servlet-mapping>
+
+		<servlet-mapping id="roma-css-servlet-mapping">
+			<servlet-name>CssServlet</servlet-name>
+			<url-pattern>/roma.css</url-pattern>
+		</servlet-mapping>
+
+		<servlet-mapping id="roma-js-servlet-mapping">
+			<servlet-name>JsServlet</servlet-name>
+			<url-pattern>/roma.js</url-pattern>
+		</servlet-mapping>
+
+		<servlet-mapping id="roma-chart-servlet-mapping">
+			<servlet-name>ChartServlet</servlet-name>
+			<url-pattern>/chart.png</url-pattern>
+		</servlet-mapping>
+
+		<servlet-mapping id="roma-image-servlet-mapping">
+			<servlet-name>ImageServlet</servlet-name>
+			<url-pattern>/image.png</url-pattern>
+		</servlet-mapping>
+
+		<servlet-mapping id="ajax-servlet-mapping">
+			<servlet-name>AjaxServlet</servlet-name>
+			<url-pattern>/ajax</url-pattern>
+		</servlet-mapping>
+			<servlet-mapping id="download-servlet-mapping">
+			        <servlet-name>DownloadServlet</servlet-name>
+			        <url-pattern>/downloadstream/*</url-pattern>
+			    </servlet-mapping>
+			    <servlet-mapping id="upload-servlet-mapping">
+			        <servlet-name>UploadServlet</servlet-name>
+			        <url-pattern>/fileUpload</url-pattern>
+			    </servlet-mapping>
+	]]>
+			</insert>
+	<insert path="/web-app/servlet-mapping[last()]" position="after">
+		<![CDATA[
+	  	  <session-config>
+		<session-timeout>15</session-timeout>
+	</session-config>
+	<welcome-file-list>
+		<welcome-file>app</welcome-file>
+	</welcome-file-list>
+	  	]]>
+			</insert>
+    </xmltask>
+
+        <!--
+			TODO: ADD <value>org.romaframework.aspect.view.html.view.domain</value> AS ADDITIONAL PACKAGE IN SCHEMA CLASS RESOLVER (CORE XML)
+
+			<xmltask source="${project.path}/WebContent/WEB-INF/applicationContext-core.xml"
+			dest="${project.path}/WebContent/WEB-INF/applicationContext-core.xml" preservetype="true" outputter="${ident}"> <xmlcatalog
+			refid="dtds" /> .... </xmltask>
+		-->
+ </target>
+</project>

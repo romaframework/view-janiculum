@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project basedir="." default="compile" name="view-janiculum">
+
+	<property name="project.path" value="../.." />
+	<property name="project.category" value="modules" />
+	<property name="project.build" value="build" />
+
+	<import file="${project.path}/common/default-build.xml" />
+
+	<path id="project.classpath">
+		<fileset dir="lib" includes="**/*.jar" />
+		<fileset dir="scaffolding/lib" includes="**/*.jar" />
+		<fileset dir="${global.dist}/modules/core/lib" includes="**/*.jar" />
+		<fileset dir="${global.dist}/modules/frontend/lib" includes="**/*.jar" />
+		<fileset dir="${global.dist}/modules/project-web/lib" includes="**/*.jar" />
+		<fileset dir="${global.dist}/modules/project-web/scaffolding/lib" includes="**/*.jar" />
+	</path>
+
+
+
+</project>

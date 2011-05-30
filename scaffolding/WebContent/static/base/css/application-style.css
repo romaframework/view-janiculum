@@ -1,0 +1,33 @@
+/* Application Style */
+.className_HeaderMainPage .home button {
+	padding-left: 0px;
+	border: none;
+	background-color: #ffffff;
+	background-image: url('../image/home.png');
+	background-repeat: no-repeat;
+	background-position: 0px 0px;
+	width: 48px;
+	height: 48px;
+}
+
+.className_HeaderMainPage .changePassword button {
+	padding-left: 0px;
+	border: none;
+	background-color: #ffffff;
+	background-image: url('../image/changepassword.png');
+	background-repeat: no-repeat;
+	background-position: 0px 0px;
+	width: 48px;
+	height: 48px;
+}
+
+.className_HeaderMainPage .controlPanel button {
+	padding-left: 0px;
+	border: none;
+	background-color: #ffffff;
+	background-image: url('../image/controlPanel.png');
+	background-repeat: no-repeat;
+	background-position: 0px 0px;
+	width: 48px;
+	height: 48px;
+}
