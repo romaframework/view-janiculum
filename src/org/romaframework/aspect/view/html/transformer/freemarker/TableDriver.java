@@ -8,7 +8,6 @@ import java.util.List;
 import java.util.ListIterator;
 import java.util.Set;
 
-import org.romaframework.aspect.view.ViewAspect;
 import org.romaframework.aspect.view.ViewConstants;
 import org.romaframework.aspect.view.feature.ViewActionFeatures;
 import org.romaframework.aspect.view.feature.ViewFieldFeatures;
@@ -198,8 +197,8 @@ public class TableDriver {
 	}
 
 	private void addFieldName(List<String> fieldNames, SchemaField field) {
-		Object visible = field.getFeature(ViewAspect.ASPECT_NAME, ViewFieldFeatures.VISIBLE);
-		Object layout = field.getFeature(ViewAspect.ASPECT_NAME, ViewFieldFeatures.LAYOUT);
+		Object visible = field.getFeature(ViewFieldFeatures.VISIBLE);
+		Object layout = field.getFeature(ViewFieldFeatures.LAYOUT);
 		if (Boolean.TRUE.equals(visible)) {
 			if (ViewConstants.LAYOUT_EXPAND.equals(layout)) {
 				fieldNames.addAll(getFieldNames(field));
@@ -210,14 +209,14 @@ public class TableDriver {
 	}
 
 	private void addActionName(List<String> actionNames, SchemaAction action) {
-		Object visible = action.getFeature(ViewAspect.ASPECT_NAME, ViewActionFeatures.VISIBLE);
+		Object visible = action.getFeature(ViewActionFeatures.VISIBLE);
 		if (Boolean.TRUE.equals(visible))
 			actionNames.add(action.getName());
 	}
 
 	private void addActionName(List<String> actionNames, SchemaField field) {
-		Object visible = field.getFeature(ViewAspect.ASPECT_NAME, ViewFieldFeatures.VISIBLE);
-		Object layout = field.getFeature(ViewAspect.ASPECT_NAME, ViewFieldFeatures.LAYOUT);
+		Object visible = field.getFeature(ViewFieldFeatures.VISIBLE);
+		Object layout = field.getFeature(ViewFieldFeatures.LAYOUT);
 		if (Boolean.TRUE.equals(visible)) {
 			if (ViewConstants.LAYOUT_EXPAND.equals(layout)) {
 				actionNames.addAll(getActionNames(field));

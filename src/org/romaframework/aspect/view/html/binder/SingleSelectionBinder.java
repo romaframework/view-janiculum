@@ -6,7 +6,6 @@ import java.util.Map;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.romaframework.aspect.view.ViewAspect;
 import org.romaframework.aspect.view.ViewHelper;
 import org.romaframework.aspect.view.feature.ViewElementFeatures;
 import org.romaframework.aspect.view.feature.ViewFieldFeatures;
@@ -15,7 +14,7 @@ import org.romaframework.aspect.view.html.area.HtmlViewRenderable;
 import org.romaframework.aspect.view.html.component.HtmlViewContentComponent;
 import org.romaframework.aspect.view.html.component.HtmlViewGenericComponent;
 import org.romaframework.aspect.view.html.component.composed.list.HtmlViewCollectionComposedComponent;
-import org.romaframework.core.flow.ObjectContext;
+import org.romaframework.core.Roma;
 import org.romaframework.core.handler.RomaObjectHandler;
 import org.romaframework.core.schema.SchemaField;
 import org.romaframework.core.schema.SchemaHelper;
@@ -26,9 +25,9 @@ public class SingleSelectionBinder implements HtmlViewBinder {
 
 	public void bind(final HtmlViewRenderable renderable, final Map<String, Object> values) {
 		final HtmlViewContentComponent contentComponent = (HtmlViewContentComponent) renderable;
-//		if (disabled(contentComponent)) {
-//			return;
-//		}
+		// if (disabled(contentComponent)) {
+		// return;
+		// }
 		log.debug("Select binder invoked");
 		// Split the parameters name
 		if (values == null || values.size() == 0) {
@@ -39,15 +38,14 @@ public class SingleSelectionBinder implements HtmlViewBinder {
 		// Retrieve the base parameter component
 		final String baseParam = splittedKey[0];
 		log.debug("Processing the select component with id " + baseParam);
-		String[] splittedValue = ((String)values.get(baseParam)).split("_");
+		String[] splittedValue = ((String) values.get(baseParam)).split("_");
 		if (splittedValue.length < 2) {
 			log.error("invalid selection binding syntax");
 			return;
 		}
 		final String valueIndex = splittedValue[1];
 		final SchemaField collectionSchemaField = contentComponent.getSchemaField();
-		final String selectionFieldName = (String) collectionSchemaField.getFeature(ViewAspect.ASPECT_NAME,
-				ViewFieldFeatures.SELECTION_FIELD);
+		final String selectionFieldName = (String) collectionSchemaField.getFeature(ViewFieldFeatures.SELECTION_FIELD);
 		log.debug("Retrieved the selection field " + selectionFieldName);
 		if (selectionFieldName != null && selectionFieldName.trim().length() > 0) {
 			try {
@@ -75,25 +73,24 @@ public class SingleSelectionBinder implements HtmlViewBinder {
 				// if(container instanceof HtmlViewAbstractComponent){
 				// ((HtmlViewAbstractComponent) container).setDirty(true);
 				// }
-				
-				if(renderable instanceof HtmlViewCollectionComposedComponent){
-					HtmlViewCollectionComposedComponent comp =(HtmlViewCollectionComposedComponent) renderable; 
-					if(comp.isMap()){
+
+				if (renderable instanceof HtmlViewCollectionComposedComponent) {
+					HtmlViewCollectionComposedComponent comp = (HtmlViewCollectionComposedComponent) renderable;
+					if (comp.isMap()) {
 						comp.setSelectedMapIndex(index);
-						ObjectContext.getInstance().fieldChanged(comp.getContainerComponent().getContent(), collectionSchemaField.getName());
+						Roma.fieldChanged(comp.getContainerComponent().getContent(), collectionSchemaField.getName());
 					}
 				}
 
 			} catch (final Exception e) {
 				e.printStackTrace();
 			}
-			
 
 		}
 	}
 
 	protected boolean disabled(final HtmlViewContentComponent contentComponent) {
-		final Object enabled = contentComponent.getSchemaField().getFeature(ViewAspect.ASPECT_NAME, ViewElementFeatures.ENABLED);
+		final Object enabled = contentComponent.getSchemaField().getFeature(ViewElementFeatures.ENABLED);
 		return Boolean.FALSE.equals(enabled);
 	}
 

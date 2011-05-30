@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import org.romaframework.aspect.view.ViewAspect;
 import org.romaframework.aspect.view.ViewConstants;
 import org.romaframework.aspect.view.feature.ViewFieldFeatures;
 import org.romaframework.core.schema.SchemaAction;
@@ -15,7 +14,7 @@ import org.romaframework.core.schema.SchemaField;
 public class LayoutExpandHelper {
 	
 	public static boolean isLayoutExpand(SchemaField field) {
-		Object layout = field.getFeature(ViewAspect.ASPECT_NAME, ViewFieldFeatures.LAYOUT);
+		Object layout = field.getFeature(ViewFieldFeatures.LAYOUT);
 		return ViewConstants.LAYOUT_EXPAND.equals(layout);
 	}
 	
@@ -25,7 +24,7 @@ public class LayoutExpandHelper {
 	}
 	
 	public static boolean isVisible(SchemaClassElement element) {
-		Object visible = element.getFeature(ViewAspect.ASPECT_NAME, ViewFieldFeatures.VISIBLE);
+		Object visible = element.getFeature(ViewFieldFeatures.VISIBLE);
 		return Boolean.TRUE.equals(visible);
 	}
 	

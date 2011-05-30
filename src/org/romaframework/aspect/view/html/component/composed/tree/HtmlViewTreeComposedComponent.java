@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import org.romaframework.aspect.view.ViewAspect;
 import org.romaframework.aspect.view.feature.ViewBaseFeatures;
 import org.romaframework.aspect.view.html.area.HtmlViewScreenArea;
 import org.romaframework.aspect.view.html.component.HtmlViewContentComponent;
@@ -37,7 +36,7 @@ public class HtmlViewTreeComposedComponent extends HtmlViewAbstractComposedCompo
 		}
 
 		if (!(content instanceof TreeNode)) {
-			log.error("Render " + schemaElement.getFeature(ViewAspect.ASPECT_NAME, ViewBaseFeatures.RENDER)
+			log.error("Render " + schemaElement.getFeature(ViewBaseFeatures.RENDER)
 					+ "  supported only for List and Map elements");
 		}
 

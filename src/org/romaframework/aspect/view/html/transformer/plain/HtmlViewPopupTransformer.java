@@ -6,7 +6,7 @@ import java.io.OutputStream;
 import javax.servlet.http.HttpServletRequest;
 
 import org.romaframework.aspect.i18n.I18NHelper;
-import org.romaframework.aspect.view.ViewAspect;
+import org.romaframework.aspect.view.feature.ViewClassFeatures;
 import org.romaframework.aspect.view.html.HtmlViewAspectHelper;
 import org.romaframework.aspect.view.html.area.HtmlViewBinder;
 import org.romaframework.aspect.view.html.area.HtmlViewRenderable;
@@ -105,7 +105,7 @@ public class HtmlViewPopupTransformer extends AbstractHtmlViewTransformer implem
 
 	private String getPopupLabel(final HtmlViewRenderable component) {
 		SchemaObject schemaObject = ((HtmlViewScreenAreaInstance) component).getForm().getSchemaObject();
-		String label = (String) schemaObject.getFeature(ViewAspect.ASPECT_NAME, "label");
+		String label = (String) schemaObject.getFeature(ViewClassFeatures.LABEL);
 		return I18NHelper.getLabel(schemaObject, label);
 	}
 

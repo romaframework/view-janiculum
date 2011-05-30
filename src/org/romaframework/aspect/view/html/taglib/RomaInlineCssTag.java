@@ -1,8 +1,8 @@
 package org.romaframework.aspect.view.html.taglib;
 
-import javax.servlet.jsp.tagext.TagSupport;
-
 import static org.romaframework.aspect.view.html.HtmlServlet.ROMA_CSS;
+
+import javax.servlet.jsp.tagext.TagSupport;
 
 public class RomaInlineCssTag extends TagSupport {
 

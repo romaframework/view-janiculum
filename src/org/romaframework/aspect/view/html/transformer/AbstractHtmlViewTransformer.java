@@ -5,7 +5,6 @@ import java.io.OutputStream;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.romaframework.aspect.view.ViewAspect;
 import org.romaframework.aspect.view.feature.ViewElementFeatures;
 import org.romaframework.aspect.view.html.HtmlViewAspectHelper;
 import org.romaframework.aspect.view.html.area.HtmlViewRenderable;
@@ -51,13 +50,12 @@ public abstract class AbstractHtmlViewTransformer implements Transformer {
 	}
 
 	public static String getComponentLabel(final HtmlViewContentComponent contentComponent, final String label) {
-		if(label==null || label.length()==0){
-			return "";//TODO NOBODY SHOULD ARRIVE HERE!!!
+		if (label == null || label.length() == 0) {
+			return "";// TODO NOBODY SHOULD ARRIVE HERE!!!
 		}
 		return "<label for=\"" + helper.getHtmlId(contentComponent, TransformerConstants.PART_CONTENT) + "\" id=\""
 				+ helper.getHtmlId(contentComponent, TransformerConstants.PART_LABEL) + "\" class=\""
-				+ helper.getHtmlClass(contentComponent.getTransformer(), TransformerConstants.PART_LABEL, contentComponent) + "\" >"
-				+ label + "</label>\n";
+				+ helper.getHtmlClass(contentComponent.getTransformer(), TransformerConstants.PART_LABEL, contentComponent) + "\" >" + label + "</label>\n";
 	}
 
 	/*
@@ -70,12 +68,12 @@ public abstract class AbstractHtmlViewTransformer implements Transformer {
 	}
 
 	protected boolean disabled(final HtmlViewGenericComponent contentComponent) {
-		final Object enabled = contentComponent.getSchemaElement().getFeature(ViewAspect.ASPECT_NAME, ViewElementFeatures.ENABLED);
+		final Object enabled = contentComponent.getSchemaElement().getFeature(ViewElementFeatures.ENABLED);
 		return Boolean.FALSE.equals(enabled);
 	}
 
 	protected boolean visible(final HtmlViewGenericComponent contentComponent) {
-		final Object visible = contentComponent.getSchemaElement().getFeature(ViewAspect.ASPECT_NAME, ViewElementFeatures.VISIBLE);
+		final Object visible = contentComponent.getSchemaElement().getFeature(ViewElementFeatures.VISIBLE);
 		return !Boolean.FALSE.equals(visible);
 	}
 

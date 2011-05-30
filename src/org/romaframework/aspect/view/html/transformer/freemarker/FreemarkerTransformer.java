@@ -5,7 +5,6 @@ import java.io.OutputStream;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.romaframework.aspect.view.ViewAspect;
 import org.romaframework.aspect.view.feature.ViewBaseFeatures;
 import org.romaframework.aspect.view.html.area.HtmlViewBinder;
 import org.romaframework.aspect.view.html.area.HtmlViewRenderable;
@@ -48,7 +47,7 @@ public class FreemarkerTransformer implements Transformer {
 	private void transform(HtmlViewRenderable component, String part, OutputStream out) throws IOException {
 		String styles = "";
 		if (component instanceof HtmlViewGenericComponent) {
-			styles = (String) ((HtmlViewGenericComponent) component).getSchemaElement().getFeature(ViewAspect.ASPECT_NAME,
+			styles = (String) ((HtmlViewGenericComponent) component).getSchemaElement().getFeature(
 					ViewBaseFeatures.STYLE);
 		}
 

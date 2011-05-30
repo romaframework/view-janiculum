@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import org.romaframework.aspect.view.ViewAspect;
 import org.romaframework.aspect.view.ViewHelper;
 import org.romaframework.aspect.view.feature.ViewFieldFeatures;
 import org.romaframework.aspect.view.html.area.HtmlViewBinder;
@@ -20,8 +19,7 @@ public class MultiSelectionBinder implements HtmlViewBinder {
 
 	public void bind(final HtmlViewRenderable renderable, final Map<String, Object> values) {
 		final HtmlViewContentComponent contentComponent = (HtmlViewContentComponent) renderable;
-		final String selectionFieldName = (String) contentComponent.getSchemaField().getFeature(ViewAspect.ASPECT_NAME,
-				ViewFieldFeatures.SELECTION_FIELD);
+		final String selectionFieldName = (String) contentComponent.getSchemaField().getFeature(ViewFieldFeatures.SELECTION_FIELD);
 		if (selectionFieldName == null || selectionFieldName.equals("")) {
 			return;
 		}

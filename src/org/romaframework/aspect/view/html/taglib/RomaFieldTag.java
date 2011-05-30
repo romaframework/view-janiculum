@@ -18,7 +18,6 @@ package org.romaframework.aspect.view.html.taglib;
 import java.io.ByteArrayOutputStream;
 import java.io.OutputStream;
 
-import org.romaframework.aspect.view.html.area.HtmlViewRenderable;
 import org.romaframework.aspect.view.html.component.HtmlViewAbstractComponent;
 import org.romaframework.aspect.view.html.component.HtmlViewConfigurableEntityForm;
 import org.romaframework.aspect.view.html.constants.RequestConstants;

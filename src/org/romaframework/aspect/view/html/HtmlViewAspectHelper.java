@@ -118,8 +118,7 @@ public class HtmlViewAspectHelper {
 	 * @return the label of the element
 	 */
 	public static String getLabel(final SchemaFeatures iFeatures) {
-		final String fieldRender = iFeatures == null ? "" : (String) iFeatures.getFeature(ViewAspect.ASPECT_NAME,
-				ViewBaseFeatures.LABEL);
+		final String fieldRender = iFeatures == null ? "" : (String) iFeatures.getFeature(ViewBaseFeatures.LABEL);
 		return fieldRender;
 	}
 
@@ -131,8 +130,7 @@ public class HtmlViewAspectHelper {
 	 * @return the label of the element
 	 */
 	public static String getHint(final SchemaFeatures iFeatures) {
-		final String fieldRender = iFeatures == null ? "" : (String) iFeatures.getFeature(ViewAspect.ASPECT_NAME,
-				ViewBaseFeatures.DESCRIPTION);
+		final String fieldRender = iFeatures == null ? "" : (String) iFeatures.getFeature(ViewBaseFeatures.DESCRIPTION);
 		return fieldRender;
 	}
 
@@ -167,7 +165,7 @@ public class HtmlViewAspectHelper {
 	 */
 	public static String getDefaultRenderType(final SchemaFeatures schemaFeatures) {
 
-		final String result = (String) schemaFeatures.getFeature(ViewAspect.ASPECT_NAME, ViewBaseFeatures.RENDER);
+		final String result = (String) schemaFeatures.getFeature(ViewBaseFeatures.RENDER);
 		if (result != null) {
 			if (result.equals(ViewConstants.LAYOUT_POPUP)) {
 				return HtmlViewPojoTransformer.NAME;
@@ -229,7 +227,7 @@ public class HtmlViewAspectHelper {
 			if (fieldType.isArray()) {
 				return ViewConstants.RENDER_LIST;
 			}
-			render = (String) schemaField.getType().getFeature(ViewAspect.ASPECT_NAME, ViewBaseFeatures.RENDER);
+			render = (String) schemaField.getType().getFeature(ViewBaseFeatures.RENDER);
 			if (render != null)
 				return render;
 			return ViewConstants.RENDER_OBJECTLINK;
@@ -259,8 +257,7 @@ public class HtmlViewAspectHelper {
 	 * @throws IOException
 	 *           {@link IOException}
 	 */
-	public static void renderByJsp(final ViewComponent component, final ServletRequest request, OutputStream out) throws ServletException,
-			IOException {
+	public static void renderByJsp(final ViewComponent component, final ServletRequest request, OutputStream out) throws ServletException, IOException {
 		final Object obj = component.getContent();
 		if (obj != null) {
 			final Class<?> clazz = obj.getClass();
@@ -411,8 +408,7 @@ public class HtmlViewAspectHelper {
 		return TransformerHelper.getInstance().getHtmlId(mode, null);
 	}
 
-	public static AreaComponent searchAreaForRendering(final String featureLayout, final SchemaClassElement iField,
-			final HtmlViewFormArea rootArea) {
+	public static AreaComponent searchAreaForRendering(final String featureLayout, final SchemaClassElement iField, final HtmlViewFormArea rootArea) {
 		AreaComponent areaForRendering = null;
 		// Search for a defined area
 		if (featureLayout != null && featureLayout.startsWith("form:")) {
@@ -461,8 +457,7 @@ public class HtmlViewAspectHelper {
 	public static boolean isSelected(final ViewComponent contentComponent, final Object element, final Integer index) {
 		try {
 			final ViewComponent parent = (ViewComponent) contentComponent.getContainerComponent();
-			final String selectionFieldName = (String) contentComponent.getSchemaField().getFeature(ViewAspect.ASPECT_NAME,
-					ViewFieldFeatures.SELECTION_FIELD);
+			final String selectionFieldName = (String) contentComponent.getSchemaField().getFeature(ViewFieldFeatures.SELECTION_FIELD);
 			if (selectionFieldName == null || selectionFieldName.equals("")) {
 				return false;
 			}
@@ -474,8 +469,7 @@ public class HtmlViewAspectHelper {
 			if (selection == null) {
 				return false;
 			}
-			final Object selectionMode = contentComponent.getSchemaField().getFeature(ViewAspect.ASPECT_NAME,
-					ViewFieldFeatures.SELECTION_MODE);
+			final Object selectionMode = contentComponent.getSchemaField().getFeature(ViewFieldFeatures.SELECTION_MODE);
 			if (selectionMode != null && selectionMode.equals(ViewFieldFeatures.SELECTION_MODE_INDEX)) {
 				// index selection mode
 				if (index.equals(selection)) {

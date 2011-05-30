@@ -27,7 +27,6 @@ import org.romaframework.aspect.view.html.transformer.Transformer;
 import org.romaframework.aspect.view.html.transformer.manager.HtmlViewTransformerManager;
 import org.romaframework.core.Roma;
 import org.romaframework.core.domain.type.TreeNodeMap;
-import org.romaframework.core.flow.ObjectContext;
 import org.romaframework.core.schema.SchemaClass;
 import org.romaframework.core.schema.SchemaObject;
 
@@ -154,7 +153,7 @@ public class HtmlViewBasicScreen implements HtmlViewScreen, Serializable {
 			form.setContent(iPojo);
 		}
 		if (iAreaName == null) {
-			iAreaName = (String) form.getSchemaObject().getFeature(ViewAspect.ASPECT_NAME, ViewBaseFeatures.LAYOUT);
+			iAreaName = (String) form.getSchemaObject().getFeature( ViewBaseFeatures.LAYOUT);
 		}
 		HtmlViewScreenArea popupArea = null;
 		if (getPopupsScreenArea().searchArea("popup") == null) {
@@ -323,8 +322,7 @@ public class HtmlViewBasicScreen implements HtmlViewScreen, Serializable {
 	 * @see org.romaframework.aspect.view.html.area.HtmlViewRenderable#getTransformer()
 	 */
 	public Transformer getTransformer() {
-		final HtmlViewTransformerManager transformerManager = ObjectContext.getInstance()
-				.getComponent(HtmlViewTransformerManager.class);
+		final HtmlViewTransformerManager transformerManager = Roma.component(HtmlViewTransformerManager.class);
 		final Transformer transformer = transformerManager.getComponent(HtmlViewScreen.SCREEN);
 		return transformer;
 	}

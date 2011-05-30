@@ -35,7 +35,6 @@ import org.romaframework.aspect.view.html.transformer.manager.HtmlViewTransforme
 import org.romaframework.aspect.view.screen.AbstractConfigurableScreenFactory;
 import org.romaframework.core.Roma;
 import org.romaframework.core.Utility;
-import org.romaframework.core.flow.ObjectContext;
 import org.romaframework.core.schema.SchemaAction;
 import org.romaframework.core.schema.SchemaClassElement;
 import org.romaframework.core.schema.SchemaField;
@@ -99,7 +98,7 @@ public class HtmlViewConfigurableEntityForm extends HtmlViewAbstractContentCompo
 		// Add the components for the fields
 		while (fieldIterator.hasNext()) {
 			final SchemaField field = fieldIterator.next();
-			Object visible = field.getFeature(ViewAspect.ASPECT_NAME, ViewFieldFeatures.VISIBLE);
+			Object visible = field.getFeature(ViewFieldFeatures.VISIBLE);
 			if (Boolean.TRUE.equals(visible)) {
 				FormUtils.createFieldComponent(field, this);
 			}
@@ -401,11 +400,11 @@ public class HtmlViewConfigurableEntityForm extends HtmlViewAbstractContentCompo
 	}
 
 	public boolean hasLabel() {
-		if (ViewConstants.RENDER_MENU.equals(this.schemaObject.getFeature(ViewAspect.ASPECT_NAME, ViewFieldFeatures.RENDER))) {
+		if (ViewConstants.RENDER_MENU.equals(this.schemaObject.getFeature(ViewFieldFeatures.RENDER))) {
 			return false;
 		}
 
-		if ("".equals(this.getSchemaField().getFeature(ViewAspect.ASPECT_NAME, ViewFieldFeatures.LABEL))) {
+		if ("".equals(this.getSchemaField().getFeature(ViewFieldFeatures.LABEL))) {
 			return false;
 		}
 
@@ -431,8 +430,7 @@ public class HtmlViewConfigurableEntityForm extends HtmlViewAbstractContentCompo
 	}
 
 	public Transformer getTransformer() {
-		final HtmlViewTransformerManager transformerManager = ObjectContext.getInstance()
-				.getComponent(HtmlViewTransformerManager.class);
+		final HtmlViewTransformerManager transformerManager = Roma.component(HtmlViewTransformerManager.class);
 		// Transformer transformer = transformerManager.getComponent((String) schemaElement.getFeature(ViewAspect.ASPECT_NAME,
 		// ViewElementFeatures.RENDER));
 		Transformer transformer = null;

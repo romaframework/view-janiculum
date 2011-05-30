@@ -2,7 +2,6 @@ package org.romaframework.aspect.view.html.transformer.helper;
 
 import java.util.List;
 
-import org.romaframework.aspect.view.ViewAspect;
 import org.romaframework.aspect.view.feature.ViewClassFeatures;
 import org.romaframework.aspect.view.form.ViewComponent;
 import org.romaframework.aspect.view.html.area.HtmlViewRenderable;
@@ -82,7 +81,7 @@ public class TransformerHelper {
 		if (genericComponent instanceof HtmlViewActionComponent) {
 			final SchemaAction schemaAction = (SchemaAction) genericComponent.getSchemaElement();
 			if (schemaAction != null) {
-				Object feature = schemaAction.getFeature(ViewAspect.ASPECT_NAME, ViewClassFeatures.STYLE);
+				Object feature = schemaAction.getFeature(ViewClassFeatures.STYLE);
 				if (feature != null) {
 					result = result + " " + schemaAction.getName() + " " + feature.toString();
 				} else {
@@ -95,7 +94,7 @@ public class TransformerHelper {
 			
 			final SchemaObject schemaObject = genericComponent.getSchemaObject();
 			if (schemaObject != null) {
-				Object feature = schemaObject.getFeature(ViewAspect.ASPECT_NAME, ViewClassFeatures.STYLE);
+				Object feature = schemaObject.getFeature(ViewClassFeatures.STYLE);
 				if (feature != null) {
 					result = result + " " + getAllClassHierarchy(schemaObject.getSchemaClass()) + " " + feature.toString();
 				} else {

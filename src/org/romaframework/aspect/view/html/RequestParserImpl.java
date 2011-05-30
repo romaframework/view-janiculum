@@ -32,7 +32,6 @@ import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.romaframework.aspect.flow.FlowAspect;
-import org.romaframework.aspect.validation.ValidationAspect;
 import org.romaframework.aspect.validation.feature.ValidationActionFeatures;
 import org.romaframework.aspect.view.ViewAspect;
 import org.romaframework.aspect.view.feature.ViewActionFeatures;
@@ -89,7 +88,7 @@ public class RequestParserImpl implements RequestParser {
 			if (renderable instanceof HtmlViewActionComponent) {
 				HtmlViewActionComponent actionComponent = (HtmlViewActionComponent) renderable;
 				final SchemaAction iAction = actionComponent.getActionField();
-				final Object bind = iAction.getFeature(ViewAspect.ASPECT_NAME, ViewActionFeatures.BIND);
+				final Object bind = iAction.getFeature(ViewActionFeatures.BIND);
 				if (Boolean.FALSE.equals(bind)) {
 					return false;
 				}
@@ -173,11 +172,11 @@ public class RequestParserImpl implements RequestParser {
 		ViewComponent form = actionComponent.getContainerComponent();
 		final Object iContent = form.getContent();
 		final SchemaAction iAction = actionComponent.getActionField();
-		final Object enabled = iAction.getFeature(ViewAspect.ASPECT_NAME, ViewElementFeatures.ENABLED);
+		final Object enabled = iAction.getFeature(ViewElementFeatures.ENABLED);
 		if (enabled != null && enabled.equals(Boolean.FALSE)) {
 			return;
 		}
-		final Object validate = iAction.getFeature(ValidationAspect.ASPECT_NAME, ValidationActionFeatures.ENABLED);
+		final Object validate = iAction.getFeature(ValidationActionFeatures.VALIDATE);
 
 		if (validate != null && (Boolean) validate && form instanceof HtmlViewAbstractComponent) {
 			valid = ((HtmlViewAbstractComponent) form).validate();

@@ -5,7 +5,6 @@ import java.util.Map;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.romaframework.aspect.view.ViewAspect;
 import org.romaframework.aspect.view.feature.ViewFieldFeatures;
 import org.romaframework.aspect.view.html.area.HtmlViewBinder;
 import org.romaframework.aspect.view.html.area.HtmlViewRenderable;
@@ -84,7 +83,7 @@ public class DefaultHtmlBinderFactory implements ViewHtmlBinderFactory {
 			}
 		}
 		if (result == null && SchemaHelper.isMultiValueObject(element)) {
-			String selectionFieldName = (String) element.getFeature(ViewAspect.ASPECT_NAME, ViewFieldFeatures.SELECTION_FIELD);
+			String selectionFieldName = (String) element.getFeature(ViewFieldFeatures.SELECTION_FIELD);
 			if (selectionFieldName != null) {
 				SchemaField selectionSchemaField = element.getEntity().getField(selectionFieldName);
 				if (selectionSchemaField == null) {

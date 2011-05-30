@@ -20,7 +20,6 @@ import org.romaframework.aspect.view.html.transformer.manager.HtmlViewTransforme
 import org.romaframework.aspect.view.screen.Screen;
 import org.romaframework.core.Roma;
 import org.romaframework.core.domain.type.TreeNode;
-import org.romaframework.core.flow.ObjectContext;
 import org.romaframework.core.schema.SchemaClassDefinition;
 import org.romaframework.core.schema.SchemaClassElement;
 import org.romaframework.core.schema.SchemaField;
@@ -108,8 +107,7 @@ public abstract class HtmlViewAbstractComponent implements HtmlViewGenericCompon
 	 * @see org.romaframework.aspect.view.html.area.HtmlViewRenderable#getTransformer()
 	 */
 	public Transformer getTransformer() {
-		final HtmlViewTransformerManager transformerManager = ObjectContext.getInstance()
-				.getComponent(HtmlViewTransformerManager.class);
+		final HtmlViewTransformerManager transformerManager = Roma.component(HtmlViewTransformerManager.class);
 		// Transformer transformer = transformerManager.getComponent((String) schemaElement.getFeature(ViewAspect.ASPECT_NAME,
 		// ViewElementFeatures.RENDER));
 		final Transformer transformer = transformerManager.getComponent(HtmlViewAspectHelper.getDefaultRenderType(schemaElement));
@@ -230,7 +228,7 @@ public abstract class HtmlViewAbstractComponent implements HtmlViewGenericCompon
 		if (this instanceof HtmlViewContentComponent) {
 			if (isCollectionField()) {
 				SchemaField schemaField = ((HtmlViewContentComponent) this).getSchemaField();
-				String selectionFieldName = (String) schemaField.getFeature(ViewAspect.ASPECT_NAME, ViewFieldFeatures.SELECTION_FIELD);
+				String selectionFieldName = (String) schemaField.getFeature(ViewFieldFeatures.SELECTION_FIELD);
 				if (selectionFieldName != null) {
 					return schemaField.getEntity().getFields().get(selectionFieldName);
 				}
@@ -243,7 +241,7 @@ public abstract class HtmlViewAbstractComponent implements HtmlViewGenericCompon
 		if (this instanceof HtmlViewContentComponent) {
 			if (isCollectionField()) {
 				SchemaField schemaField = ((HtmlViewContentComponent) this).getSchemaField();
-				String selectionFieldName = (String) schemaField.getFeature(ViewAspect.ASPECT_NAME, ViewFieldFeatures.SELECTION_FIELD);
+				String selectionFieldName = (String) schemaField.getFeature(ViewFieldFeatures.SELECTION_FIELD);
 				if (selectionFieldName != null) {
 					return schemaField.getEntity().getSchemaClass();
 				}
@@ -256,7 +254,7 @@ public abstract class HtmlViewAbstractComponent implements HtmlViewGenericCompon
 		if (this instanceof HtmlViewContentComponent) {
 			if (isCollectionField()) {
 				SchemaField schemaField = ((HtmlViewContentComponent) this).getSchemaField();
-				String selectionFieldName = (String) schemaField.getFeature(ViewAspect.ASPECT_NAME, ViewFieldFeatures.SELECTION_FIELD);
+				String selectionFieldName = (String) schemaField.getFeature(ViewFieldFeatures.SELECTION_FIELD);
 				if (selectionFieldName != null) {
 					return selectionFieldName;
 				}

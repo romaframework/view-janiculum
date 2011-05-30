@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import org.romaframework.aspect.validation.ValidationAspect;
 import org.romaframework.aspect.validation.feature.ValidationFieldFeatures;
 import org.romaframework.aspect.view.ViewAspect;
 import org.romaframework.aspect.view.ViewHelper;
@@ -17,7 +16,6 @@ import org.romaframework.aspect.view.html.area.HtmlViewScreenArea;
 import org.romaframework.aspect.view.html.transformer.Transformer;
 import org.romaframework.aspect.view.html.transformer.manager.HtmlViewTransformerManager;
 import org.romaframework.core.Roma;
-import org.romaframework.core.flow.ObjectContext;
 import org.romaframework.core.schema.SchemaField;
 import org.romaframework.core.schema.SchemaHelper;
 
@@ -99,8 +97,7 @@ public abstract class HtmlViewAbstractContentComponent extends HtmlViewAbstractC
 	 */
 	@Override
 	public void render(OutputStream out) throws IOException {
-		final HtmlViewTransformerManager transformerManager = ObjectContext.getInstance()
-				.getComponent(HtmlViewTransformerManager.class);
+		final HtmlViewTransformerManager transformerManager = Roma.component(HtmlViewTransformerManager.class);
 		Transformer transformer = null;
 		transformer = transformerManager.getComponent(HtmlViewAspectHelper.getDefaultRenderType(schemaElement));
 		transformer.transform(this, out);
@@ -130,8 +127,8 @@ public abstract class HtmlViewAbstractContentComponent extends HtmlViewAbstractC
 		if (getSchemaField() == null) {
 			return true;
 		}
-		final Integer min = (Integer) getSchemaField().getFeature(ValidationAspect.ASPECT_NAME, ValidationFieldFeatures.MIN);
-		final Integer max = (Integer) getSchemaField().getFeature(ValidationAspect.ASPECT_NAME, ValidationFieldFeatures.MAX);
+		final Integer min = (Integer) getSchemaField().getFeature(ValidationFieldFeatures.MIN);
+		final Integer max = (Integer) getSchemaField().getFeature(ValidationFieldFeatures.MAX);
 		if (min == null && max == null) {
 			return true;
 		}

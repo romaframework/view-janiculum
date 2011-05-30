@@ -22,7 +22,7 @@ import org.romaframework.aspect.view.html.HtmlViewAspectHelper;
 import org.romaframework.aspect.view.html.area.HtmlViewScreenArea;
 import org.romaframework.aspect.view.html.transformer.Transformer;
 import org.romaframework.aspect.view.html.transformer.manager.HtmlViewTransformerManager;
-import org.romaframework.core.flow.ObjectContext;
+import org.romaframework.core.Roma;
 import org.romaframework.core.schema.SchemaField;
 import org.romaframework.core.schema.SchemaObject;
 
@@ -41,8 +41,7 @@ public class HtmlViewMenuForm extends HtmlViewConfigurableEntityForm {
 
 	@Override
 	public void render(OutputStream out) throws IOException{
-		final HtmlViewTransformerManager transformerManager = ObjectContext.getInstance()
-				.getComponent(HtmlViewTransformerManager.class);
+		final HtmlViewTransformerManager transformerManager = Roma.component(HtmlViewTransformerManager.class);
 		Transformer transformer = null;
 		if (schemaElement == null) {
 			transformer = transformerManager.getComponent(HtmlViewAspectHelper.getDefaultRenderType(schemaObject));

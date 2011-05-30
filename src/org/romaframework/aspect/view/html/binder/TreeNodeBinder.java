@@ -4,7 +4,6 @@ import java.util.Map;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.romaframework.aspect.view.ViewAspect;
 import org.romaframework.aspect.view.feature.ViewFieldFeatures;
 import org.romaframework.aspect.view.html.area.HtmlViewBinder;
 import org.romaframework.aspect.view.html.area.HtmlViewRenderable;
@@ -34,7 +33,7 @@ public class TreeNodeBinder implements HtmlViewBinder {
 		
 
 		try {
-			String selectionFieldName = (String) schemaField.getFeature(ViewAspect.ASPECT_NAME, ViewFieldFeatures.SELECTION_FIELD);
+			String selectionFieldName = (String) schemaField.getFeature(ViewFieldFeatures.SELECTION_FIELD);
 	    if (selectionFieldName != null) {
 	      // UPDATE SELECTION
 	      SchemaField selectionField = schemaField.getEntity().getField(selectionFieldName);

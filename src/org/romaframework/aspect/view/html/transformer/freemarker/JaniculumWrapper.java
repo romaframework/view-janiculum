@@ -13,7 +13,6 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.romaframework.aspect.core.annotation.AnnotationConstants;
 import org.romaframework.aspect.view.FormatHelper;
-import org.romaframework.aspect.view.ViewAspect;
 import org.romaframework.aspect.view.area.AreaComponent;
 import org.romaframework.aspect.view.feature.ViewBaseFeatures;
 import org.romaframework.aspect.view.feature.ViewElementFeatures;
@@ -139,8 +138,7 @@ public class JaniculumWrapper {
 			}
 		} else {
 
-			result = ((String) ((HtmlViewGenericComponent) component).getSchemaElement().getFeature(ViewAspect.ASPECT_NAME,
-					ViewBaseFeatures.LABEL)).replaceAll("\\$", "");
+			result = ((String) ((HtmlViewGenericComponent) component).getSchemaElement().getFeature(ViewBaseFeatures.LABEL)).replaceAll("\\$", "");
 
 		}
 		return result;
@@ -155,7 +153,7 @@ public class JaniculumWrapper {
 			SchemaField schemaField = ((HtmlViewGenericComponent) thisComponent).getSchemaField();
 
 			if (schemaField != null) {
-				Object feature = schemaField.getFeature(ViewAspect.ASPECT_NAME, ViewFieldFeatures.STYLE);
+				Object feature = schemaField.getFeature(ViewFieldFeatures.STYLE);
 				if (feature != null && !feature.toString().isEmpty() && feature.toString().charAt(0) != '{') {
 					// CLASS NAME: USE IT
 					return feature.toString();
@@ -182,7 +180,7 @@ public class JaniculumWrapper {
 			if (tableComponent.getChildren().size() > rowIndex) {
 				HtmlViewGenericComponent rowComponent = new ArrayList<HtmlViewGenericComponent>(tableComponent.getChildren()).get(rowIndex);
 				if (rowComponent.getSchemaObject() != null) {
-					Object feature = rowComponent.getSchemaObject().getFeature(ViewAspect.ASPECT_NAME, ViewFieldFeatures.STYLE);
+					Object feature = rowComponent.getSchemaObject().getFeature( ViewFieldFeatures.STYLE);
 					if (feature != null && !feature.toString().isEmpty() && feature.toString().charAt(0) != '{') {
 						// CLASS NAME: USE IT
 						return feature.toString();
@@ -197,7 +195,7 @@ public class JaniculumWrapper {
 		if (component instanceof HtmlViewGenericComponent) {
 			SchemaField schemaField = ((HtmlViewGenericComponent) component).getSchemaField();
 			if (schemaField != null) {
-				Object feature = schemaField.getFeature(ViewAspect.ASPECT_NAME, ViewFieldFeatures.STYLE);
+				Object feature = schemaField.getFeature(ViewFieldFeatures.STYLE);
 				if (feature != null) {
 					String style = ((String) feature).trim();
 					if (style.isEmpty() || style.charAt(0) != '{')
@@ -338,8 +336,7 @@ public class JaniculumWrapper {
 	}
 
 	public boolean disabled() {
-		Object feature = ((HtmlViewGenericComponent) component).getSchemaElement().getFeature(ViewAspect.ASPECT_NAME,
-				ViewElementFeatures.ENABLED);
+		Object feature = ((HtmlViewGenericComponent) component).getSchemaElement().getFeature(ViewElementFeatures.ENABLED);
 		if (feature == null) {
 			return false;
 		}

@@ -7,13 +7,11 @@ import org.apache.commons.logging.LogFactory;
 import org.romaframework.aspect.core.annotation.AnnotationConstants;
 import org.romaframework.aspect.core.annotation.CoreField;
 import org.romaframework.aspect.flow.FlowAspect;
-import org.romaframework.aspect.view.ViewAspect;
 import org.romaframework.aspect.view.ViewCallback;
 import org.romaframework.aspect.view.ViewConstants;
 import org.romaframework.aspect.view.annotation.ViewField;
-import org.romaframework.aspect.view.feature.ViewElementFeatures;
+import org.romaframework.aspect.view.feature.ViewActionFeatures;
 import org.romaframework.core.Roma;
-import org.romaframework.core.flow.ObjectContext;
 
 public class HtmlViewPojoViewPanel implements ViewCallback {
 	protected static Log	log	= LogFactory.getLog(HtmlViewPojoViewPanel.class);
@@ -87,7 +85,7 @@ public class HtmlViewPojoViewPanel implements ViewCallback {
 
 	public void onShow() {
 		if (!edit) {
-			ObjectContext.getInstance().setActionFeature(this, ViewAspect.ASPECT_NAME, "ok", ViewElementFeatures.VISIBLE, false);
+			Roma.setFeature(this, "ok", ViewActionFeatures.VISIBLE, false);
 		}
 	}
 

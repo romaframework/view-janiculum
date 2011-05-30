@@ -13,7 +13,6 @@ import org.apache.commons.logging.LogFactory;
 import org.json.JSONObject;
 import org.romaframework.aspect.session.html.helper.HtmlSessionHelper;
 import org.romaframework.aspect.view.html.area.HtmlViewRenderable;
-import org.romaframework.aspect.view.html.constants.TransformerConstants;
 import org.romaframework.core.Roma;
 
 public class EventServlet extends RomaServlet {

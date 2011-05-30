@@ -9,7 +9,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import org.romaframework.aspect.view.ViewAspect;
 import org.romaframework.aspect.view.feature.ViewBaseFeatures;
 import org.romaframework.aspect.view.feature.ViewFieldFeatures;
 import org.romaframework.aspect.view.html.area.HtmlViewScreenArea;
@@ -47,18 +46,18 @@ public class HtmlViewCollectionComposedComponent extends HtmlViewAbstractCompose
 		}
 
 		if (!(content instanceof Collection<?> || content.getClass().isArray() || isMap())) {
-			log.error("Render " + schemaElement.getFeature(ViewAspect.ASPECT_NAME, ViewBaseFeatures.RENDER)
+			log.error("Render " + schemaElement.getFeature(ViewBaseFeatures.RENDER)
 					+ " is supported only for List and Map elements: " + content);
 		}
 
-		String selectionField = (String) getSchemaField().getFeature(ViewAspect.ASPECT_NAME, ViewFieldFeatures.SELECTION_FIELD);
+		String selectionField = (String) getSchemaField().getFeature(ViewFieldFeatures.SELECTION_FIELD);
 		if (selectionField != null && getContainerComponent().getContent() != null) {
 			SchemaClassDefinition classDefinition = Roma.schema().getSchemaClass(getContainerComponent().getContent().getClass());
 			SchemaField selectionFieldSchema = classDefinition.getField(selectionField);
 			// SELECTION FIELD IS SETTED ONLY FOR MAP AND SINGLE SELECTION.
 			if (!SchemaHelper.isMultiValueObject(selectionFieldSchema)) {
 				Object selectionFieldValue = SchemaHelper.getFieldValue(getContainerComponent().getContent(), selectionField);
-				byte selectionMode = (Byte) getSchemaField().getFeature(ViewAspect.ASPECT_NAME, ViewFieldFeatures.SELECTION_MODE);
+				byte selectionMode = (Byte) getSchemaField().getFeature(ViewFieldFeatures.SELECTION_MODE);
 				if (selectionMode == ViewFieldFeatures.SELECTION_MODE_INDEX) {
 					if (selectionFieldValue instanceof Integer)
 						setSelectedMapIndex((Integer) selectionFieldValue);
@@ -163,7 +162,7 @@ public class HtmlViewCollectionComposedComponent extends HtmlViewAbstractCompose
 			List<Object> asList = Arrays.asList(SchemaHelper.getObjectArrayForMultiValueObject(content));
 			return asList;
 		} else {
-			log.error("[HtmlViewAspect]: " + "Render " + schemaElement.getFeature(ViewAspect.ASPECT_NAME, ViewBaseFeatures.RENDER)
+			log.error("[HtmlViewAspect]: " + "Render " + schemaElement.getFeature(ViewBaseFeatures.RENDER)
 					+ "  supported only for Collection and Object[] elements");
 			return new LinkedList<Object>();
 		}
