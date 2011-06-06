@@ -24,4 +24,10 @@ public class HtmlViewMockComposedForm extends HtmlViewAbstractComposedComponent 
 		return EMPTY_HEADER;
 	}
 
+
+
+	public List<String> getHeadersRaw() {
+		return EMPTY_HEADER;
+	}
+
 }

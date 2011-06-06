@@ -14,6 +14,8 @@ public interface HtmlViewComposedComponent extends HtmlViewContentComponent {
 
   public List<String> getHeaders();
   
+  public List<String> getHeadersRaw();
+
   public void addComponent(final HtmlViewGenericComponent component, boolean invokeOnShow);
 	
 }

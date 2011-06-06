@@ -28,6 +28,9 @@ public class HtmlViewTreeComposedComponent extends HtmlViewAbstractComposedCompo
 	public List<String> getHeaders() {
 		return EMPTY_HEADER;
 	}
+	public List<String> getHeadersRaw() {
+		return EMPTY_HEADER;
+	}
 
 	protected void placeComponents() {
 		clearComponents();

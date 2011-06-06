@@ -150,8 +150,13 @@ public class RequestParserImpl implements RequestParser {
 			} else if (renderable instanceof HtmlViewGenericComponent) {
 				HtmlViewGenericComponent component = (HtmlViewGenericComponent) renderable;
 				if(event!=null && event.endsWith("[]"))event = event.substring(0,event.length()-2);
-				Object result = SchemaHelper.invokeEvent(component.getContainerComponent(), component.getSchemaField().getName(), event,
+				Object result =null;
+				if(component.getSchemaField()!=null){
+				 result = SchemaHelper.invokeEvent(component.getContainerComponent(), component.getSchemaField().getName(), event,
 						(Object[]) eventEntry.getValue());
+				}else {
+					result = SchemaHelper.invokeEvent(component, event);
+				}
 				if (component instanceof HtmlViewContentComponentImpl) {
 					((HtmlViewContentComponentImpl) component).setAdditionalInfo(result);
 				}

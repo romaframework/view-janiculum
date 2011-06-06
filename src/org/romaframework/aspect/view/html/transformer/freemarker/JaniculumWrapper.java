@@ -373,11 +373,25 @@ public class JaniculumWrapper {
 
 	public Collection<String> headers() {
 		Collection<String> result = new ArrayList<String>();
-
 		if (component instanceof HtmlViewComposedComponent) {
 			return ((HtmlViewComposedComponent) component).getHeaders();
 		}
 		return result;
+	}
+
+	public Collection<String> headersRaw() {
+		Collection<String> result = new ArrayList<String>();
+		if (component instanceof HtmlViewComposedComponent) {
+			return ((HtmlViewComposedComponent) component).getHeadersRaw();
+		}
+		return result;
+	}
+
+	public boolean isEvent(String eventName) {
+		HtmlViewGenericComponent actionComponent = (HtmlViewGenericComponent) component;
+		if (actionComponent.getSchemaField() != null)
+			return false;
+		return actionComponent.getSchemaField().getEvent(eventName) != null;
 	}
 
 	public String formatDateContent() {

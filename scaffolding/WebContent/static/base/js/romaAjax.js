@@ -94,7 +94,7 @@ function romaEvent(elementName, eventName, params){
 		request[parName] = params;
 	}
 	
-	romaSendAjaxRequestData(request, true);
+	romaSendAjaxRequestData(request, true,true);
 }
 
 function romaAddChange(name){
@@ -222,14 +222,16 @@ function romaSendAjaxRequest(force){
 	romaSendAjaxRequestData(romaBuildAjaxRequestData(),force);
 }
 
-function romaSendAjaxRequestData(data,force){
+function romaSendAjaxRequestData(data,force,wait){
 	if(isPageLocked()){
 		if(force==true)
 			janiculumFrontendLockedCount++;
 		else
 			return;
 	}
-	lockPage(true);
+	if(wait==undefined || wait == true){
+		lockPage(true);
+	}
 	document.body.style.cursor='wait';
 	var requestPath = "ajax";
 	if(typeof(requestPathPrefix)!='undefined'){

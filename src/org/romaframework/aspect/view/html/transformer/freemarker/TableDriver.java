@@ -176,7 +176,13 @@ public class TableDriver {
 		}
 		return labels;
 	}
-
+	public List<String> getRawName() {
+		List<String> labels = new ArrayList<String>();
+		for (SchemaClassElement element : expandedElements) {
+			labels.add(element.getName());
+		}
+		return labels;
+	}
 	public List<String> getFieldNames() {
 		List<String> fieldNames = new ArrayList<String>();
 		for (SchemaField field : fields) {

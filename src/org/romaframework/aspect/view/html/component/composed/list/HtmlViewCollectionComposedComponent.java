@@ -221,6 +221,46 @@ public class HtmlViewCollectionComposedComponent extends HtmlViewAbstractCompose
 
 	}
 
+	public List<String> getHeadersRaw() {
+		if (isCollection()) {
+			List<String> result = new LinkedList<String>();
+
+			final Collection<Object> collectionToRender = getContentAsList(content);
+
+			// Class<?> typeClass = ((Class<?>) SchemaHelper.getEmbeddedType(getSchemaField()));
+			SchemaClass typeClass = getSchemaField().getEmbeddedType();
+
+			// if (Collection.class.isAssignableFrom(typeClass)) {
+			if (SchemaHelper.isMultiValueType(typeClass)) {
+				if (content == null) {
+					return EMPTY_HEADER;
+				}
+				Iterator<Object> iterator = collectionToRender.iterator();
+				if (iterator.hasNext()) {
+					Collection<Object> next = (Collection<Object>) iterator.next();
+					if (next != null) {
+						Iterator<Object> headerIt = next.iterator();
+						while (headerIt.hasNext()) {
+							result.add(headerIt.next() + "");
+						}
+					} else {
+						result.add("");
+					}
+				}
+			} else {
+				result.addAll(driver.getRawName());
+			}
+
+			return result;
+
+		} else if (isMap()) {
+			List<String> result = new LinkedList<String>();
+			result.add("Key");
+			result.add("Value");
+		}
+
+		return EMPTY_HEADER;
+	}
 	public List<String> getHeaders() {
 
 		if (isCollection()) {
