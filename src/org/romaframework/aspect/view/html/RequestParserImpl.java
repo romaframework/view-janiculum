@@ -177,7 +177,7 @@ public class RequestParserImpl implements RequestParser {
 		ViewComponent form = actionComponent.getContainerComponent();
 		final Object iContent = form.getContent();
 		final SchemaAction iAction = actionComponent.getActionField();
-		final Object enabled = iAction.getFeature(ViewElementFeatures.ENABLED);
+		final Object enabled = iAction.getFeature(ViewActionFeatures.ENABLED);
 		if (enabled != null && enabled.equals(Boolean.FALSE)) {
 			return;
 		}

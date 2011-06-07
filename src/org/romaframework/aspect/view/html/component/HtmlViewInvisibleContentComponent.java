@@ -70,10 +70,10 @@ public class HtmlViewInvisibleContentComponent extends HtmlViewAbstractContentCo
 	}
 
 	public String getHtmlId() {
-		if (this.schemaElement == null) {
+		if (this.getSchemaField() == null) {
 			return ((HtmlViewRenderable) containerComponent).getHtmlId() + SEPARATOR + "MAPITEM" + SEPARATOR + mapIndex;
 		}
-		return ((HtmlViewRenderable) containerComponent).getHtmlId() + SEPARATOR + schemaElement.getName();
+		return ((HtmlViewRenderable) containerComponent).getHtmlId() + SEPARATOR + getSchemaField().getName();
 	}
 
 	@Override

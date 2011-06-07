@@ -47,6 +47,8 @@ import org.romaframework.aspect.view.html.transformer.plain.HtmlViewPojoTransfor
 import org.romaframework.core.Roma;
 import org.romaframework.core.config.RomaApplicationContext;
 import org.romaframework.core.flow.ObjectContext;
+import org.romaframework.core.schema.Feature;
+import org.romaframework.core.schema.FeatureRegistry;
 import org.romaframework.core.schema.SchemaAction;
 import org.romaframework.core.schema.SchemaClassDefinition;
 import org.romaframework.core.schema.SchemaClassElement;
@@ -118,7 +120,8 @@ public class HtmlViewAspectHelper {
 	 * @return the label of the element
 	 */
 	public static String getLabel(final SchemaFeatures iFeatures) {
-		final String fieldRender = iFeatures == null ? "" : (String) iFeatures.getFeature(ViewBaseFeatures.LABEL);
+		Feature<?> feature = FeatureRegistry.getFeature(ViewBaseFeatures.LABEL.getAspectName(), iFeatures.getFeatureType(), ViewBaseFeatures.LABEL.getName());
+		final String fieldRender = iFeatures == null ? "" : (String) iFeatures.getFeature(feature);
 		return fieldRender;
 	}
 
@@ -130,7 +133,9 @@ public class HtmlViewAspectHelper {
 	 * @return the label of the element
 	 */
 	public static String getHint(final SchemaFeatures iFeatures) {
-		final String fieldRender = iFeatures == null ? "" : (String) iFeatures.getFeature(ViewBaseFeatures.DESCRIPTION);
+		Feature<?> feature = FeatureRegistry.getFeature(ViewBaseFeatures.DESCRIPTION.getAspectName(), iFeatures.getFeatureType(),
+				ViewBaseFeatures.DESCRIPTION.getName());
+		final String fieldRender = iFeatures == null ? "" : (String) iFeatures.getFeature(feature);
 		return fieldRender;
 	}
 
@@ -164,8 +169,9 @@ public class HtmlViewAspectHelper {
 	 * @return the string
 	 */
 	public static String getDefaultRenderType(final SchemaFeatures schemaFeatures) {
-
-		final String result = (String) schemaFeatures.getFeature(ViewBaseFeatures.RENDER);
+		
+		Feature <?> feature = FeatureRegistry.getFeature(ViewBaseFeatures.RENDER.getAspectName(), schemaFeatures.getFeatureType(), ViewBaseFeatures.RENDER.getName());
+		final String result = (String) schemaFeatures.getFeature(feature);
 		if (result != null) {
 			if (result.equals(ViewConstants.LAYOUT_POPUP)) {
 				return HtmlViewPojoTransformer.NAME;

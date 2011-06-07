@@ -251,8 +251,8 @@ public class HtmlViewConfigurableEntityForm extends HtmlViewAbstractContentCompo
 		if (containerComponent == null) {
 			builder.append(((HtmlViewRenderable) screenArea).getHtmlId()).append(SEPARATOR).append(schemaObject.getName());
 		} else {
-			if (schemaElement != null) {
-				builder.append(((HtmlViewRenderable) containerComponent).getHtmlId()).append(SEPARATOR).append(schemaElement.getName());
+			if (getSchemaElement() != null) {
+				builder.append(((HtmlViewRenderable) containerComponent).getHtmlId()).append(SEPARATOR).append(getSchemaField().getName());
 			} else {
 				builder.append(((HtmlViewRenderable) containerComponent).getHtmlId());
 			}
@@ -434,8 +434,8 @@ public class HtmlViewConfigurableEntityForm extends HtmlViewAbstractContentCompo
 		// Transformer transformer = transformerManager.getComponent((String) schemaElement.getFeature(ViewAspect.ASPECT_NAME,
 		// ViewElementFeatures.RENDER));
 		Transformer transformer = null;
-		if (schemaElement != null) {
-			transformer = transformerManager.getComponent(HtmlViewAspectHelper.getDefaultRenderType(schemaElement));
+		if (getSchemaElement() != null) {
+			transformer = transformerManager.getComponent(HtmlViewAspectHelper.getDefaultRenderType(getSchemaElement()));
 		} else {
 			transformer = transformerManager.getComponent(HtmlViewAspectHelper.getDefaultRenderType(schemaObject));
 		}

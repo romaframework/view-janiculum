@@ -14,7 +14,7 @@ import org.apache.commons.logging.LogFactory;
 import org.romaframework.aspect.view.ViewAspect;
 import org.romaframework.aspect.view.ViewHelper;
 import org.romaframework.aspect.view.area.AreaComponent;
-import org.romaframework.aspect.view.feature.ViewBaseFeatures;
+import org.romaframework.aspect.view.feature.ViewClassFeatures;
 import org.romaframework.aspect.view.html.HtmlViewAspectHelper;
 import org.romaframework.aspect.view.html.HtmlViewSession;
 import org.romaframework.aspect.view.html.area.HtmlViewScreenArea;
@@ -153,7 +153,7 @@ public class HtmlViewBasicScreen implements HtmlViewScreen, Serializable {
 			form.setContent(iPojo);
 		}
 		if (iAreaName == null) {
-			iAreaName = (String) form.getSchemaObject().getFeature( ViewBaseFeatures.LAYOUT);
+			iAreaName = (String) form.getSchemaObject().getFeature( ViewClassFeatures.LAYOUT);
 		}
 		HtmlViewScreenArea popupArea = null;
 		if (getPopupsScreenArea().searchArea("popup") == null) {

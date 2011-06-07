@@ -41,7 +41,7 @@ public class HtmlViewSimpleComponent extends HtmlViewAbstractContentComponent im
 	@Override
 	public void render(OutputStream out) throws IOException {
 
-		if (schemaElement == null || contentComponent == null) {
+		if (getSchemaElement() == null || contentComponent == null) {
 			return;
 		}
 
@@ -49,7 +49,7 @@ public class HtmlViewSimpleComponent extends HtmlViewAbstractContentComponent im
 			return;
 		}
 
-		String label = HtmlViewAspectHelper.getI18NLabel(schemaElement);
+		String label = HtmlViewAspectHelper.getI18NLabel(getSchemaElement());
 		label = AbstractHtmlViewTransformer.getComponentLabel((HtmlViewContentComponent) contentComponent, label);
 
 		out.write(label.getBytes());
@@ -72,7 +72,7 @@ public class HtmlViewSimpleComponent extends HtmlViewAbstractContentComponent im
 
 	@Override
 	public String getHtmlId() {
-		return ((HtmlViewRenderable) containerComponent).getHtmlId() + SEPARATOR + schemaElement.getName();
+		return ((HtmlViewRenderable) containerComponent).getHtmlId() + SEPARATOR + getSchemaElement().getName();
 	}
 
 	public SchemaObject getSchemaInstance() {

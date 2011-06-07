@@ -7,7 +7,6 @@ import java.util.Map;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.romaframework.aspect.view.ViewHelper;
-import org.romaframework.aspect.view.feature.ViewElementFeatures;
 import org.romaframework.aspect.view.feature.ViewFieldFeatures;
 import org.romaframework.aspect.view.html.area.HtmlViewBinder;
 import org.romaframework.aspect.view.html.area.HtmlViewRenderable;
@@ -90,7 +89,7 @@ public class SingleSelectionBinder implements HtmlViewBinder {
 	}
 
 	protected boolean disabled(final HtmlViewContentComponent contentComponent) {
-		final Object enabled = contentComponent.getSchemaField().getFeature(ViewElementFeatures.ENABLED);
+		final Object enabled = contentComponent.getSchemaField().getFeature(ViewFieldFeatures.ENABLED);
 		return Boolean.FALSE.equals(enabled);
 	}
 

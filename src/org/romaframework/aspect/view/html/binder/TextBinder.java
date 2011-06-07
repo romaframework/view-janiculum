@@ -5,7 +5,7 @@ import java.util.Map;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.romaframework.aspect.view.FormatHelper;
-import org.romaframework.aspect.view.feature.ViewElementFeatures;
+import org.romaframework.aspect.view.feature.ViewFieldFeatures;
 import org.romaframework.aspect.view.form.ViewComponent;
 import org.romaframework.aspect.view.html.area.HtmlViewBinder;
 import org.romaframework.aspect.view.html.area.HtmlViewRenderable;
@@ -22,7 +22,7 @@ public class TextBinder implements HtmlViewBinder {
 		log.debug("binding " + renderable);
 		final ViewComponent contentComponent = (ViewComponent) renderable;
 		final SchemaField schemaField = contentComponent.getSchemaField();
-		final Object enabled = schemaField.getFeature( ViewElementFeatures.ENABLED);
+		final Object enabled = schemaField.getFeature( ViewFieldFeatures.ENABLED);
 		if (enabled != null && Boolean.FALSE.equals(enabled)) {
 			return;
 		}

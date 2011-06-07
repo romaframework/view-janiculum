@@ -22,7 +22,7 @@ public class HtmlViewActionComponent extends HtmlViewAbstractComponent {
 	}
 
 	public SchemaAction getActionField() {
-		return (SchemaAction) schemaElement;
+		return (SchemaAction) getSchemaElement();
 	}
 
 	public boolean validate() {

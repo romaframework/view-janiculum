@@ -44,7 +44,9 @@ import org.romaframework.aspect.view.command.impl.RedirectViewCommand;
 import org.romaframework.aspect.view.command.impl.RefreshViewCommand;
 import org.romaframework.aspect.view.command.impl.ReportingDownloadViewCommand;
 import org.romaframework.aspect.view.command.impl.ShowViewCommand;
+import org.romaframework.aspect.view.feature.ViewActionFeatures;
 import org.romaframework.aspect.view.feature.ViewBaseFeatures;
+import org.romaframework.aspect.view.feature.ViewClassFeatures;
 import org.romaframework.aspect.view.feature.ViewElementFeatures;
 import org.romaframework.aspect.view.feature.ViewFieldFeatures;
 import org.romaframework.aspect.view.form.ContentForm;
@@ -158,8 +160,8 @@ public class HtmlViewAspect extends ViewAspectAbstract implements SchemaFeatures
 	 */
 	public String showForm(final ContentForm form, final String where, final Screen desktop) {
 
-		final String renderFeature = (String) form.getSchemaObject().getFeature(ViewBaseFeatures.RENDER);
-		final String renderLayout = (String) form.getSchemaObject().getFeature(ViewBaseFeatures.LAYOUT);
+		final String renderFeature = (String) form.getSchemaObject().getFeature(ViewClassFeatures.RENDER);
+		final String renderLayout = (String) form.getSchemaObject().getFeature(ViewClassFeatures.LAYOUT);
 		if (ViewConstants.LAYOUT_POPUP.equals(renderFeature) || ViewConstants.LAYOUT_POPUP.equals(renderLayout) || ViewConstants.RENDER_POPUP.equals(renderFeature)) {
 			((HtmlViewScreen) desktop).addPopup(form, renderLayout);
 			// ViewHelper.invokeOnShow(form.getContent());
@@ -230,7 +232,7 @@ public class HtmlViewAspect extends ViewAspectAbstract implements SchemaFeatures
 			return;
 		}
 
-		if (featureName.equals(ViewElementFeatures.VISIBLE) || featureName.equals(ViewBaseFeatures.RENDER)) {
+		if (featureName.equals(ViewActionFeatures.VISIBLE) || featureName.equals(ViewActionFeatures.RENDER)) {
 			int pos = actionName.lastIndexOf(Utility.PACKAGE_SEPARATOR_STRING);
 			if (pos != -1) {
 				actionName = actionName.substring(pos + 1);
@@ -247,7 +249,7 @@ public class HtmlViewAspect extends ViewAspectAbstract implements SchemaFeatures
 			}
 		}
 
-		if (featureName.equals(ViewElementFeatures.ENABLED)) {
+		if (featureName.equals(ViewActionFeatures.ENABLED)) {
 			((HtmlViewConfigurableEntityForm) form).setDirty(true);
 		}
 	}
@@ -275,11 +277,11 @@ public class HtmlViewAspect extends ViewAspectAbstract implements SchemaFeatures
 			return;
 		}
 
-		if (featureName.equals(ViewElementFeatures.VISIBLE) || featureName.equals(ViewBaseFeatures.RENDER)) {
+		if (featureName.equals(ViewClassFeatures.RENDER)) {
 			form.placeComponents();
 		}
 
-		if (featureName.equals(ViewElementFeatures.ENABLED) || featureName.equals(ViewBaseFeatures.STYLE)) {
+		if (featureName.equals(ViewClassFeatures.STYLE)) {
 			((HtmlViewConfigurableEntityForm) form).setDirty(true);
 		}
 
@@ -318,7 +320,7 @@ public class HtmlViewAspect extends ViewAspectAbstract implements SchemaFeatures
 			return;
 		}
 
-		if (featureName.equals(ViewElementFeatures.VISIBLE) || featureName.equals(ViewBaseFeatures.RENDER)) {
+		if (featureName.equals(ViewFieldFeatures.VISIBLE) || featureName.equals(ViewFieldFeatures.RENDER)) {
 			int pos = fieldName.lastIndexOf(Utility.PACKAGE_SEPARATOR_STRING);
 			if (pos != -1) {
 				fieldName = fieldName.substring(pos + 1);
@@ -327,7 +329,7 @@ public class HtmlViewAspect extends ViewAspectAbstract implements SchemaFeatures
 			FormUtils.createFieldComponent(field, form);
 		}
 
-		if (featureName.equals(ViewElementFeatures.ENABLED)) {
+		if (featureName.equals(ViewFieldFeatures.ENABLED)) {
 			form.setDirty(true);
 		}
 

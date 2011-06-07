@@ -44,7 +44,7 @@ public abstract class HtmlViewAbstractContentComponent extends HtmlViewAbstractC
 	 * @return the schemaField
 	 */
 	public SchemaField getSchemaField() {
-		return (SchemaField) schemaElement;
+		return (SchemaField) getSchemaElement();
 	}
 
 	/**
@@ -99,7 +99,7 @@ public abstract class HtmlViewAbstractContentComponent extends HtmlViewAbstractC
 	public void render(OutputStream out) throws IOException {
 		final HtmlViewTransformerManager transformerManager = Roma.component(HtmlViewTransformerManager.class);
 		Transformer transformer = null;
-		transformer = transformerManager.getComponent(HtmlViewAspectHelper.getDefaultRenderType(schemaElement));
+		transformer = transformerManager.getComponent(HtmlViewAspectHelper.getDefaultRenderType(getSchemaField()));
 		transformer.transform(this, out);
 
 	}

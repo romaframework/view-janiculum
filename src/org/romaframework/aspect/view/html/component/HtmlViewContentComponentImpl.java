@@ -60,7 +60,7 @@ public class HtmlViewContentComponentImpl extends HtmlViewAbstractContentCompone
 	}
 
 	public String getHtmlId() {
-		return ((HtmlViewRenderable) containerComponent).getHtmlId() + SEPARATOR + schemaElement.getName();
+		return ((HtmlViewRenderable) containerComponent).getHtmlId() + SEPARATOR + getSchemaElement().getName();
 	}
 
 	public Set<Integer> selectedIndex() {

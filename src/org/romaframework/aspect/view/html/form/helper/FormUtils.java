@@ -10,7 +10,7 @@ import org.romaframework.aspect.core.feature.CoreFieldFeatures;
 import org.romaframework.aspect.view.ViewConstants;
 import org.romaframework.aspect.view.ViewHelper;
 import org.romaframework.aspect.view.area.AreaComponent;
-import org.romaframework.aspect.view.feature.ViewBaseFeatures;
+import org.romaframework.aspect.view.feature.ViewActionFeatures;
 import org.romaframework.aspect.view.feature.ViewElementFeatures;
 import org.romaframework.aspect.view.feature.ViewFieldFeatures;
 import org.romaframework.aspect.view.html.HtmlViewAspectHelper;
@@ -46,25 +46,25 @@ public class FormUtils {
 	public static void createFieldComponent(final SchemaField field, final HtmlViewContentForm iForm) {
 		// HtmlViewTransformerManager manager = Roma.component(HtmlViewTransformerManager.class);
 
-		String featureLayout = (String) field.getFeature(ViewBaseFeatures.LAYOUT);
-		String featureRender = (String) field.getFeature(ViewBaseFeatures.RENDER);
+		String featureLayout = (String) field.getFeature(ViewFieldFeatures.LAYOUT);
+		String featureRender = (String) field.getFeature(ViewFieldFeatures.RENDER);
 
 		if (field.getType() != null && field.getClassInfo() != null) {
 			if (featureRender == null || ViewConstants.RENDER_DEFAULT.equals(featureRender)) {
-				String tmpRender = (String) field.getClassInfo().getFeature(ViewBaseFeatures.RENDER);
+				String tmpRender = (String) field.getClassInfo().getFeature(ViewFieldFeatures.RENDER);
 				if (tmpRender != null && !tmpRender.equals(ViewConstants.RENDER_DEFAULT)) {
 					featureRender = tmpRender;
 				}
 			}
 			if (featureLayout == null || ViewConstants.LAYOUT_DEFAULT.equals(featureLayout)) {
-				String tmpLayout = (String) field.getClassInfo().getFeature(ViewBaseFeatures.LAYOUT);
+				String tmpLayout = (String) field.getClassInfo().getFeature(ViewFieldFeatures.LAYOUT);
 				if (tmpLayout != null && !tmpLayout.equals(ViewConstants.LAYOUT_DEFAULT)) {
 					featureLayout = tmpLayout;
 				}
 			}
 		}
 
-		if ((Boolean) field.getFeature(ViewElementFeatures.VISIBLE)) {
+		if ((Boolean) field.getFeature(ViewFieldFeatures.VISIBLE)) {
 
 			Class<?> fieldType = (Class<?>) field.getLanguageType();
 			SchemaClass displayWithClass = field.getFeature(ViewFieldFeatures.DISPLAY_WITH);
@@ -345,7 +345,7 @@ public class FormUtils {
 
 	public static void createActionComponent(final SchemaAction action, final HtmlViewContentForm iForm) {
 		if (visible(action)) {
-			final String featureLayout = (String) action.getFeature(ViewBaseFeatures.LAYOUT);
+			final String featureLayout = (String) action.getFeature(ViewActionFeatures.LAYOUT);
 			final HtmlViewFormArea areaForRendering = (HtmlViewFormArea) iForm.searchAreaForRendering(featureLayout, action);
 			if (areaForRendering == null) {
 				log.warn("[HtmlViewAspect]: no area found for the rendering of " + action + " in form iForm");
@@ -357,8 +357,8 @@ public class FormUtils {
 		}
 	}
 
-	private static boolean visible(SchemaClassElement iElement) {
-		Object feature = iElement.getFeature(ViewElementFeatures.VISIBLE);
+	private static boolean visible(SchemaAction iElement) {
+		Object feature = iElement.getFeature(ViewActionFeatures.VISIBLE);
 		if (feature == null) {
 			return true;
 		}

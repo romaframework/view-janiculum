@@ -45,7 +45,7 @@ public abstract class HtmlViewAbstractComponent implements HtmlViewGenericCompon
 	}
 
 	public String getHtmlId() {
-		return ((HtmlViewRenderable) containerComponent).getHtmlId() + SEPARATOR + schemaElement.getName();
+		return ((HtmlViewRenderable) containerComponent).getHtmlId() + SEPARATOR + getSchemaElement().getName();
 	}
 
 	/**
@@ -110,7 +110,7 @@ public abstract class HtmlViewAbstractComponent implements HtmlViewGenericCompon
 		final HtmlViewTransformerManager transformerManager = Roma.component(HtmlViewTransformerManager.class);
 		// Transformer transformer = transformerManager.getComponent((String) schemaElement.getFeature(ViewAspect.ASPECT_NAME,
 		// ViewElementFeatures.RENDER));
-		final Transformer transformer = transformerManager.getComponent(HtmlViewAspectHelper.getDefaultRenderType(schemaElement));
+		final Transformer transformer = transformerManager.getComponent(HtmlViewAspectHelper.getDefaultRenderType(getSchemaElement()));
 		return transformer;
 	}
 
@@ -197,8 +197,8 @@ public abstract class HtmlViewAbstractComponent implements HtmlViewGenericCompon
 	public String toString() {
 		final StringBuilder buffer = new StringBuilder();
 		buffer.append("schema: ");
-		if (schemaElement != null) {
-			buffer.append(schemaElement.toString());
+		if (getSchemaElement() != null) {
+			buffer.append(getSchemaElement().toString());
 		}
 		return buffer.toString();
 	}

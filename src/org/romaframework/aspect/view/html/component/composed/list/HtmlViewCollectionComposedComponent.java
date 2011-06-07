@@ -9,7 +9,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import org.romaframework.aspect.view.feature.ViewBaseFeatures;
 import org.romaframework.aspect.view.feature.ViewFieldFeatures;
 import org.romaframework.aspect.view.html.area.HtmlViewScreenArea;
 import org.romaframework.aspect.view.html.component.HtmlViewComposedComponent;
@@ -33,8 +32,8 @@ public class HtmlViewCollectionComposedComponent extends HtmlViewAbstractCompose
 	private int															selectedMapIndex	= 0;
 	private TableDriver											driver;
 
-	public HtmlViewCollectionComposedComponent(final HtmlViewContentComponent containerComponent, final SchemaField schemaField,
-			final Object content, final HtmlViewScreenArea screenArea) {
+	public HtmlViewCollectionComposedComponent(final HtmlViewContentComponent containerComponent, final SchemaField schemaField, final Object content,
+			final HtmlViewScreenArea screenArea) {
 		super(containerComponent, schemaField, content, screenArea);
 		placeComponents();
 	}
@@ -46,8 +45,7 @@ public class HtmlViewCollectionComposedComponent extends HtmlViewAbstractCompose
 		}
 
 		if (!(content instanceof Collection<?> || content.getClass().isArray() || isMap())) {
-			log.error("Render " + schemaElement.getFeature(ViewBaseFeatures.RENDER)
-					+ " is supported only for List and Map elements: " + content);
+			log.error("Render " + getSchemaField().getFeature(ViewFieldFeatures.RENDER) + " is supported only for List and Map elements: " + content);
 		}
 
 		String selectionField = (String) getSchemaField().getFeature(ViewFieldFeatures.SELECTION_FIELD);
@@ -162,8 +160,7 @@ public class HtmlViewCollectionComposedComponent extends HtmlViewAbstractCompose
 			List<Object> asList = Arrays.asList(SchemaHelper.getObjectArrayForMultiValueObject(content));
 			return asList;
 		} else {
-			log.error("[HtmlViewAspect]: " + "Render " + schemaElement.getFeature(ViewBaseFeatures.RENDER)
-					+ "  supported only for Collection and Object[] elements");
+			log.error("[HtmlViewAspect]: " + "Render " + getSchemaField().getFeature(ViewFieldFeatures.RENDER) + "  supported only for Collection and Object[] elements");
 			return new LinkedList<Object>();
 		}
 	}
@@ -173,7 +170,7 @@ public class HtmlViewCollectionComposedComponent extends HtmlViewAbstractCompose
 		while (iter.hasNext()) {
 			Collection<?> collection = iter.next();
 
-			HtmlViewMockComposedForm mock = new HtmlViewMockComposedForm(this, (SchemaField) schemaElement, collection, screenArea);
+			HtmlViewMockComposedForm mock = new HtmlViewMockComposedForm(this, getSchemaField(), collection, screenArea);
 			if (rowNumber != 0) {
 				addComponent(mock);
 			}
@@ -195,8 +192,7 @@ public class HtmlViewCollectionComposedComponent extends HtmlViewAbstractCompose
 		}
 	}
 
-	protected void createForm(Integer rowIndex, Integer colIndex, final Object obj, String label,
-			HtmlViewComposedComponent component, boolean toShow) {
+	protected void createForm(Integer rowIndex, Integer colIndex, final Object obj, String label, HtmlViewComposedComponent component, boolean toShow) {
 		final SchemaClass schemaClass = Roma.schema().getSchemaClass(obj);
 		HtmlViewGenericComponent form;
 		if (toShow) {
@@ -261,6 +257,7 @@ public class HtmlViewCollectionComposedComponent extends HtmlViewAbstractCompose
 
 		return EMPTY_HEADER;
 	}
+
 	public List<String> getHeaders() {
 
 		if (isCollection()) {

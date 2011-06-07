@@ -40,8 +40,7 @@ public class HtmlViewComponentLabel extends HtmlViewAbstractContentComponent {
 	private final ViewComponent																contentComponent;
 
 	public HtmlViewComponentLabel(final ViewComponent iContentComponent, final HtmlViewScreenArea area) {
-		super((HtmlViewContentComponent) iContentComponent.getContainerComponent(), iContentComponent.getSchemaField(),
-				iContentComponent.getContent(), area);
+		super((HtmlViewContentComponent) iContentComponent.getContainerComponent(), iContentComponent.getSchemaField(), iContentComponent.getContent(), area);
 		contentComponent = iContentComponent;
 	}
 
@@ -58,7 +57,7 @@ public class HtmlViewComponentLabel extends HtmlViewAbstractContentComponent {
 	@Override
 	public void render(OutputStream out) throws IOException {
 
-		if (schemaElement == null || contentComponent == null) {
+		if (getSchemaElement() == null || contentComponent == null) {
 			return;
 		}
 
@@ -66,7 +65,7 @@ public class HtmlViewComponentLabel extends HtmlViewAbstractContentComponent {
 			return;
 		}
 
-		String label = HtmlViewAspectHelper.getI18NLabel(schemaElement);
+		String label = HtmlViewAspectHelper.getI18NLabel(getSchemaElement());
 		label = AbstractHtmlViewTransformer.getComponentLabel((HtmlViewContentComponent) contentComponent, label);
 
 		out.write(label.getBytes());
@@ -90,7 +89,7 @@ public class HtmlViewComponentLabel extends HtmlViewAbstractContentComponent {
 
 	@Override
 	public String getHtmlId() {
-		return ((HtmlViewRenderable) containerComponent).getHtmlId() + SEPARATOR + schemaElement.getName();
+		return ((HtmlViewRenderable) containerComponent).getHtmlId() + SEPARATOR + getSchemaElement().getName();
 	}
 
 	public SchemaObject getSchemaInstance() {

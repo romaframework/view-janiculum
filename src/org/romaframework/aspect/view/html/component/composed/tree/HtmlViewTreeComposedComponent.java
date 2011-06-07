@@ -18,8 +18,7 @@ public class HtmlViewTreeComposedComponent extends HtmlViewAbstractComposedCompo
 	protected Integer												elemIndex;
 	protected Integer												level;
 
-	public HtmlViewTreeComposedComponent(HtmlViewContentComponent containerComponent, SchemaField schemaField, Object content,
-			HtmlViewScreenArea screenArea) {
+	public HtmlViewTreeComposedComponent(HtmlViewContentComponent containerComponent, SchemaField schemaField, Object content, HtmlViewScreenArea screenArea) {
 		super(containerComponent, schemaField, content, screenArea);
 		elemIndex = 0;
 		level = 0;
@@ -28,6 +27,7 @@ public class HtmlViewTreeComposedComponent extends HtmlViewAbstractComposedCompo
 	public List<String> getHeaders() {
 		return EMPTY_HEADER;
 	}
+
 	public List<String> getHeadersRaw() {
 		return EMPTY_HEADER;
 	}
@@ -39,8 +39,7 @@ public class HtmlViewTreeComposedComponent extends HtmlViewAbstractComposedCompo
 		}
 
 		if (!(content instanceof TreeNode)) {
-			log.error("Render " + schemaElement.getFeature(ViewBaseFeatures.RENDER)
-					+ "  supported only for List and Map elements");
+			log.error("Render " + getSchemaElement().getFeature(ViewBaseFeatures.RENDER) + "  supported only for List and Map elements");
 		}
 
 		TreeNode node = (TreeNode) content;
@@ -48,8 +47,7 @@ public class HtmlViewTreeComposedComponent extends HtmlViewAbstractComposedCompo
 		Integer index = 0;
 		if (node.getChildren() != null) {
 			for (TreeNode child : node.getChildren()) {
-				HtmlViewTreeChildComponent newChild = new HtmlViewTreeChildComponent(this.containerComponent, (SchemaField) schemaElement,
-						child, screenArea, level, index);
+				HtmlViewTreeChildComponent newChild = new HtmlViewTreeChildComponent(this.containerComponent, getSchemaField(), child, screenArea, level, index);
 				newChild.setContent(child);
 				addComponent(newChild);
 				index = index + 1;

@@ -43,10 +43,10 @@ public class HtmlViewMenuForm extends HtmlViewConfigurableEntityForm {
 	public void render(OutputStream out) throws IOException{
 		final HtmlViewTransformerManager transformerManager = Roma.component(HtmlViewTransformerManager.class);
 		Transformer transformer = null;
-		if (schemaElement == null) {
+		if (getSchemaElement() == null) {
 			transformer = transformerManager.getComponent(HtmlViewAspectHelper.getDefaultRenderType(schemaObject));
 		} else {
-			transformer = transformerManager.getComponent(HtmlViewAspectHelper.getDefaultRenderType(schemaElement));
+			transformer = transformerManager.getComponent(HtmlViewAspectHelper.getDefaultRenderType(getSchemaElement()));
 		}
 		transformer.transform(this, out);
 	}
