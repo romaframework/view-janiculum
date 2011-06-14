@@ -8,6 +8,8 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.romaframework.aspect.view.ViewAspect;
 import org.romaframework.aspect.view.area.AreaComponent;
+import org.romaframework.aspect.view.feature.ViewActionFeatures;
+import org.romaframework.aspect.view.feature.ViewClassFeatures;
 import org.romaframework.aspect.view.feature.ViewFieldFeatures;
 import org.romaframework.aspect.view.form.ViewComponent;
 import org.romaframework.aspect.view.html.HtmlViewAspectHelper;
@@ -108,10 +110,18 @@ public abstract class HtmlViewAbstractComponent implements HtmlViewGenericCompon
 	 */
 	public Transformer getTransformer() {
 		final HtmlViewTransformerManager transformerManager = Roma.component(HtmlViewTransformerManager.class);
-		// Transformer transformer = transformerManager.getComponent((String) schemaElement.getFeature(ViewAspect.ASPECT_NAME,
-		// ViewElementFeatures.RENDER));
-		final Transformer transformer = transformerManager.getComponent(HtmlViewAspectHelper.getDefaultRenderType(getSchemaElement()));
-		return transformer;
+		String render;
+		if (getSchemaField() != null) {
+			render = getSchemaField().getFeature(ViewFieldFeatures.RENDER);
+		} else if (getSchemaElement() != null) {
+			render = getSchemaElement().getFeature(ViewActionFeatures.RENDER);
+		} else {
+			render = getSchemaObject().getFeature(ViewClassFeatures.RENDER);
+		}
+		if (render == null) {
+			render = HtmlViewAspectHelper.getDefaultRenderType(getSchemaElement());
+		}
+		return transformerManager.getComponent(render);
 	}
 
 	/**

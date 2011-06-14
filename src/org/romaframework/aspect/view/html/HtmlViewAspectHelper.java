@@ -31,7 +31,8 @@ import org.romaframework.aspect.session.SessionAspect;
 import org.romaframework.aspect.view.ViewAspect;
 import org.romaframework.aspect.view.ViewConstants;
 import org.romaframework.aspect.view.area.AreaComponent;
-import org.romaframework.aspect.view.feature.ViewBaseFeatures;
+import org.romaframework.aspect.view.feature.ViewActionFeatures;
+import org.romaframework.aspect.view.feature.ViewClassFeatures;
 import org.romaframework.aspect.view.feature.ViewFieldFeatures;
 import org.romaframework.aspect.view.form.ViewComponent;
 import org.romaframework.aspect.view.html.area.HtmlViewFormArea;
@@ -47,8 +48,6 @@ import org.romaframework.aspect.view.html.transformer.plain.HtmlViewPojoTransfor
 import org.romaframework.core.Roma;
 import org.romaframework.core.config.RomaApplicationContext;
 import org.romaframework.core.flow.ObjectContext;
-import org.romaframework.core.schema.Feature;
-import org.romaframework.core.schema.FeatureRegistry;
 import org.romaframework.core.schema.SchemaAction;
 import org.romaframework.core.schema.SchemaClassDefinition;
 import org.romaframework.core.schema.SchemaClassElement;
@@ -120,8 +119,12 @@ public class HtmlViewAspectHelper {
 	 * @return the label of the element
 	 */
 	public static String getLabel(final SchemaFeatures iFeatures) {
-		Feature<?> feature = FeatureRegistry.getFeature(ViewBaseFeatures.LABEL.getAspectName(), iFeatures.getFeatureType(), ViewBaseFeatures.LABEL.getName());
-		final String fieldRender = iFeatures == null ? "" : (String) iFeatures.getFeature(feature);
+		String fieldRender;
+		if (iFeatures instanceof SchemaField) {
+			fieldRender = iFeatures.getFeature(ViewFieldFeatures.LABEL);
+		} else {
+			fieldRender = iFeatures.getFeature(ViewActionFeatures.LABEL);
+		}
 		return fieldRender;
 	}
 
@@ -133,9 +136,12 @@ public class HtmlViewAspectHelper {
 	 * @return the label of the element
 	 */
 	public static String getHint(final SchemaFeatures iFeatures) {
-		Feature<?> feature = FeatureRegistry.getFeature(ViewBaseFeatures.DESCRIPTION.getAspectName(), iFeatures.getFeatureType(),
-				ViewBaseFeatures.DESCRIPTION.getName());
-		final String fieldRender = iFeatures == null ? "" : (String) iFeatures.getFeature(feature);
+		String fieldRender;
+		if (iFeatures instanceof SchemaField) {
+			fieldRender = iFeatures.getFeature(ViewFieldFeatures.DESCRIPTION);
+		} else {
+			fieldRender = iFeatures.getFeature(ViewActionFeatures.DESCRIPTION);
+		}
 		return fieldRender;
 	}
 
@@ -169,9 +175,14 @@ public class HtmlViewAspectHelper {
 	 * @return the string
 	 */
 	public static String getDefaultRenderType(final SchemaFeatures schemaFeatures) {
-		
-		Feature <?> feature = FeatureRegistry.getFeature(ViewBaseFeatures.RENDER.getAspectName(), schemaFeatures.getFeatureType(), ViewBaseFeatures.RENDER.getName());
-		final String result = (String) schemaFeatures.getFeature(feature);
+
+		final String result;
+		if (schemaFeatures instanceof SchemaField) {
+			result = schemaFeatures.getFeature(ViewFieldFeatures.RENDER);
+		} else {
+			result = schemaFeatures.getFeature(ViewActionFeatures.RENDER);
+		}
+
 		if (result != null) {
 			if (result.equals(ViewConstants.LAYOUT_POPUP)) {
 				return HtmlViewPojoTransformer.NAME;
@@ -233,7 +244,7 @@ public class HtmlViewAspectHelper {
 			if (fieldType.isArray()) {
 				return ViewConstants.RENDER_LIST;
 			}
-			render = (String) schemaField.getType().getFeature(ViewBaseFeatures.RENDER);
+			render = (String) schemaField.getType().getFeature(ViewClassFeatures.RENDER);
 			if (render != null)
 				return render;
 			return ViewConstants.RENDER_OBJECTLINK;

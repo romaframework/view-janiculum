@@ -429,19 +429,6 @@ public class HtmlViewConfigurableEntityForm extends HtmlViewAbstractContentCompo
 		this.label = label;
 	}
 
-	public Transformer getTransformer() {
-		final HtmlViewTransformerManager transformerManager = Roma.component(HtmlViewTransformerManager.class);
-		// Transformer transformer = transformerManager.getComponent((String) schemaElement.getFeature(ViewAspect.ASPECT_NAME,
-		// ViewElementFeatures.RENDER));
-		Transformer transformer = null;
-		if (getSchemaElement() != null) {
-			transformer = transformerManager.getComponent(HtmlViewAspectHelper.getDefaultRenderType(getSchemaElement()));
-		} else {
-			transformer = transformerManager.getComponent(HtmlViewAspectHelper.getDefaultRenderType(schemaObject));
-		}
-		return transformer;
-	}
-
 	public Set<Integer> selectedIndex() {
 		return EMPTY_INDEXES;
 	}
