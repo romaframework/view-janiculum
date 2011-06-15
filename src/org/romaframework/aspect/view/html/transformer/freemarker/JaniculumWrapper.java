@@ -336,20 +336,11 @@ public class JaniculumWrapper {
 	}
 
 	public boolean disabled() {
-		Object feature = ((HtmlViewGenericComponent) component).getSchemaElement().getFeature(ViewElementFeatures.ENABLED);
+		Boolean feature = ((HtmlViewGenericComponent) component).getSchemaElement().getFeature(ViewElementFeatures.ENABLED);
 		if (feature == null) {
 			return false;
 		}
-		if (Boolean.FALSE.equals(feature)) {
-			return true;
-		}
-		if (Boolean.TRUE.equals(feature)) {
-			return false;
-		}
-		if (feature.equals(AnnotationConstants.TRUE)) {
-			return false;
-		}
-		return true;
+		return !feature;
 	}
 
 	public boolean checked() {

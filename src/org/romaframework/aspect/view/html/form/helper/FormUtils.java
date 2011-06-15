@@ -358,17 +358,11 @@ public class FormUtils {
 	}
 
 	private static boolean visible(SchemaAction iElement) {
-		Object feature = iElement.getFeature(ViewActionFeatures.VISIBLE);
+		Boolean feature = iElement.getFeature(ViewActionFeatures.VISIBLE);
 		if (feature == null) {
 			return true;
 		}
-		if (Boolean.FALSE.equals(feature)) {
-			return false;
-		}
-		if (feature.equals(AnnotationConstants.FALSE)) {
-			return false;
-		}
-		return true;
+		return feature;
 	}
 
 	private static void createContentComponent(final SchemaField field, final String featureLayout, final HtmlViewContentForm iForm) {
