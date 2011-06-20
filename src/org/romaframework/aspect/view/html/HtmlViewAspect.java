@@ -15,7 +15,6 @@
  */
 package org.romaframework.aspect.view.html;
 
-import java.lang.annotation.Annotation;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
@@ -79,7 +78,6 @@ import org.romaframework.core.schema.SchemaFeaturesChangeListener;
 import org.romaframework.core.schema.SchemaField;
 import org.romaframework.core.schema.SchemaHelper;
 import org.romaframework.core.schema.SchemaObject;
-import org.romaframework.core.schema.xmlannotations.XmlEventAnnotation;
 import org.romaframework.web.session.HttpAbstractSessionAspect;
 
 /**
@@ -621,7 +619,7 @@ public class HtmlViewAspect extends ViewAspectAbstract implements SchemaFeatures
 		Roma.component(SessionAspect.class).setProperty(ReportingDownloadViewCommand.class.getSimpleName(), command);
 	}
 
-	public void configEvent(SchemaEvent event, Annotation eventAnnotation, Annotation genericAnnotation, XmlEventAnnotation node) {
+	public void configEvent(SchemaEvent event) {
 	}
 
 	public Object getUnderlyingComponent() {
