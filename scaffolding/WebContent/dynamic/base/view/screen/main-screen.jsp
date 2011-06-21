@@ -59,7 +59,7 @@ $(document).ready(function() {
 	}
 });
 requestContextPath = "<%=request.getContextPath() %>/";
-globalCharType = "charset=utf-8";
+globalCharType = "charset=UTF-8";
 
 </script>
 </head>

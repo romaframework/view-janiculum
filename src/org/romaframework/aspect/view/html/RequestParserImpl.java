@@ -35,7 +35,6 @@ import org.romaframework.aspect.flow.FlowAspect;
 import org.romaframework.aspect.validation.feature.ValidationActionFeatures;
 import org.romaframework.aspect.view.ViewAspect;
 import org.romaframework.aspect.view.feature.ViewActionFeatures;
-import org.romaframework.aspect.view.feature.ViewElementFeatures;
 import org.romaframework.aspect.view.form.ViewComponent;
 import org.romaframework.aspect.view.html.actionhandler.EventHelper;
 import org.romaframework.aspect.view.html.area.HtmlViewBinder;

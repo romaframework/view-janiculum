@@ -11,7 +11,6 @@ import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.romaframework.aspect.core.annotation.AnnotationConstants;
 import org.romaframework.aspect.view.FormatHelper;
 import org.romaframework.aspect.view.area.AreaComponent;
 import org.romaframework.aspect.view.feature.ViewBaseFeatures;

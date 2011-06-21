@@ -13,8 +13,6 @@ import org.romaframework.aspect.view.form.ViewComponent;
 import org.romaframework.aspect.view.html.HtmlViewAspectHelper;
 import org.romaframework.aspect.view.html.area.HtmlViewRenderable;
 import org.romaframework.aspect.view.html.area.HtmlViewScreenArea;
-import org.romaframework.aspect.view.html.transformer.Transformer;
-import org.romaframework.aspect.view.html.transformer.manager.HtmlViewTransformerManager;
 import org.romaframework.core.Roma;
 import org.romaframework.core.schema.SchemaField;
 import org.romaframework.core.schema.SchemaHelper;
