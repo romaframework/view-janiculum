@@ -386,6 +386,9 @@ public class HtmlViewAspect extends ViewAspectAbstract implements SchemaFeatures
 	public void onFieldRefresh(final SessionInfo iSession, final Object iContent, final SchemaField iField) {
 		final HtmlViewContentForm form = (HtmlViewContentForm) Roma.aspect(ViewAspect.class).getFormByObject(iSession, iContent);
 
+		if (!iField.getFeature(ViewFieldFeatures.VISIBLE))
+			return;
+
 		if (form == null) {
 			// FORM NOT YET CREATED: JUST RETURN
 			return;

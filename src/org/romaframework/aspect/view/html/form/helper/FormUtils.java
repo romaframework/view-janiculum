@@ -41,7 +41,6 @@ public class FormUtils {
 	protected static Log	log	= LogFactory.getLog(FormUtils.class);
 
 	public static void createFieldComponent(final SchemaField field, final HtmlViewContentForm iForm) {
-		// HtmlViewTransformerManager manager = Roma.component(HtmlViewTransformerManager.class);
 
 		String featureLayout = (String) field.getFeature(ViewFieldFeatures.LAYOUT);
 		String featureRender = (String) field.getFeature(ViewFieldFeatures.RENDER);

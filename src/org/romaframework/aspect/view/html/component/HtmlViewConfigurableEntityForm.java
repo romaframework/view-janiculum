@@ -96,8 +96,7 @@ public class HtmlViewConfigurableEntityForm extends HtmlViewAbstractContentCompo
 		// Add the components for the fields
 		while (fieldIterator.hasNext()) {
 			final SchemaField field = fieldIterator.next();
-			Object visible = field.getFeature(ViewFieldFeatures.VISIBLE);
-			if (Boolean.TRUE.equals(visible)) {
+			if (Boolean.TRUE.equals(field.getFeature(ViewFieldFeatures.VISIBLE))) {
 				FormUtils.createFieldComponent(field, this);
 			}
 		}
