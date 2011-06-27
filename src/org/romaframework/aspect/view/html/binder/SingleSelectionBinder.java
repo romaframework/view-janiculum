@@ -8,13 +8,13 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.romaframework.aspect.view.ViewHelper;
 import org.romaframework.aspect.view.feature.ViewFieldFeatures;
+import org.romaframework.aspect.view.form.ViewComponent;
 import org.romaframework.aspect.view.html.area.HtmlViewBinder;
 import org.romaframework.aspect.view.html.area.HtmlViewRenderable;
 import org.romaframework.aspect.view.html.component.HtmlViewContentComponent;
 import org.romaframework.aspect.view.html.component.HtmlViewGenericComponent;
 import org.romaframework.aspect.view.html.component.composed.list.HtmlViewCollectionComposedComponent;
 import org.romaframework.core.Roma;
-import org.romaframework.core.handler.RomaObjectHandler;
 import org.romaframework.core.schema.SchemaField;
 import org.romaframework.core.schema.SchemaHelper;
 
@@ -67,7 +67,7 @@ public class SingleSelectionBinder implements HtmlViewBinder {
 						value = collection[index];
 					}
 				}
-				RomaObjectHandler container = contentComponent.getContainerComponent();
+				ViewComponent container = (ViewComponent) contentComponent.getContainerComponent();
 				ViewHelper.bindSelectionForField(collectionSchemaField, container.getContent(), new Object[] { value });
 				// if(container instanceof HtmlViewAbstractComponent){
 				// ((HtmlViewAbstractComponent) container).setDirty(true);

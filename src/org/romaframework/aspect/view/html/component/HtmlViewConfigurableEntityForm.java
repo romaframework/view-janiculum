@@ -39,6 +39,7 @@ import org.romaframework.core.schema.SchemaField;
 import org.romaframework.core.schema.SchemaHelper;
 import org.romaframework.core.schema.SchemaObject;
 import org.romaframework.core.schema.xmlannotations.XmlFormAreaAnnotation;
+import org.romaframework.frontend.RomaFrontend;
 
 public class HtmlViewConfigurableEntityForm extends HtmlViewAbstractContentComponent implements HtmlViewContentForm {
 
@@ -347,7 +348,8 @@ public class HtmlViewConfigurableEntityForm extends HtmlViewAbstractContentCompo
 
 	private void setInvalidField(Object pojo, final ValidationException vex) {
 		final String fieldName = vex.getFieldName();
-		final ViewComponent child = (ViewComponent) vex.getComponent();
+		final ViewComponent parent = RomaFrontend.view().getFormByObject(pojo);
+		final ViewComponent child = (ViewComponent)parent.getFieldComponent(fieldName);
 		if (child != null && child instanceof HtmlViewAbstractContentComponent) {
 			((HtmlViewAbstractContentComponent) child).setValid(false);
 			((HtmlViewAbstractContentComponent) child).setValidationMessage(vex.getLocalizedMessage());

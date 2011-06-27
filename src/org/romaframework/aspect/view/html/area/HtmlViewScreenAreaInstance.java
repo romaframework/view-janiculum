@@ -33,8 +33,6 @@ import org.romaframework.aspect.view.html.screen.HtmlViewScreen;
 import org.romaframework.aspect.view.html.transformer.Transformer;
 import org.romaframework.aspect.view.html.transformer.helper.TransformerHelper;
 import org.romaframework.core.Roma;
-import org.romaframework.core.schema.SchemaClass;
-import org.romaframework.core.schema.SchemaObject;
 import org.romaframework.core.schema.xmlannotations.XmlFormAreaAnnotation;
 
 /**
@@ -103,8 +101,7 @@ public class HtmlViewScreenAreaInstance extends HtmlViewAbstractAreaInstance imp
 		if (iPojo == null) {
 			formForBinding = null;
 		} else {
-			final SchemaClass classInfo = Roma.schema().getSchemaClass(iPojo.getClass().getSimpleName());
-			formForBinding = new HtmlViewConfigurableEntityForm(null, new SchemaObject(classInfo), null, this, null, null, null);
+			formForBinding = new HtmlViewConfigurableEntityForm(null, Roma.session().getSchemaObject(iPojo), null, this, null, null, null);
 			formForBinding.setContent(formForBinding);
 			bindForm(formForBinding);
 		}

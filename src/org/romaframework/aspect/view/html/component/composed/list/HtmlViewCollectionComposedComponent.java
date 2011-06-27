@@ -24,7 +24,6 @@ import org.romaframework.core.schema.SchemaClass;
 import org.romaframework.core.schema.SchemaClassDefinition;
 import org.romaframework.core.schema.SchemaField;
 import org.romaframework.core.schema.SchemaHelper;
-import org.romaframework.core.schema.SchemaObject;
 
 public class HtmlViewCollectionComposedComponent extends HtmlViewAbstractComposedComponent {
 
@@ -160,7 +159,8 @@ public class HtmlViewCollectionComposedComponent extends HtmlViewAbstractCompose
 			List<Object> asList = Arrays.asList(SchemaHelper.getObjectArrayForMultiValueObject(content));
 			return asList;
 		} else {
-			log.error("[HtmlViewAspect]: " + "Render " + getSchemaField().getFeature(ViewFieldFeatures.RENDER) + "  supported only for Collection and Object[] elements");
+			log.error("[HtmlViewAspect]: " + "Render " + getSchemaField().getFeature(ViewFieldFeatures.RENDER)
+					+ "  supported only for Collection and Object[] elements");
 			return new LinkedList<Object>();
 		}
 	}
@@ -193,10 +193,9 @@ public class HtmlViewCollectionComposedComponent extends HtmlViewAbstractCompose
 	}
 
 	protected void createForm(Integer rowIndex, Integer colIndex, final Object obj, String label, HtmlViewComposedComponent component, boolean toShow) {
-		final SchemaClass schemaClass = Roma.schema().getSchemaClass(obj);
 		HtmlViewGenericComponent form;
 		if (toShow) {
-			form = new HtmlViewConfigurableEntityForm(this, new SchemaObject(schemaClass), null, screenArea, rowIndex, colIndex, label);
+			form = new HtmlViewConfigurableEntityForm(this, Roma.session().getSchemaObject(obj), null, screenArea, rowIndex, colIndex, label);
 			form.setContent(obj);
 		} else {
 			form = new HtmlViewInvisibleContentComponent(this, rowIndex, obj, this.getScreenAreaObject(), label);

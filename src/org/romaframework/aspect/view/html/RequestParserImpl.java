@@ -151,10 +151,10 @@ public class RequestParserImpl implements RequestParser {
 				if(event!=null && event.endsWith("[]"))event = event.substring(0,event.length()-2);
 				Object result =null;
 				if(component.getSchemaField()!=null){
-				 result = SchemaHelper.invokeEvent(component.getContainerComponent(), component.getSchemaField().getName(), event,
+				 result = SchemaHelper.invokeEvent(component.getContainerComponent().getContent(), component.getSchemaField().getName(), event,
 						(Object[]) eventEntry.getValue());
 				}else {
-					result = SchemaHelper.invokeEvent(component, event);
+					result = SchemaHelper.invokeEvent(component.getContent(), event);
 				}
 				if (component instanceof HtmlViewContentComponentImpl) {
 					((HtmlViewContentComponentImpl) component).setAdditionalInfo(result);

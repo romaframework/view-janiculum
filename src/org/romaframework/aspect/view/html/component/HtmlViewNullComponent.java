@@ -83,7 +83,7 @@ public class HtmlViewNullComponent implements HtmlViewGenericComponent {
 	public void destroy() {
 	}
 
-	public RomaObjectHandler getContainerComponent() {
+	public ViewComponent getContainerComponent() {
 		return null;
 	}
 

@@ -59,8 +59,7 @@ public class HtmlViewBasicScreen implements HtmlViewScreen, Serializable {
 	private void refreshAfterPopupClose(final HtmlViewScreenArea popupArea) {
 		((HtmlViewScreenAreaInstance) popupArea.getParent()).setDirty(true);
 		if (popupFormStack.empty()) {
-			HtmlViewScreenAreaInstance baseScreen = ((HtmlViewScreenAreaInstance) ((HtmlViewScreenAreaInstance) popupArea.getParent())
-					.getParent());
+			HtmlViewScreenAreaInstance baseScreen = ((HtmlViewScreenAreaInstance) ((HtmlViewScreenAreaInstance) popupArea.getParent()).getParent());
 			baseScreen.setDirty(true);
 		}
 	}
@@ -146,14 +145,13 @@ public class HtmlViewBasicScreen implements HtmlViewScreen, Serializable {
 		if (iPojo instanceof HtmlViewContentForm) {
 			form = (HtmlViewContentForm) iPojo;
 		} else {
-			final SchemaClass schemaClass = Roma.schema().getSchemaClass(iPojo.getClass().getSimpleName());
 			final ViewAspect viewAspect = Roma.aspect(ViewAspect.class);
 			// Create the form
-			form = (HtmlViewContentForm) viewAspect.createForm(new SchemaObject(schemaClass), null, null);
+			form = (HtmlViewContentForm) viewAspect.createForm(Roma.session().getSchemaObject(iPojo), null, null);
 			form.setContent(iPojo);
 		}
 		if (iAreaName == null) {
-			iAreaName = (String) form.getSchemaObject().getFeature( ViewClassFeatures.LAYOUT);
+			iAreaName = (String) form.getSchemaObject().getFeature(ViewClassFeatures.LAYOUT);
 		}
 		HtmlViewScreenArea popupArea = null;
 		if (getPopupsScreenArea().searchArea("popup") == null) {
@@ -226,7 +224,7 @@ public class HtmlViewBasicScreen implements HtmlViewScreen, Serializable {
 				} else {
 					final ViewAspect viewAspect = Roma.aspect(ViewAspect.class);
 					// Create the form
-					form = (HtmlViewContentForm) viewAspect.createForm(new SchemaObject(schemaClass), null, null);
+					form = (HtmlViewContentForm) viewAspect.createForm(Roma.session().getSchemaObject(newContent), null, null);
 				}
 				form.setContent(newContent);
 				form.setScreenArea(popupArea);
