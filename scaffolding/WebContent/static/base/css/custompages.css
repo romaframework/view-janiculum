@@ -61,3 +61,7 @@
     margin-top: 10px;
     margin-bottom: 10px;
 }
+
+.invisible_field {
+	display: none;
+}
