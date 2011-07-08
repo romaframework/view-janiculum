@@ -24,7 +24,7 @@ import org.romaframework.aspect.view.html.component.HtmlViewContentForm;
 import org.romaframework.aspect.view.html.constants.RequestConstants;
 import org.romaframework.aspect.view.html.exception.DefaultScreenAreaNotDefinedException;
 import org.romaframework.aspect.view.html.transformer.Transformer;
-import org.romaframework.aspect.view.html.transformer.manager.HtmlViewTransformerManager;
+import org.romaframework.aspect.view.html.transformer.manager.TransformerManager;
 import org.romaframework.core.Roma;
 import org.romaframework.core.domain.type.TreeNodeMap;
 import org.romaframework.core.schema.SchemaClass;
@@ -320,7 +320,7 @@ public class HtmlViewBasicScreen implements HtmlViewScreen, Serializable {
 	 * @see org.romaframework.aspect.view.html.area.HtmlViewRenderable#getTransformer()
 	 */
 	public Transformer getTransformer() {
-		final HtmlViewTransformerManager transformerManager = Roma.component(HtmlViewTransformerManager.class);
+		final TransformerManager transformerManager = Roma.component(TransformerManager.class);
 		final Transformer transformer = transformerManager.getComponent(HtmlViewScreen.SCREEN);
 		return transformer;
 	}

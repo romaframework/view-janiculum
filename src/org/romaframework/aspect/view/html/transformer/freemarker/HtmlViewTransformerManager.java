@@ -1,4 +1,4 @@
-package org.romaframework.aspect.view.html.transformer.manager;
+package org.romaframework.aspect.view.html.transformer.freemarker;
 
 import java.io.File;
 import java.util.HashMap;
@@ -8,9 +8,10 @@ import java.util.Map;
 import org.romaframework.aspect.view.html.template.freemarker.FreeMarkerTemplateManager;
 import org.romaframework.aspect.view.html.transformer.Transformer;
 import org.romaframework.aspect.view.html.transformer.freemarker.FreemarkerTransformer;
+import org.romaframework.aspect.view.html.transformer.manager.TransformerManager;
 import org.romaframework.core.config.RomaApplicationContext;
 
-public class HtmlViewTransformerManager {
+public class HtmlViewTransformerManager implements TransformerManager{
 
 	private Map<String, Transformer>	transformers	= new HashMap<String, Transformer>();
 

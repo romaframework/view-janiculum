@@ -23,7 +23,7 @@ import org.romaframework.aspect.view.html.constants.RequestConstants;
 import org.romaframework.aspect.view.html.constants.TransformerConstants;
 import org.romaframework.aspect.view.html.transformer.Transformer;
 import org.romaframework.aspect.view.html.transformer.helper.TransformerHelper;
-import org.romaframework.aspect.view.html.transformer.manager.HtmlViewTransformerManager;
+import org.romaframework.aspect.view.html.transformer.manager.TransformerManager;
 import org.romaframework.aspect.view.html.transformer.plain.HtmlViewPojoTransformer;
 import org.romaframework.core.Roma;
 
@@ -66,7 +66,7 @@ public class RomaClassTag extends RomaAbstractTab {
 					pageContext.getOut().print(TransformerHelper.getInstance().getHtmlId((HtmlViewRenderable) currentForm, null));
 				} else {
 					pageContext.getOut().flush();
-					final HtmlViewTransformerManager transformerManager = Roma.component(HtmlViewTransformerManager.class);
+					final TransformerManager transformerManager = Roma.component(TransformerManager.class);
 					final Transformer transformer = transformerManager.getComponent(HtmlViewPojoTransformer.NAME);
 
 					OutputStream out = new ByteArrayOutputStream();

@@ -13,7 +13,7 @@ import org.romaframework.aspect.view.html.area.HtmlViewRenderable;
 import org.romaframework.aspect.view.html.component.HtmlViewComponentLabel;
 import org.romaframework.aspect.view.html.component.HtmlViewContentComponent;
 import org.romaframework.aspect.view.html.transformer.Transformer;
-import org.romaframework.aspect.view.html.transformer.manager.HtmlViewTransformerManager;
+import org.romaframework.aspect.view.html.transformer.manager.TransformerManager;
 import org.romaframework.core.Roma;
 
 public class HtmlViewAreaModeImpl implements HtmlViewAreaMode {
@@ -103,7 +103,7 @@ public class HtmlViewAreaModeImpl implements HtmlViewAreaMode {
 	}
 
 	public Transformer getTransformer() {
-		final HtmlViewTransformerManager transformerManager = Roma.component(HtmlViewTransformerManager.class);
+		final TransformerManager transformerManager = Roma.component(TransformerManager.class);
 		final Transformer transformer = transformerManager.getComponent(type);
 		return transformer;
 	}

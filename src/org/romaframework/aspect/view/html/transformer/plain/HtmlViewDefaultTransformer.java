@@ -12,7 +12,7 @@ import org.romaframework.aspect.view.html.component.HtmlViewConfigurableEntityFo
 import org.romaframework.aspect.view.html.component.HtmlViewContentForm;
 import org.romaframework.aspect.view.html.transformer.AbstractHtmlViewTransformer;
 import org.romaframework.aspect.view.html.transformer.Transformer;
-import org.romaframework.aspect.view.html.transformer.manager.HtmlViewTransformerManager;
+import org.romaframework.aspect.view.html.transformer.manager.TransformerManager;
 import org.romaframework.core.Roma;
 
 public class HtmlViewDefaultTransformer extends AbstractHtmlViewTransformer implements Transformer {
@@ -38,19 +38,19 @@ public class HtmlViewDefaultTransformer extends AbstractHtmlViewTransformer impl
 			}
 		} else if (component instanceof HtmlViewContentForm) {
 			// return the default field transformer
-			final HtmlViewTransformerManager manager = Roma.component(HtmlViewTransformerManager.class);
+			final TransformerManager manager = Roma.component(TransformerManager.class);
 			final Transformer transformer = manager.getComponent(DEFAULT_FIELD_TRANSFORMER);
 			transformer.transform(component, out);
 		} else if (component instanceof HtmlViewActionComponent) {
 			// return the default action transformer
-			final HtmlViewTransformerManager manager = Roma.component(HtmlViewTransformerManager.class);
+			final TransformerManager manager = Roma.component(TransformerManager.class);
 			final Transformer transformer = manager.getComponent(DEFAULT_ACTION_TRANSFORMER);
 			transformer.transform(component, out);
 		}
 	}
 
 	public void transformPart(final HtmlViewRenderable component, final String part, OutputStream out) throws IOException {
-		final HtmlViewTransformerManager manager = Roma.component(HtmlViewTransformerManager.class);
+		final TransformerManager manager = Roma.component(TransformerManager.class);
 		Transformer transformer = null;
 		if (component instanceof ViewComponent) {
 			// return the default field transformer
@@ -65,7 +65,7 @@ public class HtmlViewDefaultTransformer extends AbstractHtmlViewTransformer impl
 	}
 
 	public HtmlViewBinder getBinder(HtmlViewRenderable renderable) {
-		final HtmlViewTransformerManager manager = Roma.component(HtmlViewTransformerManager.class);
+		final TransformerManager manager = Roma.component(TransformerManager.class);
 		return manager.getComponent(DEFAULT_FIELD_TRANSFORMER).getBinder(renderable);
 	}
 

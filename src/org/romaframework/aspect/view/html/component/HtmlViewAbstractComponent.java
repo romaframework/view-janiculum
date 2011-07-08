@@ -18,7 +18,7 @@ import org.romaframework.aspect.view.html.area.HtmlViewRenderable;
 import org.romaframework.aspect.view.html.area.HtmlViewScreenArea;
 import org.romaframework.aspect.view.html.transformer.Transformer;
 import org.romaframework.aspect.view.html.transformer.helper.TransformerHelper;
-import org.romaframework.aspect.view.html.transformer.manager.HtmlViewTransformerManager;
+import org.romaframework.aspect.view.html.transformer.manager.TransformerManager;
 import org.romaframework.aspect.view.screen.Screen;
 import org.romaframework.core.Roma;
 import org.romaframework.core.domain.type.TreeNode;
@@ -109,7 +109,7 @@ public abstract class HtmlViewAbstractComponent implements HtmlViewGenericCompon
 	 * @see org.romaframework.aspect.view.html.area.HtmlViewRenderable#getTransformer()
 	 */
 	public Transformer getTransformer() {
-		final HtmlViewTransformerManager transformerManager = Roma.component(HtmlViewTransformerManager.class);
+		final TransformerManager transformerManager = Roma.component(TransformerManager.class);
 		String render;
 		if (getSchemaField() != null) {
 			render = getSchemaField().getFeature(ViewFieldFeatures.RENDER);

@@ -2,7 +2,7 @@ package org.romaframework.aspect.view.html.area;
 
 import org.romaframework.aspect.view.html.screen.HtmlViewScreen;
 import org.romaframework.aspect.view.html.transformer.Transformer;
-import org.romaframework.aspect.view.html.transformer.manager.HtmlViewTransformerManager;
+import org.romaframework.aspect.view.html.transformer.manager.TransformerManager;
 import org.romaframework.aspect.view.screen.Screen;
 import org.romaframework.core.Roma;
 import org.romaframework.core.schema.xmlannotations.XmlFormAreaAnnotation;
@@ -19,7 +19,7 @@ public class HtmlViewScreenPopupAreaInstance extends HtmlViewScreenAreaInstance 
 
 	@Override
 	public Transformer getTransformer() {
-		final HtmlViewTransformerManager transformerManager = Roma.component(HtmlViewTransformerManager.class);
+		final TransformerManager transformerManager = Roma.component(TransformerManager.class);
 		return transformerManager.getComponent(Screen.POPUP);
 	}
 
