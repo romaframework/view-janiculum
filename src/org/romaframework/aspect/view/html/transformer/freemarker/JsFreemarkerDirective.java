@@ -7,6 +7,7 @@ import java.util.Map;
 import org.romaframework.aspect.view.html.HtmlViewAspectHelper;
 import org.romaframework.aspect.view.html.HtmlViewCodeBuffer;
 import org.romaframework.aspect.view.html.constants.TransformerConstants;
+import org.romaframework.aspect.view.html.transformer.helper.JaniculumWrapper;
 
 import freemarker.core.Environment;
 import freemarker.ext.beans.StringModel;

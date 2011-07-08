@@ -13,6 +13,7 @@ import org.romaframework.aspect.view.html.area.ViewHtmlBinderFactory;
 import org.romaframework.aspect.view.html.component.HtmlViewGenericComponent;
 import org.romaframework.aspect.view.html.template.freemarker.FreeMarkerTemplateManager;
 import org.romaframework.aspect.view.html.transformer.Transformer;
+import org.romaframework.aspect.view.html.transformer.helper.JaniculumWrapper;
 import org.romaframework.core.Roma;
 
 public class FreemarkerTransformer implements Transformer {

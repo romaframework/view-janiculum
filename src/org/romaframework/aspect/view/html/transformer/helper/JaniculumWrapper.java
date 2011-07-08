@@ -1,4 +1,4 @@
-package org.romaframework.aspect.view.html.transformer.freemarker;
+package org.romaframework.aspect.view.html.transformer.helper;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -34,7 +34,7 @@ import org.romaframework.aspect.view.html.component.HtmlViewContentComponentImpl
 import org.romaframework.aspect.view.html.component.HtmlViewGenericComponent;
 import org.romaframework.aspect.view.html.component.composed.list.HtmlViewCollectionComposedComponent;
 import org.romaframework.aspect.view.html.transformer.Transformer;
-import org.romaframework.aspect.view.html.transformer.helper.TransformerHelper;
+import org.romaframework.aspect.view.html.transformer.freemarker.Griddable;
 import org.romaframework.core.Roma;
 import org.romaframework.core.schema.SchemaAction;
 import org.romaframework.core.schema.SchemaClassElement;
