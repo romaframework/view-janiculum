@@ -82,7 +82,7 @@
 		single render type, if you want to change a transformer it must be added 
 		to the list and removed the old one. -->
 	<bean id="TransformerManager"
-		class="org.romaframework.aspect.view.html.transformer.freemarker.HtmlViewTransformerManager"
+		class="org.romaframework.aspect.view.html.transformer.freemarker.FreemarkerTransformerManager"
 		singleton="true">
 		<property name="components">
 			<!-- Freemarker transformers -->

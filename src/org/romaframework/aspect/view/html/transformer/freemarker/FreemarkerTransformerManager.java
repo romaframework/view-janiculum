@@ -11,11 +11,11 @@ import org.romaframework.aspect.view.html.transformer.freemarker.FreemarkerTrans
 import org.romaframework.aspect.view.html.transformer.manager.TransformerManager;
 import org.romaframework.core.config.RomaApplicationContext;
 
-public class HtmlViewTransformerManager implements TransformerManager{
+public class FreemarkerTransformerManager implements TransformerManager{
 
 	private Map<String, Transformer>	transformers	= new HashMap<String, Transformer>();
 
-	public HtmlViewTransformerManager() throws Exception {
+	public FreemarkerTransformerManager() throws Exception {
 		File file = new File(RomaApplicationContext.getApplicationPath() + "/" + FreeMarkerTemplateManager.templatesPath);
 
 		for (String fileName : file.list()) {
