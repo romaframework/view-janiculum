@@ -28,6 +28,7 @@ import javax.servlet.ServletResponse;
 
 import org.romaframework.aspect.i18n.I18NHelper;
 import org.romaframework.aspect.session.SessionAspect;
+import org.romaframework.aspect.view.SelectionMode;
 import org.romaframework.aspect.view.ViewAspect;
 import org.romaframework.aspect.view.ViewConstants;
 import org.romaframework.aspect.view.area.AreaComponent;
@@ -486,8 +487,8 @@ public class HtmlViewAspectHelper {
 			if (selection == null) {
 				return false;
 			}
-			final Object selectionMode = contentComponent.getSchemaField().getFeature(ViewFieldFeatures.SELECTION_MODE);
-			if (selectionMode != null && selectionMode.equals(ViewFieldFeatures.SELECTION_MODE_INDEX)) {
+			SelectionMode selectionMode = contentComponent.getSchemaField().getFeature(ViewFieldFeatures.SELECTION_MODE);
+			if (selectionMode == SelectionMode.SELECTION_MODE_INDEX) {
 				// index selection mode
 				if (index.equals(selection)) {
 					return true;
