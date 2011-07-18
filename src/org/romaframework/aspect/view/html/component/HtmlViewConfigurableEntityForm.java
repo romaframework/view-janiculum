@@ -20,6 +20,7 @@ import org.romaframework.aspect.view.ViewHelper;
 import org.romaframework.aspect.view.area.AreaComponent;
 import org.romaframework.aspect.view.feature.ViewFieldFeatures;
 import org.romaframework.aspect.view.form.ViewComponent;
+import org.romaframework.aspect.view.html.HtmlViewAspect;
 import org.romaframework.aspect.view.html.HtmlViewAspectHelper;
 import org.romaframework.aspect.view.html.area.HtmlViewFormArea;
 import org.romaframework.aspect.view.html.area.HtmlViewFormAreaInstance;
@@ -39,7 +40,6 @@ import org.romaframework.core.schema.SchemaField;
 import org.romaframework.core.schema.SchemaHelper;
 import org.romaframework.core.schema.SchemaObject;
 import org.romaframework.core.schema.xmlannotations.XmlFormAreaAnnotation;
-import org.romaframework.frontend.RomaFrontend;
 
 public class HtmlViewConfigurableEntityForm extends HtmlViewAbstractContentComponent implements HtmlViewContentForm {
 
@@ -57,9 +57,8 @@ public class HtmlViewConfigurableEntityForm extends HtmlViewAbstractContentCompo
 
 	protected ChildrenMap																	childrenMap				= new ChildrenMap();
 
-	public HtmlViewConfigurableEntityForm(final HtmlViewContentComponent htmlViewConfigurableEntityForm,
-			final SchemaObject iSchemaObject, final SchemaField field, final HtmlViewScreenArea iScreenArea, Integer rowIndex,
-			Integer colIndex, String label) {
+	public HtmlViewConfigurableEntityForm(final HtmlViewContentComponent htmlViewConfigurableEntityForm, final SchemaObject iSchemaObject,
+			final SchemaField field, final HtmlViewScreenArea iScreenArea, Integer rowIndex, Integer colIndex, String label) {
 		super(htmlViewConfigurableEntityForm, field, null, iScreenArea);
 		// Create the pojo form association
 		schemaObject = iSchemaObject;
@@ -122,7 +121,7 @@ public class HtmlViewConfigurableEntityForm extends HtmlViewAbstractContentCompo
 				component.clearComponents();
 				if (Roma.session().getActiveSystemSession() != null)
 					HtmlViewAspectHelper.getHtmlViewSession().removeRenderableBinding((HtmlViewRenderable) component);
-				Roma.aspect(ViewAspect.class).removeObjectFormAssociation(component.getContent(), null);
+				((HtmlViewAspect) Roma.aspect(ViewAspect.class)).removeObjectFormAssociation(component.getContent(), null);
 			}
 		}
 		expandedChildren.clear();
@@ -312,7 +311,7 @@ public class HtmlViewConfigurableEntityForm extends HtmlViewAbstractContentCompo
 	public HtmlViewContentComponent getFieldComponent(String name) {
 		if (name.contains(Utility.PACKAGE_SEPARATOR_STRING)) {
 			Object object = SchemaHelper.getFieldObject(getContent(), name);
-			HtmlViewContentForm childComponent = (HtmlViewContentForm) Roma.aspect(ViewAspect.class).getFormByObject(object);
+			HtmlViewContentForm childComponent = (HtmlViewContentForm)((HtmlViewAspect) Roma.aspect(ViewAspect.class)).getFormByObject(object);
 			name = Utility.getResourceNamesLastSeparator(name, Utility.PACKAGE_SEPARATOR_STRING, "")[1];
 			return childComponent.getFieldComponent(name);
 		}
@@ -348,8 +347,8 @@ public class HtmlViewConfigurableEntityForm extends HtmlViewAbstractContentCompo
 
 	private void setInvalidField(Object pojo, final ValidationException vex) {
 		final String fieldName = vex.getFieldName();
-		final ViewComponent parent = RomaFrontend.view().getFormByObject(pojo);
-		final ViewComponent child = (ViewComponent)parent.getFieldComponent(fieldName);
+		final ViewComponent parent = ((HtmlViewAspect)Roma.view()).getFormByObject(pojo);
+		final ViewComponent child = (ViewComponent) parent.getFieldComponent(fieldName);
 		if (child != null && child instanceof HtmlViewAbstractContentComponent) {
 			((HtmlViewAbstractContentComponent) child).setValid(false);
 			((HtmlViewAbstractContentComponent) child).setValidationMessage(vex.getLocalizedMessage());
@@ -375,7 +374,7 @@ public class HtmlViewConfigurableEntityForm extends HtmlViewAbstractContentCompo
 	public void setContent(final Object content, final SessionInfo session) {
 		if (this.content != null) {
 			ViewHelper.invokeOnDispose(this.content);
-			Roma.aspect(ViewAspect.class).removeObjectFormAssociation(this.content, session);
+			((HtmlViewAspect) Roma.aspect(ViewAspect.class)).removeObjectFormAssociation(this.content, session);
 		}
 		this.content = content;
 
@@ -385,7 +384,7 @@ public class HtmlViewConfigurableEntityForm extends HtmlViewAbstractContentCompo
 			placeComponents();
 
 		// Create the pojo form association
-		Roma.aspect(ViewAspect.class).createObjectFormAssociation(this.content, this, session);
+		((HtmlViewAspect) Roma.aspect(ViewAspect.class)).createObjectFormAssociation(this.content, this, session);
 		ViewHelper.invokeOnShow(content);
 	}
 

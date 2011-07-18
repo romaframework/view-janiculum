@@ -23,6 +23,7 @@ import java.util.List;
 
 import org.romaframework.aspect.view.ViewAspect;
 import org.romaframework.aspect.view.ViewHelper;
+import org.romaframework.aspect.view.html.HtmlViewAspect;
 import org.romaframework.aspect.view.html.area.mode.HtmlViewAreaMode;
 import org.romaframework.aspect.view.html.area.mode.HtmlViewAreaModeImpl;
 import org.romaframework.aspect.view.html.binder.NullBinder;
@@ -116,7 +117,7 @@ public class HtmlViewScreenAreaInstance extends HtmlViewAbstractAreaInstance imp
 		if (form != null && form.getContent() != null) {
 			if (this.form != null && this.form.getContent() != form.getContent()) {
 				disposeForm(this.form);
-				Roma.aspect(ViewAspect.class).releaseForm(this.form);
+				((HtmlViewAspect)Roma.aspect(ViewAspect.class)).releaseForm(this.form);
 			}
 		}
 		this.form = form;

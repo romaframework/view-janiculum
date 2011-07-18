@@ -10,6 +10,7 @@ import org.romaframework.aspect.validation.feature.ValidationFieldFeatures;
 import org.romaframework.aspect.view.ViewAspect;
 import org.romaframework.aspect.view.ViewHelper;
 import org.romaframework.aspect.view.form.ViewComponent;
+import org.romaframework.aspect.view.html.HtmlViewAspect;
 import org.romaframework.aspect.view.html.HtmlViewAspectHelper;
 import org.romaframework.aspect.view.html.area.HtmlViewRenderable;
 import org.romaframework.aspect.view.html.area.HtmlViewScreenArea;
@@ -221,7 +222,7 @@ public abstract class HtmlViewAbstractContentComponent extends HtmlViewAbstractC
 				component.clearComponents();
 				if (Roma.session().getActiveSystemSession() != null)
 					HtmlViewAspectHelper.getHtmlViewSession().removeRenderableBinding((HtmlViewRenderable) component);
-				Roma.aspect(ViewAspect.class).removeObjectFormAssociation(component.getContent(), null);
+				((HtmlViewAspect)Roma.aspect(ViewAspect.class)).removeObjectFormAssociation(component.getContent(), null);
 			}
 		}
 		components.clear();

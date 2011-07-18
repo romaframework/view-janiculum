@@ -40,5 +40,7 @@ public interface HtmlViewFormArea extends HtmlViewRenderable, AreaComponent {
 	public void replaceComponent(final ViewComponent oldComponent, final HtmlViewGenericComponent newComponent);
 	
 	public void clear();
+	
+	public AreaComponent searchArea(String iAreaName);
 
 }

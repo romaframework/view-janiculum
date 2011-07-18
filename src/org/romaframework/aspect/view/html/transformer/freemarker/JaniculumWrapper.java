@@ -40,7 +40,6 @@ import org.romaframework.core.schema.SchemaAction;
 import org.romaframework.core.schema.SchemaClassElement;
 import org.romaframework.core.schema.SchemaEvent;
 import org.romaframework.core.schema.SchemaField;
-import org.romaframework.frontend.RomaFrontend;
 import org.romaframework.web.session.HttpAbstractSessionAspect;
 import org.romaframework.web.view.HttpUtils;
 
@@ -560,7 +559,7 @@ public class JaniculumWrapper {
 		if (url.length() == 0)
 			return "";
 
-		HttpServletRequest request = (HttpServletRequest) RomaFrontend.context().component(
+		HttpServletRequest request = (HttpServletRequest) Roma.context().component(
 				HttpAbstractSessionAspect.CONTEXT_REQUEST_PAR);
 
 		boolean propagateSession = false;
@@ -615,7 +614,7 @@ public class JaniculumWrapper {
 	}
 
 	public String contextPath() {
-		HttpServletRequest request = (HttpServletRequest) RomaFrontend.context().component(
+		HttpServletRequest request = (HttpServletRequest) Roma.context().component(
 				HttpAbstractSessionAspect.CONTEXT_REQUEST_PAR);
 		return request.getContextPath();
 	}

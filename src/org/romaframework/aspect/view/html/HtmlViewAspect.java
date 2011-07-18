@@ -50,6 +50,7 @@ import org.romaframework.aspect.view.form.ContentForm;
 import org.romaframework.aspect.view.form.FormViewer;
 import org.romaframework.aspect.view.form.ViewComponent;
 import org.romaframework.aspect.view.html.area.HtmlViewFormAreaInstance;
+import org.romaframework.aspect.view.html.area.HtmlViewScreenArea;
 import org.romaframework.aspect.view.html.area.HtmlViewScreenAreaInstance;
 import org.romaframework.aspect.view.html.component.HtmlViewAbstractComponent;
 import org.romaframework.aspect.view.html.component.HtmlViewConfigurableEntityForm;
@@ -169,7 +170,8 @@ public class HtmlViewAspect extends ViewAspectAbstract implements SchemaFeatures
 		}
 
 		if (where.startsWith("form:")) {
-			HtmlViewConfigurableEntityForm parentComponent = (HtmlViewConfigurableEntityForm) desktop.getComponentInArea("body");
+			HtmlViewScreenArea screenArea = (HtmlViewScreenArea) desktop.getArea("body");
+			HtmlViewConfigurableEntityForm parentComponent = (HtmlViewConfigurableEntityForm) screenArea.getForm();
 
 			AreaComponent area = parentComponent.searchAreaForRendering(where, null);
 
@@ -212,7 +214,7 @@ public class HtmlViewAspect extends ViewAspectAbstract implements SchemaFeatures
 	public <T> void signalChangeAction(Object userObject, String actionName, final Feature<T> featureName, final T oldValue, final T featureValue) {
 
 		userObject = SchemaHelper.getFieldObject(userObject, actionName);
-		final HtmlViewContentForm form = (HtmlViewContentForm) Roma.aspect(ViewAspect.class).getFormByObject(userObject);
+		final HtmlViewContentForm form = (HtmlViewContentForm) getFormByObject(userObject);
 
 		// There id no form for the component
 		if (form == null) {
@@ -257,7 +259,7 @@ public class HtmlViewAspect extends ViewAspectAbstract implements SchemaFeatures
 	 * java.lang.String, java.lang.Object, java.lang.Object)
 	 */
 	public <T> void signalChangeClass(final Object userObject, final Feature<T> featureName, final T oldValue, final T featureValue) {
-		final HtmlViewContentForm form = (HtmlViewContentForm) Roma.aspect(ViewAspect.class).getFormByObject(userObject);
+		final HtmlViewContentForm form = (HtmlViewContentForm) getFormByObject(userObject);
 
 		// There id no form for the component
 		if (form == null) {
@@ -292,7 +294,7 @@ public class HtmlViewAspect extends ViewAspectAbstract implements SchemaFeatures
 	public <T> void signalChangeField(Object userObject, String fieldName, final Feature<T> featureName, final T oldValue, final T featureValue) {
 
 		userObject = SchemaHelper.getFieldObject(userObject, fieldName);
-		final HtmlViewContentForm form = (HtmlViewContentForm) Roma.aspect(ViewAspect.class).getFormByObject(userObject);
+		final HtmlViewContentForm form = (HtmlViewContentForm) getFormByObject(userObject);
 
 		// There id no form for the component
 		if (form == null) {
@@ -384,7 +386,7 @@ public class HtmlViewAspect extends ViewAspectAbstract implements SchemaFeatures
 	 * java.lang.Object, org.romaframework.core.schema.SchemaField)
 	 */
 	public void onFieldRefresh(final SessionInfo iSession, final Object iContent, final SchemaField iField) {
-		final HtmlViewContentForm form = (HtmlViewContentForm) Roma.aspect(ViewAspect.class).getFormByObject(iSession, iContent);
+		final HtmlViewContentForm form = (HtmlViewContentForm) getFormByObject(iSession, iContent);
 
 		if (!iField.getFeature(ViewFieldFeatures.VISIBLE))
 			return;
@@ -552,12 +554,17 @@ public class HtmlViewAspect extends ViewAspectAbstract implements SchemaFeatures
 	 * @see org.romaframework.aspect.view.ViewAspectAbstract#close(java.lang.Object)
 	 */
 	@Override
-	public void close(final Object iUserObject) {
-		final Screen screen = getScreen();
+	public boolean close(final Object iUserObject) {
+		ContentForm currentComponent = (ContentForm) getFormByObject(iUserObject);
+		if (currentComponent.isFirstToOpenPopup(iUserObject)) {
+			final Screen screen = getScreen();
 
-		screen.close(iUserObject);
-		// TODO REVIEW THIS LOGIC!!!
-		HtmlViewPopupTransformer.removeCss();
+			screen.close(iUserObject);
+			// TODO REVIEW THIS LOGIC!!!
+			HtmlViewPopupTransformer.removeCss();
+			return true;
+		}
+		return false;
 	}
 
 	/*
@@ -592,11 +599,11 @@ public class HtmlViewAspect extends ViewAspectAbstract implements SchemaFeatures
 
 	private void pushRefreshView(RefreshViewCommand cmd) {
 		// TODO test it!!!!
-		Roma.aspect(ViewAspect.class).releaseForm((ContentForm) cmd.getForm());
+		((HtmlViewAspect) Roma.aspect(ViewAspect.class)).releaseForm((ContentForm) cmd.getForm());
 	}
 
 	private void pushShowView(ShowViewCommand cmd) {
-		Roma.aspect(FlowAspect.class).forward(cmd.getForm(), cmd.getWhere(), FormViewer.getInstance().getScreen(cmd.getSession()));
+		Roma.aspect(FlowAspect.class).forward(cmd.getForm().getContent(), cmd.getWhere(), FormViewer.getInstance().getScreen(cmd.getSession()), cmd.getSession());
 	}
 
 	private void pushDownloadReader(DownloadReaderViewCommand command) {

@@ -18,10 +18,10 @@ package org.romaframework.aspect.view.html.taglib;
 import java.io.ByteArrayOutputStream;
 import java.io.OutputStream;
 
+import org.romaframework.aspect.view.area.AreaComponent;
 import org.romaframework.aspect.view.html.area.HtmlViewFormArea;
 import org.romaframework.aspect.view.html.component.HtmlViewConfigurableEntityForm;
 import org.romaframework.aspect.view.html.constants.RequestConstants;
-import org.romaframework.core.domain.type.TreeNode;
 
 /**
  * this tag represents a form area in the class jsp template.
@@ -56,7 +56,7 @@ public class RomaFormAreaTag extends RomaAbstractTab {
 		final Object currentForm = pageContext.getRequest().getAttribute(RequestConstants.CURRENT_REQUEST_FORM);
 		if (currentForm != null && currentForm instanceof HtmlViewConfigurableEntityForm) {
 			try {
-				TreeNode area = ((HtmlViewConfigurableEntityForm) currentForm).getRootArea().getChild(getName());
+				AreaComponent area = ((HtmlViewConfigurableEntityForm) currentForm).getRootArea().searchArea(getName());
 				if (area instanceof HtmlViewFormArea) {
 					renderArea((HtmlViewFormArea) area);
 				}
