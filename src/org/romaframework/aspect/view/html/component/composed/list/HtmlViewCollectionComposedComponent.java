@@ -127,6 +127,7 @@ public class HtmlViewCollectionComposedComponent extends HtmlViewAbstractCompose
 		}
 	}
 
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	private void expandCollection() {
 		final Collection<Object> collectionToRender = getContentAsList(content);
 
@@ -153,9 +154,10 @@ public class HtmlViewCollectionComposedComponent extends HtmlViewAbstractCompose
 		}
 	}
 
+	@SuppressWarnings("unchecked")
 	private Collection<Object> getContentAsList(final Object content) {
 		if (content instanceof Collection) {
-			return (Collection) content;
+			return (Collection<Object>) content;
 		} else if (SchemaHelper.isMultiValueObject(content)) {
 			List<Object> asList = Arrays.asList(SchemaHelper.getObjectArrayForMultiValueObject(content));
 			return asList;
