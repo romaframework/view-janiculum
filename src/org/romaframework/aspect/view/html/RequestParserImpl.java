@@ -185,7 +185,7 @@ public class RequestParserImpl implements RequestParser {
 			valid = ((HtmlViewAbstractComponent) form).validate();
 		}
 		if (valid) {
-			Controller.getInstance().getContext().setActiveArea(actionParts[ACTION_PART_CURRENT_ACTION_AREA]);
+			Roma.view().getScreen().setActiveArea(actionParts[ACTION_PART_CURRENT_ACTION_AREA]);
 			Controller.getInstance().executeAction(iContent, iAction);
 		}
 	}

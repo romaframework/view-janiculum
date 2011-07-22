@@ -45,6 +45,7 @@ public class HtmlViewBasicScreen implements HtmlViewScreen, Serializable {
 	protected Stack<String>								popupFormStack	= new Stack<String>();
 
 	protected Map<String, Object>					popupOpeners		= new HashMap<String, Object>();
+	protected String											activeArea;
 
 	protected HtmlViewBasicScreen(final Object iObj) {
 	}
@@ -341,6 +342,14 @@ public class HtmlViewBasicScreen implements HtmlViewScreen, Serializable {
 
 	public void renderPart(final String part, OutputStream out) {
 		// TODO It should render only a sub screen area ???
+	}
+
+	public String getActiveArea() {
+		return activeArea;
+	}
+
+	public void setActiveArea(String area) {
+		this.activeArea = area;
 	}
 
 }

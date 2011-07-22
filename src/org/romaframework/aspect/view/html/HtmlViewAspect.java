@@ -183,9 +183,9 @@ public class HtmlViewAspect extends ViewAspectAbstract implements SchemaFeatures
 
 		} else {
 			HtmlViewScreenAreaInstance area = (HtmlViewScreenAreaInstance) desktop.getArea(where);
-			if (area == null && Controller.getInstance().getContext().getActiveArea() == null) {
+			if (area == null && Roma.view().getScreen().getActiveArea() == null) {
 				area = (HtmlViewScreenAreaInstance) ((HtmlViewScreen) desktop).getDefaultArea();
-				Controller.getInstance().getContext().setActiveArea(area.getName());
+				Roma.view().getScreen().setActiveArea(area.getName());
 			}
 			area.bindForm((HtmlViewContentForm) form);
 			form.setScreenArea(where);
