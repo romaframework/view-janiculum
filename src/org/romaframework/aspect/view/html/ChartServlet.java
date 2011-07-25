@@ -57,8 +57,7 @@ public class ChartServlet extends RomaServlet {
 			final OutputStream writer = response.getOutputStream();
 			final HtmlViewRenderable renderable = HtmlViewAspectHelper.getHtmlViewSession().getRenderableById(Long.parseLong(pojoId));
 			final Object pojo = ((ViewComponent) renderable).getContent();
-			final byte[] result = chartModule.toChart(pojo);
-			writer.write(result);
+			chartModule.toChart(pojo, writer);
 			writer.flush();
 		} catch (final Throwable t) {
 			log.error("could not render chart: " + t);
