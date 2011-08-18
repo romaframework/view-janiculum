@@ -137,7 +137,8 @@ public class JaniculumWrapper {
 			}
 		} else {
 
-			result = ((String) ((HtmlViewGenericComponent) component).getSchemaElement().getFeature(ViewBaseFeatures.LABEL)).replaceAll("\\$", "");
+			result = ((String) ((HtmlViewGenericComponent) component).getSchemaElement().getFeature(ViewBaseFeatures.LABEL)).replaceAll(
+					"\\$", "");
 
 		}
 		return result;
@@ -179,7 +180,7 @@ public class JaniculumWrapper {
 			if (tableComponent.getChildren().size() > rowIndex) {
 				HtmlViewGenericComponent rowComponent = new ArrayList<HtmlViewGenericComponent>(tableComponent.getChildren()).get(rowIndex);
 				if (rowComponent.getSchemaObject() != null) {
-					Object feature = rowComponent.getSchemaObject().getFeature( ViewFieldFeatures.STYLE);
+					Object feature = rowComponent.getSchemaObject().getFeature(ViewFieldFeatures.STYLE);
 					if (feature != null && !feature.toString().isEmpty() && feature.toString().charAt(0) != '{') {
 						// CLASS NAME: USE IT
 						return feature.toString();
@@ -267,6 +268,10 @@ public class JaniculumWrapper {
 		return text;
 	}
 
+	public boolean getField(){
+		return isField();
+	}
+	
 	public boolean isField() {
 		SchemaClassElement el = getSchemaElement();
 		if (el instanceof SchemaField) {
@@ -307,6 +312,9 @@ public class JaniculumWrapper {
 		// + TransformerHelper.SEPARATOR + actionComponent.getScreenArea();
 	}
 
+	public Set<String> getAvailableEvents() {
+		return this.availableEvents();
+	}
 	public Set<String> availableEvents() {
 		Set<String> result = new HashSet<String>();
 		SchemaClassElement element = this.getSchemaElement();
@@ -332,6 +340,10 @@ public class JaniculumWrapper {
 
 	public String fieldName() {
 		return "" + (component).getId();
+	}
+
+	public boolean isDisabled() {
+		return disabled();
 	}
 
 	public boolean disabled() {
