@@ -16,7 +16,6 @@ import org.romaframework.aspect.view.screen.Screen;
 import org.romaframework.aspect.view.screen.config.ScreenManager;
 import org.romaframework.core.Roma;
 import org.romaframework.core.config.ApplicationConfiguration;
-import org.romaframework.core.flow.Controller;
 import org.romaframework.web.service.rest.RestServiceHelper;
 
 public abstract class RomaServlet extends HttpServlet {
@@ -39,7 +38,6 @@ public abstract class RomaServlet extends HttpServlet {
 		Roma.aspect(ViewAspect.class).setScreen(screen);
 
 		final ApplicationConfiguration config = Roma.component(ApplicationConfiguration.class);
-		Controller.getInstance().createContext();
 
 		if (RestServiceHelper.existsServiceToInvoke(request)) {
 			RestServiceHelper.invokeRestService(request, response);

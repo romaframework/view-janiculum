@@ -11,6 +11,7 @@ import org.romaframework.aspect.view.ViewAspect;
 import org.romaframework.aspect.view.area.AreaComponent;
 import org.romaframework.aspect.view.form.ContentForm;
 import org.romaframework.aspect.view.form.ViewComponent;
+import org.romaframework.aspect.view.html.HtmlViewAspect;
 import org.romaframework.aspect.view.html.area.HtmlViewFormArea;
 import org.romaframework.aspect.view.html.component.HtmlViewContentForm;
 import org.romaframework.aspect.view.html.component.HtmlViewGenericComponent;
@@ -34,14 +35,13 @@ public class ChildrenMap {
 		}
 	}
 
-	private void replaceChild(HtmlViewGenericComponent oldComponent, HtmlViewGenericComponent newComponent,
-			AreaComponent areaComponent) {
+	private void replaceChild(HtmlViewGenericComponent oldComponent, HtmlViewGenericComponent newComponent, AreaComponent areaComponent) {
 		if (newComponent == null || newComponent.getContent() != oldComponent.getContent()) {
 			oldComponent.clearComponents();
 		}
 		if (oldComponent instanceof HtmlViewContentForm) {
 			if (newComponent == null || newComponent.getContent() != oldComponent.getContent()) {
-				Roma.aspect(ViewAspect.class).releaseForm((ContentForm) oldComponent);
+				((HtmlViewAspect) Roma.aspect(ViewAspect.class)).releaseForm((ContentForm) oldComponent);
 			}
 			((HtmlViewContentForm) oldComponent).clearAreas();
 		}
@@ -55,7 +55,7 @@ public class ChildrenMap {
 		if (values != null) {
 			children.put(fieldName, null);
 			if (values.getValue() instanceof HtmlViewContentForm) {
-				Roma.aspect(ViewAspect.class).releaseForm((ContentForm) values.getValue());
+				((HtmlViewAspect) Roma.aspect(ViewAspect.class)).releaseForm((ContentForm) values.getValue());
 				((HtmlViewContentForm) values.getValue()).clearAreas();
 			} else {
 				removeComponentFromArea(values);

@@ -49,7 +49,6 @@ import org.romaframework.core.binding.BindingException;
 import org.romaframework.core.domain.type.TreeNode;
 import org.romaframework.core.exception.ExceptionHelper;
 import org.romaframework.core.exception.UserException;
-import org.romaframework.frontend.RomaFrontend;
 import org.romaframework.frontend.domain.message.ErrorMessageTextDetail;
 
 public class AjaxServlet extends HtmlServlet {
@@ -108,22 +107,22 @@ public class AjaxServlet extends HtmlServlet {
 				ErrorMessageTextDetail toShow = new ErrorMessageTextDetail("application.error", "Application Error", null, e.getMessage(), e);
 				toShow.setDetail(ExceptionHelper.toString(e));
 				log.info(e.getMessage(),e);
-				RomaFrontend.flow().forward(toShow, "screen:popup:error");
+				Roma.flow().forward(toShow, "screen:popup:error");
 			} catch (final BindingException e) {
 				ErrorMessageTextDetail toShow = new ErrorMessageTextDetail("application.error", "Application Error", null, e.getMessage(), e);
 				toShow.setDetail(ExceptionHelper.toString(e));
 				log.warn(e.getMessage(),e);
-				RomaFrontend.flow().forward(toShow, "screen:popup:error");
+				Roma.flow().forward(toShow, "screen:popup:error");
 			}catch (UserException e) {
 				ErrorMessageTextDetail toShow = new ErrorMessageTextDetail("application.error", "Application Error", null, e.getMessage(), e);
 				toShow.setDetail(ExceptionHelper.toString(e));
 				log.debug(e.getMessage(),e);
-				RomaFrontend.flow().forward(toShow, "screen:popup:error");
+				Roma.flow().forward(toShow, "screen:popup:error");
 			} catch (final Throwable e) {
 				ErrorMessageTextDetail toShow = new ErrorMessageTextDetail("application.error", "Application Error", e);
 				toShow.setDetail(ExceptionHelper.toString(e));
 				log.warn(e.getMessage(), e);
-				RomaFrontend.flow().forward(toShow, "screen:popup:error");
+				Roma.flow().forward(toShow, "screen:popup:error");
 				// throw new ServletException(e);
 			}
 
@@ -133,7 +132,7 @@ public class AjaxServlet extends HtmlServlet {
 				return;
 			}
 
-			screen = (HtmlViewScreen) RomaFrontend.view().getScreen();
+			screen = (HtmlViewScreen) Roma.view().getScreen();
 
 			try {
 
@@ -169,7 +168,7 @@ public class AjaxServlet extends HtmlServlet {
 
 				}
 
-				((HtmlViewAspect) RomaFrontend.view()).cleanDirtyComponents();
+				((HtmlViewAspect) Roma.view()).cleanDirtyComponents();
 
 			} catch (JSONException jsonx) {
 				jsonx.printStackTrace();

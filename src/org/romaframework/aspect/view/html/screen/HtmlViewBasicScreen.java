@@ -15,6 +15,7 @@ import org.romaframework.aspect.view.ViewAspect;
 import org.romaframework.aspect.view.ViewHelper;
 import org.romaframework.aspect.view.area.AreaComponent;
 import org.romaframework.aspect.view.feature.ViewClassFeatures;
+import org.romaframework.aspect.view.html.HtmlViewAspect;
 import org.romaframework.aspect.view.html.HtmlViewAspectHelper;
 import org.romaframework.aspect.view.html.HtmlViewSession;
 import org.romaframework.aspect.view.html.area.HtmlViewScreenArea;
@@ -28,7 +29,6 @@ import org.romaframework.aspect.view.html.transformer.manager.TransformerManager
 import org.romaframework.core.Roma;
 import org.romaframework.core.domain.type.TreeNodeMap;
 import org.romaframework.core.schema.SchemaClass;
-import org.romaframework.core.schema.SchemaObject;
 
 public class HtmlViewBasicScreen implements HtmlViewScreen, Serializable {
 
@@ -45,6 +45,7 @@ public class HtmlViewBasicScreen implements HtmlViewScreen, Serializable {
 	protected Stack<String>								popupFormStack	= new Stack<String>();
 
 	protected Map<String, Object>					popupOpeners		= new HashMap<String, Object>();
+	protected String											activeArea;
 
 	protected HtmlViewBasicScreen(final Object iObj) {
 	}
@@ -86,16 +87,6 @@ public class HtmlViewBasicScreen implements HtmlViewScreen, Serializable {
 			searchNode = rootArea.searchArea(DEFAULT_SCREEN_AREA);
 		}
 		return searchNode;
-	}
-
-	public Object getComponentInArea(final String areaName) {
-		final HtmlViewScreenArea htmlViewScreenArea = (HtmlViewScreenArea) rootArea.searchArea(areaName);
-		if (htmlViewScreenArea == null) {
-			return null;
-		} else {
-			return htmlViewScreenArea.getForm();
-		}
-
 	}
 
 	public void setVisibleArea(final String areaName, final boolean value) {
@@ -145,7 +136,7 @@ public class HtmlViewBasicScreen implements HtmlViewScreen, Serializable {
 		if (iPojo instanceof HtmlViewContentForm) {
 			form = (HtmlViewContentForm) iPojo;
 		} else {
-			final ViewAspect viewAspect = Roma.aspect(ViewAspect.class);
+			final HtmlViewAspect viewAspect = (HtmlViewAspect) Roma.aspect(ViewAspect.class);
 			// Create the form
 			form = (HtmlViewContentForm) viewAspect.createForm(Roma.session().getSchemaObject(iPojo), null, null);
 			form.setContent(iPojo);
@@ -199,14 +190,14 @@ public class HtmlViewBasicScreen implements HtmlViewScreen, Serializable {
 		if (toClose instanceof HtmlViewContentForm) {
 			popupForm = (HtmlViewContentForm) toClose;
 		} else {
-			popupForm = (HtmlViewContentForm) Roma.aspect(ViewAspect.class).getFormByObject(toClose);
+			popupForm = (HtmlViewContentForm) ((HtmlViewAspect) Roma.aspect(ViewAspect.class)).getFormByObject(toClose);
 		}
 
 		if (popupForm != null) {
 			String popupAreaName = getPopupOpened(toClose);
 			final HtmlViewScreenArea popupArea = popupForm.getScreenAreaObject();
 			ViewHelper.invokeOnDispose(popupForm.getContent());
-			Roma.aspect(ViewAspect.class).removeObjectFormAssociation(popupForm.getContent(), null);
+			((HtmlViewAspect) Roma.aspect(ViewAspect.class)).removeObjectFormAssociation(popupForm.getContent(), null);
 			if (isFirstToOpenPopup(toClose)) {
 				popupFormStack.pop();
 			}
@@ -222,7 +213,7 @@ public class HtmlViewBasicScreen implements HtmlViewScreen, Serializable {
 				if (((HtmlViewScreenAreaInstance) popupArea).getComponentInArea().getSchemaObject().getSchemaClass().equals(schemaClass)) {
 					form = ((HtmlViewScreenAreaInstance) popupArea).getComponentInArea();
 				} else {
-					final ViewAspect viewAspect = Roma.aspect(ViewAspect.class);
+					final HtmlViewAspect viewAspect = (HtmlViewAspect) Roma.aspect(ViewAspect.class);
 					// Create the form
 					form = (HtmlViewContentForm) viewAspect.createForm(Roma.session().getSchemaObject(newContent), null, null);
 				}
@@ -239,7 +230,7 @@ public class HtmlViewBasicScreen implements HtmlViewScreen, Serializable {
 				if (area.getForm() != null) {
 					ViewHelper.invokeOnDispose(area.getForm().getContent());
 				}
-				Roma.aspect(ViewAspect.class).releaseForm(area.getForm());
+				((HtmlViewAspect) Roma.aspect(ViewAspect.class)).releaseForm(area.getForm());
 				getPopupsScreenArea().removeChild(area);
 				popupOpeners.remove(openedPopupName);
 				popupFormStack.pop();
@@ -351,6 +342,14 @@ public class HtmlViewBasicScreen implements HtmlViewScreen, Serializable {
 
 	public void renderPart(final String part, OutputStream out) {
 		// TODO It should render only a sub screen area ???
+	}
+
+	public String getActiveArea() {
+		return activeArea;
+	}
+
+	public void setActiveArea(String area) {
+		this.activeArea = area;
 	}
 
 }

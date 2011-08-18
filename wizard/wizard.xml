@@ -3,10 +3,10 @@
 	<property environment="env" />
 	<property name="roma.home" value="${env.ROMA_HOME}" />
 
-	<import file="${roma.home}/common/wizard/base-wizard.xml" />
+	<import file="../../../base-wizard.xml" />
 
 
-	<target name="add-ioc">		
+	<target name="add-ioc">
 		<delete file="${project.path}/${project.ioc-path}/${module.ioc-file-session}" />
 		<copy file="${module.ioc-file-session}" todir="${project.path}/${project.ioc-path}">
 			<filterset>
@@ -20,7 +20,7 @@
 		<echo>----- ADDING MODULE VIEW HTML ---</echo>
 		<property name="module.ioc-file" value="applicationContext-janiculum.xml" />
 		<antcall target="copy-module-ioc-file" />
-		
+
 		<echo>----- UPDATING VIEW AND SESSION ASPECTS DEFINITIONS ---</echo>
 		<antcall target="register-def-aspect">
 			<param name="module.aspect-name" value="view" />
@@ -31,29 +31,14 @@
 			<param name="module.aspect-name" value="session" />
 			<param name="module.aspect-component" value="SessionAspect" />
 		</antcall>
-		
+
 		<antcall target="register-def-aspect">
-					<param name="module.aspect-name" value="data" />
-					<param name="module.aspect-component" value="DataBindingAspect" />
-				</antcall>
-		
-		<echo>----- REMOVING MODULE VIEW ECHO2 IF ANY ---</echo>
-		<delete failonerror="false" file="${project.path}/${project.run-time-lib}/roma-view-echo2.jar" />
-		<delete failonerror="false" file="${project.path}/${project.run-time-lib}/Echo2_App.jar" />
-		<delete failonerror="false" file="${project.path}/${project.run-time-lib}/Echo2_Extras_App.jar" />
-		<delete failonerror="false" file="${project.path}/${project.run-time-lib}/Echo2_Extras_WebContainer.jar" />
-		<delete failonerror="false" file="${project.path}/${project.run-time-lib}/Echo2_FileTransfer_App.jar" />
-		<delete failonerror="false" file="${project.path}/${project.run-time-lib}/Echo2_FileTransfer_WebContainer.jar" />
-		<delete failonerror="false" file="${project.path}/${project.run-time-lib}/Echo2_WebContainer.jar" />
-		<delete failonerror="false" file="${project.path}/${project.run-time-lib}/Echo2_WebRender.jar" />
-		<delete failonerror="false" file="${project.path}/${project.run-time-lib}/echopointng-2.2.0rc2.jar" />
-		<delete failonerror="false" file="${project.path}/${project.run-time-lib}/informagen-echo-components-1.0.jar" />
-		<delete failonerror="false" file="${project.path}/${project.run-time-lib}/jcommon-1.0.0.jar" />
-		<delete failonerror="false" file="${project.path}/${project.ioc-path}/applicationContext-echo2.xml" />
-		<delete failonerror="false" dir="${project.path}/${project.src}/${project.package-path}/view/style" />
-		
+			<param name="module.aspect-name" value="data" />
+			<param name="module.aspect-component" value="DataBindingAspect" />
+		</antcall>
+
 		<echo>----- MOVING VIEW ECHO2 IMAGES IF ANY ---</echo>
-		<copy failonerror="false" todir="${project.path}/WebContent/static/base/image" >
+		<copy failonerror="false" todir="${project.path}/WebContent/static/base/image">
 			<fileset dir="${project.path}/${project.src}/${project.package-path}/view/image" includes="*.*" />
 		</copy>
 		<delete failonerror="false" dir="${project.path}/${project.src}/${project.package-path}/view/image" />
@@ -131,43 +116,11 @@
 				<servlet-class>org.romaframework.aspect.view.html.DownloadStreamServlet</servlet-class>
 			</servlet>
 			<servlet id="upload-servlet">
-			    <servlet-name>UploadServlet</servlet-name>
-			    <servlet-class>org.romaframework.aspect.view.html.UploadServlet</servlet-class>
+				<servlet-name>UploadServlet</servlet-name>
+				<servlet-class>org.romaframework.aspect.view.html.UploadServlet</servlet-class>
 			</servlet>
 						    
 ]]></insert>
-
-		<!--
-			<insert path="/web-app/display-name" position="after">
-	<![CDATA[
-	<filter>
-        <filter-name>JTidyFilter</filter-name>
-        <filter-class>org.w3c.tidy.servlet.filter.JTidyFilter</filter-class>
-        <init-param>
-            <param-name>tee</param-name>
-            <param-value>false</param-value>
-        </init-param>
-        <init-param>
-            <param-name>config</param-name>
-            <param-value>indent: auto; indent-spaces: 2</param-value>
-        </init-param>
-        <init-param>
-            <param-name>doubleValidation</param-name>
-            <param-value>false</param-value>
-        </init-param>
-        <init-param>
-            <param-name>validateOnly</param-name>
-            <param-value>false</param-value>
-        </init-param>
-    </filter>
-	
-	<filter-mapping>
-	    <filter-name>JTidyFilter</filter-name>
-	    <url-pattern>/app</url-pattern>
-	</filter-mapping>
-	]]>
-			</insert>
-			-->
 
 		<insert path="/web-app/servlet[last()]" position="after">
 			<![CDATA[
@@ -200,14 +153,14 @@
 			<servlet-name>AjaxServlet</servlet-name>
 			<url-pattern>/ajax</url-pattern>
 		</servlet-mapping>
-			<servlet-mapping id="download-servlet-mapping">
-			        <servlet-name>DownloadServlet</servlet-name>
-			        <url-pattern>/downloadstream/*</url-pattern>
-			    </servlet-mapping>
-			    <servlet-mapping id="upload-servlet-mapping">
-			        <servlet-name>UploadServlet</servlet-name>
-			        <url-pattern>/fileUpload</url-pattern>
-			    </servlet-mapping>
+		<servlet-mapping id="download-servlet-mapping">
+			<servlet-name>DownloadServlet</servlet-name>
+			<url-pattern>/downloadstream/*</url-pattern>
+		</servlet-mapping>
+		<servlet-mapping id="upload-servlet-mapping">
+			<servlet-name>UploadServlet</servlet-name>
+			<url-pattern>/fileUpload</url-pattern>
+		</servlet-mapping>
 	]]>
 			</insert>
 	<insert path="/web-app/servlet-mapping[last()]" position="after">
@@ -220,14 +173,6 @@
 	</welcome-file-list>
 	  	]]>
 			</insert>
-    </xmltask>
-
-        <!--
-			TODO: ADD <value>org.romaframework.aspect.view.html.view.domain</value> AS ADDITIONAL PACKAGE IN SCHEMA CLASS RESOLVER (CORE XML)
-
-			<xmltask source="${project.path}/WebContent/WEB-INF/applicationContext-core.xml"
-			dest="${project.path}/WebContent/WEB-INF/applicationContext-core.xml" preservetype="true" outputter="${ident}"> <xmlcatalog
-			refid="dtds" /> .... </xmltask>
-		-->
- </target>
+</xmltask>
+</target>
 </project>

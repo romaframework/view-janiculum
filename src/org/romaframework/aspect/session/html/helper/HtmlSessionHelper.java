@@ -22,8 +22,8 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.romaframework.core.Roma;
 import org.romaframework.core.flow.ObjectContext;
-import org.romaframework.frontend.RomaFrontend;
 import org.romaframework.web.session.HttpAbstractSessionAspect;
 
 public final class HtmlSessionHelper {
@@ -45,12 +45,12 @@ public final class HtmlSessionHelper {
 	}
 
 	public void setCurrentLocale(final Locale locale) {
-		RomaFrontend.session().setProperty(CURRENT_LOCALE, locale);
+		Roma.session().setProperty(CURRENT_LOCALE, locale);
 	}
 
 	public Locale getCurrentLocale() {
 		try {
-			Locale result = (Locale) RomaFrontend.session().getProperty(CURRENT_LOCALE);
+			Locale result = (Locale) Roma.session().getProperty(CURRENT_LOCALE);
 			if (result == null) {
 				HttpServletRequest request = ObjectContext.getInstance().getContextComponent(HttpAbstractSessionAspect.CONTEXT_REQUEST_PAR);
 				result = request.getLocale();

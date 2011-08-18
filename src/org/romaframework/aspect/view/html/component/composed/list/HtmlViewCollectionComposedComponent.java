@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import org.romaframework.aspect.view.SelectionMode;
 import org.romaframework.aspect.view.feature.ViewFieldFeatures;
 import org.romaframework.aspect.view.html.area.HtmlViewScreenArea;
 import org.romaframework.aspect.view.html.component.HtmlViewComposedComponent;
@@ -54,8 +55,8 @@ public class HtmlViewCollectionComposedComponent extends HtmlViewAbstractCompose
 			// SELECTION FIELD IS SETTED ONLY FOR MAP AND SINGLE SELECTION.
 			if (!SchemaHelper.isMultiValueObject(selectionFieldSchema)) {
 				Object selectionFieldValue = SchemaHelper.getFieldValue(getContainerComponent().getContent(), selectionField);
-				byte selectionMode = (Byte) getSchemaField().getFeature(ViewFieldFeatures.SELECTION_MODE);
-				if (selectionMode == ViewFieldFeatures.SELECTION_MODE_INDEX) {
+				SelectionMode selectionMode =  getSchemaField().getFeature(ViewFieldFeatures.SELECTION_MODE);
+				if (selectionMode == SelectionMode.SELECTION_MODE_INDEX) {
 					if (selectionFieldValue instanceof Integer)
 						setSelectedMapIndex((Integer) selectionFieldValue);
 					else if (selectionFieldValue instanceof Short)
@@ -126,6 +127,7 @@ public class HtmlViewCollectionComposedComponent extends HtmlViewAbstractCompose
 		}
 	}
 
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	private void expandCollection() {
 		final Collection<Object> collectionToRender = getContentAsList(content);
 
@@ -152,9 +154,10 @@ public class HtmlViewCollectionComposedComponent extends HtmlViewAbstractCompose
 		}
 	}
 
+	@SuppressWarnings("unchecked")
 	private Collection<Object> getContentAsList(final Object content) {
 		if (content instanceof Collection) {
-			return (Collection) content;
+			return (Collection<Object>) content;
 		} else if (SchemaHelper.isMultiValueObject(content)) {
 			List<Object> asList = Arrays.asList(SchemaHelper.getObjectArrayForMultiValueObject(content));
 			return asList;

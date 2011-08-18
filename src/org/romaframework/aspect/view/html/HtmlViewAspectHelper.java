@@ -28,6 +28,7 @@ import javax.servlet.ServletResponse;
 
 import org.romaframework.aspect.i18n.I18NHelper;
 import org.romaframework.aspect.session.SessionAspect;
+import org.romaframework.aspect.view.SelectionMode;
 import org.romaframework.aspect.view.ViewAspect;
 import org.romaframework.aspect.view.ViewConstants;
 import org.romaframework.aspect.view.area.AreaComponent;
@@ -36,6 +37,7 @@ import org.romaframework.aspect.view.feature.ViewClassFeatures;
 import org.romaframework.aspect.view.feature.ViewFieldFeatures;
 import org.romaframework.aspect.view.form.ViewComponent;
 import org.romaframework.aspect.view.html.area.HtmlViewFormArea;
+import org.romaframework.aspect.view.html.area.HtmlViewScreenArea;
 import org.romaframework.aspect.view.html.area.mode.HtmlViewAreaMode;
 import org.romaframework.aspect.view.html.constants.RequestConstants;
 import org.romaframework.aspect.view.html.css.StyleBuffer;
@@ -53,7 +55,6 @@ import org.romaframework.core.schema.SchemaClassDefinition;
 import org.romaframework.core.schema.SchemaClassElement;
 import org.romaframework.core.schema.SchemaFeatures;
 import org.romaframework.core.schema.SchemaField;
-import org.romaframework.frontend.RomaFrontend;
 import org.romaframework.web.session.HttpAbstractSessionAspect;
 
 public class HtmlViewAspectHelper {
@@ -257,7 +258,7 @@ public class HtmlViewAspectHelper {
 	}
 
 	public static HtmlViewAspect getHtmlViewAspect() {
-		return ((HtmlViewAspect) RomaFrontend.view());
+		return ((HtmlViewAspect) Roma.view());
 	}
 
 	/**
@@ -421,7 +422,7 @@ public class HtmlViewAspectHelper {
 
 	public static String getPopupsScreenAreaId() {
 		final HtmlViewScreen screen = (HtmlViewScreen) Roma.aspect(ViewAspect.class).getScreen();
-		final HtmlViewAreaMode mode = (HtmlViewAreaMode) screen.getPopupsScreenArea().getAreaMode();
+		final HtmlViewAreaMode mode = (HtmlViewAreaMode) ((HtmlViewScreenArea) screen.getPopupsScreenArea()).getAreaMode();
 		return TransformerHelper.getInstance().getHtmlId(mode, null);
 	}
 
@@ -486,8 +487,8 @@ public class HtmlViewAspectHelper {
 			if (selection == null) {
 				return false;
 			}
-			final Object selectionMode = contentComponent.getSchemaField().getFeature(ViewFieldFeatures.SELECTION_MODE);
-			if (selectionMode != null && selectionMode.equals(ViewFieldFeatures.SELECTION_MODE_INDEX)) {
+			SelectionMode selectionMode = contentComponent.getSchemaField().getFeature(ViewFieldFeatures.SELECTION_MODE);
+			if (selectionMode == SelectionMode.SELECTION_MODE_INDEX) {
 				// index selection mode
 				if (index.equals(selection)) {
 					return true;

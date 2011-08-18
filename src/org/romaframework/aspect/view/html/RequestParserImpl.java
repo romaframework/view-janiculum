@@ -52,7 +52,6 @@ import org.romaframework.core.domain.type.Stream;
 import org.romaframework.core.flow.Controller;
 import org.romaframework.core.schema.SchemaAction;
 import org.romaframework.core.schema.SchemaHelper;
-import org.romaframework.frontend.RomaFrontend;
 
 public class RequestParserImpl implements RequestParser {
 	protected static final int	ACTION_PART_CURRENT_ACTION_AREA	= 3;
@@ -145,7 +144,7 @@ public class RequestParserImpl implements RequestParser {
 			renderable = session.getRenderableById(Long.parseLong(componentId));
 			String event = EventHelper.getEvent(eventHtmlName);
 			if (renderable instanceof HtmlViewScreenPopupAreaInstance && HtmlViewPopupTransformer.CLOSE_POPUP_EVENT_NAME.equals(event)) {
-				RomaFrontend.flow().back();
+				Roma.flow().back();
 			} else if (renderable instanceof HtmlViewGenericComponent) {
 				HtmlViewGenericComponent component = (HtmlViewGenericComponent) renderable;
 				if(event!=null && event.endsWith("[]"))event = event.substring(0,event.length()-2);
@@ -186,7 +185,7 @@ public class RequestParserImpl implements RequestParser {
 			valid = ((HtmlViewAbstractComponent) form).validate();
 		}
 		if (valid) {
-			Controller.getInstance().getContext().setActiveArea(actionParts[ACTION_PART_CURRENT_ACTION_AREA]);
+			Roma.view().getScreen().setActiveArea(actionParts[ACTION_PART_CURRENT_ACTION_AREA]);
 			Controller.getInstance().executeAction(iContent, iAction);
 		}
 	}

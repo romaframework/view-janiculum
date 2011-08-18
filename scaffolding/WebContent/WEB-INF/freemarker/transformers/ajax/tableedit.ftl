@@ -8,7 +8,10 @@
                 <tr class="${janiculum.cssClass("header_row")}">
                     <#if janiculum.selectionAviable()>
                         <#if janiculum.isMultiSelection()>
-                                <th class="table_selection">#</th>
+                                <th id="${janiculum.id("selectionCheck")}_-1" class="table_selection"><span> 
+                                <input class="table_selection elementName_reservoirDogs invisible_field" name="${janiculum.fieldName()}_-1" type="checkbox" 
+                                 checked="checked" /> 
+                                </span>#</th>
                         </#if>
                         <#if janiculum.isSingleSelection()>
                                 <th id="${janiculum.id("selectionCheck")}_-1"> 

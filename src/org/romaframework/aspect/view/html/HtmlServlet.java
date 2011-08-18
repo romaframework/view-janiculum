@@ -39,7 +39,6 @@ import org.romaframework.aspect.view.html.screen.HtmlViewScreen;
 import org.romaframework.core.Roma;
 import org.romaframework.core.binding.BindingException;
 import org.romaframework.core.exception.ExceptionHelper;
-import org.romaframework.frontend.RomaFrontend;
 import org.romaframework.frontend.domain.message.ErrorMessageTextDetail;
 import org.romaframework.web.service.rest.RestServiceHelper;
 
@@ -94,17 +93,17 @@ public class HtmlServlet extends RomaServlet {
 				ErrorMessageTextDetail toShow = new ErrorMessageTextDetail("application.error", "Application Error", e);
 				toShow.setMessage(e.getMessage());
 				toShow.setDetail(ExceptionHelper.toString(e));
-				RomaFrontend.flow().forward(toShow, "screen:popup:error", null, RomaFrontend.session().getActiveSessionInfo());
+				Roma.flow().forward(toShow, "screen:popup:error", null, Roma.session().getActiveSessionInfo());
 			} catch (final BindingException e) {
 				ErrorMessageTextDetail toShow = new ErrorMessageTextDetail("application.error", "Application Error", e);
 				toShow.setMessage(e.getMessage());
 				toShow.setDetail(ExceptionHelper.toString(e));
-				RomaFrontend.flow().forward(toShow, "screen:popup:error", null, RomaFrontend.session().getActiveSessionInfo());
+				Roma.flow().forward(toShow, "screen:popup:error", null, Roma.session().getActiveSessionInfo());
 			} catch (final Throwable e) {
 				ErrorMessageTextDetail toShow = new ErrorMessageTextDetail("application.error", "Application Error", e);
 				toShow.setMessage(e.getMessage());
 				toShow.setDetail(ExceptionHelper.toString(e));
-				RomaFrontend.flow().forward(toShow, "screen:popup:error", null, RomaFrontend.session().getActiveSessionInfo());
+				Roma.flow().forward(toShow, "screen:popup:error", null, Roma.session().getActiveSessionInfo());
 				// throw new ServletException(e);
 			}
 
@@ -138,7 +137,7 @@ public class HtmlServlet extends RomaServlet {
 			String buff = out.toString();
 			buff = flushBuffers(buff);
 			response.getWriter().append(buff);
-			((HtmlViewAspect) RomaFrontend.view()).cleanDirtyComponents();
+			((HtmlViewAspect) Roma.view()).cleanDirtyComponents();
 		}
 	}
 
