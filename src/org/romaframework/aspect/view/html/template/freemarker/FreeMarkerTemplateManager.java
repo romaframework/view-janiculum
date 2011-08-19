@@ -9,6 +9,7 @@ import java.util.Map;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.romaframework.aspect.view.html.template.TemplateManager;
 import org.romaframework.core.Utility;
 import org.romaframework.core.config.RomaApplicationContext;
 
@@ -16,7 +17,7 @@ import freemarker.template.Configuration;
 import freemarker.template.DefaultObjectWrapper;
 import freemarker.template.Template;
 
-public class FreeMarkerTemplateManager {
+public class FreeMarkerTemplateManager implements TemplateManager{
 
 	public static String						templatesPath	= "WEB-INF/freemarker/transformers/";
 	protected Log										log						= LogFactory.getLog(getClass());

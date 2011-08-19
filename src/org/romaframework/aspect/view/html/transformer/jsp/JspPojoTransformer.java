@@ -23,6 +23,7 @@ import java.util.HashMap;
 import org.romaframework.aspect.view.html.area.HtmlViewRenderable;
 import org.romaframework.aspect.view.html.component.HtmlViewConfigurableEntityForm;
 import org.romaframework.aspect.view.html.component.HtmlViewGenericComponent;
+import org.romaframework.aspect.view.html.template.TemplateManager;
 import org.romaframework.aspect.view.html.transformer.helper.JaniculumWrapper;
 import org.romaframework.aspect.view.html.transformer.plain.HtmlViewPojoTransformer;
 import org.romaframework.core.Roma;
@@ -33,7 +34,7 @@ public class JspPojoTransformer extends HtmlViewPojoTransformer {
 		final HtmlViewConfigurableEntityForm form = (HtmlViewConfigurableEntityForm) component;
 		String htmlClass = helper.getHtmlClass(this, null, (HtmlViewGenericComponent) component);
 		String htmlId = helper.getHtmlId(form, null);
-		JspTemplateManager mgr = Roma.component(JspTemplateManager.class);
+		TemplateManager mgr = Roma.component(TemplateManager.class);
 		HashMap<String, Object> ctx = new HashMap<String, Object>();
 		ctx.put("htmlClass", htmlClass);
 		ctx.put("htmlId", htmlId);

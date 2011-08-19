@@ -20,6 +20,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.romaframework.aspect.view.html.template.TemplateManager;
 import org.romaframework.aspect.view.html.transformer.Transformer;
 import org.romaframework.aspect.view.html.transformer.manager.TransformerManager;
 import org.romaframework.core.Roma;
@@ -30,7 +31,7 @@ public class JspTransformerManager implements TransformerManager {
 	private Map<String, Transformer>	transformers	= new HashMap<String, Transformer>();
 
 	public JspTransformerManager() {
-		JspTemplateManager mgr = Roma.component(JspTemplateManager.class);
+		TemplateManager mgr = Roma.component(TemplateManager.class);
 		File file = new File(RomaApplicationContext.getApplicationPath() + "/" + mgr.getTemplatesPath());
 
 		for (String fileName : file.list()) {

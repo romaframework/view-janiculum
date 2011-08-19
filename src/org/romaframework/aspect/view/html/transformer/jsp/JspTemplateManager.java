@@ -26,8 +26,9 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.romaframework.aspect.view.html.HtmlViewAspectHelper;
 import org.romaframework.aspect.view.html.constants.RequestConstants;
+import org.romaframework.aspect.view.html.template.TemplateManager;
 
-public class JspTemplateManager {
+public class JspTemplateManager implements TemplateManager{
 
 	private String		templatesPath		= "WEB-INF/transformers/jsp/";
 	protected Log			log							= LogFactory.getLog(getClass());
@@ -55,6 +56,15 @@ public class JspTemplateManager {
 
 	public void setTemplatesPath(String templatesPath) {
 		this.templatesPath = templatesPath;
+	}
+
+	@Override
+	public boolean isCacheTemplates() {
+		return false;
+	}
+
+	@Override
+	public void setCacheTemplates(boolean cacheTemplates) {
 	}
 
 }

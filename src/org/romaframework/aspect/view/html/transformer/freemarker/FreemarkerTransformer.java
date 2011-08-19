@@ -11,7 +11,7 @@ import org.romaframework.aspect.view.html.area.HtmlViewBinder;
 import org.romaframework.aspect.view.html.area.HtmlViewRenderable;
 import org.romaframework.aspect.view.html.area.ViewHtmlBinderFactory;
 import org.romaframework.aspect.view.html.component.HtmlViewGenericComponent;
-import org.romaframework.aspect.view.html.template.freemarker.FreeMarkerTemplateManager;
+import org.romaframework.aspect.view.html.template.TemplateManager;
 import org.romaframework.aspect.view.html.transformer.Transformer;
 import org.romaframework.aspect.view.html.transformer.helper.JaniculumWrapper;
 import org.romaframework.core.Roma;
@@ -72,7 +72,7 @@ public class FreemarkerTransformer implements Transformer {
 
 	private void printCode(Map<String, Object> context, String codeType, OutputStream out) throws IOException {
 		context.put(CODE_TO_PRINT, codeType);
-		FreeMarkerTemplateManager mgr = Roma.component(FreeMarkerTemplateManager.class);
+		TemplateManager mgr = Roma.component(TemplateManager.class);
 		mgr.execute(getTemplateName(), context, out);
 	}
 

@@ -5,10 +5,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.romaframework.aspect.view.html.template.freemarker.FreeMarkerTemplateManager;
+import org.romaframework.aspect.view.html.template.TemplateManager;
 import org.romaframework.aspect.view.html.transformer.Transformer;
-import org.romaframework.aspect.view.html.transformer.freemarker.FreemarkerTransformer;
 import org.romaframework.aspect.view.html.transformer.manager.TransformerManager;
+import org.romaframework.core.Roma;
 import org.romaframework.core.config.RomaApplicationContext;
 
 public class FreemarkerTransformerManager implements TransformerManager{
@@ -16,7 +16,8 @@ public class FreemarkerTransformerManager implements TransformerManager{
 	private Map<String, Transformer>	transformers	= new HashMap<String, Transformer>();
 
 	public FreemarkerTransformerManager() throws Exception {
-		File file = new File(RomaApplicationContext.getApplicationPath() + "/" + FreeMarkerTemplateManager.templatesPath);
+		
+		File file = new File(RomaApplicationContext.getApplicationPath() + "/" + Roma.component(TemplateManager.class).getTemplatesPath());
 
 		for (String fileName : file.list()) {
 

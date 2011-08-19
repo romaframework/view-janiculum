@@ -2,7 +2,6 @@
 	pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jstl/core" prefix="c" %> 
 <%@page import="java.util.Set"%>
-<%@page import="org.romaframework.aspect.view.html.transformer.jsp.JspTemplateManager"%>
 <%@page import="org.romaframework.aspect.view.html.transformer.jsp.JspTransformer"%>
 <%@page import="org.romaframework.aspect.view.html.transformer.helper.JaniculumWrapper"%>
 <%@page import="org.romaframework.aspect.view.html.constants.RequestConstants"%>

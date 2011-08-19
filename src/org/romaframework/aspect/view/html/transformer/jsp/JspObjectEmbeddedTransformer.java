@@ -27,6 +27,7 @@ import javax.servlet.ServletRequest;
 import org.romaframework.aspect.view.ViewConstants;
 import org.romaframework.aspect.view.html.HtmlViewAspectHelper;
 import org.romaframework.aspect.view.html.component.HtmlViewConfigurableEntityForm;
+import org.romaframework.aspect.view.html.template.TemplateManager;
 import org.romaframework.aspect.view.html.transformer.plain.HtmlViewObjectEmbeddedTransformer;
 import org.romaframework.core.Roma;
 
@@ -34,7 +35,7 @@ public class JspObjectEmbeddedTransformer extends HtmlViewObjectEmbeddedTransfor
 	@Override
 	protected void content(final HtmlViewConfigurableEntityForm contentComponent, final ServletRequest request, OutputStream out)
 			throws ServletException, IOException {
-		JspTemplateManager mgr = Roma.component(JspTemplateManager.class);
+		TemplateManager mgr = Roma.component(TemplateManager.class);
 
 		Map<String, Object> ctx = new HashMap<String, Object>();
 		ctx.put("htmlClass", helper.getHtmlClass(this, null, contentComponent));

@@ -27,7 +27,7 @@ import javax.servlet.ServletRequest;
 import org.romaframework.aspect.view.ViewConstants;
 import org.romaframework.aspect.view.html.HtmlViewAspectHelper;
 import org.romaframework.aspect.view.html.component.HtmlViewConfigurableEntityForm;
-import org.romaframework.aspect.view.html.template.freemarker.FreeMarkerTemplateManager;
+import org.romaframework.aspect.view.html.template.TemplateManager;
 import org.romaframework.aspect.view.html.transformer.plain.HtmlViewObjectEmbeddedTransformer;
 import org.romaframework.core.Roma;
 
@@ -35,7 +35,7 @@ public class HtmlViewFreeMarkerObjectEmbeddedTransformer extends HtmlViewObjectE
 	@Override
 	protected void content(final HtmlViewConfigurableEntityForm contentComponent, final ServletRequest request, OutputStream out)
 			throws ServletException, IOException {
-		FreeMarkerTemplateManager mgr = Roma.component(FreeMarkerTemplateManager.class);
+		TemplateManager mgr = Roma.component(TemplateManager.class);
 
 		Map<String, Object> ctx = new HashMap<String, Object>();
 		ctx.put("htmlClass", helper.getHtmlClass(this, null, contentComponent));
