@@ -6,6 +6,6 @@
 	pageContext.setAttribute("janiculum", janiculum);
 	String htmlClass= (String)ctx.get("htmlClass");
 	String htmlId = (String)ctx.get("htmlId");
-	OutputStream content = new ByteArrayOutputStream();
-	HtmlViewAspectHelper.renderByJsp((ViewComponent)janiculum.getComponent(), request, content);
-%><div class="<%=htmlClass%>" id="<%=htmlId %>"><%=content.toString()%> antani</div>
+	String content = (String)ctx.get("content"); 
+	
+%><div class="<%=htmlClass%>" id="<%=htmlId %>"><%=content.toString()%></div>
