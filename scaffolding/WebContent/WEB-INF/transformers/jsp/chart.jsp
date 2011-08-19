@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jstl/core" prefix="c" %> 
 <%@page import="java.util.Set"%>
+
 <%@page import="org.romaframework.aspect.view.html.transformer.jsp.JspTransformer"%>
 <%@page import="org.romaframework.aspect.view.html.transformer.helper.JaniculumWrapper"%>
 <%@page import="org.romaframework.aspect.view.html.constants.RequestConstants"%>
@@ -16,14 +17,15 @@
 <div class="<%=janiculum.cssClass(null)%>" style="<%=janiculum.inlineStyle(null)%>" id="<%=janiculum.id(null)%>">
 
 
-<% if( part.equals("") || part.equals("all")) {%>
+<% if( "".equals(part) || "all".equals(part)) {%>
 
 
 <span id="<%=janiculum.id("content") %>" class="<%=janiculum.cssClass("content") %>" >
-<img id="<%=janiculum.id("content")%>_img" class="<%=janiculum.cssClass("content")%>" src="chart.png?imagePojo=<%=janiculum.imageId()%>&t=<%=janiculum.currentTime()%>" 
-		<c:forEach var="event" items="${janiculum.availableEvents}" >
-		on<c:out value="${event}"/>="romaFieldChanged('<%=janiculum.fieldName() %>'); romaEvent('<%=janiculum.fieldName() %>', '<c:out value="${event}"/>')"
-		</c:forEach>
+<img id="<%=janiculum.id("content")%>_img" class="<%=janiculum.cssClass("content")%>" src="chart.png?imagePojo=<%=janiculum.imageId()%>&t=<%=janiculum.currentTime()%>"
+	<%for(String event: janiculum.getAvailableEvents()){ %> 
+		
+		on<%=event%>="romaFieldChanged('<%=janiculum.fieldName() %>'); romaEvent('<%=janiculum.fieldName() %>', '<%=event%>')"
+	<%} %>
 	/>
 </span>
 
@@ -31,12 +33,12 @@
 
 
 
-<%if (part.equals("content")){ %>
+<%if ("content".equals(part)){ %>
 <img id="<%=janiculum.id("content")%>" class="<%=janiculum.cssClass("content")%>" src="chart.png?imagePojo=<%=janiculum.imageId()%>&t=<%=janiculum.currentTime()%>" 
+	<%for(String event: janiculum.getAvailableEvents()){ %>
 	
-	<c:forEach var="event" items="${janiculum.availableEvents}" >
-		on<c:out value="${event}"/>="romaFieldChanged('<%=janiculum.fieldName() %>'); romaEvent('<%=janiculum.fieldName() %>', '<c:out value="${event}"/>')"
-	</c:forEach>
+		on<%=event%>="romaFieldChanged('<%=janiculum.fieldName() %>'); romaEvent('<%=janiculum.fieldName() %>', '<%=event%>')"
+	<%} %>
 	
 	/>
 <%=janiculum.content()==null?"":janiculum.content()%>
