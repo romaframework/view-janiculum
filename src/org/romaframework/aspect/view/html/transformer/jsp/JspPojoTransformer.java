@@ -23,6 +23,7 @@ import java.util.HashMap;
 import org.romaframework.aspect.view.html.area.HtmlViewRenderable;
 import org.romaframework.aspect.view.html.component.HtmlViewConfigurableEntityForm;
 import org.romaframework.aspect.view.html.component.HtmlViewGenericComponent;
+import org.romaframework.aspect.view.html.transformer.helper.JaniculumWrapper;
 import org.romaframework.aspect.view.html.transformer.plain.HtmlViewPojoTransformer;
 import org.romaframework.core.Roma;
 
@@ -39,7 +40,7 @@ public class JspPojoTransformer extends HtmlViewPojoTransformer {
 		ByteArrayOutputStream content = new ByteArrayOutputStream();
 		form.getRootArea().render(content);
 		ctx.put("content", content.toString());
-		// ctx.put("janiculum", new JaniculumWrapper(this, form, ""));
+		ctx.put("janiculum", new JaniculumWrapper(this, form, ""));
 		mgr.execute("pojo" + JspTransformer.FILE_SUFFIX, ctx, out);
 
 	}
