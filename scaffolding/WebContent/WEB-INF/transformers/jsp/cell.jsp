@@ -6,7 +6,6 @@
 <%@page import="org.romaframework.aspect.view.html.transformer.jsp.directive.JspTransformerHelper"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@taglib uri="http://java.sun.com/jstl/core" prefix="c" %> 
 
 <%
 Map<String, Object> ctx = (Map<String, Object>) request.getAttribute(RequestConstants.CURRENT_CONTEXT_IN_TRANSFORMER);
@@ -20,7 +19,7 @@ JspTransformerHelper.addCss(janiculum.id(null), "text-align", janiculum.areaHori
 <div id="<%=janiculum.id(null) %>" class="<%=janiculum.cssClass(null)%>" style="<%=janiculum.inlineStyle(null)%>">
 	<%
 	for(Object child:janiculum.getChildren()){
-		out.print(JspTransformerHelper.delegate((HtmlViewRenderable)child, null));
+		JspTransformerHelper.delegate((HtmlViewRenderable)child, null,pageContext.getOut());
 	}
 	%>
 </div>

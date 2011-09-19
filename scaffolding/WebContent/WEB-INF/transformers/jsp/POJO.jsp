@@ -2,5 +2,5 @@
 	Map<String, Object> ctx = (Map<String, Object>) request.getAttribute(RequestConstants.CURRENT_CONTEXT_IN_TRANSFORMER);
 	JaniculumWrapper janiculum = (JaniculumWrapper) ctx.get(JspTransformer.JANICULUM);
 %><div class="<%=janiculum.cssClass(null)%>" id="<%=janiculum.id(null)%>"><%
-	((HtmlViewConfigurableEntityForm) janiculum.getComponent()).getRootArea().render(response.getWriter());
+	((HtmlViewConfigurableEntityForm) janiculum.getComponent()).getRootArea().render(pageContext.getOut());
 %></div>

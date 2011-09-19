@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@taglib uri="http://java.sun.com/jstl/core" prefix="c" %> 
 <%@page import="java.util.Set"%>
 
 <%@page import="org.romaframework.aspect.view.html.transformer.jsp.JspTransformer"%>

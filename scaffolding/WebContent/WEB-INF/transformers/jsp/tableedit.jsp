@@ -78,7 +78,7 @@
                         %>
                         
                             <td class="<%=janiculum.cssSpecificClass(column,null)%>">
-                            <%=JspTransformerHelper.delegate(column, null) %>
+                            <% JspTransformerHelper.delegate(column, null,pageContext.getOut()); %>
                             </td>
                         <%} %>
                     </tr>

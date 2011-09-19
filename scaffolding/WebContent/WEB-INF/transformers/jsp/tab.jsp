@@ -59,7 +59,7 @@
 		}
 	 %>
 
-		<div class="<%=currentClass%>" ><%=JspTransformerHelper.delegate(child, null) %></div>
+		<div class="<%=currentClass%>" ><% JspTransformerHelper.delegate(child, null,pageContext.getOut()); %></div>
 	<%
 		childIndex++;
 	} %>

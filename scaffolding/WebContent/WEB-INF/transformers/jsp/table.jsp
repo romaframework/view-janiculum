@@ -17,8 +17,6 @@
 	String codeToPrint = (String) ctx.get(JspTransformer.CODE_TO_PRINT);
 
 	if ("html".equals(codeToPrint)){
-		Collection<String> headers = janiculum.headers();
-	
 	%>
 
     <div id="<%=janiculum.id(null)%>" class="<%=janiculum.cssClass(null)%>" style="<%=janiculum.inlineStyle(null)%>">
@@ -40,9 +38,7 @@
                         <%}
                        }
                     for(String header: janiculum.headers()){
-                        %>
-                    
-                        <th><%=header%></th>
+                        %><th><%=header%></th>
                     <%} %>
                 </tr>
             </thead>
