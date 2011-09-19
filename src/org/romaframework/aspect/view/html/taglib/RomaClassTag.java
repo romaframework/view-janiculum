@@ -62,10 +62,10 @@ public class RomaClassTag extends RomaAbstractTab {
 					// pageContext.getOut().flush();
 					pageContext.getOut().print(TransformerHelper.getInstance().getHtmlId((HtmlViewRenderable) currentForm, null));
 				} else {
-					pageContext.getOut().flush();
 					final TransformerManager transformerManager = Roma.component(TransformerManager.class);
 					final Transformer transformer = transformerManager.getComponent(HtmlViewPojoTransformer.NAME);
 					transformer.transform((HtmlViewRenderable) currentForm, pageContext.getOut());
+					pageContext.getOut().flush();
 				}
 			} catch (final Exception e) {
 				e.printStackTrace();// TODO handle exception
