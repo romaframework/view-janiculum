@@ -64,16 +64,9 @@
 		<property name="components">
 			<!-- not jsp transformers -->
 			<list>
-
-				<bean class="org.romaframework.aspect.view.html.transformer.freemarker.HtmlViewFreeMarkerObjectEmbeddedTransformer"></bean>
-				<bean class="org.romaframework.aspect.view.html.transformer.plain.HtmlViewPopupTransformer"></bean>
-				<bean class="org.romaframework.aspect.view.html.transformer.jsp.JspPojoTransformer"></bean>				
-				<!-- EMBEDDED -->
-				<bean class="org.romaframework.aspect.view.html.transformer.plain.HtmlViewScreenTransformer"></bean>
-
 			</list>
 		</property>
 	</bean>
 
-	<bean id="TemplateManager" class="org.romaframework.aspect.view.html.transformer.jsp.JspTemplateManager"></bean>
+	<bean id="ViewTemplateManager" class="org.romaframework.aspect.view.html.transformer.jsp.JspTemplateManager"></bean>
 </beans>

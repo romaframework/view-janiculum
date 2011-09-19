@@ -1,8 +1,8 @@
 package org.romaframework.aspect.view.html.screen;
 
 import java.io.IOException;
-import java.io.OutputStream;
 import java.io.Serializable;
+import java.io.Writer;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Stack;
@@ -266,20 +266,21 @@ public class HtmlViewBasicScreen implements HtmlViewScreen, Serializable {
 		this.rootArea = rootArea;
 	}
 
-	public void render(OutputStream out) throws IOException {
-		getTransformer().transform(this, out);
+	public void render(Writer writer) throws IOException {
+		getTransformer().transform(this, writer);
 	}
 
-	public void render(final ServletRequest request, final boolean css, final boolean js, OutputStream out) {
+	public void render(final ServletRequest request, final boolean css, final boolean js, Writer writer) {
 		String jspUrl = RequestConstants.JSP_PATH + "screen/" + getName() + ".jsp";
 		try {
 			// TODO test jsp existence, instead of catching exception...
-			HtmlViewAspectHelper.getHtmlFromJSP(request, jspUrl, out);
+			HtmlViewAspectHelper.getHtmlFromJSP(request, jspUrl, writer);
 
 		} catch (final Exception e) {
+			
 			log.error("[HtmlViewBasicScreen.render] Error on loading jsp " + jspUrl, e);
 			try {
-				render(out);
+				render(writer);
 			} catch (final Exception e2) {
 				log.error("could not render screen: " + e);
 			}
@@ -340,7 +341,7 @@ public class HtmlViewBasicScreen implements HtmlViewScreen, Serializable {
 		rootArea.resetValidation();
 	}
 
-	public void renderPart(final String part, OutputStream out) {
+	public void renderPart(final String part, Writer writer) {
 		// TODO It should render only a sub screen area ???
 	}
 

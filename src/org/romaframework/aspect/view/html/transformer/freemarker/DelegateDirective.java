@@ -1,10 +1,6 @@
 package org.romaframework.aspect.view.html.transformer.freemarker;
 
-import java.io.BufferedOutputStream;
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
 import java.io.Writer;
 import java.util.Map;
 
@@ -34,13 +30,11 @@ public class DelegateDirective implements TemplateDirectiveModel {
 		HtmlViewRenderable component = (HtmlViewRenderable) model.getAdaptedObject(HtmlViewRenderable.class);
 		Writer writer = env.getOut();
 
-		OutputStream out = new ByteArrayOutputStream();
 		if(part==null || part.toString().length()==0){
-			component.render(out);
+			component.render(writer);
 		}else{
-			component.renderPart(part.toString(), out);
+			component.renderPart(part.toString(), writer);
 		}
-		writer.append(out.toString());
 	}
 
 	public static DelegateDirective getInstance() {

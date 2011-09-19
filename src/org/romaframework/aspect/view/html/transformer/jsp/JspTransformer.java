@@ -16,7 +16,7 @@
 package org.romaframework.aspect.view.html.transformer.jsp;
 
 import java.io.IOException;
-import java.io.OutputStream;
+import java.io.Writer;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -26,7 +26,7 @@ import org.romaframework.aspect.view.html.area.HtmlViewBinder;
 import org.romaframework.aspect.view.html.area.HtmlViewRenderable;
 import org.romaframework.aspect.view.html.area.ViewHtmlBinderFactory;
 import org.romaframework.aspect.view.html.component.HtmlViewGenericComponent;
-import org.romaframework.aspect.view.html.template.TemplateManager;
+import org.romaframework.aspect.view.html.template.ViewTemplateManager;
 import org.romaframework.aspect.view.html.transformer.Transformer;
 import org.romaframework.aspect.view.html.transformer.helper.JaniculumWrapper;
 import org.romaframework.aspect.view.html.transformer.helper.TransformerHelper;
@@ -54,15 +54,15 @@ public class JspTransformer implements Transformer {
 
 	}
 
-	public void transform(HtmlViewRenderable component, OutputStream out) throws IOException {
-		transform(component, null, out);
+	public void transform(HtmlViewRenderable component, Writer writer) throws IOException {
+		transform(component, null, writer);
 	}
 
-	public void transformPart(HtmlViewRenderable component, String part, OutputStream out) throws IOException {
-		transform(component, part, out);
+	public void transformPart(HtmlViewRenderable component, String part, Writer writer) throws IOException {
+		transform(component, part, writer);
 	}
 
-	private void transform(HtmlViewRenderable component, String part, OutputStream out) throws IOException {
+	private void transform(HtmlViewRenderable component, String part, Writer writer) throws IOException {
 		String styles = "";
 		if (component instanceof HtmlViewGenericComponent) {
 			if (((HtmlViewGenericComponent) component).getSchemaField() != null) {
@@ -79,19 +79,19 @@ public class JspTransformer implements Transformer {
 		// context.put(CSS, CssFreemarkerDirective.getInstance());
 		// context.put("delegate", DelegateDirective.getInstance());
 		// context.put("raw", RawDirective.getInstance());
-		transformHtml(context, out);
+		transformHtml(context, writer);
 
 	}
 
-	private void transformHtml(Map<String, Object> context, OutputStream out) throws IOException {
+	private void transformHtml(Map<String, Object> context, Writer writer) throws IOException {
 		String string = HTML;
-		printCode(context, string, out);
+		printCode(context, string, writer);
 	}
 
-	private void printCode(Map<String, Object> context, String codeType, OutputStream out) throws IOException {
+	private void printCode(Map<String, Object> context, String codeType, Writer writer) throws IOException {
 		context.put(CODE_TO_PRINT, codeType);
-		TemplateManager mgr = Roma.component(TemplateManager.class);
-		mgr.execute(getTemplateName(), context, out);
+		ViewTemplateManager mgr = Roma.component(ViewTemplateManager.class);
+		mgr.execute(getTemplateName(), context, writer);
 	}
 
 	/**

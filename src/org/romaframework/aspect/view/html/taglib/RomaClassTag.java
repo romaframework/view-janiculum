@@ -15,9 +15,6 @@
  */
 package org.romaframework.aspect.view.html.taglib;
 
-import java.io.ByteArrayOutputStream;
-import java.io.OutputStream;
-
 import org.romaframework.aspect.view.html.area.HtmlViewRenderable;
 import org.romaframework.aspect.view.html.constants.RequestConstants;
 import org.romaframework.aspect.view.html.constants.TransformerConstants;
@@ -68,10 +65,7 @@ public class RomaClassTag extends RomaAbstractTab {
 					pageContext.getOut().flush();
 					final TransformerManager transformerManager = Roma.component(TransformerManager.class);
 					final Transformer transformer = transformerManager.getComponent(HtmlViewPojoTransformer.NAME);
-
-					OutputStream out = new ByteArrayOutputStream();
-					transformer.transform((HtmlViewRenderable) currentForm, out);
-					pageContext.getOut().print(out.toString());
+					transformer.transform((HtmlViewRenderable) currentForm, pageContext.getOut());
 				}
 			} catch (final Exception e) {
 				e.printStackTrace();// TODO handle exception

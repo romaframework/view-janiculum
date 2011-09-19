@@ -2,14 +2,13 @@ package org.romaframework.aspect.view.html.template.freemarker;
 
 import java.io.File;
 import java.io.IOException;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
+import java.io.Writer;
 import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.romaframework.aspect.view.html.template.TemplateManager;
+import org.romaframework.aspect.view.html.template.ViewTemplateManager;
 import org.romaframework.core.Utility;
 import org.romaframework.core.config.RomaApplicationContext;
 
@@ -17,7 +16,7 @@ import freemarker.template.Configuration;
 import freemarker.template.DefaultObjectWrapper;
 import freemarker.template.Template;
 
-public class FreeMarkerTemplateManager implements TemplateManager{
+public class FreeMarkerTemplateManager implements ViewTemplateManager{
 
 	public static String						templatesPath	= "WEB-INF/freemarker/transformers/";
 	protected Log										log						= LogFactory.getLog(getClass());
@@ -26,7 +25,7 @@ public class FreeMarkerTemplateManager implements TemplateManager{
 
 	protected Map<String, Template>	cache					= new HashMap<String, Template>();
 
-	public void execute(String templateName, Map<String, Object> ctx, OutputStream out) {
+	public void execute(String templateName, Map<String, Object> ctx, Writer writer) {
 		try {
 			Configuration conf = getConfiguration();
 			Template template = null;
@@ -40,7 +39,6 @@ public class FreeMarkerTemplateManager implements TemplateManager{
 				}
 			}
 			Map<String, Object> root = ctx;
-			OutputStreamWriter writer = new OutputStreamWriter(out);
 			template.process(root, writer);
 		} catch (Exception e) {
 			log.warn("could not acquire FreeMarker configuration, maybe you are on an expired session", e);

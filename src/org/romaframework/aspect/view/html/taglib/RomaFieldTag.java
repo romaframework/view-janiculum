@@ -15,9 +15,6 @@
  */
 package org.romaframework.aspect.view.html.taglib;
 
-import java.io.ByteArrayOutputStream;
-import java.io.OutputStream;
-
 import org.romaframework.aspect.view.html.component.HtmlViewAbstractComponent;
 import org.romaframework.aspect.view.html.component.HtmlViewConfigurableEntityForm;
 import org.romaframework.aspect.view.html.constants.RequestConstants;
@@ -74,15 +71,12 @@ public class RomaFieldTag extends RomaAbstractTab {
 					} else if (part != null) {
 						// pageContext.getOut().println(result.renderPart(part));
 //						pageContext.getOut().flush();
-						OutputStream out = new ByteArrayOutputStream();
-						result.renderPart(part, out);
-						pageContext.getOut().print(out.toString());
+						
+						result.renderPart(part, pageContext.getOut());
 					} else {
 						// pageContext.getOut().println(result.render());
 //						pageContext.getOut().flush();
-						OutputStream out = new ByteArrayOutputStream();
-						result.renderPart(part, out);
-						pageContext.getOut().print(out.toString());
+						result.renderPart(part, pageContext.getOut());
 					}
 				}
 			} catch (final Exception e) {

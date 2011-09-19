@@ -1,7 +1,7 @@
 package org.romaframework.aspect.view.html.transformer.plain;
 
 import java.io.IOException;
-import java.io.OutputStream;
+import java.io.Writer;
 
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
@@ -27,9 +27,9 @@ public class HtmlViewObjectEmbeddedTransformer extends AbstractHtmlViewTransform
 		return NullBinder.getInstance();
 	}
 
-	public void transformPart(final HtmlViewRenderable component, final String part, OutputStream out) throws IOException {
+	public void transformPart(final HtmlViewRenderable component, final String part, Writer writer) throws IOException {
 		if (component instanceof HtmlViewInvisibleContentComponent) {
-			out.write(((HtmlViewInvisibleContentComponent) component).getContent().toString().getBytes());
+			writer.write(((HtmlViewInvisibleContentComponent) component).getContent().toString());
 			return;
 		}
 		if (component instanceof HtmlViewConfigurableEntityForm) {
@@ -40,7 +40,7 @@ public class HtmlViewObjectEmbeddedTransformer extends AbstractHtmlViewTransform
 			final ServletRequest request = HtmlViewAspectHelper.getServletRequest();
 			// final HttpServletResponse response = HtmlViewAspectHelper.getHttpResponse();
 			try {
-				content(contentComponent, request, out);
+				content(contentComponent, request, writer);
 			} catch (final Exception e) {
 				LOG.error("error rendering embedded object: " + e, e);
 			}
@@ -49,17 +49,17 @@ public class HtmlViewObjectEmbeddedTransformer extends AbstractHtmlViewTransform
 		}
 	}
 
-	protected void content(final HtmlViewConfigurableEntityForm contentComponent, final ServletRequest request, OutputStream out)
+	protected void content(final HtmlViewConfigurableEntityForm contentComponent, final ServletRequest request, Writer writer)
 			throws ServletException, IOException {
 		String htmlClass = helper.getHtmlClass(this, null, contentComponent);
 		String htmlId = helper.getHtmlId(contentComponent, null);
-		out.write("<div class=\"".getBytes());
-		out.write(htmlClass .getBytes());
-		out.write("\" id=\"" .getBytes());
-		out.write(htmlId .getBytes());
-		out.write("\">\n".getBytes());
-		HtmlViewAspectHelper.renderByJsp(contentComponent, request, out);
-		out.write("</div>\n".getBytes());
+		writer.write("<div class=\"");
+		writer.write(htmlClass);
+		writer.write("\" id=\"" );
+		writer.write(htmlId);
+		writer.write("\">\n");
+		HtmlViewAspectHelper.renderByJsp(contentComponent, request, writer);
+		writer.write("</div>\n");
 	}
 
 	@Override

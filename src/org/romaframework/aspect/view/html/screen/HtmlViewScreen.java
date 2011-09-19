@@ -1,6 +1,6 @@
 package org.romaframework.aspect.view.html.screen;
 
-import java.io.OutputStream;
+import java.io.Writer;
 
 import javax.servlet.ServletRequest;
 
@@ -31,7 +31,7 @@ public interface HtmlViewScreen extends Screen, HtmlViewRenderable {
 
 	public boolean isFirstToOpenPopup(Object content);
 
-	public void render(ServletRequest request, boolean css, boolean js, OutputStream out);
+	public void render(ServletRequest request, boolean css, boolean js, Writer writer);
 
 	public AreaComponent getDefaultArea();
 

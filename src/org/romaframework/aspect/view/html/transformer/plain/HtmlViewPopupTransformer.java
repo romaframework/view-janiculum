@@ -1,7 +1,7 @@
 package org.romaframework.aspect.view.html.transformer.plain;
 
 import java.io.IOException;
-import java.io.OutputStream;
+import java.io.Writer;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -52,50 +52,50 @@ public class HtmlViewPopupTransformer extends AbstractHtmlViewTransformer implem
 		return NullBinder.getInstance();
 	}
 
-	public void transformPart(final HtmlViewRenderable component, final String part, OutputStream out) throws IOException {
+	public void transformPart(final HtmlViewRenderable component, final String part, Writer writer) throws IOException {
 
 		
 
-		out.write(("<table cellpadding=\"0\" cellspacing=\"0\" class=\"jqDnr " + helper.getHtmlClass(this, null, null) + "\" id=\""
-				+ helper.getHtmlId(component, null) + "\">\n").getBytes());
-		out.write(("<tr class=\"popup_row_1\">\n").getBytes());
-		out.write(("<td class=\"popup_col_1\"></td>\n").getBytes());
-		out.write(("<td class=\"popup_col_2\"></td>\n").getBytes());
-		out.write(("<td class=\"popup_col_3\"></td>\n").getBytes());
-		out.write(("</tr>\n").getBytes());
-		out.write(("<tr class=\"popup_row_2\">\n").getBytes());
-		out.write(("<td class=\"popup_col_1 popup_left_border\"></td>\n").getBytes());
-		out.write(("<td class=\"popup_col_2\">\n").getBytes());
-		out.write(("<div class=\"header jqHandle\">\n").getBytes());
+		writer.write(("<table cellpadding=\"0\" cellspacing=\"0\" class=\"jqDnr " + helper.getHtmlClass(this, null, null) + "\" id=\""
+				+ helper.getHtmlId(component, null) + "\">\n"));
+		writer.write("<tr class=\"popup_row_1\">\n");
+		writer.write("<td class=\"popup_col_1\"></td>\n");
+		writer.write("<td class=\"popup_col_2\"></td>\n");
+		writer.write("<td class=\"popup_col_3\"></td>\n");
+		writer.write("</tr>\n");
+		writer.write("<tr class=\"popup_row_2\">\n");
+		writer.write("<td class=\"popup_col_1 popup_left_border\"></td>\n");
+		writer.write("<td class=\"popup_col_2\">\n");
+		writer.write("<div class=\"header jqHandle\">\n");
 
 		// This is the where the popup is binded
 
-		out.write(("<input class=\"" + helper.getHtmlClass(this, "close", null) + "\" id=\"" + helper.getHtmlId(component, "close")
+		writer.write(("<input class=\"" + helper.getHtmlClass(this, "close", null) + "\" id=\"" + helper.getHtmlId(component, "close")
 				+ "\" type=\"button\" value=\"\" name=\"(PojoEvent)_" + component.getId() + SEPARATOR + "close" + SEPARATOR
 				+ ((HtmlViewScreenArea) component).getName() + "\" onclick=\"romaEvent('" + component.getId() + "', '"
-				+ CLOSE_POPUP_EVENT_NAME + "')\"/>\n").getBytes());
+				+ CLOSE_POPUP_EVENT_NAME + "')\"/>\n"));
 
 		String simpleName = getPopupLabel(component);
 
-		out.write(("<div class=\"jqDrag\">" + simpleName + "</div>").getBytes());
-		out.write(("</div>").getBytes());
+		writer.write("<div class=\"jqDrag\">" + simpleName + "</div>");
+		writer.write("</div>");
 
 		final HtmlViewScreenArea area = (HtmlViewScreenArea) component;
 		final HtmlViewContentForm form = area.getForm();
 		try {
-			HtmlViewAspectHelper.renderByJsp(form, HtmlViewAspectHelper.getServletRequest(), out);
+			HtmlViewAspectHelper.renderByJsp(form, HtmlViewAspectHelper.getServletRequest(), writer);
 		} catch (Exception e) {
 			e.printStackTrace();// TODO handle exception!!!
 		}
-		out.write(("</td>\n").getBytes());
-		out.write(("<td class=\"popup_col_3 popup_right_border\"></td>\n").getBytes());
-		out.write(("</tr>\n").getBytes());
-		out.write(("<tr class=\"popup_row_3\">\n").getBytes());
-		out.write(("<td class=\"popup_col_1\"></td>\n").getBytes());
-		out.write(("<td class=\"popup_col_2\"></td>\n").getBytes());
-		out.write(("<td class=\"popup_col_3 jqResize\"></td>\n").getBytes());
-		out.write(("</tr>\n").getBytes());
-		out.write(("</table>\n").getBytes());
+		writer.write("</td>\n");
+		writer.write("<td class=\"popup_col_3 popup_right_border\"></td>\n");
+		writer.write("</tr>\n");
+		writer.write("<tr class=\"popup_row_3\">\n");
+		writer.write("<td class=\"popup_col_1\"></td>\n");
+		writer.write("<td class=\"popup_col_2\"></td>\n");
+		writer.write("<td class=\"popup_col_3 jqResize\"></td>\n");
+		writer.write("</tr>\n");
+		writer.write("</table>\n");
 
 		addCss(area);
 		//addJavascript(component);

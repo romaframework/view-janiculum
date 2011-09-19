@@ -1,7 +1,7 @@
 package org.romaframework.aspect.view.html.transformer.plain;
 
 import java.io.IOException;
-import java.io.OutputStream;
+import java.io.Writer;
 
 import org.romaframework.aspect.view.html.area.HtmlViewBinder;
 import org.romaframework.aspect.view.html.area.HtmlViewRenderable;
@@ -17,23 +17,22 @@ public class HtmlViewScreenTransformer extends AbstractHtmlViewTransformer imple
 	}
 
 	@Override
-	public void transform(final HtmlViewRenderable component, OutputStream out) throws IOException {
+	public void transform(final HtmlViewRenderable component, Writer writer) throws IOException {
 		final HtmlViewScreen screen = (HtmlViewScreen) component;
 
-		out.write(("<?xml version=\"1.0\"?>").getBytes());
-		out.write(("<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Strict//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd\">")
-				.getBytes());
-		out.write(("<head>").getBytes());
-		out.write(("<title></title>").getBytes());
-		out.write(("</head>").getBytes());
-		out.write(("<body>").getBytes());
-		screen.getRootArea().render(out);
-		out.write(("</body>").getBytes());
+		writer.write("<?xml version=\"1.0\"?>");
+		writer.write("<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Strict//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd\">");
+		writer.write("<head>");
+		writer.write("<title></title>");
+		writer.write("</head>");
+		writer.write("<body>");
+		screen.getRootArea().render(writer);
+		writer.write("</body>");
 
 	}
 
-	public void transformPart(final HtmlViewRenderable component, final String part, OutputStream out) throws IOException {
-		transform(component, out);
+	public void transformPart(final HtmlViewRenderable component, final String part, Writer writer) throws IOException {
+		transform(component, writer);
 	}
 
 	@Override

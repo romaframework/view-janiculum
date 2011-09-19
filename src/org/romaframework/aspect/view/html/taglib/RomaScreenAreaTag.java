@@ -15,9 +15,6 @@
  */
 package org.romaframework.aspect.view.html.taglib;
 
-import java.io.ByteArrayOutputStream;
-import java.io.OutputStream;
-
 import org.romaframework.aspect.view.ViewAspect;
 import org.romaframework.aspect.view.html.area.HtmlViewScreenArea;
 import org.romaframework.aspect.view.html.screen.HtmlViewScreen;
@@ -66,9 +63,7 @@ public class RomaScreenAreaTag extends RomaAbstractTab {
 
 	private void renderArea(final HtmlViewScreenArea area) {
 		try {
-			OutputStream out = new ByteArrayOutputStream();
-			area.render(out);
-			pageContext.getOut().print(out.toString());
+			area.render(pageContext.getOut());
 		} catch (final Exception e) {
 			log.error("could not process area: " + e, e);
 		}

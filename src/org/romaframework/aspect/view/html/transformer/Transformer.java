@@ -16,7 +16,7 @@
 package org.romaframework.aspect.view.html.transformer;
 
 import java.io.IOException;
-import java.io.OutputStream;
+import java.io.Writer;
 
 import org.romaframework.aspect.view.html.area.HtmlViewBinder;
 import org.romaframework.aspect.view.html.area.HtmlViewRenderable;
@@ -32,9 +32,9 @@ public interface Transformer {
 	public final String LIST = "list";
 	public final String GRID = "grid";
 	
-	void transform(HtmlViewRenderable iComponent, OutputStream out) throws IOException;
+	void transform(HtmlViewRenderable iComponent, Writer writer) throws IOException;
 
-	void transformPart(HtmlViewRenderable iComponent, String part, OutputStream out) throws IOException;
+	void transformPart(HtmlViewRenderable iComponent, String part, Writer writer) throws IOException;
 
 	HtmlViewBinder getBinder(HtmlViewRenderable renderable);
 	

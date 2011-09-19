@@ -1,9 +1,8 @@
 package org.romaframework.aspect.view.html.http;
 
 import java.io.IOException;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
+import java.io.Writer;
 import java.util.Locale;
 
 import javax.servlet.ServletOutputStream;
@@ -11,12 +10,12 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 
 public class MockHttpServletResponse implements HttpServletResponse {
-//	private StringWriter	stringWriter;
-	private PrintWriter		writer;
+	// private StringWriter stringWriter;
+	private PrintWriter	writer;
 
-	public MockHttpServletResponse(OutputStream out) {
-//		stringWriter = new StringWriter(new OutputStreamWriter(out));
-		writer = new PrintWriter(new OutputStreamWriter(out));
+	public MockHttpServletResponse(Writer writer) {
+		// stringWriter = new StringWriter(new OutputStreamWriter(out));
+		this.writer = new PrintWriter(writer);
 	}
 
 	public void addCookie(Cookie arg0) {
@@ -177,13 +176,13 @@ public class MockHttpServletResponse implements HttpServletResponse {
 		// TODO Auto-generated method stub
 
 	}
-//
-//	public StringWriter getStringWriter() {
-//		return stringWriter;
-//	}
-//
-//	public void setStringWriter(StringWriter stringWriter) {
-//		this.stringWriter = stringWriter;
-//	}
+	//
+	// public StringWriter getStringWriter() {
+	// return stringWriter;
+	// }
+	//
+	// public void setStringWriter(StringWriter stringWriter) {
+	// this.stringWriter = stringWriter;
+	// }
 
 }

@@ -1,8 +1,6 @@
 package org.romaframework.aspect.view.html.transformer.jsp.directive;
 
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.io.OutputStream;
 import java.io.Writer;
 import java.util.Map;
 
@@ -24,21 +22,18 @@ public class DelegateDirective implements TemplateDirectiveModel {
 	private DelegateDirective() {
 	}
 
-	public void execute(Environment env, Map params, TemplateModel[] loopVars, TemplateDirectiveBody body) throws TemplateException,
-			IOException {
+	public void execute(Environment env, Map params, TemplateModel[] loopVars, TemplateDirectiveBody body) throws TemplateException, IOException {
 
 		StringModel model = (StringModel) params.get(PARAM_NAME_COMPONENT);
 		TemplateModel part = (TemplateModel) params.get("part");
 		HtmlViewRenderable component = (HtmlViewRenderable) model.getAdaptedObject(HtmlViewRenderable.class);
 		Writer writer = env.getOut();
 
-		OutputStream out = new ByteArrayOutputStream();
-		if(part==null || part.toString().length()==0){
-			component.render(out);
-		}else{
-			component.renderPart(part.toString(), out);
+		if (part == null || part.toString().length() == 0) {
+			component.render(writer);
+		} else {
+			component.renderPart(part.toString(), writer);
 		}
-		writer.append(out.toString());
 	}
 
 	public static DelegateDirective getInstance() {

@@ -1,7 +1,7 @@
 package org.romaframework.aspect.view.html.transformer.plain;
 
 import java.io.IOException;
-import java.io.OutputStream;
+import java.io.Writer;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -23,19 +23,19 @@ public class HtmlViewPojoTransformer extends AbstractHtmlViewTransformer impleme
 		return NullBinder.getInstance();
 	}
 
-	public void transformPart(final HtmlViewRenderable component, final String part, OutputStream out) throws IOException {
+	public void transformPart(final HtmlViewRenderable component, final String part, Writer writer) throws IOException {
 		final HtmlViewConfigurableEntityForm form = (HtmlViewConfigurableEntityForm) component;
 		String htmlClass = helper.getHtmlClass(this, null, (HtmlViewGenericComponent) component);
 		String htmlId = helper.getHtmlId(form, null);
 
-		out.write("<div class=\"".getBytes());
-		out.write(htmlClass.getBytes());
-		out.write("\" id=\"".getBytes());
-		out.write(htmlId.getBytes());
-		out.write("\">\n".getBytes());
+		writer.write("<div class=\"");
+		writer.write(htmlClass);
+		writer.write("\" id=\"");
+		writer.write(htmlId);
+		writer.write("\">\n");
 
-		form.getRootArea().render(out);
-		out.write("</div>\n".getBytes());
+		form.getRootArea().render(writer);
+		writer.write("</div>\n");
 	}
 
 	@Override

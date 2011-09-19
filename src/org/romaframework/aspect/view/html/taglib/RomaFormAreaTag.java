@@ -15,9 +15,6 @@
  */
 package org.romaframework.aspect.view.html.taglib;
 
-import java.io.ByteArrayOutputStream;
-import java.io.OutputStream;
-
 import org.romaframework.aspect.view.area.AreaComponent;
 import org.romaframework.aspect.view.html.area.HtmlViewFormArea;
 import org.romaframework.aspect.view.html.component.HtmlViewConfigurableEntityForm;
@@ -73,9 +70,7 @@ public class RomaFormAreaTag extends RomaAbstractTab {
 
 	private void renderArea(final HtmlViewFormArea area) {
 		try {
-			OutputStream out = new ByteArrayOutputStream();
-			area.render(out);
-			pageContext.getOut().print(out.toString());
+			area.render(pageContext.getOut());
 		} catch (final Exception e) {
 			log.error("could not process area: " + e, e);
 		}

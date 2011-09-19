@@ -16,7 +16,7 @@
 package org.romaframework.aspect.view.html.transformer.jsp;
 
 import java.io.IOException;
-import java.io.OutputStream;
+import java.io.Writer;
 import java.util.Map;
 
 import javax.servlet.ServletException;
@@ -26,22 +26,22 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.romaframework.aspect.view.html.HtmlViewAspectHelper;
 import org.romaframework.aspect.view.html.constants.RequestConstants;
-import org.romaframework.aspect.view.html.template.TemplateManager;
+import org.romaframework.aspect.view.html.template.ViewTemplateManager;
 
-public class JspTemplateManager implements TemplateManager{
+public class JspTemplateManager implements ViewTemplateManager{
 
 	private String		templatesPath		= "WEB-INF/transformers/jsp/";
 	protected Log			log							= LogFactory.getLog(getClass());
 
 	protected boolean	cacheTemplates	= true;
 
-	public void execute(String templateName, Map<String, Object> ctx, OutputStream out) {
+	public void execute(String templateName, Map<String, Object> ctx, Writer writer) {
 		ServletRequest request = HtmlViewAspectHelper.getServletRequest();
 		final String classJsp = getTemplatesPath() + templateName;
 		final Object previousContext = request.getAttribute(RequestConstants.CURRENT_CONTEXT_IN_TRANSFORMER);
 		request.setAttribute(RequestConstants.CURRENT_CONTEXT_IN_TRANSFORMER, ctx);
 		try {
-			HtmlViewAspectHelper.getHtmlFromJSP(request, classJsp, out);
+			HtmlViewAspectHelper.getHtmlFromJSP(request, classJsp, writer);
 		} catch (ServletException e) {
 			log.error("error in jsp transformer", e);
 		} catch (IOException e) {
@@ -58,12 +58,10 @@ public class JspTemplateManager implements TemplateManager{
 		this.templatesPath = templatesPath;
 	}
 
-	@Override
 	public boolean isCacheTemplates() {
 		return false;
 	}
 
-	@Override
 	public void setCacheTemplates(boolean cacheTemplates) {
 	}
 

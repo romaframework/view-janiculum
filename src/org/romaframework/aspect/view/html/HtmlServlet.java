@@ -18,6 +18,7 @@ package org.romaframework.aspect.view.html;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.io.OutputStreamWriter;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -133,7 +134,7 @@ public class HtmlServlet extends RomaServlet {
 
 		synchronized (screen) {
 			OutputStream out = new ByteArrayOutputStream();
-			screen.render(request, true, true, out);
+			screen.render(request, true, true, new OutputStreamWriter(out));
 			String buff = out.toString();
 			buff = flushBuffers(buff);
 			response.getWriter().append(buff);

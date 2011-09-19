@@ -1,7 +1,7 @@
 package org.romaframework.aspect.view.html.component;
 
 import java.io.IOException;
-import java.io.OutputStream;
+import java.io.Writer;
 import java.util.Collection;
 
 import org.apache.commons.logging.Log;
@@ -88,9 +88,9 @@ public abstract class HtmlViewAbstractComponent implements HtmlViewGenericCompon
 	 * 
 	 * @see org.romaframework.aspect.view.html.area.HtmlViewRenderable#render()
 	 */
-	public void render(OutputStream out) throws IOException {
+	public void render(Writer writer) throws IOException {
 		final Transformer transformer = getTransformer();
-		transformer.transform(this, out);
+		transformer.transform(this, writer);
 	}
 
 	/*
@@ -98,9 +98,9 @@ public abstract class HtmlViewAbstractComponent implements HtmlViewGenericCompon
 	 * 
 	 * @see org.romaframework.aspect.view.html.area.HtmlViewRenderable#renderPart(java.lang.String)
 	 */
-	public void renderPart(final String part, OutputStream out) throws IOException {
+	public void renderPart(final String part, Writer writer) throws IOException {
 		final Transformer transformer = getTransformer();
-		transformer.transformPart(this, part, out);
+		transformer.transformPart(this, part, writer);
 	}
 
 	/*

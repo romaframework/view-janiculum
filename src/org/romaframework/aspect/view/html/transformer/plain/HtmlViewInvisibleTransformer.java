@@ -1,7 +1,7 @@
 package org.romaframework.aspect.view.html.transformer.plain;
 
 import java.io.IOException;
-import java.io.OutputStream;
+import java.io.Writer;
 
 import org.romaframework.aspect.view.html.area.HtmlViewBinder;
 import org.romaframework.aspect.view.html.area.HtmlViewRenderable;
@@ -24,10 +24,10 @@ public class HtmlViewInvisibleTransformer extends AbstractHtmlViewTransformer im
 		return "";
 	}
 
-	public void transformPart(HtmlViewRenderable component, String part, OutputStream out) throws IOException {
-		out.write("<div id=\"".getBytes());
-		out.write(htmlId.getBytes());
-		out.write("\" class=\"invisible_field\" ></div>".getBytes());
+	public void transformPart(HtmlViewRenderable component, String part, Writer writer) throws IOException {
+		writer.write("<div id=\"");
+		writer.write(htmlId);
+		writer.write("\" class=\"invisible_field\" ></div>");
 	}
 
 }

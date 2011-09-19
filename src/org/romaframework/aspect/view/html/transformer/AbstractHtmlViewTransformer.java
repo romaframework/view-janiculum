@@ -1,7 +1,7 @@
 package org.romaframework.aspect.view.html.transformer;
 
 import java.io.IOException;
-import java.io.OutputStream;
+import java.io.Writer;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -63,8 +63,8 @@ public abstract class AbstractHtmlViewTransformer implements Transformer {
 	 * 
 	 * @see org.romaframework.aspect.view.html.transformer.Transformer#transform(org.romaframework.aspect.view.form.ViewComponent)
 	 */
-	public void transform(final HtmlViewRenderable component, OutputStream out) throws IOException {
-		transformPart(component, TransformerConstants.PART_ALL, out);
+	public void transform(final HtmlViewRenderable component, Writer writer) throws IOException {
+		transformPart(component, TransformerConstants.PART_ALL, writer);
 	}
 
 	protected boolean disabled(final HtmlViewGenericComponent contentComponent) {

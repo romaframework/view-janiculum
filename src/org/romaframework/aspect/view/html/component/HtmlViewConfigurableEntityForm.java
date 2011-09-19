@@ -1,7 +1,7 @@
 package org.romaframework.aspect.view.html.component;
 
 import java.io.IOException;
-import java.io.OutputStream;
+import java.io.Writer;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
@@ -275,9 +275,9 @@ public class HtmlViewConfigurableEntityForm extends HtmlViewAbstractContentCompo
 	}
 
 	@Override
-	public void render(OutputStream out) throws IOException {
+	public void render(Writer writer) throws IOException {
 		try {
-			HtmlViewAspectHelper.renderByJsp(this, out);
+			HtmlViewAspectHelper.renderByJsp(this, writer);
 		} catch (final ServletException e) {
 			// TODO handle exception!!!
 			e.printStackTrace();

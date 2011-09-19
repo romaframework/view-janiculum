@@ -16,7 +16,7 @@
 package org.romaframework.aspect.view.html.component;
 
 import java.io.IOException;
-import java.io.OutputStream;
+import java.io.Writer;
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -55,7 +55,7 @@ public class HtmlViewComponentLabel extends HtmlViewAbstractContentComponent {
 	}
 
 	@Override
-	public void render(OutputStream out) throws IOException {
+	public void render(Writer writer) throws IOException {
 
 		if (getSchemaElement() == null || contentComponent == null) {
 			return;
@@ -68,7 +68,7 @@ public class HtmlViewComponentLabel extends HtmlViewAbstractContentComponent {
 		String label = HtmlViewAspectHelper.getI18NLabel(getSchemaElement());
 		label = AbstractHtmlViewTransformer.getComponentLabel((HtmlViewContentComponent) contentComponent, label);
 
-		out.write(label.getBytes());
+		writer.write(label);
 
 	}
 
@@ -83,7 +83,7 @@ public class HtmlViewComponentLabel extends HtmlViewAbstractContentComponent {
 	}
 
 	@Override
-	public void renderPart(final String part, OutputStream out) {
+	public void renderPart(final String part, Writer writer) {
 		// Makes nothing
 	}
 

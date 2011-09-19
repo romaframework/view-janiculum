@@ -1,6 +1,6 @@
 package org.romaframework.aspect.view.html.component;
 
-import java.io.OutputStream;
+import java.io.Writer;
 import java.util.Collection;
 
 import org.romaframework.aspect.view.form.ViewComponent;
@@ -39,10 +39,10 @@ public class HtmlViewNullComponent implements HtmlViewGenericComponent {
 		return null;
 	}
 
-	public void render(OutputStream out) {
+	public void render(Writer writer) {
 	}
 
-	public void renderPart(String part, OutputStream out) {
+	public void renderPart(String part, Writer writer) {
 	}
 
 	public void resetValidation() {

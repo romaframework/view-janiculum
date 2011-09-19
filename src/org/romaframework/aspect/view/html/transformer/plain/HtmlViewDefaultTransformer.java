@@ -1,7 +1,7 @@
 package org.romaframework.aspect.view.html.transformer.plain;
 
 import java.io.IOException;
-import java.io.OutputStream;
+import java.io.Writer;
 
 import org.romaframework.aspect.view.ViewConstants;
 import org.romaframework.aspect.view.form.ViewComponent;
@@ -26,7 +26,7 @@ public class HtmlViewDefaultTransformer extends AbstractHtmlViewTransformer impl
 	}
 
 	@Override
-	public void transform(final HtmlViewRenderable component, OutputStream out) throws IOException {
+	public void transform(final HtmlViewRenderable component, Writer writer) throws IOException {
 		
 		if (component instanceof HtmlViewContentForm) {
 			final HtmlViewConfigurableEntityForm cForm = (HtmlViewConfigurableEntityForm) component;
@@ -34,22 +34,22 @@ public class HtmlViewDefaultTransformer extends AbstractHtmlViewTransformer impl
 			if (rootArea == null) {
 				return;
 			} else {
-				rootArea.render(out);
+				rootArea.render(writer);
 			}
 		} else if (component instanceof HtmlViewContentForm) {
 			// return the default field transformer
 			final TransformerManager manager = Roma.component(TransformerManager.class);
 			final Transformer transformer = manager.getComponent(DEFAULT_FIELD_TRANSFORMER);
-			transformer.transform(component, out);
+			transformer.transform(component, writer);
 		} else if (component instanceof HtmlViewActionComponent) {
 			// return the default action transformer
 			final TransformerManager manager = Roma.component(TransformerManager.class);
 			final Transformer transformer = manager.getComponent(DEFAULT_ACTION_TRANSFORMER);
-			transformer.transform(component, out);
+			transformer.transform(component, writer);
 		}
 	}
 
-	public void transformPart(final HtmlViewRenderable component, final String part, OutputStream out) throws IOException {
+	public void transformPart(final HtmlViewRenderable component, final String part, Writer writer) throws IOException {
 		final TransformerManager manager = Roma.component(TransformerManager.class);
 		Transformer transformer = null;
 		if (component instanceof ViewComponent) {
@@ -60,7 +60,7 @@ public class HtmlViewDefaultTransformer extends AbstractHtmlViewTransformer impl
 			transformer = manager.getComponent(DEFAULT_ACTION_TRANSFORMER);
 		}
 		if (transformer != null) {
-			transformer.transformPart(component, part, out);
+			transformer.transformPart(component, part, writer);
 		}
 	}
 

@@ -1,6 +1,6 @@
 package org.romaframework.aspect.view.html.component;
 
-import java.io.OutputStream;
+import java.io.Writer;
 
 import org.romaframework.aspect.view.area.AreaComponent;
 import org.romaframework.aspect.view.form.ViewComponent;
@@ -55,7 +55,7 @@ public class HtmlViewConfigurableExpandedEntityForm extends HtmlViewConfigurable
 	}
 
 	@Override
-	public void render(OutputStream out) {
+	public void render(Writer writer) {
 		// return super.render();
 	}
 

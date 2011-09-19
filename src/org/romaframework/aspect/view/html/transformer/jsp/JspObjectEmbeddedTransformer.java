@@ -18,6 +18,8 @@ package org.romaframework.aspect.view.html.transformer.jsp;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.io.Writer;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -27,22 +29,21 @@ import javax.servlet.ServletRequest;
 import org.romaframework.aspect.view.ViewConstants;
 import org.romaframework.aspect.view.html.HtmlViewAspectHelper;
 import org.romaframework.aspect.view.html.component.HtmlViewConfigurableEntityForm;
-import org.romaframework.aspect.view.html.template.TemplateManager;
+import org.romaframework.aspect.view.html.template.ViewTemplateManager;
 import org.romaframework.aspect.view.html.transformer.plain.HtmlViewObjectEmbeddedTransformer;
 import org.romaframework.core.Roma;
 
 public class JspObjectEmbeddedTransformer extends HtmlViewObjectEmbeddedTransformer {
 	@Override
-	protected void content(final HtmlViewConfigurableEntityForm contentComponent, final ServletRequest request, OutputStream out)
+	protected void content(final HtmlViewConfigurableEntityForm contentComponent, final ServletRequest request, Writer writer)
 			throws ServletException, IOException {
-		TemplateManager mgr = Roma.component(TemplateManager.class);
-
+		ViewTemplateManager mgr = Roma.component(ViewTemplateManager.class);
 		Map<String, Object> ctx = new HashMap<String, Object>();
 		ctx.put("htmlClass", helper.getHtmlClass(this, null, contentComponent));
 		ctx.put("htmlId", helper.getHtmlId(contentComponent, null));
 		OutputStream content = new ByteArrayOutputStream();
-		HtmlViewAspectHelper.renderByJsp(contentComponent, request, content);
+		HtmlViewAspectHelper.renderByJsp(contentComponent, request, new OutputStreamWriter(content));
 		ctx.put("content", content.toString());
-		mgr.execute(ViewConstants.RENDER_OBJECTEMBEDDED + JspTransformer.FILE_SUFFIX, ctx, out);
+		mgr.execute(ViewConstants.RENDER_OBJECTEMBEDDED + JspTransformer.FILE_SUFFIX, ctx, writer);
 	}
 }

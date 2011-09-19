@@ -17,7 +17,7 @@ package org.romaframework.aspect.view.html;
 
 import java.io.File;
 import java.io.IOException;
-import java.io.OutputStream;
+import java.io.Writer;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
@@ -275,14 +275,14 @@ public class HtmlViewAspectHelper {
 	 * @throws IOException
 	 *           {@link IOException}
 	 */
-	public static void renderByJsp(final ViewComponent component, final ServletRequest request, OutputStream out) throws ServletException, IOException {
+	public static void renderByJsp(final ViewComponent component, final ServletRequest request, Writer writer) throws ServletException, IOException {
 		final Object obj = component.getContent();
 		if (obj != null) {
 			final Class<?> clazz = obj.getClass();
 			final String classJsp = getJspForClass(clazz);
 			final Object previousFormInRequest = request.getAttribute(RequestConstants.CURRENT_REQUEST_FORM);
 			request.setAttribute(RequestConstants.CURRENT_REQUEST_FORM, component);
-			getHtmlFromJSP(request, classJsp, out);
+			getHtmlFromJSP(request, classJsp, writer);
 			request.setAttribute(RequestConstants.CURRENT_REQUEST_FORM, previousFormInRequest);
 		}
 	}
@@ -297,8 +297,8 @@ public class HtmlViewAspectHelper {
 	 * @throws IOException
 	 *           {@link IOException}
 	 */
-	public static void renderByJsp(final ViewComponent component, OutputStream out) throws ServletException, IOException {
-		renderByJsp(component, getServletRequest(), out);
+	public static void renderByJsp(final ViewComponent component, Writer writer) throws ServletException, IOException {
+		renderByJsp(component, getServletRequest(), writer);
 	}
 
 	/**
@@ -524,9 +524,8 @@ public class HtmlViewAspectHelper {
 		return false;
 	}
 
-	public static void getHtmlFromJSP(final ServletRequest request, String jspUrl, OutputStream out) throws ServletException, IOException {
-		MockHttpServletResponse response = new MockHttpServletResponse(out);
+	public static void getHtmlFromJSP(final ServletRequest request, String jspUrl, Writer writer) throws ServletException, IOException {
+		MockHttpServletResponse response = new MockHttpServletResponse(writer);
 		request.getRequestDispatcher(jspUrl).include(request, response);
-		response.getWriter().flush();
 	}
 }

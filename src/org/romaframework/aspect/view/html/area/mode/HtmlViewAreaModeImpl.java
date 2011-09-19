@@ -1,7 +1,7 @@
 package org.romaframework.aspect.view.html.area.mode;
 
 import java.io.IOException;
-import java.io.OutputStream;
+import java.io.Writer;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -97,9 +97,9 @@ public class HtmlViewAreaModeImpl implements HtmlViewAreaMode {
 	 * @see org.romaframework.aspect.view.html.area.HtmlViewRenderable#render()
 	 */
 
-	public void render(OutputStream out) throws IOException {
+	public void render(Writer writer) throws IOException {
 		final Transformer transformer = getTransformer();
-		transformer.transform(this, out);
+		transformer.transform(this, writer);
 	}
 
 	public Transformer getTransformer() {
@@ -137,7 +137,7 @@ public class HtmlViewAreaModeImpl implements HtmlViewAreaMode {
 	public void resetValidation() {
 	}
 
-	public void renderPart(final String part, OutputStream out) {
+	public void renderPart(final String part, Writer writer) {
 		// TODO It should render only a sub area
 	}
 

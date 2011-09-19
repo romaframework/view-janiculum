@@ -1,11 +1,11 @@
 package org.romaframework.aspect.view.html.template;
 
-import java.io.OutputStream;
+import java.io.Writer;
 import java.util.Map;
 
-public interface TemplateManager {
+public interface ViewTemplateManager {
 
-	public void execute(String templateName, Map<String, Object> ctx, OutputStream out);
+	public void execute(String templateName, Map<String, Object> ctx, Writer writer);
 	
 	public String getTemplatesPath();
 	

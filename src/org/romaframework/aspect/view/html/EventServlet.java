@@ -1,6 +1,5 @@
 package org.romaframework.aspect.view.html;
 
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
 import javax.servlet.ServletException;
@@ -13,6 +12,8 @@ import org.apache.commons.logging.LogFactory;
 import org.json.JSONObject;
 import org.romaframework.aspect.session.html.helper.HtmlSessionHelper;
 import org.romaframework.aspect.view.html.area.HtmlViewRenderable;
+import org.romaframework.aspect.view.html.area.HtmlViewScreenAreaInstance;
+import org.romaframework.aspect.view.html.component.HtmlViewAbstractComponent;
 import org.romaframework.core.Roma;
 
 public class EventServlet extends RomaServlet {
@@ -42,15 +43,16 @@ public class EventServlet extends RomaServlet {
 				obj.put("bindingExecuted", true);
 				obj.put("status", "ok");
 				JSONObject changes = new JSONObject();
-				ByteArrayOutputStream stream = new ByteArrayOutputStream();
-				render.renderPart("search", stream);
-				changes.put(render.getHtmlId() + "_search", stream.toString());
+				if (render instanceof HtmlViewAbstractComponent) {
+					changes.put(render.getHtmlId() + "_search", new ComponentWritable((HtmlViewAbstractComponent) render));
+				} else {
+					changes.put(render.getHtmlId() + "_search", new ComponentWritable((HtmlViewScreenAreaInstance) render));
+				}
 				obj.put("changes", changes);
+				obj.write(response.getWriter());
 			} catch (Throwable ex) {
 				log.error("Error on event invoke", ex);
 			}
-
-			response.getWriter().write(obj.toString());
 			deinitSessionAspect();
 		}
 	}

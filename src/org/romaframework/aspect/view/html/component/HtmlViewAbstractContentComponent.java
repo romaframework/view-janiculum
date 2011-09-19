@@ -1,7 +1,7 @@
 package org.romaframework.aspect.view.html.component;
 
 import java.io.IOException;
-import java.io.OutputStream;
+import java.io.Writer;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -95,8 +95,8 @@ public abstract class HtmlViewAbstractContentComponent extends HtmlViewAbstractC
 	 * @see org.romaframework.aspect.view.html.area.HtmlViewRenderable#render()
 	 */
 	@Override
-	public void render(OutputStream out) throws IOException {
-		getTransformer().transform(this, out);
+	public void render(Writer writer) throws IOException {
+		getTransformer().transform(this, writer);
 	}
 
 	/**

@@ -16,7 +16,7 @@
 package org.romaframework.aspect.view.html.component;
 
 import java.io.IOException;
-import java.io.OutputStream;
+import java.io.Writer;
 
 import org.romaframework.aspect.view.html.HtmlViewAspectHelper;
 import org.romaframework.aspect.view.html.area.HtmlViewScreenArea;
@@ -40,7 +40,7 @@ public class HtmlViewMenuForm extends HtmlViewConfigurableEntityForm {
 	}
 
 	@Override
-	public void render(OutputStream out) throws IOException{
+	public void render(Writer writer) throws IOException{
 		final TransformerManager transformerManager = Roma.component(TransformerManager.class);
 		Transformer transformer = null;
 		if (getSchemaElement() == null) {
@@ -48,7 +48,7 @@ public class HtmlViewMenuForm extends HtmlViewConfigurableEntityForm {
 		} else {
 			transformer = transformerManager.getComponent(HtmlViewAspectHelper.getDefaultRenderType(getSchemaElement()));
 		}
-		transformer.transform(this, out);
+		transformer.transform(this, writer);
 	}
 
 }

@@ -17,7 +17,7 @@
 package org.romaframework.aspect.view.html.component;
 
 import java.io.IOException;
-import java.io.OutputStream;
+import java.io.Writer;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
@@ -63,10 +63,10 @@ public class HtmlViewInvisibleContentComponent extends HtmlViewAbstractContentCo
 	// }
 
 	@Override
-	public void render(OutputStream out) throws IOException {
-		out.write("<div id=\"".getBytes());
-		out.write(getHtmlId().getBytes());
-		out.write("\" class=\"invisible_field\" ></div>".getBytes());
+	public void render(Writer writer) throws IOException {
+		writer.write("<div id=\"");
+		writer.write(getHtmlId());
+		writer.write("\" class=\"invisible_field\" ></div>");
 	}
 
 	public String getHtmlId() {

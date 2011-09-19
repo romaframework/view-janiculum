@@ -1,9 +1,6 @@
 package org.romaframework.aspect.view.html.transformer.jsp.directive;
 
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.io.OutputStream;
-import java.io.StringWriter;
 import java.io.Writer;
 import java.util.Date;
 
@@ -13,12 +10,8 @@ import org.romaframework.aspect.view.html.HtmlViewCodeBuffer;
 import org.romaframework.aspect.view.html.area.HtmlViewRenderable;
 import org.romaframework.aspect.view.html.component.HtmlViewAbstractContentComponent;
 import org.romaframework.aspect.view.html.component.HtmlViewContentComponent;
-import org.romaframework.aspect.view.html.constants.TransformerConstants;
 import org.romaframework.aspect.view.html.css.StyleBuffer;
-import org.romaframework.aspect.view.html.transformer.helper.JaniculumWrapper;
 import org.romaframework.core.Roma;
-
-import freemarker.ext.beans.StringModel;
 
 public class JspTransformerHelper {
 
@@ -47,15 +40,13 @@ public class JspTransformerHelper {
 		jsBuffer.setScript(id, script);
 	}
 	
-	
-	public static final String delegate(HtmlViewRenderable component, String part) throws IOException {
-		OutputStream out = new ByteArrayOutputStream();
+
+	public static final void delegate(HtmlViewRenderable component, String part,Writer writer) throws IOException {
 		if (part == null || part.toString().length() == 0) {
-			component.render(out);
+			component.render(writer);
 		} else {
-			component.renderPart(part.toString(), out);
+			component.renderPart(part.toString(), writer);
 		}
-		return out.toString();
 	}
 	
 	public static String raw(HtmlViewRenderable component){

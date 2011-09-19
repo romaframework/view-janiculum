@@ -1473,6 +1473,10 @@ public class JSONObject {
 					((JSONObject) v).write(writer);
 				} else if (v instanceof JSONArray) {
 					((JSONArray) v).write(writer);
+				} else if (v instanceof JSONWriteable) {
+					writer.write('"');
+					((JSONWriteable) v).write(new QuotedWriter(writer));
+					writer.write('"');
 				} else {
 					writer.write(valueToString(v));
 				}

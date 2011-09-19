@@ -1,7 +1,7 @@
 package org.romaframework.aspect.view.html.area;
 
 import java.io.IOException;
-import java.io.OutputStream;
+import java.io.Writer;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -68,8 +68,8 @@ public class HtmlViewFormAreaInstance extends HtmlViewAbstractAreaInstance imple
 	 * 
 	 * @see org.romaframework.aspect.view.html.area.HtmlViewRenderable#render()
 	 */
-	public void render(OutputStream out) throws IOException {
-		getTransformer().transform(this, out);
+	public void render(Writer writer) throws IOException {
+		getTransformer().transform(this, writer);
 	}
 
 	/*
@@ -94,7 +94,7 @@ public class HtmlViewFormAreaInstance extends HtmlViewAbstractAreaInstance imple
 		return NullBinder.getInstance();
 	}
 
-	public void transform(final HtmlViewRenderable component, OutputStream out) throws IOException {
+	public void transform(final HtmlViewRenderable component, Writer writer) throws IOException {
 		final List<HtmlViewRenderable> renderables = new ArrayList<HtmlViewRenderable>();
 		final Collection<? extends HtmlViewRenderable> children = (Collection<? extends HtmlViewRenderable>) getChildren();
 		if (children != null) {
@@ -105,10 +105,10 @@ public class HtmlViewFormAreaInstance extends HtmlViewAbstractAreaInstance imple
 			renderables.addAll(componentsToAdd);
 		}
 		areaMode.addRenderables(this, renderables);
-		areaMode.render(out);
+		areaMode.render(writer);
 	}
 
-	public void transformPart(final HtmlViewRenderable component, final String part, OutputStream out) {
+	public void transformPart(final HtmlViewRenderable component, final String part, Writer writer) {
 		// TODO Move here the Tag Library code
 	}
 
@@ -173,8 +173,8 @@ public class HtmlViewFormAreaInstance extends HtmlViewAbstractAreaInstance imple
 		}
 	}
 
-	public void renderPart(final String part, OutputStream out) throws IOException {
-		render(out);
+	public void renderPart(final String part, Writer writer) throws IOException {
+		render(writer);
 	}
 
 	public void setAreaMode(final AreaMode areaMode) {

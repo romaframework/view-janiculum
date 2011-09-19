@@ -16,7 +16,7 @@
 package org.romaframework.aspect.view.html.area;
 
 import java.io.IOException;
-import java.io.OutputStream;
+import java.io.Writer;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -88,8 +88,8 @@ public class HtmlViewScreenAreaInstance extends HtmlViewAbstractAreaInstance imp
 	 * 
 	 * @see org.romaframework.aspect.view.html.area.HtmlViewRenderable#render()
 	 */
-	public void render(OutputStream out) throws IOException {
-		getTransformer().transform(this, out);
+	public void render(Writer writer) throws IOException {
+		getTransformer().transform(this, writer);
 	}
 
 	/**
@@ -142,7 +142,7 @@ public class HtmlViewScreenAreaInstance extends HtmlViewAbstractAreaInstance imp
 		return NullBinder.getInstance();
 	}
 
-	public void transform(final HtmlViewRenderable component, OutputStream out) throws IOException {
+	public void transform(final HtmlViewRenderable component, Writer writer) throws IOException {
 		if (form != null) {
 			final List<HtmlViewRenderable> formTorender = new ArrayList<HtmlViewRenderable>();
 			formTorender.add(form);
@@ -155,10 +155,10 @@ public class HtmlViewScreenAreaInstance extends HtmlViewAbstractAreaInstance imp
 			}
 			areaMode.addRenderables(this, formsTorender);
 		}
-		areaMode.render(out);
+		areaMode.render(writer);
 	}
 
-	public void transformPart(final HtmlViewRenderable component, final String part, OutputStream out) {
+	public void transformPart(final HtmlViewRenderable component, final String part, Writer writer) {
 	}
 
 	/*
@@ -211,7 +211,7 @@ public class HtmlViewScreenAreaInstance extends HtmlViewAbstractAreaInstance imp
 		return form;
 	}
 
-	public void renderPart(final String part, OutputStream out) {
+	public void renderPart(final String part, Writer writer) {
 	}
 
 	public String getType() {

@@ -15,34 +15,17 @@
  */
 package org.romaframework.aspect.view.html.transformer.jsp;
 
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.io.OutputStream;
-import java.util.HashMap;
+import java.io.Writer;
 
 import org.romaframework.aspect.view.html.area.HtmlViewRenderable;
 import org.romaframework.aspect.view.html.component.HtmlViewConfigurableEntityForm;
-import org.romaframework.aspect.view.html.component.HtmlViewGenericComponent;
-import org.romaframework.aspect.view.html.template.TemplateManager;
-import org.romaframework.aspect.view.html.transformer.helper.JaniculumWrapper;
 import org.romaframework.aspect.view.html.transformer.plain.HtmlViewPojoTransformer;
-import org.romaframework.core.Roma;
 
 public class JspPojoTransformer extends HtmlViewPojoTransformer {
 
-	public void transformPart(final HtmlViewRenderable component, final String part, OutputStream out) throws IOException {
+	public void transformPart(final HtmlViewRenderable component, final String part, Writer writer) throws IOException {
 		final HtmlViewConfigurableEntityForm form = (HtmlViewConfigurableEntityForm) component;
-		String htmlClass = helper.getHtmlClass(this, null, (HtmlViewGenericComponent) component);
-		String htmlId = helper.getHtmlId(form, null);
-		TemplateManager mgr = Roma.component(TemplateManager.class);
-		HashMap<String, Object> ctx = new HashMap<String, Object>();
-		ctx.put("htmlClass", htmlClass);
-		ctx.put("htmlId", htmlId);
-		ByteArrayOutputStream content = new ByteArrayOutputStream();
-		form.getRootArea().render(content);
-		ctx.put("content", content.toString());
-		ctx.put("janiculum", new JaniculumWrapper(this, form, ""));
-		mgr.execute("pojo" + JspTransformer.FILE_SUFFIX, ctx, out);
-
+		form.getRootArea().render(writer);
 	}
 }

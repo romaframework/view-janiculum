@@ -15,7 +15,6 @@
  */
 package org.romaframework.aspect.view.html;
 
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
@@ -39,11 +38,9 @@ import org.romaframework.aspect.view.html.component.HtmlViewAbstractComponent;
 import org.romaframework.aspect.view.html.component.HtmlViewConfigurableEntityForm;
 import org.romaframework.aspect.view.html.component.HtmlViewContentForm;
 import org.romaframework.aspect.view.html.component.HtmlViewGenericComponent;
-import org.romaframework.aspect.view.html.constants.TransformerConstants;
 import org.romaframework.aspect.view.html.css.StyleBuffer;
 import org.romaframework.aspect.view.html.screen.HtmlViewScreen;
 import org.romaframework.aspect.view.html.taglib.RomaInlineCssTag;
-import org.romaframework.aspect.view.html.transformer.helper.TransformerHelper;
 import org.romaframework.core.Roma;
 import org.romaframework.core.binding.BindingException;
 import org.romaframework.core.domain.type.TreeNode;
@@ -106,17 +103,17 @@ public class AjaxServlet extends HtmlServlet {
 			} catch (final ValidationException e) {
 				ErrorMessageTextDetail toShow = new ErrorMessageTextDetail("application.error", "Application Error", null, e.getMessage(), e);
 				toShow.setDetail(ExceptionHelper.toString(e));
-				log.info(e.getMessage(),e);
+				log.info(e.getMessage(), e);
 				Roma.flow().forward(toShow, "screen:popup:error");
 			} catch (final BindingException e) {
 				ErrorMessageTextDetail toShow = new ErrorMessageTextDetail("application.error", "Application Error", null, e.getMessage(), e);
 				toShow.setDetail(ExceptionHelper.toString(e));
-				log.warn(e.getMessage(),e);
+				log.warn(e.getMessage(), e);
 				Roma.flow().forward(toShow, "screen:popup:error");
-			}catch (UserException e) {
+			} catch (UserException e) {
 				ErrorMessageTextDetail toShow = new ErrorMessageTextDetail("application.error", "Application Error", null, e.getMessage(), e);
 				toShow.setDetail(ExceptionHelper.toString(e));
-				log.debug(e.getMessage(),e);
+				log.debug(e.getMessage(), e);
 				Roma.flow().forward(toShow, "screen:popup:error");
 			} catch (final Throwable e) {
 				ErrorMessageTextDetail toShow = new ErrorMessageTextDetail("application.error", "Application Error", e);
@@ -146,14 +143,13 @@ public class AjaxServlet extends HtmlServlet {
 					obj.put("pageId", pageId);
 					// StringBuffer buffer = new StringBuffer();
 
-					for (Map.Entry<String, String> entry : getChanges(screen).entrySet()) {
+					for (Map.Entry<String, ComponentWritable> entry : getChanges(screen).entrySet()) {
 						changes.put(entry.getKey(), entry.getValue());
 					}
 
 					StyleBuffer cssBuffer = HtmlViewAspectHelper.getCssBuffer();
 					if (cssBuffer.isChanged()) {
-						String style = "<style id=\"" + RomaInlineCssTag.ROMA_INLINE_CSS_ID + "\" type=\"text/css\">"
-								+ cssBuffer.getStyleBuffer() + "</style>\n";
+						String style = "<style id=\"" + RomaInlineCssTag.ROMA_INLINE_CSS_ID + "\" type=\"text/css\">" + cssBuffer.getStyleBuffer() + "</style>\n";
 						changes.put(RomaInlineCssTag.ROMA_INLINE_CSS_ID, style); // TODO not so good...
 					}
 
@@ -164,7 +160,7 @@ public class AjaxServlet extends HtmlServlet {
 					}
 					addPushCommands(obj, request);
 
-					response.getWriter().write(obj.toString());
+					obj.write(response.getWriter());
 
 				}
 
@@ -198,8 +194,7 @@ public class AjaxServlet extends HtmlServlet {
 	}
 
 	private void addPushCommands(JSONObject obj, final HttpServletRequest request) throws JSONException {
-		DownloadStreamViewCommand command = (DownloadStreamViewCommand) request.getSession().getAttribute(
-				DownloadStreamViewCommand.class.getSimpleName());
+		DownloadStreamViewCommand command = (DownloadStreamViewCommand) request.getSession().getAttribute(DownloadStreamViewCommand.class.getSimpleName());
 		if (command != null) {
 			if (command.getFileName() != null) {
 				obj.put("pushDownloadStream", command.getFileName());
@@ -208,8 +203,8 @@ public class AjaxServlet extends HtmlServlet {
 			}
 		}
 
-		DownloadReaderViewCommand pushReaderCommand = (DownloadReaderViewCommand) request.getSession().getAttribute(
-				DownloadReaderViewCommand.class.getSimpleName());
+		DownloadReaderViewCommand pushReaderCommand = (DownloadReaderViewCommand) request.getSession()
+				.getAttribute(DownloadReaderViewCommand.class.getSimpleName());
 		if (pushReaderCommand != null) {
 			if (pushReaderCommand.getFileName() != null) {
 				obj.put("pushDownloadReader", pushReaderCommand.getFileName());
@@ -228,8 +223,7 @@ public class AjaxServlet extends HtmlServlet {
 			}
 		}
 
-		OpenWindowViewCommand pushOpenWindowCommand = (OpenWindowViewCommand) request.getSession().getAttribute(
-				OpenWindowViewCommand.class.getSimpleName());
+		OpenWindowViewCommand pushOpenWindowCommand = (OpenWindowViewCommand) request.getSession().getAttribute(OpenWindowViewCommand.class.getSimpleName());
 		if (pushOpenWindowCommand != null) {
 			JSONObject pushOpenJSONObject = new JSONObject();
 			pushOpenJSONObject.put("location", pushOpenWindowCommand.getLocation());
@@ -238,8 +232,7 @@ public class AjaxServlet extends HtmlServlet {
 			obj.put("pushOpenWindow", pushOpenJSONObject);
 		}
 
-		RedirectViewCommand pushRedirectViewCommand = (RedirectViewCommand) request.getSession().getAttribute(
-				RedirectViewCommand.class.getSimpleName());
+		RedirectViewCommand pushRedirectViewCommand = (RedirectViewCommand) request.getSession().getAttribute(RedirectViewCommand.class.getSimpleName());
 		if (pushRedirectViewCommand != null) {
 			JSONObject pushOpenJSONObject = new JSONObject();
 			pushOpenJSONObject.put("location", pushRedirectViewCommand.getLocation());
@@ -256,8 +249,8 @@ public class AjaxServlet extends HtmlServlet {
 		return false;
 	}
 
-	protected Map<String, String> getChanges(HtmlViewScreen screen) throws IOException {
-		Map<String, String> buffer = new HashMap<String, String>();
+	protected Map<String, ComponentWritable> getChanges(HtmlViewScreen screen) throws IOException {
+		Map<String, ComponentWritable> buffer = new HashMap<String, ComponentWritable>();
 		synchronized (screen) {
 			for (TreeNode child : screen.getRootArea().getChildren()) {
 				if (child instanceof HtmlViewScreenAreaInstance) {
@@ -270,12 +263,10 @@ public class AjaxServlet extends HtmlServlet {
 		return buffer;
 	}
 
-	protected Map<String, String> getScreenAreaChanges(HtmlViewScreenAreaInstance area) throws IOException {
-		Map<String, String> buffer = new HashMap<String, String>();
+	protected Map<String, ComponentWritable> getScreenAreaChanges(HtmlViewScreenAreaInstance area) throws IOException {
+		Map<String, ComponentWritable> buffer = new HashMap<String, ComponentWritable>();
 		if (area.isDirty()) {
-			ByteArrayOutputStream stream = new ByteArrayOutputStream();
-			area.render(stream);
-			buffer.put(area.getHtmlId(), stream.toString());
+			buffer.put(area.getHtmlId(), new ComponentWritable(area));
 		} else {
 			HtmlViewContentForm form = area.getForm();
 			if (form != null && form instanceof HtmlViewConfigurableEntityForm) {
@@ -290,13 +281,10 @@ public class AjaxServlet extends HtmlServlet {
 		return buffer;
 	}
 
-	protected Map<String, String> getComponentChanges(HtmlViewAbstractComponent component) throws IOException {
-		Map<String, String> buffer = new HashMap<String, String>();
+	protected Map<String, ComponentWritable> getComponentChanges(HtmlViewAbstractComponent component) throws IOException {
+		Map<String, ComponentWritable> buffer = new HashMap<String, ComponentWritable>();
 		if (component.isDirty() && component.getTransformer() != null) {
-			ByteArrayOutputStream stream = new ByteArrayOutputStream();
-			component.getTransformer().transformPart(component,
-					TransformerConstants.PART_ALL, stream);
-			buffer.put(TransformerHelper.getInstance().getHtmlId(component, null), stream.toString());
+			buffer.put(component.getHtmlId(), new ComponentWritable(component));
 		} else if (component.getChildren() != null) {
 			for (HtmlViewGenericComponent child : component.getChildren()) {
 				if (child instanceof HtmlViewAbstractComponent)
@@ -308,13 +296,10 @@ public class AjaxServlet extends HtmlServlet {
 		return buffer;
 	}
 
-	protected Map<String, String> getFormChanges(HtmlViewConfigurableEntityForm component) throws IOException {
-		Map<String, String> buffer = new HashMap<String, String>();
+	protected Map<String, ComponentWritable> getFormChanges(HtmlViewConfigurableEntityForm component) throws IOException {
+		Map<String, ComponentWritable> buffer = new HashMap<String, ComponentWritable>();
 		if (component.isDirty()) {
-			ByteArrayOutputStream stream = new ByteArrayOutputStream();
-			component.getTransformer().transformPart(component,
-					TransformerConstants.PART_ALL, stream);
-			buffer.put(TransformerHelper.getInstance().getHtmlId(component, null), stream.toString());
+			buffer.put(component.getHtmlId(), new ComponentWritable(component));
 		} else if (component.getChildren() != null) {
 			for (HtmlViewGenericComponent child : component.getChildren()) {
 				if (child instanceof HtmlViewAbstractComponent)
