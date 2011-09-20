@@ -28,7 +28,7 @@ import org.romaframework.aspect.view.html.HtmlViewAspectHelper;
 import org.romaframework.aspect.view.html.constants.RequestConstants;
 import org.romaframework.aspect.view.html.template.ViewTemplateManager;
 
-public class JspTemplateManager implements ViewTemplateManager{
+public class JspTemplateManager implements ViewTemplateManager {
 
 	private String		templatesPath		= "WEB-INF/transformers/jsp/";
 	protected Log			log							= LogFactory.getLog(getClass());
@@ -43,7 +43,7 @@ public class JspTemplateManager implements ViewTemplateManager{
 		try {
 			HtmlViewAspectHelper.getHtmlFromJSP(request, classJsp, writer);
 		} catch (ServletException e) {
-			log.error("error in jsp transformer", e);
+			log.error("error in jsp transformer", e.getRootCause() == null ? e : e.getRootCause());
 		} catch (IOException e) {
 			log.error("maybe wrong render defined", e);
 		}

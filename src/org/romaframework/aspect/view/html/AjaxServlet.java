@@ -25,8 +25,10 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.xml.bind.ValidationException;
 
+import org.json.CssJSONObject;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.json.JsJSONObject;
 import org.romaframework.aspect.view.ViewAspect;
 import org.romaframework.aspect.view.command.impl.DownloadReaderViewCommand;
 import org.romaframework.aspect.view.command.impl.DownloadStreamViewCommand;
@@ -38,9 +40,7 @@ import org.romaframework.aspect.view.html.component.HtmlViewAbstractComponent;
 import org.romaframework.aspect.view.html.component.HtmlViewConfigurableEntityForm;
 import org.romaframework.aspect.view.html.component.HtmlViewContentForm;
 import org.romaframework.aspect.view.html.component.HtmlViewGenericComponent;
-import org.romaframework.aspect.view.html.css.StyleBuffer;
 import org.romaframework.aspect.view.html.screen.HtmlViewScreen;
-import org.romaframework.aspect.view.html.taglib.RomaInlineCssTag;
 import org.romaframework.core.Roma;
 import org.romaframework.core.binding.BindingException;
 import org.romaframework.core.domain.type.TreeNode;
@@ -136,8 +136,8 @@ public class AjaxServlet extends HtmlServlet {
 				if (mustReload(screen, oldScreenName)) {
 					sendReloadAjaxResponse(response, pageId);
 				} else {
-					JSONObject obj = new JSONObject();
-					JSONObject changes = new JSONObject();
+					JSONObject obj = new JsJSONObject();
+					JSONObject changes = new CssJSONObject();
 					obj.put("bindingExecuted", fieldsBound);
 					obj.put("status", "ok");
 					obj.put("pageId", pageId);
@@ -147,17 +147,7 @@ public class AjaxServlet extends HtmlServlet {
 						changes.put(entry.getKey(), entry.getValue());
 					}
 
-					StyleBuffer cssBuffer = HtmlViewAspectHelper.getCssBuffer();
-					if (cssBuffer.isChanged()) {
-						String style = "<style id=\"" + RomaInlineCssTag.ROMA_INLINE_CSS_ID + "\" type=\"text/css\">" + cssBuffer.getStyleBuffer() + "</style>\n";
-						changes.put(RomaInlineCssTag.ROMA_INLINE_CSS_ID, style); // TODO not so good...
-					}
-
 					obj.put("changes", changes);
-					HtmlViewCodeBuffer codeBuffer = HtmlViewAspectHelper.getJsBuffer();
-					if (codeBuffer != null) {
-						obj.put("romajs", codeBuffer.getBufferContent());
-					}
 					addPushCommands(obj, request);
 
 					obj.write(response.getWriter());
