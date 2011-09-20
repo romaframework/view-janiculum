@@ -52,7 +52,6 @@ public class AjaxServlet extends HtmlServlet {
 	@Override
 	public void service(final HttpServletRequest request, final HttpServletResponse response) throws ServletException, IOException {
 		// long time = System.currentTimeMillis();
-		boolean toDeInit = true;
 		try {
 			HttpSession httpSession = request.getSession(true);
 
@@ -72,7 +71,6 @@ public class AjaxServlet extends HtmlServlet {
 				//
 				// setStarted(httpSession);
 			}
-			initSessionAspect(request, response);
 
 			HtmlViewScreen screen = (HtmlViewScreen) Roma.aspect(ViewAspect.class).getScreen();
 			String oldScreenName = screen.getName();
@@ -170,9 +168,6 @@ public class AjaxServlet extends HtmlServlet {
 				jsonx.printStackTrace();
 			}
 		} finally {
-			if (toDeInit) {
-				deinitSessionAspect();
-			}
 			HtmlViewAspectHelper.removeCssBuffer();
 			HtmlViewAspectHelper.removeJsBuffer();
 		}

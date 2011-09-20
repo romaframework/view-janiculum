@@ -51,6 +51,8 @@ import org.romaframework.web.service.rest.RestServiceHelper;
  */
 public class HtmlServlet extends RomaServlet {
 
+	private static final long	serialVersionUID	= 1742514931340296814L;
+
 	public static final String	ROMA_JS				= "###__ROMA_JS__###";
 
 	public static final String	ROMA_CSS			= "###__ROMA_CSS__###";
@@ -65,9 +67,7 @@ public class HtmlServlet extends RomaServlet {
 	 */
 	@Override
 	public void service(final HttpServletRequest request, final HttpServletResponse response) throws ServletException, IOException {
-		// long time = System.currentTimeMillis();
 		try {
-
 			HttpSession httpSession = request.getSession(true);
 
 			if (!isStarted(httpSession)) {
@@ -80,11 +80,7 @@ public class HtmlServlet extends RomaServlet {
 				RestServiceHelper.clearSession(request);
 			}
 
-			initSessionAspect(request, response);
-
 			removePreviousPushCommands(request);
-
-			// Add the request and the response to the ThreadLocal
 
 			final RequestParser requestParser = Roma.component(RequestParser.class);
 
@@ -117,11 +113,9 @@ public class HtmlServlet extends RomaServlet {
 			renderResponse(request, response);
 		} finally {
 
-			deinitSessionAspect();
 			HtmlViewAspectHelper.removeCssBuffer();
 			HtmlViewAspectHelper.removeJsBuffer();
 		}
-		// log.info("request executed in (millis): "+(System.currentTimeMillis()-time));
 	}
 
 	protected void renderResponse(final HttpServletRequest request, final HttpServletResponse response) throws IOException {
@@ -162,14 +156,14 @@ public class HtmlServlet extends RomaServlet {
 	}
 
 	protected void setStarted(HttpSession httpSession) {
-		HtmlSessionHelper.getInstance().setStarted(httpSession);
+		HtmlSessionHelper.setStarted(httpSession);
 	}
 
 	protected boolean isStarted(final HttpSession httpSession) {
 		if (httpSession == null) {
 			return false;
 		}
-		return HtmlSessionHelper.getInstance().isStarted(httpSession);
+		return HtmlSessionHelper.isStarted(httpSession);
 	}
 
 	/**

@@ -25,8 +25,7 @@ public class EventServlet extends RomaServlet {
 	@Override
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession sess = request.getSession();
-		if (sess != null && HtmlSessionHelper.getInstance().isStarted(sess)) {
-			initSessionAspect(request, response);
+		if (sess != null && HtmlSessionHelper.isStarted(sess)) {
 			response.setContentType("text/html");
 			response.setCharacterEncoding("UTF-8");
 			response.addHeader("Cache-Control", "must-revalidate");
@@ -53,7 +52,6 @@ public class EventServlet extends RomaServlet {
 			} catch (Throwable ex) {
 				log.error("Error on event invoke", ex);
 			}
-			deinitSessionAspect();
 		}
 	}
 

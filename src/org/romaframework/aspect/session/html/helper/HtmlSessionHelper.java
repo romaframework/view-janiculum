@@ -15,62 +15,13 @@
  */
 package org.romaframework.aspect.session.html.helper;
 
-import java.util.Locale;
-
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-import org.romaframework.core.Roma;
-import org.romaframework.core.flow.ObjectContext;
-import org.romaframework.web.session.HttpAbstractSessionAspect;
 
 public final class HtmlSessionHelper {
 
-	protected static final Log	log											= LogFactory.getLog(HtmlSessionHelper.class);
-
-	private static final String	CURRENT_LOCALE					= "HttpSessionAspect_current_locale";
-	private static final String	ACTIVE_SESSION					= "HttpSessionAspect_active_session";
-
 	private static final String	CURRENT_SESSION_STARTED	= "HttpSessionAspect_current_session_started";
 
-	private HtmlSessionHelper() {
-	}
-
-	private static HtmlSessionHelper	instance	= new HtmlSessionHelper();
-
-	public static HtmlSessionHelper getInstance() {
-		return instance;
-	}
-
-	public void setCurrentLocale(final Locale locale) {
-		Roma.session().setProperty(CURRENT_LOCALE, locale);
-	}
-
-	public Locale getCurrentLocale() {
-		try {
-			Locale result = (Locale) Roma.session().getProperty(CURRENT_LOCALE);
-			if (result == null) {
-				HttpServletRequest request = ObjectContext.getInstance().getContextComponent(HttpAbstractSessionAspect.CONTEXT_REQUEST_PAR);
-				result = request.getLocale();
-			}
-			return result;
-		} catch (Exception e) {
-			return Locale.getDefault();
-		}
-	}
-
-	public HttpSession getActiveSession() {
-		final HttpSession httpSession = ObjectContext.getInstance().getContextComponent(ACTIVE_SESSION);
-		return httpSession;
-	}
-
-	public void setActiveSession(final HttpSession session) {
-		ObjectContext.getInstance().setContextComponent(ACTIVE_SESSION, session);
-	}
-
-	public boolean isStarted(final HttpSession session) {
+	public static boolean isStarted(final HttpSession session) {
 		if (session == null) {
 			return false;
 		}
@@ -78,7 +29,7 @@ public final class HtmlSessionHelper {
 		return Boolean.TRUE.equals(started);
 	}
 
-	public void setStarted(final HttpSession session) {
+	public static void setStarted(final HttpSession session) {
 		if (session == null) {
 			return;
 		}

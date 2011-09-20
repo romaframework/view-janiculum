@@ -16,23 +16,28 @@
 
 package org.romaframework.aspect.session.html;
 
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
-import java.util.WeakHashMap;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.romaframework.aspect.session.SessionInfo;
 import org.romaframework.aspect.session.SessionListener;
-import org.romaframework.aspect.session.html.helper.HtmlSessionHelper;
+import org.romaframework.core.Roma;
 import org.romaframework.core.flow.Controller;
+import org.romaframework.core.flow.ObjectContext;
 import org.romaframework.web.session.HttpAbstractSessionAspect;
 
 public class HttpSessionAspect extends HttpAbstractSessionAspect {
 
+	private static final String	CURRENT_LOCALE					= "HttpSessionAspect_current_locale";
+	
 	public HttpSessionAspect() {
 		super();
-		sessions = new WeakHashMap<String, SessionInfo>();
+		sessions = Collections.synchronizedMap(new HashMap<String, SessionInfo>());
 	}
 
 	// TODO
@@ -77,11 +82,20 @@ public class HttpSessionAspect extends HttpAbstractSessionAspect {
 	}
 
 	public Locale getActiveLocale() {
-		return HtmlSessionHelper.getInstance().getCurrentLocale();
+		try {
+			Locale result = (Locale) Roma.session().getProperty(CURRENT_LOCALE);
+			if (result == null) {
+				HttpServletRequest request = ObjectContext.getInstance().getContextComponent(HttpAbstractSessionAspect.CONTEXT_REQUEST_PAR);
+				result = request.getLocale();
+			}
+			return result;
+		} catch (Exception e) {
+			return Locale.getDefault();
+		}
 	}
 
 	public void setActiveLocale(Locale locale) {
-		HtmlSessionHelper.getInstance().setCurrentLocale(locale);
+		Roma.session().setProperty(CURRENT_LOCALE, locale);
 	}
 
 	public Object getUnderlyingComponent() {

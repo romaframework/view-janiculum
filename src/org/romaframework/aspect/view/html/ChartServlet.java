@@ -31,7 +31,6 @@ public class ChartServlet extends RomaServlet {
 
 	@Override
 	public void service(final HttpServletRequest request, final HttpServletResponse response) throws ServletException, IOException {
-		initSessionAspect(request, response);
 		if (!inited) {
 			inited = true;
 			try {
@@ -44,13 +43,11 @@ public class ChartServlet extends RomaServlet {
 		response.setHeader("Cache-Control", "no-store, no-cache, must-revalidate");
 		response.setContentType("image/png");
 		if (chartModule == null) {
-			deinitSessionAspect();
 			return;
 		}
 
 		final String pojoId = request.getParameter(IMAGE_POJO_PARAMETER);
 		if (pojoId == null) {
-			deinitSessionAspect();
 			return;
 		}
 		try {
@@ -63,6 +60,5 @@ public class ChartServlet extends RomaServlet {
 			log.error("could not render chart: " + t);
 			log.debug(t);
 		}
-		deinitSessionAspect();
 	}
 }

@@ -3,12 +3,9 @@ package org.romaframework.aspect.view.html;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.romaframework.aspect.session.SessionAspect;
-import org.romaframework.aspect.session.html.helper.HtmlSessionHelper;
 import org.romaframework.aspect.view.ViewAspect;
 import org.romaframework.aspect.view.form.FormViewer;
 import org.romaframework.aspect.view.html.screen.HtmlViewScreenContainer;
@@ -20,17 +17,11 @@ import org.romaframework.web.service.rest.RestServiceHelper;
 
 public abstract class RomaServlet extends HttpServlet {
 
+	private static final long	serialVersionUID	= -619678975158028470L;
+
 	protected static Log	log	= LogFactory.getLog(RomaServlet.class);
 
 	protected void startUserSession(final HttpServletRequest request, final HttpServletResponse response) {
-		final HttpSession httpSession = request.getSession(true);
-
-		final SessionAspect sessionAspect = Roma.session();
-
-		sessionAspect.addSession(httpSession);
-
-		initSessionAspect(request, response);
-
 		// During session creation it create a controller context and invoke the
 		// application starter
 		FormViewer.getInstance().setScreenContainer(new HtmlViewScreenContainer());
@@ -48,23 +39,4 @@ public abstract class RomaServlet extends HttpServlet {
 		FormViewer.getInstance().sync();
 	}
 
-	protected void initSessionAspect(final HttpServletRequest request, final HttpServletResponse response) {
-		initSession(request, response);
-	}
-
-	public static void initSession(final HttpServletRequest request, final HttpServletResponse response) {
-		HtmlSessionHelper.getInstance().setActiveSession(request.getSession(true));
-	}
-
-	protected void deinitSessionAspect() {
-		deinitSession();
-	}
-
-	public static void deinitSession() {
-		final HtmlViewSession session = HtmlViewAspectHelper.getHtmlViewSession();
-
-		if (session != null) {
-			HtmlSessionHelper.getInstance().setActiveSession(null);
-		}
-	}
 }

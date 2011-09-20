@@ -20,19 +20,19 @@ import org.romaframework.core.Roma;
  */
 public class ImageServlet extends RomaServlet {
 
+	private static final long	serialVersionUID	= 4633321951978534225L;
+
 	public static final String	IMAGE_POJO_PARAMETER	= "imagePojo";
 
 	protected static Log				log										= LogFactory.getLog(ImageServlet.class);
 
 	@Override
 	public void service(final HttpServletRequest request, final HttpServletResponse response) throws ServletException, IOException {
-		initSessionAspect(request, response);
 
 		response.setContentType("image");
 
 		final String pojoId = request.getParameter(IMAGE_POJO_PARAMETER);
 		if (pojoId == null) {
-			deinitSessionAspect();
 			return;
 		}
 		try {
@@ -48,7 +48,6 @@ public class ImageServlet extends RomaServlet {
 			log.error("could not render chart: " + t);
 			log.debug("", t);
 		}
-		deinitSessionAspect();
 	}
 
 	public byte[] loadImage(final Object pojo) {
