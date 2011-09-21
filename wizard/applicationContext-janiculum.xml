@@ -64,6 +64,7 @@
 		<property name="components">
 			<!-- not jsp transformers -->
 			<list>
+			<bean class="org.romaframework.aspect.view.html.transformer.plain.HtmlViewPopupTransformer"></bean>
 			</list>
 		</property>
 	</bean>
