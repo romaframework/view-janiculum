@@ -1,35 +1,37 @@
 <%@page import="org.romaframework.aspect.view.html.transformer.jsp.directive.JspTransformerHelper"%>
 <%@page import="org.romaframework.aspect.view.html.area.HtmlViewRenderable"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8"	pageEncoding="UTF-8"%><%@page import="java.util.Set"%><%@page import="org.romaframework.aspect.view.html.transformer.jsp.JspTransformer"%><%@page import="org.romaframework.aspect.view.html.transformer.helper.JaniculumWrapper"%><%@page import="org.romaframework.aspect.view.html.constants.RequestConstants"%><%@page import="java.util.Map"%><%
-	Map<String, Object> ctx = (Map<String, Object>) request.getAttribute(RequestConstants.CURRENT_CONTEXT_IN_TRANSFORMER);
-	JaniculumWrapper janiculum = (JaniculumWrapper)ctx.get(JspTransformer.JANICULUM);
-	pageContext.setAttribute("janiculum", janiculum);
-	String part = (String) ctx.get(JspTransformer.PART_TO_PRINT);
+<%@ page language="java" contentType="text/html; charset=UTF-8"	pageEncoding="UTF-8"%>
+<%@page import="org.romaframework.aspect.view.html.area.HtmlViewRenderable"%>
+<%@page import="org.romaframework.aspect.view.html.constants.RequestConstants"%><%@page import="java.util.Set"%><%@page import="org.romaframework.aspect.view.html.transformer.jsp.JspTransformer"%><%@page import="org.romaframework.aspect.view.html.transformer.helper.JaniculumWrapper"%><%@page import="org.romaframework.aspect.view.html.constants.RequestConstants"%><%@page import="java.util.Map"%><%
+	
+	HtmlViewRenderable component = (HtmlViewRenderable)request.getAttribute(RequestConstants.CURRENT_COMPONENT_IN_TRANSFORMER);
+	
+	String part = (String) request.getAttribute(RequestConstants.CURRENT_COMPONENT_PART_IN_TRANSFORMER);
 	pageContext.setAttribute("part", part);
 %>
-<div class="<%=janiculum.cssClass(null)%>" style="<%=janiculum.inlineStyle(null)%>" id="<%=janiculum.id(null)%>">
+<div class="<%=JaniculumWrapper.cssClass(component, "list", null)%>" style="<%=JaniculumWrapper.inlineStyle(component, null)%>" id="<%=JaniculumWrapper.id(component, null)%>">
 <%
 String selection = "single";
-if(!janiculum.isMultiSelection()){
+if(!JaniculumWrapper.isMultiSelection(component)){
 	selection = "multiple";
 }
 %>
         <table>
         <tr>
         <td class="list_box">
-        <select id="<%=janiculum.id("content")%>" name="<%=janiculum.fieldName()%>" class="<%=janiculum.cssClass("content")%>"  size="5" selection="<%=selection%>" >
+        <select id="<%=JaniculumWrapper.id(component, "content")%>" name="<%=JaniculumWrapper.fieldName(component)%>" class="<%=JaniculumWrapper.cssClass(component, "list", "content")%>"  size="5" selection="<%=selection%>" >
         <%
         int rowIndex = 0;
-        for(Object o:janiculum.getChildren()){
+        for(Object o:JaniculumWrapper.getChildren(component)){
         	HtmlViewRenderable opt = (HtmlViewRenderable) o;
         %>
-                    <option id="<%=janiculum.id("item")%>_<%=rowIndex%>" value="<%=janiculum.fieldName()%>_<%=rowIndex%>"
-                        <%=janiculum.isSelected(rowIndex)?"selected=\"selected\"":""%>
-                        <%if(janiculum.isMultiSelection()){%>
-                            onclick="romaMultiSelectChanged('<%=janiculum.fieldName()%>_<%=rowIndex%>'); romaSendAjaxRequest();"
+                    <option id="<%=JaniculumWrapper.id(component, "item")%>_<%=rowIndex%>" value="<%=JaniculumWrapper.fieldName(component)%>_<%=rowIndex%>"
+                        <%=JaniculumWrapper.isSelected(component, rowIndex)?"selected=\"selected\"":""%>
+                        <%if(JaniculumWrapper.isMultiSelection(component)){%>
+                            onclick="romaMultiSelectChanged('<%=JaniculumWrapper.fieldName(component)%>_<%=rowIndex%>'); romaSendAjaxRequest(component);"
                         <%}else{ %>
                         
-                            onclick="romaFieldChanged('<%=janiculum.fieldName()%>'); romaSendAjaxRequest();"
+                            onclick="romaFieldChanged('<%=JaniculumWrapper.fieldName(component)%>'); romaSendAjaxRequest(component);"
                         <%} %>  
                     >
                     <%=JspTransformerHelper.raw(opt) %>
@@ -39,53 +41,53 @@ if(!janiculum.isMultiSelection()){
         }
             %>   
         </select>
-        <%if(!janiculum.isValid()){%>
-          <span class="<%=janiculum.cssClass("validation_message")%>"><%=janiculum.validationMessage()==null?"Invalid":janiculum.validationMessage()%></span> 
+        <%if(!JaniculumWrapper.isValid(component)){%>
+          <span class="<%=JaniculumWrapper.cssClass(component, "list", "validation_message")%>"><%=JaniculumWrapper.validationMessage(component)==null?"Invalid":JaniculumWrapper.validationMessage(component)%></span> 
         <% } %>
         </td>
-    <%if(janiculum.disabled() == false && janiculum.selectionAviable()){%>
+    <%if(JaniculumWrapper.disabled(component) == false && JaniculumWrapper.selectionAviable(component)){%>
         <td>
-        <table id="<%=janiculum.id("list_actions")%>">
+        <table id="<%=JaniculumWrapper.id(component, "list_actions")%>">
             <tr>
                 <td>
-                    <input type="button" name="<%=janiculum.event("add")%>" value="" 
-                    id="<%=janiculum.id("add_button")%>" class="table_actions_add"
-                    onclick="romaEvent('<%=janiculum.fieldName()%>', 'add')" />
+                    <input type="button" name="<%=JaniculumWrapper.event(component, "add")%>" value="" 
+                    id="<%=JaniculumWrapper.id(component, "add_button")%>" class="table_actions_add"
+                    onclick="romaEvent('<%=JaniculumWrapper.fieldName(component)%>', 'add')" />
                 </td>
             </tr>
             <tr>
                 <td>
-                    <input type="button" name="<%=janiculum.event("edit")%>" value="" 
-                    id="<%=janiculum.id("edit_button")%>" class="table_actions_edit"
-                    onclick="romaEvent('<%=janiculum.fieldName()%>', 'edit')" />
+                    <input type="button" name="<%=JaniculumWrapper.event(component, "edit")%>" value="" 
+                    id="<%=JaniculumWrapper.id(component, "edit_button")%>" class="table_actions_edit"
+                    onclick="romaEvent('<%=JaniculumWrapper.fieldName(component)%>', 'edit')" />
                 </td>
             </tr>
             <tr>
                 <td>
-                    <input type="button" name="<%=janiculum.event("view")%>" value="" 
-                    id="<%=janiculum.id("view_button")%>" class="table_actions_view"
-                    onclick="romaEvent('<%=janiculum.fieldName()%>', 'view')" />
+                    <input type="button" name="<%=JaniculumWrapper.event(component, "view")%>" value="" 
+                    id="<%=JaniculumWrapper.id(component, "view_button")%>" class="table_actions_view"
+                    onclick="romaEvent('<%=JaniculumWrapper.fieldName(component)%>', 'view')" />
                 </td>
             </tr>
             <tr>
                 <td>
-                    <input type="button" name="<%=janiculum.event("remove")%>" value="" 
-                    id="<%=janiculum.id("remove_button")%>" class="table_actions_remove"
-                    onclick="romaEvent('<%=janiculum.fieldName()%>', 'remove')" />
+                    <input type="button" name="<%=JaniculumWrapper.event(component, "remove")%>" value="" 
+                    id="<%=JaniculumWrapper.id(component, "remove_button")%>" class="table_actions_remove"
+                    onclick="romaEvent('<%=JaniculumWrapper.fieldName(component)%>', 'remove')" />
                 </td>
             </tr>
             <tr>
                 <td>
-                    <input type="button" name="<%=janiculum.action("up")%>" value="" 
-                    id="<%=janiculum.id("up_button")%>" class="table_actions_up"
-                    onclick="romaEvent('<%=janiculum.fieldName()%>', 'up')" />
+                    <input type="button" name="<%=JaniculumWrapper.action(component, "up")%>" value="" 
+                    id="<%=JaniculumWrapper.id(component, "up_button")%>" class="table_actions_up"
+                    onclick="romaEvent('<%=JaniculumWrapper.fieldName(component)%>', 'up')" />
                 </td>
             </tr>
             <tr>
                 <td>
-                    <input type="button" name="<%=janiculum.action("down")%>" value="" 
-                    id="<%=janiculum.id("down_button")%>" class="table_actions_down"
-                    onclick="romaEvent('<%=janiculum.fieldName()%>', 'down')" />
+                    <input type="button" name="<%=JaniculumWrapper.action(component, "down")%>" value="" 
+                    id="<%=JaniculumWrapper.id(component, "down_button")%>" class="table_actions_down"
+                    onclick="romaEvent('<%=JaniculumWrapper.fieldName(component)%>', 'down')" />
                 </td>       
             </tr>       
         </table>

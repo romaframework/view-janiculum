@@ -1,34 +1,36 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"	pageEncoding="UTF-8"%><%@page import="java.util.Set"%><%@page import="org.romaframework.aspect.view.html.transformer.jsp.JspTransformer"%><%@page import="org.romaframework.aspect.view.html.transformer.helper.JaniculumWrapper"%><%@page import="org.romaframework.aspect.view.html.constants.RequestConstants"%><%@page import="java.util.Map"%><%
-	Map<String, Object> ctx = (Map<String, Object>) request.getAttribute(RequestConstants.CURRENT_CONTEXT_IN_TRANSFORMER);
-	JaniculumWrapper janiculum = (JaniculumWrapper)ctx.get(JspTransformer.JANICULUM);
-	pageContext.setAttribute("janiculum", janiculum);
-	String part = (String) ctx.get(JspTransformer.PART_TO_PRINT);
+<%@ page language="java" contentType="text/html; charset=UTF-8"	pageEncoding="UTF-8"%>
+<%@page import="org.romaframework.aspect.view.html.area.HtmlViewRenderable"%>
+<%@page import="org.romaframework.aspect.view.html.constants.RequestConstants"%><%@page import="java.util.Set"%><%@page import="org.romaframework.aspect.view.html.transformer.jsp.JspTransformer"%><%@page import="org.romaframework.aspect.view.html.transformer.helper.JaniculumWrapper"%><%@page import="org.romaframework.aspect.view.html.constants.RequestConstants"%><%@page import="java.util.Map"%><%
+	
+	HtmlViewRenderable component = (HtmlViewRenderable)request.getAttribute(RequestConstants.CURRENT_COMPONENT_IN_TRANSFORMER);
+	
+	String part = (String) request.getAttribute(RequestConstants.CURRENT_COMPONENT_PART_IN_TRANSFORMER);
 	pageContext.setAttribute("part", part);
 	if(!("raw".equals(part)||"label".equals(part))){
-	%><div class="<%=janiculum.cssClass(null)%>" style="<%=janiculum.inlineStyle(null)%>" id="<%=janiculum.id(null)%>">
-		<input id="<%=janiculum.id("content")%>" class="<%=janiculum.cssClass("content")%>" style="<%=!janiculum.isValid()?"border-color:red;":""%><%=janiculum.inlineStyle(null)%>" type="password" name="<%=janiculum.fieldName()%>" value="<%=janiculum.content()==null?"":janiculum.content()%>" <%=janiculum.disabled()?"disabled=\"disabled\"":""%>
+	%><div class="<%=JaniculumWrapper.cssClass(component, "password", null)%>" style="<%=JaniculumWrapper.inlineStyle(component, null)%>" id="<%=JaniculumWrapper.id(component, null)%>">
+		<input id="<%=JaniculumWrapper.id(component, "content")%>" class="<%=JaniculumWrapper.cssClass(component, "password", "content")%>" style="<%=!JaniculumWrapper.isValid(component)?"border-color:red;":""%><%=JaniculumWrapper.inlineStyle(component, null)%>" type="password" name="<%=JaniculumWrapper.fieldName(component)%>" value="<%=JaniculumWrapper.content(component)==null?"":JaniculumWrapper.content(component)%>" <%=JaniculumWrapper.disabled(component)?"disabled=\"disabled\"":""%>
 		<% boolean existsChangeEvent=false;
-		for(String event: janiculum.availableEvents()){
+		for(String event: JaniculumWrapper.availableEvents(component)){
 			if(!"change".equals(event)){%>
-			on<%=event%>="romaFieldChanged('<%=janiculum.fieldName()%>'); romaEvent('<%=janiculum.fieldName()%>', '<%=event%>')"
+			on<%=event%>="romaFieldChanged('<%=JaniculumWrapper.fieldName(component)%>'); romaEvent('<%=JaniculumWrapper.fieldName(component)%>', '<%=event%>')"
 			<%}else{
 				existsChangeEvent=true;
 			}
 		}
 		if(existsChangeEvent){%>
-		onchange="romaFieldChanged('<%=janiculum.fieldName()%>'); romaEvent('<%=janiculum.fieldName()%>', 'change')"
+		onchange="romaFieldChanged('<%=JaniculumWrapper.fieldName(component)%>'); romaEvent('<%=JaniculumWrapper.fieldName(component)%>', 'change')"
 		<%}else{ %>
-		onchange="romaFieldChanged('<%=janiculum.fieldName()%>')"
+		onchange="romaFieldChanged('<%=JaniculumWrapper.fieldName(component)%>')"
 		<%} %>
 		/>
-		<%if(!janiculum.isValid()){%>
-			<span class="<%=janiculum.cssClass("validation_message")%>"><%=janiculum.validationMessage()==null?"Invalid":janiculum.validationMessage()%></span>	
+		<%if(!JaniculumWrapper.isValid(component)){%>
+			<span class="<%=JaniculumWrapper.cssClass(component, "password", "validation_message")%>"><%=JaniculumWrapper.validationMessage(component)==null?"Invalid":JaniculumWrapper.validationMessage(component)%></span>	
 		<%} %>
 	</div>
 <%	} 
 	if("raw".equals(part)){
-		%><%=janiculum.content(true)==null?"":janiculum.content(true)%><%
+		%><%=JaniculumWrapper.content(component, true)==null?"":JaniculumWrapper.content(component, true)%><%
 	} 
 	if("label".equals(part)){%>
-	<label id="<%=janiculum.id("label")%>" class="<%=janiculum.cssClass("label")%>" for="<%=janiculum.id("content")%>"><%=janiculum.i18NLabel()%></label>
+	<label id="<%=JaniculumWrapper.id(component, "label")%>" class="<%=JaniculumWrapper.cssClass(component, "password", "label")%>" for="<%=JaniculumWrapper.id(component, "content")%>"><%=JaniculumWrapper.i18NLabel(component)%></label>
 <%	} %>

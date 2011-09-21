@@ -10,28 +10,28 @@
 <%@page import="java.io.Writer"%>
 <%@page import="java.io.PrintWriter"%>
 <%
-	Map<String, Object> ctx = (Map<String, Object>) request.getAttribute(RequestConstants.CURRENT_CONTEXT_IN_TRANSFORMER);
-	JaniculumWrapper janiculum = (JaniculumWrapper)ctx.get(JspTransformer.JANICULUM);
-	pageContext.setAttribute("janiculum", janiculum);
-	String part = (String) ctx.get(JspTransformer.PART_TO_PRINT);
+	
+	HtmlViewRenderable component = (HtmlViewRenderable)request.getAttribute(RequestConstants.CURRENT_COMPONENT_IN_TRANSFORMER);
+	
+	String part = (String) request.getAttribute(RequestConstants.CURRENT_COMPONENT_PART_IN_TRANSFORMER);
 	pageContext.setAttribute("part", part);
-	String valign = janiculum.areaVerticalAlignment();
+	String valign = JaniculumWrapper.areaVerticalAlignment(component);
 	if("center".equals(valign)){
 		valign = "middle";
 	}
-	String halign = janiculum.areaHorizontalAlignment();
+	String halign = JaniculumWrapper.areaHorizontalAlignment(component);
 %>
-<table cellpaddign="0" cellspacing="0" id="<%=janiculum.id(null)%>" class="<%=janiculum.cssClass(null)%> colset-table" style="<%=janiculum.inlineStyle(null)%>">
+<table cellpaddign="0" cellspacing="0" id="<%=JaniculumWrapper.id(component, null)%>" class="<%=JaniculumWrapper.cssClass(component, "colset", null)%> colset-table" style="<%=JaniculumWrapper.inlineStyle(component, null)%>">
 	<tr>
 	<%
 	int col = 0;
-	for(Object child:janiculum.getChildren()){ %>
-		<td id="<%=janiculum.id(null)%>_<%=col%>_td">
+	for(Object child:JaniculumWrapper.getChildren(component)){ %>
+		<td id="<%=JaniculumWrapper.id(component, null)%>_<%=col%>_td">
 		<% JspTransformerHelper.delegate((HtmlViewRenderable)child, null,pageContext.getOut());%>
 		</td>
 	<%
-		JspTransformerHelper.addCss(janiculum.id(null)+"_"+col+"_td", "vertical-align", valign);
-		JspTransformerHelper.addCss(janiculum.id(null)+"_"+col+"_td", "vertexttical-align", halign);
+		JspTransformerHelper.addCss(JaniculumWrapper.id(component, null)+"_"+col+"_td", "vertical-align", valign);
+		JspTransformerHelper.addCss(JaniculumWrapper.id(component, null)+"_"+col+"_td", "vertexttical-align", halign);
 		col++;
 	} %>
 	</tr>

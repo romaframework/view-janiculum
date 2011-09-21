@@ -1,3 +1,4 @@
+<%@page import="org.romaframework.aspect.view.html.area.HtmlViewRenderable"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@page import="java.util.Set"%>
@@ -7,23 +8,23 @@
 <%@page import="org.romaframework.aspect.view.html.constants.RequestConstants"%>
 <%@page import="java.util.Map"%>
 <%
-	Map<String, Object> ctx = (Map<String, Object>) request.getAttribute(RequestConstants.CURRENT_CONTEXT_IN_TRANSFORMER);
-	JaniculumWrapper janiculum = (JaniculumWrapper)ctx.get(JspTransformer.JANICULUM);
-	pageContext.setAttribute("janiculum", janiculum);
-	String part = (String) ctx.get(JspTransformer.PART_TO_PRINT);
+	
+	HtmlViewRenderable component = (HtmlViewRenderable)request.getAttribute(RequestConstants.CURRENT_COMPONENT_IN_TRANSFORMER);
+	
+	String part = (String) request.getAttribute(RequestConstants.CURRENT_COMPONENT_PART_IN_TRANSFORMER);
 	pageContext.setAttribute("part", part);
 %>
-<div class="<%=janiculum.cssClass(null)%>" style="<%=janiculum.inlineStyle(null)%>" id="<%=janiculum.id(null)%>">
+<div class="<%=JaniculumWrapper.cssClass(component, "chart", null)%>" style="<%=JaniculumWrapper.inlineStyle(component, null)%>" id="<%=JaniculumWrapper.id(component, null)%>">
 
 
 <% if( "".equals(part) || "all".equals(part)) {%>
 
 
-<span id="<%=janiculum.id("content") %>" class="<%=janiculum.cssClass("content") %>" >
-<img id="<%=janiculum.id("content")%>_img" class="<%=janiculum.cssClass("content")%>" src="chart.png?imagePojo=<%=janiculum.imageId()%>&t=<%=janiculum.currentTime()%>"
-	<%for(String event: janiculum.getAvailableEvents()){ %> 
+<span id="<%=JaniculumWrapper.id(component, "content") %>" class="<%=JaniculumWrapper.cssClass(component, "chart", "content") %>" >
+<img id="<%=JaniculumWrapper.id(component, "content")%>_img" class="<%=JaniculumWrapper.cssClass(component, "chart", "content")%>" src="chart.png?imagePojo=<%=JaniculumWrapper.imageId(component)%>&t=<%=JaniculumWrapper.currentTime()%>"
+	<%for(String event: JaniculumWrapper.getAvailableEvents(component)){ %> 
 		
-		on<%=event%>="romaFieldChanged('<%=janiculum.fieldName() %>'); romaEvent('<%=janiculum.fieldName() %>', '<%=event%>')"
+		on<%=event%>="romaFieldChanged('<%=JaniculumWrapper.fieldName(component) %>'); romaEvent('<%=JaniculumWrapper.fieldName(component) %>', '<%=event%>')"
 	<%} %>
 	/>
 </span>
@@ -33,20 +34,20 @@
 
 
 <%if ("content".equals(part)){ %>
-<img id="<%=janiculum.id("content")%>" class="<%=janiculum.cssClass("content")%>" src="chart.png?imagePojo=<%=janiculum.imageId()%>&t=<%=janiculum.currentTime()%>" 
-	<%for(String event: janiculum.getAvailableEvents()){ %>
+<img id="<%=JaniculumWrapper.id(component, "content")%>" class="<%=JaniculumWrapper.cssClass(component, "chart", "content")%>" src="chart.png?imagePojo=<%=JaniculumWrapper.imageId(component)%>&t=<%=JaniculumWrapper.currentTime()%>" 
+	<%for(String event: JaniculumWrapper.getAvailableEvents(component)){ %>
 	
-		on<%=event%>="romaFieldChanged('<%=janiculum.fieldName() %>'); romaEvent('<%=janiculum.fieldName() %>', '<%=event%>')"
+		on<%=event%>="romaFieldChanged('<%=JaniculumWrapper.fieldName(component) %>'); romaEvent('<%=JaniculumWrapper.fieldName(component) %>', '<%=event%>')"
 	<%} %>
 	
 	/>
-<%=janiculum.content()==null?"":janiculum.content()%>
+<%=JaniculumWrapper.content(component)==null?"":JaniculumWrapper.content(component)%>
 
 <%} %>
 
 
 <%if (part.equals("label")){%>
-<label id="<%=janiculum.id("label")%>" class="<%=janiculum.cssClass("label")%>" for="<%=janiculum.id("content")%>"><%=janiculum.i18NLabel()%></label>
+<label id="<%=JaniculumWrapper.id(component, "label")%>" class="<%=JaniculumWrapper.cssClass(component, "chart", "label")%>" for="<%=JaniculumWrapper.id(component, "content")%>"><%=JaniculumWrapper.i18NLabel(component)%></label>
 <% } %>
 
 </div>

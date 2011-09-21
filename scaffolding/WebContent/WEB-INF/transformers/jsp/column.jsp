@@ -8,11 +8,11 @@
 <%@page import="org.romaframework.aspect.view.html.constants.RequestConstants"%>
 <%@page import="java.util.Map"%>
 <%
-	Map<String, Object> ctx = (Map<String, Object>) request.getAttribute(RequestConstants.CURRENT_CONTEXT_IN_TRANSFORMER);
-	JaniculumWrapper janiculum = (JaniculumWrapper)ctx.get(JspTransformer.JANICULUM);
-	pageContext.setAttribute("janiculum", janiculum);
-	String vAlign = janiculum.areaVerticalAlignment();
-	String hAlign = janiculum.areaHorizontalAlignment();
+	
+	HtmlViewRenderable component = (HtmlViewRenderable)request.getAttribute(RequestConstants.CURRENT_COMPONENT_IN_TRANSFORMER);
+	
+	String vAlign = JaniculumWrapper.areaVerticalAlignment(component);
+	String hAlign = JaniculumWrapper.areaHorizontalAlignment(component);
 	String marginLeft = "";
 	if("left".equals(hAlign)){
 		marginLeft = "0";
@@ -27,20 +27,20 @@
 		marginRight = "auto";
 	}
 	
-	JspTransformerHelper.addCss(janiculum.id(null)+" > div.POJO > table.area_main", "margin-left", marginLeft);
-	JspTransformerHelper.addCss(janiculum.id(null)+" > div.POJO > table.area_main", "margin-right", marginRight);
-	JspTransformerHelper.addCss(janiculum.id(null)+" > table", "margin-left", marginLeft);
-	JspTransformerHelper.addCss(janiculum.id(null)+" > table", "margin-right", marginRight);
+	JspTransformerHelper.addCss(JaniculumWrapper.id(component, null)+" > div.POJO > table.area_main", "margin-left", marginLeft);
+	JspTransformerHelper.addCss(JaniculumWrapper.id(component, null)+" > div.POJO > table.area_main", "margin-right", marginRight);
+	JspTransformerHelper.addCss(JaniculumWrapper.id(component, null)+" > table", "margin-left", marginLeft);
+	JspTransformerHelper.addCss(JaniculumWrapper.id(component, null)+" > table", "margin-right", marginRight);
 %>
 
-<table id="<%=janiculum.id(null)%>" class="<%=janiculum.cssClass(null)%> area-column" style="<%=janiculum.inlineStyle(null)%>" cellpadding="0" cellspacing="0">
+<table id="<%=JaniculumWrapper.id(component, null)%>" class="<%=JaniculumWrapper.cssClass(component, "column", null)%> area-column" style="<%=JaniculumWrapper.inlineStyle(component, null)%>" cellpadding="0" cellspacing="0">
   <%
   int row = 0;
-  for(Object c:janiculum.getChildren()){
+  for(Object c:JaniculumWrapper.getChildren(component)){
   	HtmlViewRenderable child = (HtmlViewRenderable) c;
-  	JspTransformerHelper.addCss(janiculum.id(null)+"_"+row, "vertical-align", janiculum.areaVerticalAlignment(child));
+  	JspTransformerHelper.addCss(JaniculumWrapper.id(component, null)+"_"+row, "vertical-align", JaniculumWrapper.areaVerticalAlignment(child));
   	
-  	String hAlignChild = janiculum.areaHorizontalAlignment(child);
+  	String hAlignChild = JaniculumWrapper.areaHorizontalAlignment(child);
   	
   	String marginLeftChild = "";
   	String marginRightChild = "";
@@ -52,18 +52,18 @@
   		marginRightChild = "0";
   	}
   	
-  	JspTransformerHelper.addCss(janiculum.id(null)+"_"+row+" > table", "margin-left", marginLeftChild);
-  	JspTransformerHelper.addCss(janiculum.id(null)+"_"+row+" > table", "margin-right", marginRightChild);
+  	JspTransformerHelper.addCss(JaniculumWrapper.id(component, null)+"_"+row+" > table", "margin-left", marginLeftChild);
+  	JspTransformerHelper.addCss(JaniculumWrapper.id(component, null)+"_"+row+" > table", "margin-right", marginRightChild);
   	
-  	JspTransformerHelper.addCss(janiculum.id(null)+"_"+row+" > div.POJO > table.area_main", "margin-left", marginLeftChild);
-  	JspTransformerHelper.addCss(janiculum.id(null)+"_"+row+" > div.POJO > table.area_main", "margin-right", marginRightChild);
+  	JspTransformerHelper.addCss(JaniculumWrapper.id(component, null)+"_"+row+" > div.POJO > table.area_main", "margin-left", marginLeftChild);
+  	JspTransformerHelper.addCss(JaniculumWrapper.id(component, null)+"_"+row+" > div.POJO > table.area_main", "margin-right", marginRightChild);
   	
   	if("justify".equals(hAlignChild)){
-  		JspTransformerHelper.addCss(janiculum.id(null)+"_"+row+" > table", "width", "100%");
-  		JspTransformerHelper.addCss(janiculum.id(null)+"_"+row+" > div.POJO > table.area_main", "width", "100%");
+  		JspTransformerHelper.addCss(JaniculumWrapper.id(component, null)+"_"+row+" > table", "width", "100%");
+  		JspTransformerHelper.addCss(JaniculumWrapper.id(component, null)+"_"+row+" > div.POJO > table.area_main", "width", "100%");
   	}
 	  %>
-	    <tr><td id="<%=janiculum.id(null)%>_<%=row%>" class="row_<%=row%>">
+	    <tr><td id="<%=JaniculumWrapper.id(component, null)%>_<%=row%>" class="row_<%=row%>">
 	    <% JspTransformerHelper.delegate(child, null,pageContext.getOut());%>
 		</td></tr>
 	  <%

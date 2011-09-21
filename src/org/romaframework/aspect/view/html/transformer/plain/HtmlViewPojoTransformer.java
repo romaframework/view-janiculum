@@ -25,7 +25,7 @@ public class HtmlViewPojoTransformer extends AbstractHtmlViewTransformer impleme
 
 	public void transformPart(final HtmlViewRenderable component, final String part, Writer writer) throws IOException {
 		final HtmlViewConfigurableEntityForm form = (HtmlViewConfigurableEntityForm) component;
-		String htmlClass = helper.getHtmlClass(this, null, (HtmlViewGenericComponent) component);
+		String htmlClass = helper.getHtmlClass(this.toString(), null, (HtmlViewGenericComponent) component);
 		String htmlId = helper.getHtmlId(form, null);
 
 		writer.write("<div class=\"");

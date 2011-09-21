@@ -1,33 +1,35 @@
 <%@page import="org.romaframework.aspect.view.html.transformer.jsp.directive.JspTransformerHelper"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8"	pageEncoding="UTF-8"%><%@page import="java.util.Set"%><%@page import="org.romaframework.aspect.view.html.transformer.jsp.JspTransformer"%><%@page import="org.romaframework.aspect.view.html.transformer.helper.JaniculumWrapper"%><%@page import="org.romaframework.aspect.view.html.constants.RequestConstants"%><%@page import="java.util.Map"%><%
-	Map<String, Object> ctx = (Map<String, Object>) request.getAttribute(RequestConstants.CURRENT_CONTEXT_IN_TRANSFORMER);
-	JaniculumWrapper janiculum = (JaniculumWrapper)ctx.get(JspTransformer.JANICULUM);
-	pageContext.setAttribute("janiculum", janiculum);
-	String part = (String) ctx.get(JspTransformer.PART_TO_PRINT);
+<%@ page language="java" contentType="text/html; charset=UTF-8"	pageEncoding="UTF-8"%>
+<%@page import="org.romaframework.aspect.view.html.area.HtmlViewRenderable"%>
+<%@page import="org.romaframework.aspect.view.html.constants.RequestConstants"%><%@page import="java.util.Set"%><%@page import="org.romaframework.aspect.view.html.transformer.jsp.JspTransformer"%><%@page import="org.romaframework.aspect.view.html.transformer.helper.JaniculumWrapper"%><%@page import="org.romaframework.aspect.view.html.constants.RequestConstants"%><%@page import="java.util.Map"%><%
+	
+	HtmlViewRenderable component = (HtmlViewRenderable)request.getAttribute(RequestConstants.CURRENT_COMPONENT_IN_TRANSFORMER);
+	
+	String part = (String) request.getAttribute(RequestConstants.CURRENT_COMPONENT_PART_IN_TRANSFORMER);
 	if(!("raw".equals(part) || "label".equals(part))){%>
 
-<div class="<%=janiculum.cssClass(null)%>" style="<%=janiculum.inlineStyle(null)%>" id="<%=janiculum.id(null)%>" 
-	<%if(!janiculum.disabled()){
+<div class="<%=JaniculumWrapper.cssClass(component, "label", null)%>" style="<%=JaniculumWrapper.inlineStyle(component, null)%>" id="<%=JaniculumWrapper.id(component, null)%>" 
+	<%if(!JaniculumWrapper.disabled(component)){
 		String eventName = null;
-		for(String event : janiculum.availableEvents()){
+		for(String event : JaniculumWrapper.availableEvents(component)){
 			if(".default_event".equals(event) || ".DEFAULT_EVENT".equals(event)){
 				eventName="click";
 			}else{
 				eventName = event;
 			}
 			%>
-    		on<%=eventName%>="romaEvent('<%=janiculum.fieldName()%>', '<%=event%>')"
+    		on<%=eventName%>="romaEvent('<%=JaniculumWrapper.fieldName(component)%>', '<%=event%>')"
 		<%}%>
 	>
-	 <span id="<%=janiculum.id("content")%>" class="<%=janiculum.cssClass("content")%>" >
-    	<%=janiculum.formattedContent()==null?"":janiculum.formattedContent()%>
+	 <span id="<%=JaniculumWrapper.id(component, "content")%>" class="<%=JaniculumWrapper.cssClass(component, "label", "content")%>" >
+    	<%=JaniculumWrapper.formattedContent(component)==null?"":JaniculumWrapper.formattedContent(component)%>
 	 </span>
 </div>
 <% }
 	}
 if("raw".equals(part)){
-	%><%=janiculum.formattedContent()==null?"":janiculum.formattedContent()%><%
+	%><%=JaniculumWrapper.formattedContent(component)==null?"":JaniculumWrapper.formattedContent(component)%><%
 }
 if("label".equals(part)){%>
-	<label id="<%=janiculum.id("label")%>" class="<%=janiculum.cssClass("label")%>" for="<%=janiculum.id("content")%>"><%=janiculum.i18NLabel()%></label>
+	<label id="<%=JaniculumWrapper.id(component, "label")%>" class="<%=JaniculumWrapper.cssClass(component, "label", "label")%>" for="<%=JaniculumWrapper.id(component, "content")%>"><%=JaniculumWrapper.i18NLabel(component)%></label>
 <%} %>

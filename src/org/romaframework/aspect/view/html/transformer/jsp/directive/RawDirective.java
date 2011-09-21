@@ -18,6 +18,7 @@ import freemarker.template.TemplateDirectiveModel;
 import freemarker.template.TemplateException;
 import freemarker.template.TemplateModel;
 
+
 public class RawDirective implements TemplateDirectiveModel {
 
 	private static final String	PARAM_NAME_COMPONENT	= "component";

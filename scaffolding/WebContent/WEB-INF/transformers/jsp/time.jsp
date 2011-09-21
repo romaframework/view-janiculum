@@ -1,57 +1,59 @@
 <%@page import="org.romaframework.aspect.view.html.constants.TransformerConstants"%>
 <%@page import="org.romaframework.aspect.view.html.transformer.jsp.directive.JspTransformerHelper"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8"	pageEncoding="UTF-8"%><%@page import="java.util.Set"%><%@page import="org.romaframework.aspect.view.html.transformer.jsp.JspTransformer"%><%@page import="org.romaframework.aspect.view.html.transformer.helper.JaniculumWrapper"%><%@page import="org.romaframework.aspect.view.html.constants.RequestConstants"%><%@page import="java.util.Map"%><%
-	Map<String, Object> ctx = (Map<String, Object>) request.getAttribute(RequestConstants.CURRENT_CONTEXT_IN_TRANSFORMER);
-	JaniculumWrapper janiculum = (JaniculumWrapper)ctx.get(JspTransformer.JANICULUM);
-	pageContext.setAttribute("janiculum", janiculum);
-	String part = (String) ctx.get(JspTransformer.PART_TO_PRINT);
+<%@ page language="java" contentType="text/html; charset=UTF-8"	pageEncoding="UTF-8"%>
+<%@page import="org.romaframework.aspect.view.html.area.HtmlViewRenderable"%>
+<%@page import="org.romaframework.aspect.view.html.constants.RequestConstants"%><%@page import="java.util.Set"%><%@page import="org.romaframework.aspect.view.html.transformer.jsp.JspTransformer"%><%@page import="org.romaframework.aspect.view.html.transformer.helper.JaniculumWrapper"%><%@page import="org.romaframework.aspect.view.html.constants.RequestConstants"%><%@page import="java.util.Map"%><%
+	
+	HtmlViewRenderable component = (HtmlViewRenderable)request.getAttribute(RequestConstants.CURRENT_COMPONENT_IN_TRANSFORMER);
+	
+	String part = (String) request.getAttribute(RequestConstants.CURRENT_COMPONENT_PART_IN_TRANSFORMER);
 	pageContext.setAttribute("part", part);
 %>
-<div class="<%=janiculum.cssClass(null)%>" style="<%=janiculum.inlineStyle(null)%>" id="<%=janiculum.id(null)%>">	
+<div class="<%=JaniculumWrapper.cssClass(component, "time", null)%>" style="<%=JaniculumWrapper.inlineStyle(component, null)%>" id="<%=JaniculumWrapper.id(component, null)%>">	
 	<%
 	boolean existsChangeEvent = true;
-	if( !janiculum.isValid()){%>
-		<input id="<%=janiculum.id("content")%>" class="<%=janiculum.cssClass("content")%>_invalid" type="text" name="<%=janiculum.fieldName()%>_time" value="<%=janiculum.formatDateContent()%>" <%if( janiculum.disabled()){%> disabled="disabled" <%}%> 
+	if( !JaniculumWrapper.isValid(component)){%>
+		<input id="<%=JaniculumWrapper.id(component, "content")%>" class="<%=JaniculumWrapper.cssClass(component, "time", "content")%>_invalid" type="text" name="<%=JaniculumWrapper.fieldName(component)%>_time" value="<%=JaniculumWrapper.formatDateContent(component)%>" <%if( JaniculumWrapper.disabled(component)){%> disabled="disabled" <%}%> 
 		<%
 		existsChangeEvent = false;
-		for(String event: janiculum.availableEvents()){
+		for(String event: JaniculumWrapper.availableEvents(component)){
 		%>
 		
 		
 		<%if(!"change".equals(event)){%>
-		on<%=event%>="romaFieldChanged('<%=janiculum.fieldName()%>_time'); romaEvent('<%=janiculum.fieldName()%>_time', '<%=event%>')"
+		on<%=event%>="romaFieldChanged('<%=JaniculumWrapper.fieldName(component)%>_time'); romaEvent('<%=JaniculumWrapper.fieldName(component)%>_time', '<%=event%>')"
 		<%}else{
 			existsChangeEvent = true;
 		}%>
 		<%}%>
 		<%if( existsChangeEvent){%>
-		onchange="romaFieldChanged('<%=janiculum.fieldName()%>_time'); romaEvent('<%=janiculum.fieldName()%>_time', 'change')"
+		onchange="romaFieldChanged('<%=JaniculumWrapper.fieldName(component)%>_time'); romaEvent('<%=JaniculumWrapper.fieldName(component)%>_time', 'change')"
 		<%}else{%>
-		onchange="romaFieldChanged('<%=janiculum.fieldName()%>_time');"
+		onchange="romaFieldChanged('<%=JaniculumWrapper.fieldName(component)%>_time');"
 		<%}%>
 		/>
-		<span class="<%=janiculum.cssClass("validation_message")%>"></span>
+		<span class="<%=JaniculumWrapper.cssClass(component, "time", "validation_message")%>"></span>
 	<%}else{%>	
-	<input id="<%=janiculum.id("time")%>" class="<%=janiculum.cssClass("content")%>" type="text" name="<%=janiculum.fieldName()%>_time" value="<%=janiculum.formatDateContent("HH:MM:ss")%>" <%if( janiculum.disabled()){%> disabled="disabled" <%}%> 
+	<input id="<%=JaniculumWrapper.id(component, "time")%>" class="<%=JaniculumWrapper.cssClass(component, "time", "content")%>" type="text" name="<%=JaniculumWrapper.fieldName(component)%>_time" value="<%=JaniculumWrapper.formatDateContent(component, "HH:MM:ss")%>" <%if( JaniculumWrapper.disabled(component)){%> disabled="disabled" <%}%> 
 	<%
 		existsChangeEvent = false;
-	for(String event: janiculum.availableEvents() ){
+	for(String event: JaniculumWrapper.availableEvents(component) ){
 	%>
 		
 		<%if( !"change".equals(event)){%>
-		on<%=event%>="romaFieldChanged('<%=janiculum.fieldName()%>_time'); romaEvent('<%=janiculum.fieldName()%>_time', '<%=event%>')"
+		on<%=event%>="romaFieldChanged('<%=JaniculumWrapper.fieldName(component)%>_time'); romaEvent('<%=JaniculumWrapper.fieldName(component)%>_time', '<%=event%>')"
 		<%}else{
 			existsChangeEvent=true;
 		}}%>
 		<%if( existsChangeEvent){%>
-		onchange="romaFieldChanged('<%=janiculum.fieldName()%>_time'); romaEvent('<%=janiculum.fieldName()%>_time', 'change')"
+		onchange="romaFieldChanged('<%=JaniculumWrapper.fieldName(component)%>_time'); romaEvent('<%=JaniculumWrapper.fieldName(component)%>_time', 'change')"
 		<%}else{%>
-		onchange="romaFieldChanged('<%=janiculum.fieldName()%>_time');"
+		onchange="romaFieldChanged('<%=JaniculumWrapper.fieldName(component)%>_time');"
 		<%}%>
 	/>
 	<%}%>
 </div>
 
 <%
-JspTransformerHelper.addJs(janiculum.id(TransformerConstants.PART_ALL), "jQuery('#"+janiculum.id("time")+"').timeEntry({spinnerImage: 'static/base/image/spinnerDefault.png', show24Hours: true, showSeconds: true});");
+JspTransformerHelper.addJs(JaniculumWrapper.id(component, TransformerConstants.PART_ALL), "jQuery('#"+JaniculumWrapper.id(component, "time")+"').timeEntry({spinnerImage: 'static/base/image/spinnerDefault.png', show24Hours: true, showSeconds: true});");
 %>

@@ -55,7 +55,7 @@ public abstract class AbstractHtmlViewTransformer implements Transformer {
 		}
 		return "<label for=\"" + helper.getHtmlId(contentComponent, TransformerConstants.PART_CONTENT) + "\" id=\""
 				+ helper.getHtmlId(contentComponent, TransformerConstants.PART_LABEL) + "\" class=\""
-				+ helper.getHtmlClass(contentComponent.getTransformer(), TransformerConstants.PART_LABEL, contentComponent) + "\" >" + label + "</label>\n";
+				+ helper.getHtmlClass(contentComponent.getTransformer().toString(), TransformerConstants.PART_LABEL, contentComponent) + "\" >" + label + "</label>\n";
 	}
 
 	/*

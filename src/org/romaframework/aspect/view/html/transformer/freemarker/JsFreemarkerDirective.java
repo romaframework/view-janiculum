@@ -36,7 +36,7 @@ public class JsFreemarkerDirective implements TemplateDirectiveModel{
 		if (body != null) {
 			body.render(writer);
 		}
-		jsBuffer.setScript(janiculum.id(TransformerConstants.PART_ALL), writer.getBuffer().toString());
+//		jsBuffer.setScript(janiculum.id(TransformerConstants.PART_ALL), writer.getBuffer().toString());//TODO
 	}
 
 	public static JsFreemarkerDirective getInstance(){

@@ -51,7 +51,7 @@ public class HtmlViewObjectEmbeddedTransformer extends AbstractHtmlViewTransform
 
 	protected void content(final HtmlViewConfigurableEntityForm contentComponent, final ServletRequest request, Writer writer)
 			throws ServletException, IOException {
-		String htmlClass = helper.getHtmlClass(this, null, contentComponent);
+		String htmlClass = helper.getHtmlClass(this.toString(), null, contentComponent);
 		String htmlId = helper.getHtmlId(contentComponent, null);
 		writer.write("<div class=\"");
 		writer.write(htmlClass);

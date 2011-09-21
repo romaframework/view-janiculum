@@ -1,15 +1,17 @@
 <%@page import="org.romaframework.aspect.view.html.constants.TransformerConstants"%>
 <%@page import="org.romaframework.aspect.view.html.transformer.jsp.directive.JspTransformerHelper"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8"	pageEncoding="UTF-8"%><%@page import="java.util.Set"%><%@page import="org.romaframework.aspect.view.html.transformer.jsp.JspTransformer"%><%@page import="org.romaframework.aspect.view.html.transformer.helper.JaniculumWrapper"%><%@page import="org.romaframework.aspect.view.html.constants.RequestConstants"%><%@page import="java.util.Map"%><%
-	Map<String, Object> ctx = (Map<String, Object>) request.getAttribute(RequestConstants.CURRENT_CONTEXT_IN_TRANSFORMER);
-	JaniculumWrapper janiculum = (JaniculumWrapper)ctx.get(JspTransformer.JANICULUM);
-	pageContext.setAttribute("janiculum", janiculum);
-	String part = (String) ctx.get(JspTransformer.PART_TO_PRINT);
+<%@ page language="java" contentType="text/html; charset=UTF-8"	pageEncoding="UTF-8"%>
+<%@page import="org.romaframework.aspect.view.html.area.HtmlViewRenderable"%>
+<%@page import="org.romaframework.aspect.view.html.constants.RequestConstants"%><%@page import="java.util.Set"%><%@page import="org.romaframework.aspect.view.html.transformer.jsp.JspTransformer"%><%@page import="org.romaframework.aspect.view.html.transformer.helper.JaniculumWrapper"%><%@page import="org.romaframework.aspect.view.html.constants.RequestConstants"%><%@page import="java.util.Map"%><%
+	
+	HtmlViewRenderable component = (HtmlViewRenderable)request.getAttribute(RequestConstants.CURRENT_COMPONENT_IN_TRANSFORMER);
+	
+	String part = (String) request.getAttribute(RequestConstants.CURRENT_COMPONENT_PART_IN_TRANSFORMER);
 	pageContext.setAttribute("part", part);
 %>
-<div id="<%=janiculum.id(null)%>" class="<%=janiculum.cssClass(null)%>" style="<%=janiculum.inlineStyle(null)%>">
-	<form id="<%=janiculum.id("form")%>" action="<%=janiculum.contextPath()%>/fileUpload" sent="0" method="post" enctype="multipart/form-data" target="<%=janiculum.id("iframe")%>">
-		<input name="<%=janiculum.fieldName()%>" type="file" onchange="jQuery('#<%=janiculum.id("form")%>').attr('sent', 1); submit()"/>
+<div id="<%=JaniculumWrapper.id(component, null)%>" class="<%=JaniculumWrapper.cssClass(component, "upload", null)%>" style="<%=JaniculumWrapper.inlineStyle(component, null)%>">
+	<form id="<%=JaniculumWrapper.id(component, "form")%>" action="<%=JaniculumWrapper.contextPath()%>/fileUpload" sent="0" method="post" enctype="multipart/form-data" target="<%=JaniculumWrapper.id(component, "iframe")%>">
+		<input name="<%=JaniculumWrapper.fieldName(component)%>" type="file" onchange="jQuery('#<%=JaniculumWrapper.id(component, "form")%>').attr('sent', 1); submit(component)"/>
 	</form>
-	<iframe name="<%=janiculum.id("iframe")%>" width="0" height="0" frameborder="0" onload="if(jQuery('#<%=janiculum.id("form")%>').attr('sent') == '1'){jQuery('#<%=janiculum.id("form")%>').attr('sent', 0); romaEvent('<%=janiculum.fieldName()%>', '.DEFAULT_EVENT')%>"></iframe>
+	<iframe name="<%=JaniculumWrapper.id(component, "iframe")%>" width="0" height="0" frameborder="0" onload="if(jQuery('#<%=JaniculumWrapper.id(component, "form")%>').attr('sent') == '1'){jQuery('#<%=JaniculumWrapper.id(component, "form")%>').attr('sent', 0); romaEvent('<%=JaniculumWrapper.fieldName(component)%>', 'upload')}"></iframe>
 </div>
