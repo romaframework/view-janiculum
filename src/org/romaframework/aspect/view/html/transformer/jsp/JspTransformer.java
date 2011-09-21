@@ -74,24 +74,24 @@ public class JspTransformer implements Transformer {
 			}
 		}
 
-		Map<String, Object> context = getGeneralContext(part, component, styles);
+//		Map<String, Object> context = getGeneralContext(part, component, styles);
 		// context.put(JS, JsFreemarkerDirective.getInstance());
 		// context.put(CSS, CssFreemarkerDirective.getInstance());
 		// context.put("delegate", DelegateDirective.getInstance());
 		// context.put("raw", RawDirective.getInstance());
-		transformHtml(context, writer);
+		transformHtml(component, part, writer);
 
 	}
 
-	private void transformHtml(Map<String, Object> context, Writer writer) throws IOException {
+	private void transformHtml(HtmlViewRenderable component, String part, Writer writer) throws IOException {
 		String string = HTML;
-		printCode(context, string, writer);
+		printCode(component, part, string, writer);
 	}
 
-	private void printCode(Map<String, Object> context, String codeType, Writer writer) throws IOException {
-		context.put(CODE_TO_PRINT, codeType);
+	private void printCode(HtmlViewRenderable component, String part, String codeType, Writer writer) throws IOException {
+//		context.put(CODE_TO_PRINT, codeType);//TODO!!!
 		ViewTemplateManager mgr = Roma.component(ViewTemplateManager.class);
-		mgr.execute(getTemplateName(), context, writer);
+		mgr.execute(getTemplateName(), component, part, writer);
 	}
 
 	/**
@@ -117,7 +117,7 @@ public class JspTransformer implements Transformer {
 		// Add the part info
 		TransformerHelper helper = TransformerHelper.getInstance();
 		if (renderable instanceof HtmlViewGenericComponent) {
-			ctx.put("htmlClass", helper.getHtmlClass(this, null, (HtmlViewGenericComponent) renderable));
+			ctx.put("htmlClass", helper.getHtmlClass(this.toString(), null, (HtmlViewGenericComponent) renderable));
 		}
 		ctx.put("htmlId", helper.getHtmlId(renderable, null));
 

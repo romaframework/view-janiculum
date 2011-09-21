@@ -8,17 +8,17 @@
 	pageEncoding="UTF-8"%>
 
 <%
-Map<String, Object> ctx = (Map<String, Object>) request.getAttribute(RequestConstants.CURRENT_CONTEXT_IN_TRANSFORMER);
-JaniculumWrapper janiculum = (JaniculumWrapper)ctx.get(JspTransformer.JANICULUM);
-pageContext.setAttribute("janiculum", janiculum);
 
-JspTransformerHelper.addCss(janiculum.id(null), "vertical-align", janiculum.areaVerticalAlignment());
-JspTransformerHelper.addCss(janiculum.id(null), "text-align", janiculum.areaHorizontalAlignment());
+HtmlViewRenderable component = (HtmlViewRenderable)request.getAttribute(RequestConstants.CURRENT_COMPONENT_IN_TRANSFORMER);
+
+
+JspTransformerHelper.addCss(JaniculumWrapper.id(component, null), "vertical-align", JaniculumWrapper.areaVerticalAlignment(component));
+JspTransformerHelper.addCss(JaniculumWrapper.id(component, null), "text-align", JaniculumWrapper.areaHorizontalAlignment(component));
 %>
 
-<div id="<%=janiculum.id(null) %>" class="<%=janiculum.cssClass(null)%>" style="<%=janiculum.inlineStyle(null)%>">
+<div id="<%=JaniculumWrapper.id(component, null) %>" class="<%=JaniculumWrapper.cssClass(component, "cell", null)%>" style="<%=JaniculumWrapper.inlineStyle( component, null)%>">
 	<%
-	for(Object child:janiculum.getChildren()){
+	for(Object child:JaniculumWrapper.getChildren(component)){
 		JspTransformerHelper.delegate((HtmlViewRenderable)child, null,pageContext.getOut());
 	}
 	%>

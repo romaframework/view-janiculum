@@ -8,28 +8,28 @@
 <%@page import="org.romaframework.aspect.view.html.constants.RequestConstants"%>
 <%@page import="java.util.Map"%>
 <%
-	Map<String, Object> ctx = (Map<String, Object>) request.getAttribute(RequestConstants.CURRENT_CONTEXT_IN_TRANSFORMER);
-	JaniculumWrapper janiculum = (JaniculumWrapper)ctx.get(JspTransformer.JANICULUM);
-	pageContext.setAttribute("janiculum", janiculum);
-	String part = (String) ctx.get(JspTransformer.PART_TO_PRINT);
+	
+	HtmlViewRenderable component = (HtmlViewRenderable)request.getAttribute(RequestConstants.CURRENT_COMPONENT_IN_TRANSFORMER);
+	
+	String part = (String) request.getAttribute(RequestConstants.CURRENT_COMPONENT_PART_IN_TRANSFORMER);
 	pageContext.setAttribute("part", part);
-	String valign = janiculum.areaVerticalAlignment();
+	String valign = JaniculumWrapper.areaVerticalAlignment(component);
 	if("center".equals(valign)){
 		valign = "middle";
 	}
-	String halign = janiculum.areaHorizontalAlignment();
+	String halign = JaniculumWrapper.areaHorizontalAlignment(component);
 %>
-<table cellpadding="0" cellspacing="0" id="<%=janiculum.id(null)%>" class="<%=janiculum.cssClass(null)%> rowset-table" style="<%=janiculum.inlineStyle(null)%>">
+<table cellpadding="0" cellspacing="0" id="<%=JaniculumWrapper.id(component, null)%>" class="<%=JaniculumWrapper.cssClass(component, "rowset", null)%> rowset-table" style="<%=JaniculumWrapper.inlineStyle(component, null)%>">
 	<%
 	int row = 0;
-	for(Object c:janiculum.getChildren()){
+	for(Object c:JaniculumWrapper.getChildren(component)){
 		HtmlViewRenderable child=(HtmlViewRenderable)c;
 	
 	%>
-    <tr><td id="<%=janiculum.id(null)%>_<%=row%>_td"><%JspTransformerHelper.delegate(child, null,pageContext.getOut()); %></td></tr>
+    <tr><td id="<%=JaniculumWrapper.id(component, null)%>_<%=row%>_td"><%JspTransformerHelper.delegate(child, null,pageContext.getOut()); %></td></tr>
    <%
-	   	JspTransformerHelper.addCss("#"+janiculum.id(null)+"_"+row+"_td", "vertical-align", valign);
-	   	JspTransformerHelper.addCss("#"+janiculum.id(null)+"_"+row+"_td", "text-align", halign);
+	   	JspTransformerHelper.addCss("#"+JaniculumWrapper.id(component, null)+"_"+row+"_td", "vertical-align", valign);
+	   	JspTransformerHelper.addCss("#"+JaniculumWrapper.id(component, null)+"_"+row+"_td", "text-align", halign);
 		row++;
 	}
    %>

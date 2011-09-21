@@ -1,18 +1,20 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"	pageEncoding="UTF-8"%><%@page import="java.util.Set"%><%@page import="org.romaframework.aspect.view.html.transformer.jsp.JspTransformer"%><%@page import="org.romaframework.aspect.view.html.transformer.helper.JaniculumWrapper"%><%@page import="org.romaframework.aspect.view.html.constants.RequestConstants"%><%@page import="java.util.Map"%><%
-	Map<String, Object> ctx = (Map<String, Object>) request.getAttribute(RequestConstants.CURRENT_CONTEXT_IN_TRANSFORMER);
-	JaniculumWrapper janiculum = (JaniculumWrapper)ctx.get(JspTransformer.JANICULUM);
-	pageContext.setAttribute("janiculum", janiculum);
-	String part = (String) ctx.get(JspTransformer.PART_TO_PRINT);
+<%@ page language="java" contentType="text/html; charset=UTF-8"	pageEncoding="UTF-8"%>
+<%@page import="org.romaframework.aspect.view.html.area.HtmlViewRenderable"%>
+<%@page import="org.romaframework.aspect.view.html.constants.RequestConstants"%><%@page import="java.util.Set"%><%@page import="org.romaframework.aspect.view.html.transformer.jsp.JspTransformer"%><%@page import="org.romaframework.aspect.view.html.transformer.helper.JaniculumWrapper"%><%@page import="org.romaframework.aspect.view.html.constants.RequestConstants"%><%@page import="java.util.Map"%><%
+	
+	HtmlViewRenderable component = (HtmlViewRenderable)request.getAttribute(RequestConstants.CURRENT_COMPONENT_IN_TRANSFORMER);
+	
+	String part = (String) request.getAttribute(RequestConstants.CURRENT_COMPONENT_PART_IN_TRANSFORMER);
 	pageContext.setAttribute("part", part);
 	if(!("raw".equals(part) || "label".equals(part))){
-		if(janiculum.content()!=null){
+		if(JaniculumWrapper.content(component)!=null){
 %>
-<div class="<%=janiculum.cssClass(null)%>" style="<%=janiculum.inlineStyle(null)%>" id="<%=janiculum.id(null)%>">
-<img id="<%=janiculum.id("content")%>" class="<%=janiculum.cssClass("content")%>" src="<%=janiculum.contextPath()%>/image.png?imagePojo=<%=janiculum.imageId()%>" 		
+<div class="<%=JaniculumWrapper.cssClass(component, "image", null)%>" style="<%=JaniculumWrapper.inlineStyle(component, null)%>" id="<%=JaniculumWrapper.id(component, null)%>">
+<img id="<%=JaniculumWrapper.id(component, "content")%>" class="<%=JaniculumWrapper.cssClass(component, "image", "content")%>" src="<%=JaniculumWrapper.contextPath()%>/image.png?imagePojo=<%=JaniculumWrapper.imageId(component)%>" 		
 <%
-			for(String event: janiculum.availableEvents()){
+			for(String event: JaniculumWrapper.availableEvents(component)){
 %>			
-on<%=event%>="romaFieldChanged('<%=janiculum.fieldName()%>'); romaEvent('<%=janiculum.fieldName()%>', '<%=event%>')"
+on<%=event%>="romaFieldChanged('<%=JaniculumWrapper.fieldName(component)%>'); romaEvent('<%=JaniculumWrapper.fieldName(component)%>', '<%=event%>')"
 <%
 			}
 %>
@@ -20,5 +22,5 @@ on<%=event%>="romaFieldChanged('<%=janiculum.fieldName()%>'); romaEvent('<%=jani
 <%
 		}
 	}else if("label".equals(part)){
-%><label id="<%=janiculum.id("label")%>" class="<%=janiculum.cssClass("label")%>" for="<%=janiculum.id("content")%>"><%=janiculum.i18NLabel()%></label>
+%><label id="<%=JaniculumWrapper.id(component, "label")%>" class="<%=JaniculumWrapper.cssClass(component, "image", "label")%>" for="<%=JaniculumWrapper.id(component, "content")%>"><%=JaniculumWrapper.i18NLabel(component)%></label>
 <%	}%>

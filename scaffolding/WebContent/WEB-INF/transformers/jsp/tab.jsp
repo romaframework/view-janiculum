@@ -8,26 +8,28 @@
 <%@page import="org.romaframework.aspect.view.html.constants.RequestConstants"%>
 <%@page import="java.util.Map"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"	pageEncoding="UTF-8"%>
+<%@page import="org.romaframework.aspect.view.html.area.HtmlViewRenderable"%>
+<%@page import="org.romaframework.aspect.view.html.constants.RequestConstants"%>
 <%
-	Map<String, Object> ctx = (Map<String, Object>) request.getAttribute(RequestConstants.CURRENT_CONTEXT_IN_TRANSFORMER);
-	JaniculumWrapper janiculum = (JaniculumWrapper)ctx.get(JspTransformer.JANICULUM);
-	pageContext.setAttribute("janiculum", janiculum);
-	String part = (String) ctx.get(JspTransformer.PART_TO_PRINT);
+	
+	HtmlViewRenderable component = (HtmlViewRenderable)request.getAttribute(RequestConstants.CURRENT_COMPONENT_IN_TRANSFORMER);
+	
+	String part = (String) request.getAttribute(RequestConstants.CURRENT_COMPONENT_PART_IN_TRANSFORMER);
 	pageContext.setAttribute("part", part);
 
 %>
-<div id="<%=janiculum.id(null)%>" class="<%=janiculum.cssClass(null)%>" style="<%=janiculum.inlineStyle(null)%>">
-	<div id="<%=janiculum.id("tabs")%>" class="<%=janiculum.cssClass("tabs")%> ui-tabs-nav">
+<div id="<%=JaniculumWrapper.id(component, null)%>" class="<%=JaniculumWrapper.cssClass(component, "tab", null)%>" style="<%=JaniculumWrapper.inlineStyle(component, null)%>">
+	<div id="<%=JaniculumWrapper.id(component, "tabs")%>" class="<%=JaniculumWrapper.cssClass(component, "tab", "tabs")%> ui-tabs-nav">
 		<ul>
 		<%
 			String selected_id ="";
 			boolean empty = true;
 			int childIndex = 0;
 			String currentClass = "";
-			for(Object c:janiculum.getChildren() ){
+			for(Object c:JaniculumWrapper.getChildren(component) ){
 				HtmlViewRenderable child = (HtmlViewRenderable) c;
 				empty = false;
-				if(janiculum.isSelected(childIndex)){
+				if(JaniculumWrapper.isSelected(component, childIndex)){
 					currentClass = "ui-tabs-selected";
 					selected_id =""+childIndex;
 				}
@@ -38,21 +40,21 @@
 					childLabel = ((HtmlViewInvisibleContentComponent)child).getLabel();
 				}
 		%>
-				<li class="<%=currentClass%>" onclick="changeTab(<%=janiculum.fieldName()%>,<%=childIndex%>)"><a><span ><%=childLabel%></span></a></li>
+				<li class="<%=currentClass%>" onclick="changeTab(<%=JaniculumWrapper.fieldName(component)%>,<%=childIndex%>)"><a><span ><%=childLabel%></span></a></li>
 			<%
 				currentClass = "";
 				childIndex++;
 			} %>
 		</ul>
 	</div>
-	<input type="hidden" id="<%=janiculum.id(null)%>_selected" name="<%=janiculum.fieldName()%>" value="<%=janiculum.fieldName()%>_<%=selected_id%>"  />
+	<input type="hidden" id="<%=JaniculumWrapper.id(component, null)%>_selected" name="<%=JaniculumWrapper.fieldName(component)%>" value="<%=JaniculumWrapper.fieldName(component)%>_<%=selected_id%>"  />
 
 <%	
 	childIndex = 0;
-	for(Object c:janiculum.getChildren() ){
+	for(Object c:JaniculumWrapper.getChildren(component) ){
 		HtmlViewRenderable child = (HtmlViewRenderable) c;
 	
-		if((janiculum.isSelected(childIndex))){
+		if((JaniculumWrapper.isSelected(component, childIndex))){
 			currentClass = "ui-tabs-panel";
 		}else{
 			currentClass = "ui-tabs-panel ui-tabs-hide";
@@ -66,6 +68,6 @@
 </div>
 <%if(!empty && "".equals(selected_id)){
 
-	JspTransformerHelper.addJs(janiculum.id(TransformerConstants.PART_ALL), "changeTab("+janiculum.fieldName()+", "+janiculum.selectedIndexesAsString()+");");
+	JspTransformerHelper.addJs(JaniculumWrapper.id(component, TransformerConstants.PART_ALL), "changeTab("+JaniculumWrapper.fieldName(component)+", "+JaniculumWrapper.selectedIndexesAsString(component)+");");
 }
 %>

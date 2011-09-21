@@ -5,28 +5,30 @@
 <%@page import="org.romaframework.aspect.view.html.constants.RequestConstants"%>
 <%@page import="java.util.Map"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"	pageEncoding="UTF-8"%>
+<%@page import="org.romaframework.aspect.view.html.area.HtmlViewRenderable"%>
+<%@page import="org.romaframework.aspect.view.html.constants.RequestConstants"%>
 <%
-	Map<String, Object> ctx = (Map<String, Object>) request.getAttribute(RequestConstants.CURRENT_CONTEXT_IN_TRANSFORMER);
-	JaniculumWrapper janiculum = (JaniculumWrapper)ctx.get(JspTransformer.JANICULUM);
-	pageContext.setAttribute("janiculum", janiculum);
-	String part = (String) ctx.get(JspTransformer.PART_TO_PRINT);
+	
+	HtmlViewRenderable component = (HtmlViewRenderable)request.getAttribute(RequestConstants.CURRENT_COMPONENT_IN_TRANSFORMER);
+	
+	String part = (String) request.getAttribute(RequestConstants.CURRENT_COMPONENT_PART_IN_TRANSFORMER);
 	pageContext.setAttribute("part", part);
 
 	if ("".equals(part) || "all".equals(part)|| "content".equals(part)){   %>
 
-	<div class="<%=janiculum.cssClass(null)%>" id="<%=janiculum.id(null)%>" style="<%=janiculum.inlineStyle(null)%>">
-		<span class="<%=janiculum.cssClass("content")%>" id="<%=janiculum.id("content")%>">
-			<%if(janiculum.getChildren()!=null){%>
-				<select id="<%=janiculum.id("select")%>"
-				name="<%=janiculum.fieldName()%>"
-				<%if(janiculum.disabled()){%> disabled="disabled" <%}
+	<div class="<%=JaniculumWrapper.cssClass(component, "select", null)%>" id="<%=JaniculumWrapper.id(component, null)%>" style="<%=JaniculumWrapper.inlineStyle(component, null)%>">
+		<span class="<%=JaniculumWrapper.cssClass(component, "select", "content")%>" id="<%=JaniculumWrapper.id(component, "content")%>">
+			<%if(JaniculumWrapper.getChildren(component)!=null){%>
+				<select id="<%=JaniculumWrapper.id(component, "select")%>"
+				name="<%=JaniculumWrapper.fieldName(component)%>"
+				<%if(JaniculumWrapper.disabled(component)){%> disabled="disabled" <%}
 					boolean existsChangeEvent=false;
-					for(String event: janiculum.availableEvents()){
+					for(String event: JaniculumWrapper.availableEvents(component)){
 						if(!"change".equals(event)){	
 					
 						%>
 						
-						on<%=event%>="romaFieldChanged('<%=janiculum.fieldName()%>'); romaEvent('<%=janiculum.fieldName()%>', '<%=event%>')"
+						on<%=event%>="romaFieldChanged('<%=JaniculumWrapper.fieldName(component)%>'); romaEvent('<%=JaniculumWrapper.fieldName(component)%>', '<%=event%>')"
 						<%}else{
 							existsChangeEvent = true;
 						}
@@ -35,23 +37,23 @@
 				%>
 				
 				
-				onchange="romaFieldChanged('<%=janiculum.fieldName()%>'); romaEvent('<%=janiculum.fieldName()%>', 'change')"
+				onchange="romaFieldChanged('<%=JaniculumWrapper.fieldName(component)%>'); romaEvent('<%=JaniculumWrapper.fieldName(component)%>', 'change')"
 				<%}else{ %>
-				onchange="romaFieldChanged('<%=janiculum.fieldName()%>'); romaSendAjaxRequest()"
+				onchange="romaFieldChanged('<%=JaniculumWrapper.fieldName(component)%>'); romaSendAjaxRequest(component)"
 				<%} %>
-				style="<%if(!janiculum.isValid()){%>border-color:red;<%} %>"
+				style="<%if(!JaniculumWrapper.isValid(component)){%>border-color:red;<%} %>"
 				>
 				
-				<option value="<%=janiculum.fieldName()%>_-1" ></option>
+				<option value="<%=JaniculumWrapper.fieldName(component)%>_-1" ></option>
 				<%
 				int i = 0;
 				boolean selected = false;
-				for(Object o:janiculum.getChildren()){
+				for(Object o:JaniculumWrapper.getChildren(component)){
 					HtmlViewRenderable opt = (HtmlViewRenderable)o;
 				
 				%>
 				
-					<option value="<%=janiculum.fieldName()%>_<%=i%>" <%if(janiculum.isSelected(i)){%>	selected="selected"	<%} %>> 
+					<option value="<%=JaniculumWrapper.fieldName(component)%>_<%=i%>" <%if(JaniculumWrapper.isSelected(component, i)){%>	selected="selected"	<%} %>> 
 					 <%=JspTransformerHelper.raw(opt) %>
 					</option>	
 					
@@ -60,8 +62,8 @@
 				} %>
 				</select>
 				
-				<%if(!janiculum.isValid() ){ %>
-                    <span class="<%=janiculum.cssClass("validation_message")%>"><%=janiculum.validationMessage()==null?"Invalid":janiculum.validationMessage()%></span> 
+				<%if(!JaniculumWrapper.isValid(component) ){ %>
+                    <span class="<%=JaniculumWrapper.cssClass(component, "select", "validation_message")%>"><%=JaniculumWrapper.validationMessage(component)==null?"Invalid":JaniculumWrapper.validationMessage(component)%></span> 
                 <%} 
                 }%>
 			
@@ -70,5 +72,5 @@
 <%} 
 if ("label".equals(part) ){   %>
 
-	<%=janiculum.i18NLabel()%>
+	<%=JaniculumWrapper.i18NLabel(component)%>
 <%} %>

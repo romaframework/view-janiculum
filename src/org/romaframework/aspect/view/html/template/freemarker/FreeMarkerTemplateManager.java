@@ -8,6 +8,7 @@ import java.util.Map;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.romaframework.aspect.view.html.area.HtmlViewRenderable;
 import org.romaframework.aspect.view.html.template.ViewTemplateManager;
 import org.romaframework.core.Utility;
 import org.romaframework.core.config.RomaApplicationContext;
@@ -75,6 +76,12 @@ public class FreeMarkerTemplateManager implements ViewTemplateManager{
 
 	public void setCacheTemplates(boolean cacheTemplates) {
 		this.cacheTemplates = cacheTemplates;
+	}
+
+	@Override
+	public void execute(String templateName, HtmlViewRenderable renderable, String part, Writer writer) {
+		// TODO Auto-generated method stub
+		
 	}
 
 	

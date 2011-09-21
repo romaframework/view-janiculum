@@ -56,15 +56,15 @@ public class JaniculumWrapper {
 		this.component = component;
 	}
 
-	public String id(String part) {
+	public static String id(HtmlViewRenderable component, String part) {
 		return helper.getHtmlId(component, part);
 	}
 
-	public Long progressiveLong() {
+	public static Long progressiveLong(HtmlViewRenderable component) {
 		return counter++;
 	}
 
-	public HtmlViewGenericComponent getContainerComponent() {
+	public static HtmlViewGenericComponent getContainerComponent(HtmlViewRenderable component) {
 		if (component instanceof HtmlViewGenericComponent) {
 			return (HtmlViewGenericComponent) ((HtmlViewGenericComponent) component).getContainerComponent();
 		} else if (component instanceof HtmlViewAreaModeImpl) {
@@ -73,7 +73,7 @@ public class JaniculumWrapper {
 		return null;
 	}
 
-	public Collection<?> getChildren() {
+	public static Collection<?> getChildren(HtmlViewRenderable component) {
 		if (component instanceof HtmlViewGenericComponent) {
 			return ((HtmlViewGenericComponent) component).getChildren();
 		} else if (component instanceof HtmlViewAreaModeImpl) {
@@ -82,19 +82,19 @@ public class JaniculumWrapper {
 		return EMPTY_LIST;
 	}
 
-	public boolean haveChildren() {
-		Collection<?> children = this.getChildren();
+	public static boolean haveChildren(HtmlViewRenderable component) {
+		Collection<?> children = JaniculumWrapper.getChildren(component);
 		if (children != null && children.size() > 0)
 			return true;
 		else
 			return false;
 	}
 
-	public Object content() {
-		return content(false);
+	public static Object content(HtmlViewRenderable component) {
+		return content(component, false);
 	}
 
-	public Object content(boolean quoteDblquotes) {
+	public static Object content(HtmlViewRenderable component, boolean quoteDblquotes) {
 		if (component instanceof HtmlViewContentComponent) {
 			Object result = ((HtmlViewContentComponent) component).getContent();
 			if (result != null && result instanceof String && quoteDblquotes) {
@@ -105,7 +105,7 @@ public class JaniculumWrapper {
 		return null;
 	}
 
-	public Object formattedContent() {
+	public static Object formattedContent(HtmlViewRenderable component) {
 		if (component instanceof HtmlViewContentComponent) {
 			SchemaField field = ((HtmlViewContentComponent) component).getSchemaField();
 			Object content = ((HtmlViewContentComponent) component).getContent();
@@ -114,23 +114,20 @@ public class JaniculumWrapper {
 		return null;
 	}
 
-	public String contentAsString() {
-		Object content = content();
+	public static String contentAsString(HtmlViewRenderable component) {
+		Object content = content(component);
 		if (content == null) {
 			return "";
 		}
 		return content.toString();
 	}
 
-	public HtmlViewRenderable getComponent() {
-		return component;
-	}
 
-	public String imageLabel() {
-		SchemaClassElement schema = getSchemaElement();
+	public static String imageLabel(HtmlViewRenderable component) {
+		SchemaClassElement schema = getSchemaElement(component);
 		String result = null;
 		if (schema instanceof SchemaField) {
-			Object content = content();
+			Object content = content(component);
 			if (content != null) {
 				result = content.toString().replaceAll("\\$", "");
 			}
@@ -143,11 +140,11 @@ public class JaniculumWrapper {
 		return result;
 	}
 
-	public String cssClass(String part) {
-		return cssSpecificClass(component, part);
+	public static String cssClass(HtmlViewRenderable component, String transformerName, String part) {
+		return cssSpecificClass(component, transformerName, part);
 	}
 
-	public String cssSpecificClass(HtmlViewRenderable thisComponent, String part) {
+	public static String cssSpecificClass(HtmlViewRenderable thisComponent, String transformerName, String part) {
 		if (thisComponent instanceof HtmlViewGenericComponent) {
 			SchemaField schemaField = ((HtmlViewGenericComponent) thisComponent).getSchemaField();
 
@@ -159,7 +156,7 @@ public class JaniculumWrapper {
 				}
 			}
 
-			return helper.getHtmlClass(transformer, part, (HtmlViewGenericComponent) thisComponent);
+			return helper.getHtmlClass(transformerName, part, (HtmlViewGenericComponent) thisComponent);
 		} else if (thisComponent instanceof HtmlViewAreaMode) {
 			String areaName = ((HtmlViewAreaMode) thisComponent).getAreaName();
 			if (areaName != null) {
@@ -169,11 +166,11 @@ public class JaniculumWrapper {
 		return "";
 	}
 
-	public String tableRowCssClass(int rowIndex) {
-		return tableRowCssSpecificClass(component, rowIndex);
+	public static String tableRowCssClass(HtmlViewRenderable component, String transformerName, int rowIndex) {
+		return tableRowCssSpecificClass(component, transformerName, rowIndex);
 	}
 
-	public String tableRowCssSpecificClass(HtmlViewRenderable thisComponent, int rowIndex) {
+	public static String tableRowCssSpecificClass(HtmlViewRenderable thisComponent, String transformerName, int rowIndex) {
 		if (thisComponent instanceof HtmlViewCollectionComposedComponent) {
 			HtmlViewCollectionComposedComponent tableComponent = (HtmlViewCollectionComposedComponent) thisComponent;
 			if (tableComponent.getChildren().size() > rowIndex) {
@@ -187,10 +184,10 @@ public class JaniculumWrapper {
 				}
 			}
 		}
-		return cssClass("body_row");
+		return cssClass(thisComponent, transformerName, "body_row");
 	}
 
-	public String inlineStyle(String part) {
+	public static String inlineStyle(HtmlViewRenderable component, String part) {
 		if (component instanceof HtmlViewGenericComponent) {
 			SchemaField schemaField = ((HtmlViewGenericComponent) component).getSchemaField();
 			if (schemaField != null) {
@@ -223,7 +220,7 @@ public class JaniculumWrapper {
 	 * 
 	 * @return
 	 */
-	public boolean isLabelRendered() {
+	public static boolean isLabelRendered(HtmlViewRenderable component) {
 		if (component instanceof HtmlViewConfigurableEntityForm) {
 			HtmlViewFormArea area = ((HtmlViewConfigurableEntityForm) component).getAreaForComponentPlacement();
 			return !"placeholder".equals(((HtmlViewFormAreaInstance) area).getType());
@@ -234,15 +231,16 @@ public class JaniculumWrapper {
 		return true;
 	}
 
-	public String i18NLabel() {
+	public static String i18NLabel(HtmlViewRenderable component) {
 		return HtmlViewAspectHelper.getI18NLabel(((HtmlViewGenericComponent) component).getSchemaElement());
 	}
 
-	public String i18NHint() {
+	public static String i18NHint(HtmlViewRenderable component) {
 		return HtmlViewAspectHelper.getI18NHint(((HtmlViewGenericComponent) component).getSchemaElement());
 	}
 
-	public String i18N(String string) {
+	@Deprecated
+	public static String i18N(HtmlViewRenderable component, String string) {
 		String text = Roma.i18n().getString(string);
 		if (text == null) {
 			text = "";
@@ -267,36 +265,37 @@ public class JaniculumWrapper {
 		return text;
 	}
 
-	public boolean getField(){
-		return isField();
+	public static boolean getField(HtmlViewRenderable component){
+		return isField(component);
 	}
 	
-	public boolean isField() {
-		SchemaClassElement el = getSchemaElement();
+	public static boolean isField(HtmlViewRenderable component) {
+		SchemaClassElement el = getSchemaElement(component);
 		if (el instanceof SchemaField) {
 			return true;
 		}
 		return false;
 	}
 
-	public boolean isAction() {
-		SchemaClassElement el = getSchemaElement();
+	public static boolean isAction(HtmlViewRenderable component) {
+		SchemaClassElement el = getSchemaElement(component);
 		if (el instanceof SchemaAction) {
 			return true;
 		}
 		return false;
 	}
 
-	public boolean isAction(HtmlViewAbstractComponent component) {
+	@Deprecated
+	public static boolean isAction(HtmlViewAbstractComponent component) {
 		return (component instanceof HtmlViewActionComponent);
 	}
 
-	private SchemaClassElement getSchemaElement() {
+	private static SchemaClassElement getSchemaElement(HtmlViewRenderable component) {
 		SchemaClassElement el = ((HtmlViewGenericComponent) component).getSchemaElement();
 		return el;
 	}
 
-	public String actionName() {
+	public static String actionName(HtmlViewRenderable component) {
 		HtmlViewGenericComponent actionComponent = (HtmlViewGenericComponent) component;
 
 		return TransformerHelper.POJO_ACTION_PREFIX + TransformerHelper.SEPARATOR + actionComponent.getId()
@@ -304,19 +303,19 @@ public class JaniculumWrapper {
 				+ actionComponent.getScreenArea();
 	}
 
-	public String event(String event) {
+	public static String event(HtmlViewRenderable component, String event) {
 		HtmlViewGenericComponent actionComponent = (HtmlViewGenericComponent) component;
 		return EventHelper.getEventHtmlName(actionComponent, event);
 		// return "(PojoAction)_" + actionComponent.getId() + TransformerHelper.SEPARATOR + elementName(event)
 		// + TransformerHelper.SEPARATOR + actionComponent.getScreenArea();
 	}
 
-	public Set<String> getAvailableEvents() {
-		return this.availableEvents();
+	public static Set<String> getAvailableEvents(HtmlViewRenderable component) {
+		return availableEvents(component);
 	}
-	public Set<String> availableEvents() {
+	public static Set<String> availableEvents(HtmlViewRenderable component) {
 		Set<String> result = new HashSet<String>();
-		SchemaClassElement element = this.getSchemaElement();
+		SchemaClassElement element = getSchemaElement(component);
 		if (element instanceof SchemaField) {
 			Set<String> standardEvents = Roma.component(EventHelper.class).getStandardEvents();
 			Iterator<SchemaEvent> eventIterator = ((SchemaField) element).getEventIterator();
@@ -330,22 +329,22 @@ public class JaniculumWrapper {
 	}
 
 	@Deprecated
-	public String action(String action) {
+	public static String action(HtmlViewRenderable component, String action) {
 		HtmlViewGenericComponent actionComponent = (HtmlViewGenericComponent) component;
 
 		return TransformerHelper.POJO_ACTION_PREFIX + TransformerHelper.SEPARATOR + actionComponent.getId()
 				+ TransformerHelper.SEPARATOR + action + TransformerHelper.SEPARATOR + actionComponent.getScreenArea();
 	}
 
-	public String fieldName() {
+	public static String fieldName(HtmlViewRenderable component) {
 		return "" + (component).getId();
 	}
 
-	public boolean isDisabled() {
-		return disabled();
+	public static boolean isDisabled(HtmlViewRenderable component) {
+		return disabled(component);
 	}
 
-	public boolean disabled() {
+	public static boolean disabled(HtmlViewRenderable component) {
 		Boolean feature = ((HtmlViewGenericComponent) component).getSchemaElement().getFeature(ViewElementFeatures.ENABLED);
 		if (feature == null) {
 			return false;
@@ -353,26 +352,26 @@ public class JaniculumWrapper {
 		return !feature;
 	}
 
-	public boolean checked() {
-		Object content = content();
+	public static boolean checked(HtmlViewRenderable component) {
+		Object content = content(component);
 		if (content != null && content instanceof Boolean)
 			return ((Boolean) content).booleanValue();
 		return false;
 	}
 
-	public boolean isValid() {
+	public static boolean isValid(HtmlViewRenderable iComponent) {
 
-		HtmlViewAbstractContentComponent component = (HtmlViewAbstractContentComponent) this.component;
+		HtmlViewAbstractContentComponent component = (HtmlViewAbstractContentComponent) iComponent;
 		return component.isValid();
 
 	}
 
-	public String validationMessage() {
-		HtmlViewAbstractContentComponent component = (HtmlViewAbstractContentComponent) this.component;
+	public static String validationMessage(HtmlViewRenderable iComponent) {
+		HtmlViewAbstractContentComponent component = (HtmlViewAbstractContentComponent) iComponent;
 		return component.getValidationMessage();
 	}
 
-	public Collection<String> headers() {
+	public static Collection<String> headers(HtmlViewRenderable component) {
 		Collection<String> result = new ArrayList<String>();
 		if (component instanceof HtmlViewComposedComponent) {
 			return ((HtmlViewComposedComponent) component).getHeaders();
@@ -380,7 +379,7 @@ public class JaniculumWrapper {
 		return result;
 	}
 
-	public Collection<String> headersRaw() {
+	public static Collection<String> headersRaw(HtmlViewRenderable component) {
 		Collection<String> result = new ArrayList<String>();
 		if (component instanceof HtmlViewComposedComponent) {
 			return ((HtmlViewComposedComponent) component).getHeadersRaw();
@@ -388,42 +387,42 @@ public class JaniculumWrapper {
 		return result;
 	}
 
-	public boolean isEvent(String eventName) {
+	public static boolean isEvent(HtmlViewRenderable component, String eventName) {
 		HtmlViewGenericComponent actionComponent = (HtmlViewGenericComponent) component;
 		if (actionComponent.getSchemaField() != null)
 			return false;
 		return actionComponent.getSchemaField().getEvent(eventName) != null;
 	}
 
-	public String formatDateContent() {
-		return formatDateContent("dd/MM/yyyy");
+	public static String formatDateContent(HtmlViewRenderable component) {
+		return formatDateContent(component, "dd/MM/yyyy");
 	}
 
-	public String formatDateTimeContent() {
-		return formatDateContent("HH:mm:ss");
+	public static String formatDateTimeContent(HtmlViewRenderable component) {
+		return formatDateContent(component, "HH:mm:ss");
 	}
 
-	public String formatTimeContent() {
-		return formatDateContent("dd/MM/yyyy HH:mm:ss");
+	public static String formatTimeContent(HtmlViewRenderable component) {
+		return formatDateContent(component, "dd/MM/yyyy HH:mm:ss");
 	}
 
-	public String formatDateContent(String format) {
-		Date content = (Date) content();
+	public static String formatDateContent(HtmlViewRenderable component, String format) {
+		Date content = (Date) content(component);
 		if (content == null)
 			return "";
 		DateFormat formatter = new SimpleDateFormat(format);
 		return formatter.format(content);
 	}
 
-	public String formatNumberContent() {
-		return "" + formattedContent();
+	public static String formatNumberContent(HtmlViewRenderable component) {
+		return "" + formattedContent(component);
 	}
 
 	/**
 	 * 
 	 * @return true if this field is a collection or an array and its selection field is a single object
 	 */
-	public boolean isSingleSelection() {
+	public static boolean isSingleSelection(HtmlViewRenderable component) {
 		if (component instanceof HtmlViewContentComponent) {
 			return ((HtmlViewContentComponent) component).isSingleSelection();
 		}
@@ -435,7 +434,7 @@ public class JaniculumWrapper {
 	 * 
 	 * @return true if this field is a collection or an array and its selection field a collection or an array
 	 */
-	public boolean isMultiSelection() {
+	public static boolean isMultiSelection(HtmlViewRenderable component) {
 		if (component instanceof HtmlViewContentComponent) {
 			return ((HtmlViewContentComponent) component).isMultiSelection();
 		}
@@ -443,7 +442,7 @@ public class JaniculumWrapper {
 		return false;
 	}
 
-	public Set<Integer> selectedIndexes() {
+	public static Set<Integer> selectedIndexes(HtmlViewRenderable component) {
 		Set<Integer> result = new HashSet<Integer>();
 		if (component instanceof HtmlViewContentComponent) {
 			result = ((HtmlViewContentComponent) component).selectedIndex();
@@ -452,14 +451,14 @@ public class JaniculumWrapper {
 		return result;
 	}
 
-	public String selectedIndexesAsString() {
-		if (this.component instanceof HtmlViewCollectionComposedComponent) {
+	public static String selectedIndexesAsString(HtmlViewRenderable component) {
+		if (component instanceof HtmlViewCollectionComposedComponent) {
 			HtmlViewCollectionComposedComponent collComponent = (HtmlViewCollectionComposedComponent) component;
 			if (collComponent.isMap()) {
 				return "" + collComponent.getSelectedMapIndex();
 			}
 		}
-		Set<Integer> indexes = selectedIndexes();
+		Set<Integer> indexes = selectedIndexes(component);
 		if (indexes == null) {
 			return "";
 		}
@@ -476,12 +475,12 @@ public class JaniculumWrapper {
 		return result.toString();
 	}
 
-	public boolean isSelected(int index) {
-		Set<Integer> sel = selectedIndexes();
+	public static boolean isSelected(HtmlViewRenderable component, int index) {
+		Set<Integer> sel = selectedIndexes(component);
 		return sel != null && sel.contains(index);
 	}
 
-	public String imageId() {
+	public static String imageId(HtmlViewRenderable component) {
 		final Long longId = component.getId();
 
 		if (longId == null) {
@@ -490,7 +489,7 @@ public class JaniculumWrapper {
 		return longId.toString();
 	}
 
-	public int areaSize() {
+	public static int areaSize(HtmlViewRenderable component) {
 		int result = 1;
 		if (component instanceof HtmlViewAreaMode) {
 			return ((HtmlViewAreaModeImpl) component).getAreaContainer().getAreaSize();
@@ -507,11 +506,8 @@ public class JaniculumWrapper {
 		return result;
 	}
 
-	public String areaVerticalAlignment() {
-		return areaVerticalAlignment(component);
-	}
 
-	public String areaVerticalAlignment(final HtmlViewRenderable iComponent) {
+	public static String areaVerticalAlignment(final HtmlViewRenderable iComponent) {
 		String align = null;
 
 		if (iComponent instanceof HtmlViewFormAreaInstance) {
@@ -533,11 +529,8 @@ public class JaniculumWrapper {
 		return aligns[0];
 	}
 
-	public String areaHorizontalAlignment() {
-		return areaHorizontalAlignment(component);
-	}
 
-	public String areaHorizontalAlignment(final HtmlViewRenderable iComponent) {
+	public static String areaHorizontalAlignment(final HtmlViewRenderable iComponent) {
 		// if (iComponent == component)
 		// System.out.println("areaHorizontalAlignment(!" + iComponent + ")->" + iComponent.getClass());
 		// else
@@ -563,11 +556,11 @@ public class JaniculumWrapper {
 		return aligns.length > 1 ? aligns[1] : "";
 	}
 
-	public String loadAsUrl() {
-		if (content() == null)
+	public static String loadAsUrl(HtmlViewRenderable component) {
+		if (content(component) == null)
 			return "";
 
-		String url = contentAsString();
+		String url = contentAsString(component);
 		if (url.length() == 0)
 			return "";
 
@@ -625,13 +618,13 @@ public class JaniculumWrapper {
 		}
 	}
 
-	public String contextPath() {
+	public static String contextPath() {
 		HttpServletRequest request = (HttpServletRequest) Roma.context().component(
 				HttpAbstractSessionAspect.CONTEXT_REQUEST_PAR);
 		return request.getContextPath();
 	}
 
-	public boolean selectionAviable() {
+	public static boolean selectionAviable(HtmlViewRenderable component) {
 		if (component instanceof HtmlViewContentComponent) {
 			return ((HtmlViewContentComponent) component).hasSelection();
 		}
@@ -639,15 +632,16 @@ public class JaniculumWrapper {
 		return false;
 	}
 
-	public String imgContextPath() {
+	public static String imgContextPath() {
 		return contextPath() + "/static/base/image/";
 	}
 
-	public long currentTime() {
+	@Deprecated
+	public static long currentTime() {
 		return System.currentTimeMillis();
 	}
 
-	public Object additionalInfo() {
+	public static Object additionalInfo(HtmlViewRenderable component) {
 		if (component instanceof HtmlViewContentComponentImpl) {
 			return ((HtmlViewContentComponentImpl) component).getAdditionalInfo();
 		}

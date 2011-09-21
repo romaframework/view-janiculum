@@ -58,9 +58,9 @@ public class TransformerHelper {
 	 * @param part
 	 * @return
 	 */
-	public String getHtmlClass(final Transformer transformer, final String part, final HtmlViewGenericComponent iGenericComponent) {
+	public String getHtmlClass(final String transformerName, final String part, final HtmlViewGenericComponent iGenericComponent) {
 
-		final String classPrefix = transformer.toString();
+		final String classPrefix = transformerName;
 		String result = "";
 		if (part == null) {
 			result = classPrefix;

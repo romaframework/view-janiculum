@@ -19,7 +19,7 @@ public class HtmlViewFreeMarkerPojoTransformer extends HtmlViewPojoTransformer {
 	
 	public void transformPart(final HtmlViewRenderable component, final String part, Writer writer) throws IOException {
 		final HtmlViewConfigurableEntityForm form = (HtmlViewConfigurableEntityForm) component;
-		String htmlClass = helper.getHtmlClass(this, null, (HtmlViewGenericComponent) component);
+		String htmlClass = helper.getHtmlClass(this.toString(), null, (HtmlViewGenericComponent) component);
 		String htmlId = helper.getHtmlId(form, null);
 		ViewTemplateManager mgr = Roma.component(ViewTemplateManager.class);
 		HashMap<String, Object> ctx = new HashMap<String, Object>();

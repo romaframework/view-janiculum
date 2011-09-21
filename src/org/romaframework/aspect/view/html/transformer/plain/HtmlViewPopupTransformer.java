@@ -56,7 +56,7 @@ public class HtmlViewPopupTransformer extends AbstractHtmlViewTransformer implem
 
 		
 
-		writer.write(("<table cellpadding=\"0\" cellspacing=\"0\" class=\"jqDnr " + helper.getHtmlClass(this, null, null) + "\" id=\""
+		writer.write(("<table cellpadding=\"0\" cellspacing=\"0\" class=\"jqDnr " + helper.getHtmlClass(this.toString(), null, null) + "\" id=\""
 				+ helper.getHtmlId(component, null) + "\">\n"));
 		writer.write("<tr class=\"popup_row_1\">\n");
 		writer.write("<td class=\"popup_col_1\"></td>\n");
@@ -70,7 +70,7 @@ public class HtmlViewPopupTransformer extends AbstractHtmlViewTransformer implem
 
 		// This is the where the popup is binded
 
-		writer.write(("<input class=\"" + helper.getHtmlClass(this, "close", null) + "\" id=\"" + helper.getHtmlId(component, "close")
+		writer.write(("<input class=\"" + helper.getHtmlClass(this.toString(), "close", null) + "\" id=\"" + helper.getHtmlId(component, "close")
 				+ "\" type=\"button\" value=\"\" name=\"(PojoEvent)_" + component.getId() + SEPARATOR + "close" + SEPARATOR
 				+ ((HtmlViewScreenArea) component).getName() + "\" onclick=\"romaEvent('" + component.getId() + "', '"
 				+ CLOSE_POPUP_EVENT_NAME + "')\"/>\n"));

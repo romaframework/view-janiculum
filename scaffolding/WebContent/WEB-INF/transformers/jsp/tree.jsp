@@ -9,46 +9,48 @@
 <%@page import="org.romaframework.aspect.view.html.constants.RequestConstants"%>
 <%@page import="java.util.Map"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"	pageEncoding="UTF-8"%>
+<%@page import="org.romaframework.aspect.view.html.area.HtmlViewRenderable"%>
+<%@page import="org.romaframework.aspect.view.html.constants.RequestConstants"%>
 <%
-	Map<String, Object> ctx = (Map<String, Object>) request.getAttribute(RequestConstants.CURRENT_CONTEXT_IN_TRANSFORMER);
-	JaniculumWrapper janiculum = (JaniculumWrapper)ctx.get(JspTransformer.JANICULUM);
-	pageContext.setAttribute("janiculum", janiculum);
-	String pId = janiculum.id(null);
+	
+	HtmlViewRenderable component = (HtmlViewRenderable)request.getAttribute(RequestConstants.CURRENT_COMPONENT_IN_TRANSFORMER);
+	
+	String pId = JaniculumWrapper.id(component, null);
 	int index = 0;
 %>
-<div id="<%=janiculum.id(null)%>"	class="<%=janiculum.cssClass(null)%>" style="<%=janiculum.inlineStyle(null)%>" inited="false">
+<div id="<%=JaniculumWrapper.id(component, null)%>"	class="<%=JaniculumWrapper.cssClass(component, "tree", null)%>" style="<%=JaniculumWrapper.inlineStyle(component, null)%>" inited="false">
   <div id="<%=pId%>">
 	  <ul>
-	  <%index = tree(janiculum.getComponent(), janiculum.getChildren(), "open", out, janiculum, index); %>
+	  <%index = tree(component, JaniculumWrapper.getChildren(component), "open", out, index); %>
     </ul>			
   </div>	
-  <input id="<%=janiculum.id("hidden")%>" class="<%=janiculum.cssClass(null)%>" style="<%=janiculum.inlineStyle(null)%>" type="hidden" name="<%=janiculum.fieldName()%>"  />
+  <input id="<%=JaniculumWrapper.id(component, "hidden")%>" class="<%=JaniculumWrapper.cssClass(component, "tree", null)%>" style="<%=JaniculumWrapper.inlineStyle(component, null)%>" type="hidden" name="<%=JaniculumWrapper.fieldName(component)%>"  />
 </div>
 <%!
 
-private int tree(HtmlViewRenderable comp, Collection<?> children, String cssClass, JspWriter out, JaniculumWrapper janiculum, int index){
+private int tree(HtmlViewRenderable comp, Collection<?> children, String cssClass, JspWriter out, int index){
 	try{
 		if(children.size()==0){
 			out.print("<li id=\""+comp.getHtmlId()+"_content\">");
 			out.print("<a ");
-			if(janiculum.isSelected(index)){
+			if(JaniculumWrapper.isSelected(comp, index)){
 				out.print("class=\"clicked\" ");
 			}
 			HtmlViewContentComponent component = (HtmlViewContentComponent)comp;
 			out.print("idx=\""+index+"\" >"+component.getContent()==null?"":component.getContent()+"</a></li>");
 			index++;
 		}else{
+			HtmlViewContentComponent component = (HtmlViewContentComponent)comp;
 			out.print("<li id=\""+comp.getHtmlId()+"_content\" class=\""+cssClass+"\"><a ");
-			if(janiculum.isSelected(index)){
+			if(JaniculumWrapper.isSelected(component, index)){
 				out.print("class=\"clicked\" ");
 			}
-			HtmlViewContentComponent component = (HtmlViewContentComponent)comp;
 			out.print("idx=\""+index+"\" >"+component.getContent()==null?"":component.getContent()+"</a></li>");
 			index++;
 			out.print("<ul>");
 			for(Object c:children){
 				HtmlViewContentComponent child = (HtmlViewContentComponent)c;
-				index = tree((HtmlViewRenderable)child, child.getChildren(), "open", out, janiculum, index);
+				index = tree((HtmlViewRenderable)child, child.getChildren(), "open", out, index);
 			}
 			out.print("</ul>");
 			out.print("</li>");
@@ -63,8 +65,8 @@ StringBuffer buffer = new StringBuffer();
 buffer.append("jQuery(\"#"+pId+"\").tree({");
 buffer.append("	callback : {");
 buffer.append(		"onselect : function() {");
-buffer.append("			jQuery(\"#"+janiculum.id("hidden")+"\").attr('value', $.tree_reference('"+pId+"').selected.find(\"a\").attr(\"idx\"));");
-buffer.append("			romaFieldChanged('"+janiculum.fieldName()+"');");
+buffer.append("			jQuery(\"#"+JaniculumWrapper.id(component, "hidden")+"\").attr('value', $.tree_reference('"+pId+"').selected.find(\"a\").attr(\"idx\"));");
+buffer.append("			romaFieldChanged('"+JaniculumWrapper.fieldName(component)+"');");
 buffer.append("			romaSendAjaxRequest();");
 buffer.append("		}");
 buffer.append("	}");
@@ -72,5 +74,5 @@ buffer.append("});");
 buffer.append("if ($.tree_reference(\""+pId+"\") != null) {");
 buffer.append("	$.tree_reference(\""+pId+"\").open_all();");
 buffer.append("}");
-JspTransformerHelper.addJs(janiculum.id(TransformerConstants.PART_ALL), buffer.toString());
+JspTransformerHelper.addJs(JaniculumWrapper.id(component, TransformerConstants.PART_ALL), buffer.toString());
 %>

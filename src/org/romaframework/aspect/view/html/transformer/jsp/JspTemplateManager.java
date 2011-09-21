@@ -25,6 +25,7 @@ import javax.servlet.ServletRequest;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.romaframework.aspect.view.html.HtmlViewAspectHelper;
+import org.romaframework.aspect.view.html.area.HtmlViewRenderable;
 import org.romaframework.aspect.view.html.constants.RequestConstants;
 import org.romaframework.aspect.view.html.template.ViewTemplateManager;
 
@@ -63,6 +64,25 @@ public class JspTemplateManager implements ViewTemplateManager {
 	}
 
 	public void setCacheTemplates(boolean cacheTemplates) {
+	}
+
+	@Override
+	public void execute(String templateName, HtmlViewRenderable renderable, String part, Writer writer) {
+		ServletRequest request = HtmlViewAspectHelper.getServletRequest();
+		final String classJsp = getTemplatesPath() + templateName;
+		final Object previousComponent = request.getAttribute(RequestConstants.CURRENT_COMPONENT_IN_TRANSFORMER);
+		request.setAttribute(RequestConstants.CURRENT_COMPONENT_IN_TRANSFORMER, renderable);
+		final Object previousPart = request.getAttribute(RequestConstants.CURRENT_COMPONENT_PART_IN_TRANSFORMER);
+		request.setAttribute(RequestConstants.CURRENT_COMPONENT_PART_IN_TRANSFORMER, part);
+		try {
+			HtmlViewAspectHelper.getHtmlFromJSP(request, classJsp, writer);
+		} catch (ServletException e) {
+			log.error("error in jsp transformer", e.getRootCause() == null ? e : e.getRootCause());
+		} catch (IOException e) {
+			log.error("maybe wrong render defined", e);
+		}
+		request.setAttribute(RequestConstants.CURRENT_COMPONENT_IN_TRANSFORMER, previousComponent);
+		request.setAttribute(RequestConstants.CURRENT_COMPONENT_PART_IN_TRANSFORMER, previousPart);
 	}
 
 }

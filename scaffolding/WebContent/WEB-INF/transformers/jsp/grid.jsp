@@ -1,13 +1,15 @@
 <%@page import="org.romaframework.aspect.view.html.constants.TransformerConstants"%><%@page import="org.romaframework.aspect.view.html.area.HtmlViewRenderable"%><%@page import="org.romaframework.aspect.view.html.transformer.jsp.directive.JspTransformerHelper"%><%@ page language="java" contentType="text/html; charset=UTF-8"	pageEncoding="UTF-8"%>
+<%@page import="org.romaframework.aspect.view.html.area.HtmlViewRenderable"%>
+<%@page import="org.romaframework.aspect.view.html.constants.RequestConstants"%>
 <%@page import="java.util.Set"%><%@page import="org.romaframework.aspect.view.html.transformer.jsp.JspTransformer"%><%@page import="org.romaframework.aspect.view.html.transformer.helper.JaniculumWrapper"%><%@page import="org.romaframework.aspect.view.html.constants.RequestConstants"%><%@page import="java.util.Map"%><%
-	Map<String, Object> ctx = (Map<String, Object>) request.getAttribute(RequestConstants.CURRENT_CONTEXT_IN_TRANSFORMER);
-	JaniculumWrapper janiculum = (JaniculumWrapper)ctx.get(JspTransformer.JANICULUM);
-	pageContext.setAttribute("janiculum", janiculum);
-	String part = (String) ctx.get(JspTransformer.PART_TO_PRINT);
+	
+	HtmlViewRenderable component = (HtmlViewRenderable)request.getAttribute(RequestConstants.CURRENT_COMPONENT_IN_TRANSFORMER);
+	
+	String part = (String) request.getAttribute(RequestConstants.CURRENT_COMPONENT_PART_IN_TRANSFORMER);
 	pageContext.setAttribute("part", part);
 	
-	String vAlign = janiculum.areaVerticalAlignment();
-	String hAlign = janiculum.areaHorizontalAlignment();
+	String vAlign = JaniculumWrapper.areaVerticalAlignment(component);
+	String hAlign = JaniculumWrapper.areaHorizontalAlignment(component);
 	String marginLeft = "";
 	if("left".equals(hAlign)){
 		marginLeft = "0";
@@ -21,27 +23,27 @@
 	}else if("left".equals(hAlign)){
 		marginRight = "auto";
 	}
-	JspTransformerHelper.addCss(janiculum.id(null)+" > div.POJO > table.area_main", "margin-left", marginLeft);
-	JspTransformerHelper.addCss(janiculum.id(null)+" > div.POJO > table.area_main", "margin-right", marginRight);
+	JspTransformerHelper.addCss(JaniculumWrapper.id(component, null)+" > div.POJO > table.area_main", "margin-left", marginLeft);
+	JspTransformerHelper.addCss(JaniculumWrapper.id(component, null)+" > div.POJO > table.area_main", "margin-right", marginRight);
 	
-	JspTransformerHelper.addCss(janiculum.id(null)+" > table", "margin-left", marginLeft);
-	JspTransformerHelper.addCss(janiculum.id(null)+" > table", "margin-right", marginRight);
+	JspTransformerHelper.addCss(JaniculumWrapper.id(component, null)+" > table", "margin-left", marginLeft);
+	JspTransformerHelper.addCss(JaniculumWrapper.id(component, null)+" > table", "margin-right", marginRight);
 %>
 
-<table cellpaddign="0" cellspacing="0" id="<%=janiculum.id(null)%>" class="<%=janiculum.cssClass(null)%> grid-table" style="<%=janiculum.inlineStyle(null)%>">
+<table cellpaddign="0" cellspacing="0" id="<%=JaniculumWrapper.id(component, null)%>" class="<%=JaniculumWrapper.cssClass(component, "grid", null)%> grid-table" style="<%=JaniculumWrapper.inlineStyle(component, null)%>">
 <%
 int row = -1;
 int col = 0;
-for(Object c:janiculum.getChildren()){
+for(Object c:JaniculumWrapper.getChildren(component)){
 	HtmlViewRenderable child =(HtmlViewRenderable)c;
-	if(col%janiculum.areaSize()==0){
+	if(col%JaniculumWrapper.areaSize(component)==0){
 
 %>
 <tr>
 <%		row++;
 	}
-	JspTransformerHelper.addCss(janiculum.id(null)+"_"+row+"_"+col, "vertical-align", janiculum.areaVerticalAlignment(child));
-	String hAlignChild = janiculum.areaHorizontalAlignment(child);
+	JspTransformerHelper.addCss(JaniculumWrapper.id(component, null)+"_"+row+"_"+col, "vertical-align", JaniculumWrapper.areaVerticalAlignment(child));
+	String hAlignChild = JaniculumWrapper.areaHorizontalAlignment(child);
 	String marginLeftChild = "";
 	String marginRightChild = "";
 	if("left".equals(hAlignChild)){
@@ -51,19 +53,19 @@ for(Object c:janiculum.getChildren()){
 		marginLeftChild = "auto";
 		marginRightChild = "0";
 	}
-	JspTransformerHelper.addCss(janiculum.id(null)+"_"+row+"_"+col+" > table", "margin-left", marginLeftChild);
-	JspTransformerHelper.addCss(janiculum.id(null)+"_"+row+"_"+col+" > table", "margin-right", marginRightChild);
+	JspTransformerHelper.addCss(JaniculumWrapper.id(component, null)+"_"+row+"_"+col+" > table", "margin-left", marginLeftChild);
+	JspTransformerHelper.addCss(JaniculumWrapper.id(component, null)+"_"+row+"_"+col+" > table", "margin-right", marginRightChild);
 	
-	JspTransformerHelper.addCss(janiculum.id(null)+"_"+row+"_"+col+" > div.POJO > table.area_main", "margin-left", marginLeftChild);
-	JspTransformerHelper.addCss(janiculum.id(null)+"_"+row+"_"+col+" > div.POJO > table.area_main", "margin-right", marginRightChild);
+	JspTransformerHelper.addCss(JaniculumWrapper.id(component, null)+"_"+row+"_"+col+" > div.POJO > table.area_main", "margin-left", marginLeftChild);
+	JspTransformerHelper.addCss(JaniculumWrapper.id(component, null)+"_"+row+"_"+col+" > div.POJO > table.area_main", "margin-right", marginRightChild);
 	if("justify".equals(hAlignChild)){
-		JspTransformerHelper.addCss(janiculum.id(null)+"_"+row+"_"+col+" > table", "width", "100%");
-		JspTransformerHelper.addCss(janiculum.id(null)+"_"+row+"_"+col+" > div.POJO > table.area_main", "width", "100%");
+		JspTransformerHelper.addCss(JaniculumWrapper.id(component, null)+"_"+row+"_"+col+" > table", "width", "100%");
+		JspTransformerHelper.addCss(JaniculumWrapper.id(component, null)+"_"+row+"_"+col+" > div.POJO > table.area_main", "width", "100%");
 	}
 %>
-<td id="<%=janiculum.id(null)%>_<%=row%>_<%=col%>" class="row_<%=row%> col_<%=col%>"><% JspTransformerHelper.delegate(child, null,pageContext.getOut());%></td>
+<td id="<%=JaniculumWrapper.id(component, null)%>_<%=row%>_<%=col%>" class="row_<%=row%> col_<%=col%>"><% JspTransformerHelper.delegate(child, null,pageContext.getOut());%></td>
 <%
-	if(col%janiculum.areaSize()==janiculum.areaSize()-1){
+	if(col%JaniculumWrapper.areaSize(component)==JaniculumWrapper.areaSize(component)-1){
 %>
 </tr>
 <%
@@ -72,8 +74,8 @@ for(Object c:janiculum.getChildren()){
 		col++;
 	}
 }
-if(col%janiculum.areaSize()!=0){
-	for(int i=0; i<janiculum.areaSize() - (col%janiculum.areaSize())-1; i++){
+if(col%JaniculumWrapper.areaSize(component)!=0){
+	for(int i=0; i<JaniculumWrapper.areaSize(component) - (col%JaniculumWrapper.areaSize(component))-1; i++){
 		%><td></td><%
 	}
 	%></tr><%

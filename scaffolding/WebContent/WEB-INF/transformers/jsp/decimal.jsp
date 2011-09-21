@@ -9,23 +9,22 @@
 <%@page import="org.romaframework.aspect.view.html.constants.RequestConstants"%>
 <%@page import="java.util.Map"%>
 <%
-	Map<String, Object> ctx = (Map<String, Object>) request.getAttribute(RequestConstants.CURRENT_CONTEXT_IN_TRANSFORMER);
-	JaniculumWrapper janiculum = (JaniculumWrapper)ctx.get(JspTransformer.JANICULUM);
-	pageContext.setAttribute("janiculum", janiculum);
-	String part = (String) ctx.get(JspTransformer.PART_TO_PRINT);
-	pageContext.setAttribute("part", part);
+	
+	HtmlViewRenderable component = (HtmlViewRenderable)request.getAttribute(RequestConstants.CURRENT_COMPONENT_IN_TRANSFORMER);
+	
+	String part = (String) request.getAttribute(RequestConstants.CURRENT_COMPONENT_PART_IN_TRANSFORMER);
 %>
-<%if (!(part.equals("raw") || part .equals("label"))){   %>
-	<div class="<%=janiculum.cssClass(null)%>" style="<%=janiculum.inlineStyle(null)%>" id="<%=janiculum.id(null)%>">
+<%if (!("raw".equals(part) || "label".equals(part))){   %>
+	<div class="<%=JaniculumWrapper.cssClass(component, "decimal", null)%>" style="<%=JaniculumWrapper.inlineStyle(component, null)%>" id="<%=JaniculumWrapper.id(component, null)%>">
 	<%if("".equals(part) || "all".equals(part)){ %>
-		<input id="<%=janiculum.id("content")%>" class="<%=janiculum.cssClass(null)%>" style="<%=janiculum.inlineStyle(null)%>" type="text" 
-		name="<%=janiculum.fieldName()%>" value="<%=janiculum.formatNumberContent()==null?"":janiculum.formatNumberContent()%>" <%=janiculum.disabled()?" disabled=\"disabled\"":""%> 
+		<input id="<%=JaniculumWrapper.id(component, "content")%>" class="<%=JaniculumWrapper.cssClass(component, "decimal", null)%>" style="<%=JaniculumWrapper.inlineStyle(component, null)%>" type="text" 
+		name="<%=JaniculumWrapper.fieldName(component)%>" value="<%=JaniculumWrapper.formatNumberContent(component)==null?"":JaniculumWrapper.formatNumberContent(component)%>" <%=JaniculumWrapper.disabled(component)?" disabled=\"disabled\"":""%> 
 		<%
 		boolean existsChangeEvent=false;
-		for(String event:janiculum.availableEvents()){
+		for(String event:JaniculumWrapper.availableEvents(component)){
 			if(!"change".equals(event)){
 		%>
-		on<%=event%>="romaFieldChanged('<%=janiculum.fieldName()%>'); romaEvent('<%=janiculum.fieldName()%>', '<%=event%>')"
+		on<%=event%>="romaFieldChanged('<%=JaniculumWrapper.fieldName(component)%>'); romaEvent('<%=JaniculumWrapper.fieldName(component)%>', '<%=event%>')"
 		<%}else{ %>
 			existsChangeEvent=true;
 		
@@ -35,22 +34,22 @@
 		if(existsChangeEvent){
 	%>
 		
-		onchange="romaFieldChanged('<%=janiculum.fieldName()%>'); romaEvent('<%=janiculum.fieldName()%>', 'change')"
+		onchange="romaFieldChanged('<%=JaniculumWrapper.fieldName(component)%>'); romaEvent('<%=JaniculumWrapper.fieldName(component)%>', 'change')"
 		<%}else{ %>
-		onchange="romaFieldChanged('<%=janiculum.fieldName()%>')"
+		onchange="romaFieldChanged('<%=JaniculumWrapper.fieldName(component)%>')"
 		<%} %>
 		/>
-		<%if(!janiculum.isValid()){%>
-			<span class="<%=janiculum.cssClass("validation_message")%>"></span>	
+		<%if(!JaniculumWrapper.isValid(component)){%>
+			<span class="<%=JaniculumWrapper.cssClass(component, "decimal", "validation_message")%>"></span>	
 		<%} %>
 	<%} %>
 	</div>
-<%}else if("raw".equals(part)){%><%=janiculum.content(true)==null?"":janiculum.content(true)%><%}
+<%}else if("raw".equals(part)){%><%=JaniculumWrapper.content(component, true)==null?"":JaniculumWrapper.content(component, true)%><%}
 else if("label".equals(part)){ %>
-	<label id="<%=janiculum.id("label")%>" class="<%=janiculum.cssClass("label")%>" for="<%=janiculum.id("content")%>"><%=janiculum.i18NLabel()%></label>
+	<label id="<%=JaniculumWrapper.id(component, "label")%>" class="<%=JaniculumWrapper.cssClass(component, "decimal", "label")%>" for="<%=JaniculumWrapper.id(component, "content")%>"><%=JaniculumWrapper.i18NLabel(component)%></label>
 <%}
 StringBuffer buffer = new StringBuffer();
-buffer.append("jQuery(\"#"+janiculum.id("content")+"\").keyup(function(){");
+buffer.append("jQuery(\"#"+JaniculumWrapper.id(component, "content")+"\").keyup(function(component){");
 buffer.append("re = /[^0-9\\.,]/ ;");
 buffer.append("re2 = /[^0-9\\-]/ ;");
 buffer.append("var beginning = jQuery(this).attr(\"value\").substring(0,1);");
@@ -63,6 +62,6 @@ buffer.append("end = end.replace(re, \"\");");
 buffer.append("}");
 buffer.append("jQuery(this).attr(\"value\", beginning+end);");
 buffer.append("}).keyup();");
-JspTransformerHelper.addJs(janiculum.id(TransformerConstants.PART_ALL), buffer.toString());
+JspTransformerHelper.addJs(JaniculumWrapper.id(component, TransformerConstants.PART_ALL), buffer.toString());
 
 %>

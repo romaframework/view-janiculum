@@ -9,39 +9,39 @@
 <%@page import="org.romaframework.aspect.view.html.constants.RequestConstants"%>
 <%@page import="java.util.Map"%>
 <%
-	Map<String, Object> ctx = (Map<String, Object>) request.getAttribute(RequestConstants.CURRENT_CONTEXT_IN_TRANSFORMER);
-	JaniculumWrapper janiculum = (JaniculumWrapper)ctx.get(JspTransformer.JANICULUM);
-	pageContext.setAttribute("janiculum", janiculum);
+	
+	HtmlViewRenderable component = (HtmlViewRenderable)request.getAttribute(RequestConstants.CURRENT_COMPONENT_IN_TRANSFORMER);
+	
 %>
 
-<div class="<%=janiculum.cssClass(null)%>" style="<%=janiculum.inlineStyle(null)%>" id="<%=janiculum.id(null)%>">
+<div class="<%=JaniculumWrapper.cssClass(component, "date", null)%>" style="<%=JaniculumWrapper.inlineStyle(component, null)%>" id="<%=JaniculumWrapper.id(component, null)%>">
 
-<input id="<%=janiculum.id("content")%>" class="<%=janiculum.cssClass("content")%><%=janiculum.isValid()?"":"_invalid" %>" type="text" name="<%=janiculum.fieldName()%>" 
-value="<%=janiculum.formatDateContent()%>" <%=janiculum.disabled()?"disabled=\"disabled\"":""%> 
+<input id="<%=JaniculumWrapper.id(component, "content")%>" class="<%=JaniculumWrapper.cssClass(component, "date", "content")%><%=JaniculumWrapper.isValid(component)?"":"_invalid" %>" type="text" name="<%=JaniculumWrapper.fieldName(component)%>" 
+value="<%=JaniculumWrapper.formatDateContent(component)%>" <%=JaniculumWrapper.disabled(component)?"disabled=\"disabled\"":""%> 
 <%
 	boolean existsChangeEvent = false;
 
-	for(String event:janiculum.availableEvents()){
+	for(String event:JaniculumWrapper.availableEvents(component)){
         if("change".equals(event)){
 %>
-        on<%=event%>="romaFieldChanged('<%=janiculum.fieldName()%>'); romaEvent('<%=janiculum.fieldName()%>', '<%=event%>')"
+        on<%=event%>="romaFieldChanged('<%=JaniculumWrapper.fieldName(component)%>'); romaEvent('<%=JaniculumWrapper.fieldName(component)%>', '<%=event%>')"
         <%}else{ 
         existsChangeEvent=true;
         } %>
 	<%} 
 	if(existsChangeEvent){
 	%>
-       onchange="romaFieldChanged('<%=janiculum.fieldName()%>'); romaEvent('<%=janiculum.fieldName()%>', 'change')"
+       onchange="romaFieldChanged('<%=JaniculumWrapper.fieldName(component)%>'); romaEvent('<%=JaniculumWrapper.fieldName(component)%>', 'change')"
     <%}else{ %>
-       onchange="romaFieldChanged('<%=janiculum.fieldName()%>')"
+       onchange="romaFieldChanged('<%=JaniculumWrapper.fieldName(component)%>')"
     <%} %>
 />
 
-<%if(!janiculum.isValid()){ %>
-    <span class="<%=janiculum.cssClass("validation_message")%>"><%=janiculum.validationMessage()==null?"Invalid":janiculum.validationMessage()%></span>
+<%if(!JaniculumWrapper.isValid(component)){ %>
+    <span class="<%=JaniculumWrapper.cssClass(component, "date", "validation_message")%>"><%=JaniculumWrapper.validationMessage(component)==null?"Invalid":JaniculumWrapper.validationMessage(component)%></span>
 <%} %>
 </div>
 
 <%
-JspTransformerHelper.addJs(janiculum.id(TransformerConstants.PART_ALL), "jQuery('#"+janiculum.id("content")+"').datepicker({ dateFormat: 'dd/mm/yy', yearRange: '1900:2050', changeYear: true, changeMonth: true });");
+JspTransformerHelper.addJs(JaniculumWrapper.id(component, TransformerConstants.PART_ALL), "jQuery('#"+JaniculumWrapper.id(component, "content")+"').datepicker({ dateFormat: 'dd/mm/yy', yearRange: '1900:2050', changeYear: true, changeMonth: true });");
 %>

@@ -39,7 +39,7 @@ public class JspObjectEmbeddedTransformer extends HtmlViewObjectEmbeddedTransfor
 			throws ServletException, IOException {
 		ViewTemplateManager mgr = Roma.component(ViewTemplateManager.class);
 		Map<String, Object> ctx = new HashMap<String, Object>();
-		ctx.put("htmlClass", helper.getHtmlClass(this, null, contentComponent));
+		ctx.put("htmlClass", helper.getHtmlClass(this.toString(), null, contentComponent));
 		ctx.put("htmlId", helper.getHtmlId(contentComponent, null));
 		OutputStream content = new ByteArrayOutputStream();
 		HtmlViewAspectHelper.renderByJsp(contentComponent, request, new OutputStreamWriter(content));
