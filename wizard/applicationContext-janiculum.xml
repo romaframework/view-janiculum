@@ -16,7 +16,8 @@
 
 	<bean id="ScreenManager" class="org.romaframework.aspect.view.html.screen.ViewHtmlScreenManager" singleton="true" />
 
-	<bean id="ImageManager" class="org.romaframework.aspect.view.html.image.ImageManager" singleton="true" depends-on="ApplicationConfiguration">
+	<bean id="ImageManager" class="org.romaframework.aspect.view.html.image.ImageManager" singleton="true"
+		depends-on="ApplicationConfiguration">
 
 		<!-- Enable this entry if you want set additional Paths outside the classpath -->
 		<property name="additionalPaths">
@@ -29,7 +30,7 @@
 			<ref bean="ApplicationConfiguration" />
 		</property>
 	</bean>
- 
+
 	<!-- The pretty printer is used by the transformers to indent the code -->
 	<bean id="ViewHtmlBinderFactory" class="org.romaframework.aspect.view.html.binder.DefaultHtmlBinderFactory"></bean>
 
@@ -64,7 +65,7 @@
 		<property name="components">
 			<!-- not jsp transformers -->
 			<list>
-			<bean class="org.romaframework.aspect.view.html.transformer.plain.HtmlViewPopupTransformer"></bean>
+				<bean class="org.romaframework.aspect.view.html.transformer.plain.HtmlViewPopupTransformer"></bean>
 			</list>
 		</property>
 	</bean>

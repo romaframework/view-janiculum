@@ -38,9 +38,7 @@ import org.romaframework.aspect.view.html.component.HtmlViewAbstractComponent;
 import org.romaframework.aspect.view.html.component.HtmlViewConfigurableEntityForm;
 import org.romaframework.aspect.view.html.component.HtmlViewContentForm;
 import org.romaframework.aspect.view.html.component.HtmlViewGenericComponent;
-import org.romaframework.aspect.view.html.css.StyleBuffer;
 import org.romaframework.aspect.view.html.screen.HtmlViewScreen;
-import org.romaframework.aspect.view.html.taglib.RomaInlineCssTag;
 import org.romaframework.core.Roma;
 import org.romaframework.core.binding.BindingException;
 import org.romaframework.core.domain.type.TreeNode;
@@ -144,18 +142,8 @@ public class AjaxServlet extends HtmlServlet {
 					for (Map.Entry<String, ComponentWritable> entry : getChanges(screen).entrySet()) {
 						changes.put(entry.getKey(), entry.getValue());
 					}
-
-					StyleBuffer cssBuffer = HtmlViewAspectHelper.getCssBuffer();
-					if (cssBuffer.isChanged()) {
-						String style = "<style id=\"" + RomaInlineCssTag.ROMA_INLINE_CSS_ID + "\" type=\"text/css\">" + cssBuffer.getStyleBuffer() + "</style>\n";
-						changes.put(RomaInlineCssTag.ROMA_INLINE_CSS_ID, style); // TODO not so good...
-					}
-
 					obj.put("changes", changes);
-					HtmlViewCodeBuffer codeBuffer = HtmlViewAspectHelper.getJsBuffer();
-					if (codeBuffer != null) {
-						obj.put("romajs", codeBuffer.getBufferContent());
-					}
+
 					addPushCommands(obj, request);
 
 					obj.write(response.getWriter());
