@@ -25,8 +25,10 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.xml.bind.ValidationException;
 
+import org.json.CssJSONObject;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.json.JsJSONObject;
 import org.romaframework.aspect.view.ViewAspect;
 import org.romaframework.aspect.view.command.impl.DownloadReaderViewCommand;
 import org.romaframework.aspect.view.command.impl.DownloadStreamViewCommand;
@@ -132,8 +134,8 @@ public class AjaxServlet extends HtmlServlet {
 				if (mustReload(screen, oldScreenName)) {
 					sendReloadAjaxResponse(response, pageId);
 				} else {
-					JSONObject obj = new JSONObject();
-					JSONObject changes = new JSONObject();
+					JSONObject obj = new JsJSONObject();
+					JSONObject changes = new CssJSONObject();
 					obj.put("bindingExecuted", fieldsBound);
 					obj.put("status", "ok");
 					obj.put("pageId", pageId);
