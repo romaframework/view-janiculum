@@ -1,3 +1,9 @@
+<%@page import="org.romaframework.core.schema.SchemaField"%>
+<%@page import="org.romaframework.aspect.validation.feature.ValidationFieldFeatures"%>
+<%@page import="org.romaframework.aspect.view.feature.ViewFieldFeatures"%>
+<%@page import="org.romaframework.aspect.view.html.component.HtmlViewContentComponent"%>
+<%@page import="org.romaframework.aspect.view.html.constants.TransformerConstants"%>
+<%@page import="org.romaframework.aspect.view.html.transformer.jsp.directive.JspTransformerHelper"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"	pageEncoding="UTF-8"%>
 <%@page import="org.romaframework.aspect.view.html.area.HtmlViewRenderable"%>
 <%@page import="org.romaframework.aspect.view.html.constants.RequestConstants"%><%@page import="java.util.Set"%><%@page import="org.romaframework.aspect.view.html.transformer.jsp.JspTransformer"%><%@page import="org.romaframework.aspect.view.html.transformer.helper.JaniculumWrapper"%><%@page import="org.romaframework.aspect.view.html.constants.RequestConstants"%><%@page import="java.util.Map"%><%
@@ -5,7 +11,7 @@
 	HtmlViewRenderable component = (HtmlViewRenderable)request.getAttribute(RequestConstants.CURRENT_COMPONENT_IN_TRANSFORMER);
 	
 	String part = (String) request.getAttribute(RequestConstants.CURRENT_COMPONENT_PART_IN_TRANSFORMER);
-	pageContext.setAttribute("part", part);
+	
 	if(!("raw".equals(part)||"label".equals(part))){
 %>
 	<div class="<%=JaniculumWrapper.cssClass(component, "textarea", null)%>" style="<%=JaniculumWrapper.inlineStyle(component, null)%>" id="<%=JaniculumWrapper.id(component, null)%>">
@@ -33,6 +39,23 @@
 		<%} %>
 	
 	</div>
+	<%
+	SchemaField field = ((HtmlViewContentComponent)component).getSchemaField();
+	if(field.isSettedFeature(ValidationFieldFeatures.MAX)){
+		Integer max = ((HtmlViewContentComponent)component).getSchemaField().getFeature(ValidationFieldFeatures.MAX);
+		if(max!=null && max>0){
+			String js = "jQuery('#"+JaniculumWrapper.id(component, "content")+"').keyup(function(){"+
+		    "value = \"\"+jQuery('#"+  JaniculumWrapper.id(component, "content")+"').val();"+
+		    "if(value.length>"+max+"){"+
+		    "    jQuery('#"+ JaniculumWrapper.id(component, "content")+"').val(value.substring(0, "+max+"));"+
+		    "    romaFieldChanged('${janiculum.fieldName()}');"+
+		    "}"+ 
+			"});";
+			JspTransformerHelper.addJs(JaniculumWrapper.id(component, TransformerConstants.PART_ALL), "jQuery('#"+JaniculumWrapper.id(component, "content")+"').datepicker({ dateFormat: 'dd/mm/yy', yearRange: '1900:2050', changeYear: true, changeMonth: true });");
+		}
+	}
+%>
+	
 <%}
 	if("raw".equals(part)){
 %><%=JaniculumWrapper.content(component, true)==null?"":JaniculumWrapper.content(component, true)%><%

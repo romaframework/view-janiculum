@@ -14,7 +14,7 @@
 	String part = (String) request.getAttribute(RequestConstants.CURRENT_COMPONENT_PART_IN_TRANSFORMER);
 	pageContext.setAttribute("part", part);
 
-	if ("".equals(part) || "all".equals(part)|| "content".equals(part)){   %>
+	if (part==null || "".equals(part) || "all".equals(part)|| "content".equals(part)){   %>
 
 	<div class="<%=JaniculumWrapper.cssClass(component, "select", null)%>" id="<%=JaniculumWrapper.id(component, null)%>" style="<%=JaniculumWrapper.inlineStyle(component, null)%>">
 		<span class="<%=JaniculumWrapper.cssClass(component, "select", "content")%>" id="<%=JaniculumWrapper.id(component, "content")%>">

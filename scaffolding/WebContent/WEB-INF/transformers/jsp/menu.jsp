@@ -8,7 +8,6 @@
 	HtmlViewRenderable component = (HtmlViewRenderable)request.getAttribute(RequestConstants.CURRENT_COMPONENT_IN_TRANSFORMER);
 	
 	String part = (String) request.getAttribute(RequestConstants.CURRENT_COMPONENT_PART_IN_TRANSFORMER);
-	pageContext.setAttribute("part", part);
 %>
 <div class="<%=JaniculumWrapper.cssClass(component, "menu", null)%>" style="<%=JaniculumWrapper.inlineStyle(component, null)%>" id="<%=JaniculumWrapper.id(component, null)%>" inited="false">
 	<%if(JaniculumWrapper.isAction(component)){%>

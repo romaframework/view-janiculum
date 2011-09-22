@@ -9,28 +9,32 @@
 
 	if (!("raw".equals(part) || "label".equals(part))){   %>
 	<div class="<%=JaniculumWrapper.cssClass(component, "progress", null)%>" style="<%=JaniculumWrapper.inlineStyle(component, null)%> width:400px;" id="<%=JaniculumWrapper.id(component, null)%>">
-	<%if("".equals(part) || "all".equals(part)){ %>
+	<%if(part==null || "".equals(part) || "all".equals(part)){ %>
 	<table>
 		<tr>
 			<td id="<%=JaniculumWrapper.id(component, "content")%>" />
 			<td><%=JaniculumWrapper.content(component, true)==null?"0":JaniculumWrapper.content(component, true)%>%</td>
 		</tr>
 	</table>
-	<%} %>
+	<%
+	} %>
 	</div>
-<%}
+<%
+
+	StringBuffer buffer = new StringBuffer();
+	buffer.append("$(function() {\n");
+	buffer.append("\t$( \"#"+JaniculumWrapper.id(component, "content")+"\" ).progressbar(component, {\n");
+	buffer.append("\t\tvalue: parseFloat(String(" + (JaniculumWrapper.content(component, true)==null ? "0" : JaniculumWrapper.content(component, true))+").replace(component, ',','.'))\n");
+	buffer.append("\t});\n");
+	buffer.append("});\n");
+	System.out.println(buffer);
+	JspTransformerHelper.addJs(JaniculumWrapper.id(component, TransformerConstants.PART_ALL), buffer.toString());
+	
+	}
 if("raw".equals(part)){
 %><%=JaniculumWrapper.content(component, true)==null?"":JaniculumWrapper.content(component, true)%><%
 }else if("label".equals(part)){
 %><label id="<%=JaniculumWrapper.id(component, "label")%>" class="<%=JaniculumWrapper.cssClass(component, "progress", "label")%>" for="<%=JaniculumWrapper.id(component, "content")%>"><%=JaniculumWrapper.i18NLabel(component)%></label>
 <%
 }
-StringBuffer buffer = new StringBuffer();
-buffer.append("$(function() {\n");
-buffer.append("\t$( \"#"+JaniculumWrapper.id(component, "content")+"\" ).progressbar(component, {\n");
-buffer.append("\t\tvalue: parseFloat(String(" + (JaniculumWrapper.content(component, true)==null ? "0" : JaniculumWrapper.content(component, true))+").replace(component, ',','.'))\n");
-buffer.append("\t});\n");
-buffer.append("});\n");
-System.out.println(buffer);
-JspTransformerHelper.addJs(JaniculumWrapper.id(component, TransformerConstants.PART_ALL), buffer.toString());
 %>

@@ -7,7 +7,7 @@
 	HtmlViewRenderable component = (HtmlViewRenderable)request.getAttribute(RequestConstants.CURRENT_COMPONENT_IN_TRANSFORMER);
 	
 	String part = (String) request.getAttribute(RequestConstants.CURRENT_COMPONENT_PART_IN_TRANSFORMER);
-	pageContext.setAttribute("part", part);
+	
 %>
 <div id="<%=JaniculumWrapper.id(component, null)%>" class="<%=JaniculumWrapper.cssClass(component, "upload", null)%>" style="<%=JaniculumWrapper.inlineStyle(component, null)%>">
 	<form id="<%=JaniculumWrapper.id(component, "form")%>" action="<%=JaniculumWrapper.contextPath()%>/fileUpload" sent="0" method="post" enctype="multipart/form-data" target="<%=JaniculumWrapper.id(component, "iframe")%>">

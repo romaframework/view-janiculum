@@ -16,8 +16,7 @@
 	
 	String part = (String) request.getAttribute(RequestConstants.CURRENT_COMPONENT_PART_IN_TRANSFORMER);
 
-	//if ("html".equals(codeToPrint)){
-		Collection<String> headers = JaniculumWrapper.headers(component);
+	Collection<String> headers = JaniculumWrapper.headers(component);
 	
 	%>
 

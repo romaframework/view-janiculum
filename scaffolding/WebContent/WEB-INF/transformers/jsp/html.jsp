@@ -12,7 +12,7 @@
 	//pageContext.setAttribute("codeToPrint", codeToPrint);
 	
 	//if("html".equals(codeToPrint)){
-		if("".equals(part)|| "all".equals(part)){
+		if(part==null || "".equals(part)|| "all".equals(part)){
 %>
 <div class="<%=JaniculumWrapper.cssClass(component, "html", null)%>" id="<%=JaniculumWrapper.id(component, null)%>">
 <%=JaniculumWrapper.content(component)==null?"":JaniculumWrapper.content(component)%>

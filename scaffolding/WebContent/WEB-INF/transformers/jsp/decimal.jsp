@@ -16,7 +16,7 @@
 %>
 <%if (!("raw".equals(part) || "label".equals(part))){   %>
 	<div class="<%=JaniculumWrapper.cssClass(component, "decimal", null)%>" style="<%=JaniculumWrapper.inlineStyle(component, null)%>" id="<%=JaniculumWrapper.id(component, null)%>">
-	<%if("".equals(part) || "all".equals(part)){ %>
+	<%if(part==null || "".equals(part) || "all".equals(part)){ %>
 		<input id="<%=JaniculumWrapper.id(component, "content")%>" class="<%=JaniculumWrapper.cssClass(component, "decimal", null)%>" style="<%=JaniculumWrapper.inlineStyle(component, null)%>" type="text" 
 		name="<%=JaniculumWrapper.fieldName(component)%>" value="<%=JaniculumWrapper.formatNumberContent(component)==null?"":JaniculumWrapper.formatNumberContent(component)%>" <%=JaniculumWrapper.disabled(component)?" disabled=\"disabled\"":""%> 
 		<%
