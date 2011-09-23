@@ -17,7 +17,7 @@ public class HtmlViewPojoTransformer extends AbstractHtmlViewTransformer impleme
 
 	private static final Log		LOG		= LogFactory.getLog(HtmlViewPojoTransformer.class);
 
-	public static final String	NAME	= "POJO";
+	public static final String	NAME	= "pojo";
 
 	public HtmlViewBinder getBinder(HtmlViewRenderable renderable) {
 		return NullBinder.getInstance();
