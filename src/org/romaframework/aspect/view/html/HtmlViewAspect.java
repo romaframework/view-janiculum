@@ -122,7 +122,7 @@ public class HtmlViewAspect extends ViewAspectAbstract implements SchemaFeatures
 	 * org.romaframework.core.schema.SchemaField, org.romaframework.aspect.view.form.ViewComponent)
 	 */
 	public ContentForm createForm(final SchemaObject schemaClass, final SchemaField schemaField, final ViewComponent parent) {
-		return new HtmlViewConfigurableEntityForm(null, schemaClass, null, null, null, null, null);
+		return new HtmlViewConfigurableEntityForm(null, schemaClass, schemaField, null, null, null, null);
 	}
 
 	/*
