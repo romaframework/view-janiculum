@@ -3,5 +3,5 @@
 	
 HtmlViewRenderable component = (HtmlViewRenderable)request.getAttribute(RequestConstants.CURRENT_COMPONENT_IN_TRANSFORMER);
 %><div class="<%=JaniculumWrapper.cssClass(component, "pojo", null)%>" id="<%=JaniculumWrapper.id(component, null)%>"><%
-	((HtmlViewConfigurableEntityForm) component).getRootArea().render(response.getWriter());
+	((HtmlViewConfigurableEntityForm) component).getRootArea().render(pageContext.getOut());
 %></div>
