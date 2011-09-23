@@ -28,10 +28,10 @@ if(!JaniculumWrapper.isMultiSelection(component)){
                     <option id="<%=JaniculumWrapper.id(component, "item")%>_<%=rowIndex%>" value="<%=JaniculumWrapper.fieldName(component)%>_<%=rowIndex%>"
                         <%=JaniculumWrapper.isSelected(component, rowIndex)?"selected=\"selected\"":""%>
                         <%if(JaniculumWrapper.isMultiSelection(component)){%>
-                            onclick="romaMultiSelectChanged('<%=JaniculumWrapper.fieldName(component)%>_<%=rowIndex%>'); romaSendAjaxRequest(component);"
+                            onclick="romaMultiSelectChanged('<%=JaniculumWrapper.fieldName(component)%>_<%=rowIndex%>'); romaSendAjaxRequest();"
                         <%}else{ %>
                         
-                            onclick="romaFieldChanged('<%=JaniculumWrapper.fieldName(component)%>'); romaSendAjaxRequest(component);"
+                            onclick="romaFieldChanged('<%=JaniculumWrapper.fieldName(component)%>'); romaSendAjaxRequest();"
                         <%} %>  
                     >
                     <%=JspTransformerHelper.raw(opt) %>
