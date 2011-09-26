@@ -119,7 +119,11 @@ public abstract class HtmlViewAbstractComponent implements HtmlViewGenericCompon
 			render = getSchemaObject().getFeature(ViewClassFeatures.RENDER);
 		}
 		if (render == null) {
-			render = HtmlViewAspectHelper.getDefaultRenderType(getSchemaElement());
+			if (getSchemaElement() != null) {
+				render = HtmlViewAspectHelper.getDefaultRenderType(getSchemaElement());
+			} else {
+				render = HtmlViewAspectHelper.getDefaultRenderType(getSchemaObject());
+			}
 		}
 		return transformerManager.getComponent(render);
 	}

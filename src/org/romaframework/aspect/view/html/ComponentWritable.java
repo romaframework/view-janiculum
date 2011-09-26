@@ -5,29 +5,20 @@ import java.io.Writer;
 
 import org.json.JSONException;
 import org.json.JSONWriteable;
-import org.romaframework.aspect.view.html.area.HtmlViewScreenAreaInstance;
-import org.romaframework.aspect.view.html.component.HtmlViewAbstractComponent;
-import org.romaframework.aspect.view.html.constants.TransformerConstants;
+import org.romaframework.aspect.view.html.area.HtmlViewRenderable;
 
 public class ComponentWritable implements JSONWriteable {
 
-	private HtmlViewScreenAreaInstance	area;
-	private HtmlViewAbstractComponent		component;
+	private HtmlViewRenderable	renderable;
 
-	public ComponentWritable(HtmlViewScreenAreaInstance area) {
-		this.area = area;
-	}
-
-	public ComponentWritable(HtmlViewAbstractComponent component) {
-		this.component = component;
+	public ComponentWritable(HtmlViewRenderable renderable) {
+		this.renderable = renderable;
 	}
 
 	public Writer write(Writer writer) throws JSONException {
 		try {
-			if (area != null) {
-				area.render(writer);
-			} else if (component != null) {
-				component.getTransformer().transformPart(component, TransformerConstants.PART_ALL, writer);
+			if (renderable != null) {
+				renderable.render(writer);
 			}
 		} catch (IOException e) {
 			throw new JSONException(e);
