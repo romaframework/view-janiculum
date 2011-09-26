@@ -106,9 +106,9 @@ public class HtmlViewAspect extends ViewAspectAbstract implements SchemaFeatures
 	public void startup() {
 		super.startup();
 
-		Roma.component(SchemaClassResolver.class).addDomainPackage(Utility.getRomaAspectPackage(aspectName()) + ".html");
-		Roma.component(SchemaClassResolver.class).addDomainPackage(Utility.getRomaAspectPackage(aspectName()) + ".html.domain");
-		Roma.component(SchemaClassResolver.class).addDomainPackage("org.romaframework.aspect.view.html.domain");
+		Roma.component(SchemaClassResolver.class).addPackage(Utility.getRomaAspectPackage(aspectName()) + ".html");
+		Roma.component(SchemaClassResolver.class).addPackage(Utility.getRomaAspectPackage(aspectName()) + ".html.domain");
+		Roma.component(SchemaClassResolver.class).addPackage("org.romaframework.web.session.domain.view");
 		Roma.component(SchemaClassResolver.class).addPackage("org.romaframework.aspect.view.html.domain");
 
 		Roma.schema().createSchemaClass(HtmlViewPojoViewPanel.class, null);
