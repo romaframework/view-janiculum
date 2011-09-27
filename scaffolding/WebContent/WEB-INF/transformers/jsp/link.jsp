@@ -12,16 +12,9 @@
 <a class="<%=JaniculumWrapper.cssClass(component, "link", "content")%>" id="<%=JaniculumWrapper.id(component, "content")%>" value="<%=JaniculumWrapper.content(component, true)==null?"":JaniculumWrapper.content(component, true)%>" href="javascript:void(component, 0)"
 <%=JaniculumWrapper.disabled(component)?"disabled=\"disabled\"":"" %>
 <%
-String eventName = null;
 for(String event:JaniculumWrapper.availableEvents(component)){
-	if(".default_event".equals(event) || ".DEFAULT_EVENT".equals(event) ){
-		eventName = "click";
-	}else{
-		eventName = "event";
-	}
-	%>
-	on<%=eventName%>="romaFieldChanged('<%=JaniculumWrapper.fieldName(component)%>'); romaEvent('<%=JaniculumWrapper.fieldName(component)%>', '<%=event%>')"
-<%} %>
+	%>on<%=event%>="romaFieldChanged('<%=JaniculumWrapper.fieldName(component)%>'); romaEvent('<%=JaniculumWrapper.fieldName(component)%>', '<%=event%>')"<%
+} %>
 >
 <%=JaniculumWrapper.content(component, true)==null?"":JaniculumWrapper.content(component, true)%>
 </a>

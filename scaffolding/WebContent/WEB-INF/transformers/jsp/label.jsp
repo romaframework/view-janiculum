@@ -10,22 +10,17 @@
 
 <div class="<%=JaniculumWrapper.cssClass(component, "label", null)%>" style="<%=JaniculumWrapper.inlineStyle(component, null)%>" id="<%=JaniculumWrapper.id(component, null)%>" 
 	<%if(!JaniculumWrapper.disabled(component)){
-		String eventName = null;
 		for(String event : JaniculumWrapper.availableEvents(component)){
-			if(".default_event".equals(event) || ".DEFAULT_EVENT".equals(event)){
-				eventName="click";
-			}else{
-				eventName = event;
-			}
 			%>
-    		on<%=eventName%>="romaEvent('<%=JaniculumWrapper.fieldName(component)%>', '<%=event%>')"
-		<%}%>
+    		on<%=event%>="romaEvent('<%=JaniculumWrapper.fieldName(component)%>', '<%=event%>')"
+		<%}
+		}%>
 	>
 	 <span id="<%=JaniculumWrapper.id(component, "content")%>" class="<%=JaniculumWrapper.cssClass(component, "label", "content")%>" >
     	<%=JaniculumWrapper.formattedContent(component)==null?"":JaniculumWrapper.formattedContent(component)%>
 	 </span>
 </div>
-<% }
+<% 
 	}
 if("raw".equals(part)){
 	%><%=JaniculumWrapper.formattedContent(component)==null?"":JaniculumWrapper.formattedContent(component)%><%

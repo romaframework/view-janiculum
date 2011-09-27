@@ -17,16 +17,9 @@
 	<td>
 		<input type="text" disabled="disabled" value="<%=JaniculumWrapper.content(component, true)==null?"":JaniculumWrapper.content(component, true)%>"
 		<%for(String event:JaniculumWrapper.availableEvents(component)){
-			String eventName = null;
-			if("default_event".equals(event)|| "DEFAULT_EVENT".equals(event)){
-				eventName = "click";
-			}else{
-				eventName = event;
-			}
-		%>
-    	
-    	on<%=eventName%>="romaEvent('<%=JaniculumWrapper.fieldName(component)%>', '<%=event%>')"
-		<%} %> />
+
+		%>on<%=event%>="romaEvent('<%=JaniculumWrapper.fieldName(component)%>', '<%=event%>')"<%
+} %> />
 	</td>
 	<%if(!JaniculumWrapper.disabled(component)){%>
 		<td>
