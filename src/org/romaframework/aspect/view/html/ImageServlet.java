@@ -20,7 +20,7 @@ import org.romaframework.core.Roma;
  */
 public class ImageServlet extends RomaServlet {
 
-	private static final long	serialVersionUID	= 4633321951978534225L;
+	private static final long		serialVersionUID			= 4633321951978534225L;
 
 	public static final String	IMAGE_POJO_PARAMETER	= "imagePojo";
 
@@ -51,7 +51,12 @@ public class ImageServlet extends RomaServlet {
 	}
 
 	public byte[] loadImage(final Object pojo) {
-		if(pojo == null) return null;
+		if (pojo == null) {
+			return null;
+		}
+		if (pojo instanceof byte[]) {
+			return (byte[]) pojo;
+		}
 		final String imageName = pojo.toString();
 		final ImageManager manager = Roma.component(ImageManager.class);
 		return manager.getImage(imageName);
