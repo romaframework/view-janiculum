@@ -33,7 +33,7 @@
 		onchange="romaFieldChanged('<%=JaniculumWrapper.fieldName(component)%>'); romaFieldChanged('<%=JaniculumWrapper.fieldName(component)%>_reset'); romaEvent('<%=JaniculumWrapper.fieldName(component)%>', 'change')"
 	<%}else{ %>
 			
-			onchange="romaFieldChanged('<%=JaniculumWrapper.fieldName(component)%>'); romaFieldChanged('<%=JaniculumWrapper.fieldName(component)%>_reset'); romaSendAjaxRequest(component)"
+			onchange="romaFieldChanged('<%=JaniculumWrapper.fieldName(component)%>'); romaFieldChanged('<%=JaniculumWrapper.fieldName(component)%>_reset'); romaSendAjaxRequest()"
 	<%} %> 
 			/>
 			

@@ -31,7 +31,7 @@
                                 <th id="<%=JaniculumWrapper.id(component, "selectionCheck")%>_-1"><span> 
                                 <input class="table_selection elementName_reservoirDogs" name="<%=JaniculumWrapper.fieldName(component)%>" type="radio" 
                                 value="<%=JaniculumWrapper.fieldName(component)%>_-1"
-                                onclick="romaFieldChanged('<%=JaniculumWrapper.fieldName(component)%>'); romaSendAjaxRequest(component)" /> 
+                                onclick="romaFieldChanged('<%=JaniculumWrapper.fieldName(component)%>'); romaSendAjaxRequest()" /> 
                                 </span></th>
                         <%}
                        }
@@ -60,14 +60,14 @@
                                 <%if(JaniculumWrapper.isMultiSelection(component)){%>
                                     <input class="<%=JaniculumWrapper.cssClass(component, "table", "selection")%>" name="<%=JaniculumWrapper.fieldName(component)%>_<%=rowIndex%>" 
                                     <%if(JaniculumWrapper.isSelected(component, rowIndex)){%> checked="checked" <%} %>  type="checkbox" 
-                                    onclick="romaMultiSelectChanged('<%=JaniculumWrapper.fieldName(component)%>_<%=rowIndex%>'); romaSendAjaxRequest(component)" />
+                                    onclick="romaMultiSelectChanged('<%=JaniculumWrapper.fieldName(component)%>_<%=rowIndex%>'); romaSendAjaxRequest()" />
                                 <%}
                                 if(JaniculumWrapper.isSingleSelection(component)){
                                 %>
                                 
                                     <input class="<%=JaniculumWrapper.cssClass(component, "table", "selection")%>" name="<%=JaniculumWrapper.fieldName(component)%>" type="radio" 
                                     <%if(JaniculumWrapper.isSelected(component, rowIndex)){%> checked="checked" <%} %> value="<%=JaniculumWrapper.fieldName(component)%>_<%=rowIndex %>" 
-                                    onclick="romaFieldChanged('<%=JaniculumWrapper.fieldName(component)%>'); romaSendAjaxRequest(component)" />
+                                    onclick="romaFieldChanged('<%=JaniculumWrapper.fieldName(component)%>'); romaSendAjaxRequest()" />
                                 <%} %>
                                 </span>
                             </td>
