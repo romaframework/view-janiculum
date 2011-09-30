@@ -55,7 +55,6 @@
 				<value>mouseover</value>
 				<value>mouseup</value>
 				<value>resize</value>
-				<value>.DEFAULT_EVENT</value>
 			</set>
 		</property>
 	</bean>

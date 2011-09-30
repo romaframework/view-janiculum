@@ -1,10 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project basedir="." default="add-module" name="roma-aspect-view-janiculum-wizard">
-	<property environment="env" />
-	<property name="roma.home" value="${env.ROMA_HOME}" />
 
 	<import file="../../roma-core-wizard/wizard/base-wizard.xml" />
-
 
 	<target name="add-ioc">
 		<delete file="${project.path}/${project.ioc-path}/${module.ioc-file-session}" />
@@ -16,7 +13,7 @@
 		</copy>
 	</target>
 
-	<target name="add-module" depends="load-project-info">
+	<target name="add-module" >
 		<echo>----- ADDING MODULE VIEW HTML ---</echo>
 		<property name="module.ioc-file" value="applicationContext-janiculum.xml" />
 		<antcall target="copy-module-ioc-file" />
@@ -44,8 +41,7 @@
 		<delete failonerror="false" dir="${project.path}/${project.src}/${project.package-path}/view/image" />
 
 		<echo>Adding 'html view aspect configuration' on project's web.xml </echo>
-		<xmltask source="${project.path}/WebContent/WEB-INF/web.xml" dest="${project.path}/WebContent/WEB-INF/web.xml" preservetype="true" outputter="${ident}">
-			<xmlcatalog refid="dtds" />
+		<xmltask source="${project.path}/WebContent/WEB-INF/web.xml" dest="${project.path}/WebContent/WEB-INF/web.xml" preservetype="true">
 			<remove path="/web-app/servlet[@id='servlet-es-primary']" />
 			<!-- OLD ECHO2 NAME -->
 			<remove path="/web-app/servlet[@id='roma-app-servlet']" />
