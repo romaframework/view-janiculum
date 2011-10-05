@@ -29,7 +29,8 @@
                     
                     %>
                     
-                                <th class="table_selection">#</th>
+                                <th class="table_selection"># <input class="table_selection" name="<%=JaniculumWrapper.fieldName(component)%>_-1" type="hidden" 
+                                value="1" /></th>
                         <%}
                     	if( JaniculumWrapper.isSingleSelection(component)){%>
                         

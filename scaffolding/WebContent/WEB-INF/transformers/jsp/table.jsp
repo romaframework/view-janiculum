@@ -23,13 +23,14 @@
                 <tr class="<%=JaniculumWrapper.cssClass(component, "table", "header_row")%>">
                     <%if(JaniculumWrapper.selectionAviable(component)){
                         if(JaniculumWrapper.isMultiSelection(component)){ %>
-                                <th class="table_selection">#</th>
+                               <th class="table_selection"># <input class="table_selection" name="<%=JaniculumWrapper.fieldName(component)%>_-1" type="hidden" 
+                                value="1" /></th>
                         <%}
                         if(JaniculumWrapper.isSingleSelection(component)){
                         %>
                         
                                 <th id="<%=JaniculumWrapper.id(component, "selectionCheck")%>_-1"><span> 
-                                <input class="table_selection elementName_reservoirDogs" name="<%=JaniculumWrapper.fieldName(component)%>" type="radio" 
+                                <input class="table_selection" name="<%=JaniculumWrapper.fieldName(component)%>" type="radio" 
                                 value="<%=JaniculumWrapper.fieldName(component)%>_-1"
                                 onclick="romaFieldChanged('<%=JaniculumWrapper.fieldName(component)%>'); romaSendAjaxRequest()" /> 
                                 </span></th>
