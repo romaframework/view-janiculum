@@ -44,7 +44,7 @@ public class ImageManager {
 				+ Utility.PACKAGE_SEPARATOR + ViewAspect.ASPECT_NAME;
 		imagePaths.clear();
 		addImagePath(Utility.CLASSPATH_PREFIX + viewAspectPath + IMAGE_PACKAGE, imagePaths);
-		addImagePath("static/base/image", imagePaths);
+		addImagePath("static"+File.separator + "base" + File.separator + "image", imagePaths);
 
 	}
 
@@ -59,10 +59,10 @@ public class ImageManager {
 		String path = iPath;
 		if (path.startsWith("classpath:")) {
 			path = path.substring("classpath:".length());
-			path = "WEB-INF/classes/" + path;
+			path = "WEB-INF"+File.separator +"classes" + File.separator + path;
 		}
-		if (path.charAt(0) != '/') {
-			path = "/" + path;
+		if (path.charAt(0) != File.separatorChar) {
+			path = File.separator + path;
 		}
 		destination.add(RomaApplicationContext.getApplicationPath() + Utility.getAbsoluteResourcePath(path));
 	}
@@ -76,7 +76,7 @@ public class ImageManager {
 	 */
 	public String getImagePath(final String imageName) {
 		for (final String imagePath : imagePaths) {
-			final String absolutePath = imagePath + "/" + imageName;
+			final String absolutePath = imagePath + File.separator + imageName;
 			final File file = newFile(absolutePath);
 			if (file.exists()) {
 				return file.getAbsolutePath();
@@ -84,7 +84,7 @@ public class ImageManager {
 		}
 
 		for (final String imagePath : additionalPaths) {
-			final String absolutePath = imagePath + "/" + imageName;
+			final String absolutePath = imagePath + File.separator + imageName;
 			final File file = newFile(absolutePath);
 			if (file.exists()) {
 				return file.getAbsolutePath();
