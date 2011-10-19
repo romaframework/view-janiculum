@@ -15,7 +15,9 @@
  */
 package org.romaframework.aspect.view.html;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -148,8 +150,19 @@ public class AjaxServlet extends HtmlServlet {
 
 					addPushCommands(obj, request);
 
+//					ByteArrayOutputStream os = new ByteArrayOutputStream();
+					PrintWriter antani = new PrintWriter(System.out);
+					obj.write(antani);
+					antani.flush();
+					System.out.println();
 					obj.write(response.getWriter());
-
+//					PrintWriter writer = new PrintWriter(os);
+//					obj.write(writer);
+//					writer.flush();
+//					response.getWriter().print(os.toByteArray());
+//					response.getWriter().flush();
+					
+					
 				}
 
 				((HtmlViewAspect) Roma.view()).cleanDirtyComponents();

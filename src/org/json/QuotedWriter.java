@@ -7,6 +7,8 @@ public class QuotedWriter extends Writer {
 
 	private Writer	writer;
 
+	private char		b	= 0;
+
 	public QuotedWriter(Writer wrapped) {
 		this.writer = wrapped;
 	}
@@ -14,10 +16,12 @@ public class QuotedWriter extends Writer {
 	@Override
 	public void write(char[] cbuf, int off, int len) throws IOException {
 
-		char b, c = 0;
+		char c = 0;
 		String t;
 		for (int i = off; i < len; i += 1) {
-			b = c;
+			if (c != 0) {
+				b = c;
+			}
 			c = cbuf[i];
 			switch (c) {
 			case '\\':

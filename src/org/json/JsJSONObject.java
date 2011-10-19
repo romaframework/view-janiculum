@@ -38,11 +38,11 @@ public class JsJSONObject extends JSONObject {
 				b = true;
 			}
 
-			if (b) {
-				writer.write(',');
-			}
 			HtmlViewCodeBuffer codeBuffer = HtmlViewAspectHelper.getJsBuffer();
 			if (codeBuffer != null) {
+				if (b) {
+					writer.write(',');
+				}
 				writer.write(quote("romajs"));
 				writer.write(':');
 				writer.write(valueToString(codeBuffer.getBufferContent()));

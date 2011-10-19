@@ -38,11 +38,11 @@ public class CssJSONObject extends JSONObject {
 				}
 				b = true;
 			}
-			if (b) {
-				writer.write(',');
-			}
 			StyleBuffer cssBuffer = HtmlViewAspectHelper.getCssBuffer();
 			if (cssBuffer.isChanged()) {
+				if (b) {
+					writer.write(',');
+				}
 				writer.write(quote(RomaInlineCssTag.ROMA_INLINE_CSS_ID));
 				writer.write(':');
 				String style = "<style id=\"" + RomaInlineCssTag.ROMA_INLINE_CSS_ID + "\" type=\"text/css\">" + cssBuffer.getStyleBuffer()
