@@ -64,13 +64,11 @@ public class MockHttpServletResponse implements HttpServletResponse {
 	}
 
 	public void sendError(int arg0) throws IOException {
-		// TODO Auto-generated method stub
-
+		throw new RuntimeException("" + arg0);
 	}
 
 	public void sendError(int arg0, String arg1) throws IOException {
-		// TODO Auto-generated method stub
-
+		throw new RuntimeException("" + arg0 + " " + arg1);
 	}
 
 	public void sendRedirect(String arg0) throws IOException {

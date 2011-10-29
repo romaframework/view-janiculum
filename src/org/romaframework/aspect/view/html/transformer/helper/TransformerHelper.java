@@ -87,10 +87,9 @@ public class TransformerHelper {
 					result = result + " " + schemaAction.getName();
 				}
 			}
-			
-			
+
 		} else if (genericComponent instanceof HtmlViewContentForm) {
-			
+
 			final SchemaObject schemaObject = genericComponent.getSchemaObject();
 			if (schemaObject != null) {
 				Object feature = schemaObject.getFeature(ViewClassFeatures.STYLE);
@@ -146,14 +145,12 @@ public class TransformerHelper {
 		return result.toString();
 	}
 
-	private StringBuffer action(final String className, final String contentId, final Long componentName, final String action,
-			final String screenArea) {
+	private StringBuffer action(final String className, final String contentId, final Long componentName, final String action, final String screenArea) {
 		final StringBuffer result = new StringBuffer();
 		final String upperCaseAction = action.substring(0, 1).toUpperCase() + action.substring(1);
 		result.append("<span>\n");
-		result.append("<input class=\"" + className + "_actions_" + action + "\" id=\"" + contentId + "_" + action
-				+ "_button\" type=\"submit\" value=\"" + action + "\" name=\"" + POJO_ACTION_PREFIX + "_" + componentName + "_on"
-				+ upperCaseAction + SEPARATOR + screenArea + "\" />\n");
+		result.append("<input class=\"" + className + "_actions_" + action + "\" id=\"" + contentId + "_" + action + "_button\" type=\"submit\" value=\"" + action
+				+ "\" name=\"" + POJO_ACTION_PREFIX + "_" + componentName + "_on" + upperCaseAction + SEPARATOR + screenArea + "\" />\n");
 		result.append("</span>\n");
 		return result;
 	}

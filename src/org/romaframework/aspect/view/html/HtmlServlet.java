@@ -19,6 +19,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
+import java.io.Writer;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -51,15 +52,15 @@ import org.romaframework.web.service.rest.RestServiceHelper;
  */
 public class HtmlServlet extends RomaServlet {
 
-	private static final long	serialVersionUID	= 1742514931340296814L;
+	private static final long		serialVersionUID	= 1742514931340296814L;
 
-	public static final String	ROMA_JS				= "###__ROMA_JS__###";
+	public static final String	ROMA_JS						= "###__ROMA_JS__###";
 
-	public static final String	ROMA_CSS			= "###__ROMA_CSS__###";
+	public static final String	ROMA_CSS					= "###__ROMA_CSS__###";
 
-	public static final String	PAGE_ID_PARAM	= "pageId";
+	public static final String	PAGE_ID_PARAM			= "pageId";
 
-	protected static Log				log						= LogFactory.getLog(HtmlServlet.class);
+	protected static Log				log								= LogFactory.getLog(HtmlServlet.class);
 
 	/**
 	 * Given a request it must understand the action to be performed and bind the pojos, finally it call the display to write the
@@ -128,7 +129,9 @@ public class HtmlServlet extends RomaServlet {
 
 		synchronized (screen) {
 			OutputStream out = new ByteArrayOutputStream();
-			screen.render(request, true, true, new OutputStreamWriter(out));
+			Writer w = new OutputStreamWriter(out);
+			screen.render(request, true, true, w);
+			w.flush();
 			String buff = out.toString();
 			buff = flushBuffers(buff);
 			response.getWriter().append(buff);

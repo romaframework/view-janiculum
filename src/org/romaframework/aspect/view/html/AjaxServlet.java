@@ -15,9 +15,7 @@
  */
 package org.romaframework.aspect.view.html;
 
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -53,7 +51,6 @@ import org.romaframework.frontend.domain.message.ErrorMessageTextDetail;
 public class AjaxServlet extends HtmlServlet {
 	@Override
 	public void service(final HttpServletRequest request, final HttpServletResponse response) throws ServletException, IOException {
-		// long time = System.currentTimeMillis();
 		try {
 			HttpSession httpSession = request.getSession(true);
 
@@ -68,10 +65,6 @@ public class AjaxServlet extends HtmlServlet {
 					// log.error("unable to redirect ", e);
 				}
 				return;
-				// httpSession = request.getSession(true);
-				// startUserSession(request, response);
-				//
-				// setStarted(httpSession);
 			}
 
 			HtmlViewScreen screen = (HtmlViewScreen) Roma.aspect(ViewAspect.class).getScreen();
@@ -141,7 +134,6 @@ public class AjaxServlet extends HtmlServlet {
 					obj.put("bindingExecuted", fieldsBound);
 					obj.put("status", "ok");
 					obj.put("pageId", pageId);
-					// StringBuffer buffer = new StringBuffer();
 
 					for (Map.Entry<String, ComponentWritable> entry : getChanges(screen).entrySet()) {
 						changes.put(entry.getKey(), entry.getValue());
@@ -150,19 +142,8 @@ public class AjaxServlet extends HtmlServlet {
 
 					addPushCommands(obj, request);
 
-//					ByteArrayOutputStream os = new ByteArrayOutputStream();
-					PrintWriter antani = new PrintWriter(System.out);
-					obj.write(antani);
-					antani.flush();
-					System.out.println();
 					obj.write(response.getWriter());
-//					PrintWriter writer = new PrintWriter(os);
-//					obj.write(writer);
-//					writer.flush();
-//					response.getWriter().print(os.toByteArray());
-//					response.getWriter().flush();
-					
-					
+
 				}
 
 				((HtmlViewAspect) Roma.view()).cleanDirtyComponents();
@@ -174,7 +155,6 @@ public class AjaxServlet extends HtmlServlet {
 			HtmlViewAspectHelper.removeCssBuffer();
 			HtmlViewAspectHelper.removeJsBuffer();
 		}
-		// log.info("request executed in (millis): " + (System.currentTimeMillis() - time));
 	}
 
 	private void sendReloadAjaxResponse(final HttpServletResponse response, final String pageId) throws JSONException, IOException {
