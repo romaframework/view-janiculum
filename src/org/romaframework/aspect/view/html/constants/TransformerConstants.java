@@ -25,6 +25,7 @@ public final class TransformerConstants {
 	public static final String	INVALID_CLASS_SUFFIX	= "_invalid";
 	public static final String	SELECTION							= "selection";
 	public static final String	PART_ID								= "id";
+	public static final Object	PART_STYLE						= "style";
 
 	private TransformerConstants() {
 

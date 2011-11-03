@@ -16,6 +16,7 @@
 package org.romaframework.aspect.view.html.taglib;
 
 import org.romaframework.aspect.view.html.area.HtmlViewRenderable;
+import org.romaframework.aspect.view.html.component.HtmlViewGenericComponent;
 import org.romaframework.aspect.view.html.constants.RequestConstants;
 import org.romaframework.aspect.view.html.constants.TransformerConstants;
 import org.romaframework.aspect.view.html.transformer.Transformer;
@@ -32,7 +33,7 @@ import org.romaframework.core.Roma;
  */
 public class RomaClassTag extends RomaAbstractTab {
 
-	private String	exclude;
+	private String		exclude;
 
 	protected String	part;
 
@@ -43,7 +44,7 @@ public class RomaClassTag extends RomaAbstractTab {
 	public void setPart(final String part) {
 		this.part = part;
 	}
-	
+
 	public String getExclude() {
 		return exclude;
 	}
@@ -61,6 +62,10 @@ public class RomaClassTag extends RomaAbstractTab {
 				if (part != null && part.equals(TransformerConstants.PART_ID)) {
 					// pageContext.getOut().flush();
 					pageContext.getOut().print(TransformerHelper.getInstance().getHtmlId((HtmlViewRenderable) currentForm, null));
+				} else if (part != null && part.equals(TransformerConstants.PART_STYLE)) {
+					pageContext.getOut().print(
+							TransformerHelper.getInstance().getHtmlClass(HtmlViewPojoTransformer.NAME, null,
+									(HtmlViewGenericComponent) currentForm));
 				} else {
 					final TransformerManager transformerManager = Roma.component(TransformerManager.class);
 					final Transformer transformer = transformerManager.getComponent(HtmlViewPojoTransformer.NAME);
