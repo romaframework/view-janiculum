@@ -33,7 +33,7 @@ table.table_content thead tr th, table.tablesorter tfoot tr th {
 }
 
 table.table_content thead tr .header {
-    background-image: url(bg.gif);
+    background-image: url(../image/bg.gif);
     background-repeat: no-repeat;
     background-position: center right;
     cursor: pointer;
@@ -87,7 +87,7 @@ table.tableedit_content thead tr th, table.tablesorter tfoot tr th {
 }
 
 table.tableedit_content thead tr .header {
-    background-image: url(bg.gif);
+    background-image: url(../image/bg.gif);
     background-repeat: no-repeat;
     background-position: center right;
     cursor: pointer;

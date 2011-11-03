@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project basedir="." default="add-module" name="roma-aspect-view-janiculum-wizard">
 
-	<import file="../../roma-core-wizard/wizard/base-wizard.xml" />
+	<import file="${wizard.path}/base-wizard.xml" />
 
 	<target name="add-ioc">
 		<delete file="${project.path}/${project.ioc-path}/${module.ioc-file-session}" />
@@ -33,12 +33,6 @@
 			<param name="module.aspect-name" value="data" />
 			<param name="module.aspect-component" value="DataBindingAspect" />
 		</antcall>
-
-		<echo>----- MOVING VIEW ECHO2 IMAGES IF ANY ---</echo>
-		<copy failonerror="false" todir="${project.path}/WebContent/static/base/image">
-			<fileset dir="${project.path}/${project.src}/${project.package-path}/view/image" includes="*.*" />
-		</copy>
-		<delete failonerror="false" dir="${project.path}/${project.src}/${project.package-path}/view/image" />
 
 		<echo>Adding 'html view aspect configuration' on project's web.xml </echo>
 		<xmltask source="${project.path}/WebContent/WEB-INF/web.xml" dest="${project.path}/WebContent/WEB-INF/web.xml" preservetype="true">

@@ -18,10 +18,8 @@ String appName = Roma.component(ApplicationConfiguration.class).getApplicationNa
 <head>
 <%--<roma:css/>--%>
 <link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/static/base/css/style-sorter.css" />
-<link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/static/base/css/jquery.timeentry.css" />
 <link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/static/base/css/ui.datepicker.css" />
 <link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/static/base/css/uitabs.css" />
-<link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/static/base/js/jstree/source/tree_component.css" />
 <link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/static/base/css/style.css" />
 <link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/static/base/css/application-style.css" />
 <!-- ADDITIONAL CSS -->
@@ -35,10 +33,6 @@ String appName = Roma.component(ApplicationConfiguration.class).getApplicationNa
 <script type="text/javascript" src="<%=request.getContextPath() %>/static/base/js/jquery.tablesorter.min.js"></script>
 <script type="text/javascript" src="<%=request.getContextPath() %>/static/base/js/jqDnR.js"></script>
 <script type="text/javascript" src="<%=request.getContextPath() %>/static/base/js/romaAjax.js"></script>
-<script type="text/javascript" src="<%=request.getContextPath() %>/static/base/js/jstree/source/tree_component.js"></script>
-<script type="text/javascript" src="<%=request.getContextPath() %>/static/base/js/jstree/_lib/css.js"></script>
-<script type="text/javascript" src="<%=request.getContextPath() %>/static/base/js/ckeditor/ckeditor.js"></script>
-<script type="text/javascript" src="<%=request.getContextPath() %>/static/base/js/ckeditor/adapters/jquery.js"></script>
 <roma:inlinejs/>
 <roma:inlinecss/>
 <!-- For Ponzio Pilato, remove errors in id generation instead to remove this script -->

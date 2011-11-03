@@ -1,7 +1,7 @@
 @CHARSET "ISO-8859-1";
 
 body {
-    background: url("back.gif") repeat-x scroll 0 0 #006E89;
+    background: url("../image/back.gif") repeat-x scroll 0 0 #006E89;
     color: #555555;
     font: 90%/180% Arial,Helvetica,sans-serif;
     margin: 0;
