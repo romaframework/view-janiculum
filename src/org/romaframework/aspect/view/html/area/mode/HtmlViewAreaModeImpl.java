@@ -98,14 +98,11 @@ public class HtmlViewAreaModeImpl implements HtmlViewAreaMode {
 	 */
 
 	public void render(Writer writer) throws IOException {
-		final Transformer transformer = getTransformer();
-		transformer.transform(this, writer);
+		getTransformer().transform(this, writer);
 	}
 
 	public Transformer getTransformer() {
-		final TransformerManager transformerManager = Roma.component(TransformerManager.class);
-		final Transformer transformer = transformerManager.getComponent(type);
-		return transformer;
+		return Roma.component(TransformerManager.class).getComponent(type);
 	}
 
 	public List<HtmlViewRenderable> getRenderables() {
@@ -148,7 +145,7 @@ public class HtmlViewAreaModeImpl implements HtmlViewAreaMode {
 	public void setAreaName(String areaName) {
 		this.areaName = areaName;
 	}
-	
+
 	public void clear() {
 		renderables.clear();
 	}

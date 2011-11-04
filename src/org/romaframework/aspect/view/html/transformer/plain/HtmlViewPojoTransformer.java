@@ -3,8 +3,6 @@ package org.romaframework.aspect.view.html.transformer.plain;
 import java.io.IOException;
 import java.io.Writer;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.romaframework.aspect.view.html.area.HtmlViewBinder;
 import org.romaframework.aspect.view.html.area.HtmlViewRenderable;
 import org.romaframework.aspect.view.html.binder.NullBinder;
@@ -14,8 +12,6 @@ import org.romaframework.aspect.view.html.transformer.AbstractHtmlViewTransforme
 import org.romaframework.aspect.view.html.transformer.Transformer;
 
 public class HtmlViewPojoTransformer extends AbstractHtmlViewTransformer implements Transformer {
-
-	private static final Log		LOG		= LogFactory.getLog(HtmlViewPojoTransformer.class);
 
 	public static final String	NAME	= "pojo";
 

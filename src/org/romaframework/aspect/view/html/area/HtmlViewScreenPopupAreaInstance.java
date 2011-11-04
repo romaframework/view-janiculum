@@ -19,8 +19,7 @@ public class HtmlViewScreenPopupAreaInstance extends HtmlViewScreenAreaInstance 
 
 	@Override
 	public Transformer getTransformer() {
-		final TransformerManager transformerManager = Roma.component(TransformerManager.class);
-		return transformerManager.getComponent(Screen.POPUP);
+		return Roma.component(TransformerManager.class).getComponent(Screen.POPUP);
 	}
 
 	@Override

@@ -17,7 +17,6 @@ package org.romaframework.aspect.view.html.transformer.jsp;
 
 import java.io.IOException;
 import java.io.Writer;
-import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
@@ -31,25 +30,10 @@ import org.romaframework.aspect.view.html.template.ViewTemplateManager;
 
 public class JspTemplateManager implements ViewTemplateManager {
 
-	private String		templatesPath		= "WEB-INF/transformers/jsp/";
+	private String		templatesPath		= "/WEB-INF/transformers/jsp/";
 	protected Log			log							= LogFactory.getLog(getClass());
 
 	protected boolean	cacheTemplates	= true;
-
-	public void execute(String templateName, Map<String, Object> ctx, Writer writer) {
-		ServletRequest request = HtmlViewAspectHelper.getServletRequest();
-		final String classJsp = getTemplatesPath() + templateName;
-		final Object previousContext = request.getAttribute(RequestConstants.CURRENT_CONTEXT_IN_TRANSFORMER);
-		request.setAttribute(RequestConstants.CURRENT_CONTEXT_IN_TRANSFORMER, ctx);
-		try {
-			HtmlViewAspectHelper.getHtmlFromJSP(request, classJsp, writer);
-		} catch (ServletException e) {
-			log.error("error in jsp transformer", e.getRootCause() == null ? e : e.getRootCause());
-		} catch (IOException e) {
-			log.error("maybe wrong render defined", e);
-		}
-		request.setAttribute(RequestConstants.CURRENT_CONTEXT_IN_TRANSFORMER, previousContext);
-	}
 
 	public String getTemplatesPath() {
 		return templatesPath;

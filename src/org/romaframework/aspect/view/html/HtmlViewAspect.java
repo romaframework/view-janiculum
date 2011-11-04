@@ -58,7 +58,6 @@ import org.romaframework.aspect.view.html.component.HtmlViewContentComponent;
 import org.romaframework.aspect.view.html.component.HtmlViewContentForm;
 import org.romaframework.aspect.view.html.component.HtmlViewGenericComponent;
 import org.romaframework.aspect.view.html.component.HtmlViewInvisibleContentComponent;
-import org.romaframework.aspect.view.html.domain.HtmlViewPojoViewPanel;
 import org.romaframework.aspect.view.html.form.helper.FormUtils;
 import org.romaframework.aspect.view.html.screen.HtmlViewScreen;
 import org.romaframework.aspect.view.html.transformer.plain.HtmlViewPopupTransformer;
@@ -110,9 +109,6 @@ public class HtmlViewAspect extends ViewAspectAbstract implements SchemaFeatures
 		Roma.component(SchemaClassResolver.class).addPackage(Utility.getRomaAspectPackage(aspectName()) + ".html.domain");
 		Roma.component(SchemaClassResolver.class).addPackage("org.romaframework.web.session.domain.view");
 		Roma.component(SchemaClassResolver.class).addPackage("org.romaframework.aspect.view.html.domain");
-
-		Roma.schema().createSchemaClass(HtmlViewPojoViewPanel.class, null);
-
 	}
 
 	/*

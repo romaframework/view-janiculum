@@ -277,7 +277,7 @@ public class HtmlViewBasicScreen implements HtmlViewScreen, Serializable {
 			HtmlViewAspectHelper.getHtmlFromJSP(request, jspUrl, writer);
 
 		} catch (final Exception e) {
-			
+
 			log.error("[HtmlViewBasicScreen.render] Error on loading jsp " + jspUrl, e);
 			try {
 				render(writer);
@@ -312,9 +312,7 @@ public class HtmlViewBasicScreen implements HtmlViewScreen, Serializable {
 	 * @see org.romaframework.aspect.view.html.area.HtmlViewRenderable#getTransformer()
 	 */
 	public Transformer getTransformer() {
-		final TransformerManager transformerManager = Roma.component(TransformerManager.class);
-		final Transformer transformer = transformerManager.getComponent(HtmlViewScreen.SCREEN);
-		return transformer;
+		return Roma.component(TransformerManager.class).getComponent(HtmlViewScreen.SCREEN);
 	}
 
 	public String getHtmlId() {

@@ -3,51 +3,14 @@ package org.romaframework.aspect.view.html.transformer;
 import java.io.IOException;
 import java.io.Writer;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-import org.romaframework.aspect.view.feature.ViewElementFeatures;
-import org.romaframework.aspect.view.html.HtmlViewAspectHelper;
 import org.romaframework.aspect.view.html.area.HtmlViewRenderable;
 import org.romaframework.aspect.view.html.component.HtmlViewContentComponent;
-import org.romaframework.aspect.view.html.component.HtmlViewGenericComponent;
 import org.romaframework.aspect.view.html.constants.TransformerConstants;
 import org.romaframework.aspect.view.html.transformer.helper.TransformerHelper;
 
 public abstract class AbstractHtmlViewTransformer implements Transformer {
 
-	private static final Log						LOG			= LogFactory.getLog(AbstractHtmlViewTransformer.class);
-
 	protected static TransformerHelper	helper	= TransformerHelper.getInstance();
-
-	/**
-	 * Render the HTML for the label of the component
-	 * 
-	 * @param contentComponent
-	 * @return
-	 */
-	protected void label(final HtmlViewContentComponent contentComponent, final StringBuilder buffer) {
-		try {
-			final String label = HtmlViewAspectHelper.getI18NLabel(contentComponent.getSchemaField());
-			if (label != null && !label.trim().equals("")) {
-				buffer.append(getLabel(contentComponent, label));
-			}
-
-		} catch (final Exception e) {
-			LOG.error("error rendering element label: " + e, e);
-		}
-	}
-
-	protected String label(final HtmlViewContentComponent contentComponent) {
-		final String label = HtmlViewAspectHelper.getI18NLabel(contentComponent.getSchemaField());
-		if (label != null && !label.trim().equals("")) {
-			return getLabel(contentComponent, label);
-		}
-		return "";
-	}
-
-	private String getLabel(final HtmlViewContentComponent contentComponent, final String label) {
-		return getComponentLabel(contentComponent, label);
-	}
 
 	public static String getComponentLabel(final HtmlViewContentComponent contentComponent, final String label) {
 		if (label == null || label.length() == 0) {
@@ -65,16 +28,6 @@ public abstract class AbstractHtmlViewTransformer implements Transformer {
 	 */
 	public void transform(final HtmlViewRenderable component, Writer writer) throws IOException {
 		transformPart(component, TransformerConstants.PART_ALL, writer);
-	}
-
-	protected boolean disabled(final HtmlViewGenericComponent contentComponent) {
-		final Object enabled = contentComponent.getSchemaElement().getFeature(ViewElementFeatures.ENABLED);
-		return Boolean.FALSE.equals(enabled);
-	}
-
-	protected boolean visible(final HtmlViewGenericComponent contentComponent) {
-		final Object visible = contentComponent.getSchemaElement().getFeature(ViewElementFeatures.VISIBLE);
-		return !Boolean.FALSE.equals(visible);
 	}
 
 }

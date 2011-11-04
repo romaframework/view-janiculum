@@ -32,12 +32,12 @@ public interface Transformer {
 	public final String LIST = "list";
 	public final String GRID = "grid";
 	
-	void transform(HtmlViewRenderable iComponent, Writer writer) throws IOException;
+	public void transform(HtmlViewRenderable iComponent, Writer writer) throws IOException;
 
-	void transformPart(HtmlViewRenderable iComponent, String part, Writer writer) throws IOException;
+	public void transformPart(HtmlViewRenderable iComponent, String part, Writer writer) throws IOException;
 
-	HtmlViewBinder getBinder(HtmlViewRenderable renderable);
+	public HtmlViewBinder getBinder(HtmlViewRenderable renderable);
 	
-	String getType(); 
+	public String getType(); 
 
 }

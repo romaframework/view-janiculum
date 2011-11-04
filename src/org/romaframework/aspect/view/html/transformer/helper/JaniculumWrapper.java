@@ -11,6 +11,7 @@ import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.romaframework.aspect.i18n.I18NHelper;
 import org.romaframework.aspect.view.FormatHelper;
 import org.romaframework.aspect.view.area.AreaComponent;
 import org.romaframework.aspect.view.feature.ViewBaseFeatures;
@@ -40,20 +41,17 @@ import org.romaframework.core.schema.SchemaAction;
 import org.romaframework.core.schema.SchemaClassElement;
 import org.romaframework.core.schema.SchemaEvent;
 import org.romaframework.core.schema.SchemaField;
+import org.romaframework.core.schema.SchemaObject;
 import org.romaframework.web.session.HttpAbstractSessionAspect;
 import org.romaframework.web.view.HttpUtils;
 
 public class JaniculumWrapper {
 	private static long																				counter			= 0;
 	private static final ArrayList<HtmlViewGenericComponent>	EMPTY_LIST	= new ArrayList<HtmlViewGenericComponent>();
-	private Transformer																				transformer;
-	private HtmlViewRenderable																component;
 	private static TransformerHelper													helper			= TransformerHelper.getInstance();
 
 	public JaniculumWrapper(Transformer transformer, HtmlViewRenderable component, String styles) {
 		// TODO manage style configurations
-		this.transformer = transformer;
-		this.component = component;
 	}
 
 	public static String id(HtmlViewRenderable component, String part) {
@@ -122,7 +120,6 @@ public class JaniculumWrapper {
 		return content.toString();
 	}
 
-
 	public static String imageLabel(HtmlViewRenderable component) {
 		SchemaClassElement schema = getSchemaElement(component);
 		String result = null;
@@ -133,8 +130,7 @@ public class JaniculumWrapper {
 			}
 		} else {
 
-			result = ((String) ((HtmlViewGenericComponent) component).getSchemaElement().getFeature(ViewBaseFeatures.LABEL)).replaceAll(
-					"\\$", "");
+			result = ((String) ((HtmlViewGenericComponent) component).getSchemaElement().getFeature(ViewBaseFeatures.LABEL)).replaceAll("\\$", "");
 
 		}
 		return result;
@@ -163,7 +159,7 @@ public class JaniculumWrapper {
 				return "area_" + areaName;
 			}
 		}
-		return "";
+		return helper.getHtmlClass(transformerName, part, null);
 	}
 
 	public static String tableRowCssClass(HtmlViewRenderable component, String transformerName, int rowIndex) {
@@ -235,6 +231,11 @@ public class JaniculumWrapper {
 		return HtmlViewAspectHelper.getI18NLabel(((HtmlViewGenericComponent) component).getSchemaElement());
 	}
 
+	public static String i18NObjectLabel(HtmlViewRenderable component) {
+		SchemaObject object = ((HtmlViewGenericComponent) component).getSchemaObject();
+		return I18NHelper.getLabel(object, HtmlViewAspectHelper.getLabel(object));
+	}
+
 	public static String i18NHint(HtmlViewRenderable component) {
 		return HtmlViewAspectHelper.getI18NHint(((HtmlViewGenericComponent) component).getSchemaElement());
 	}
@@ -265,10 +266,10 @@ public class JaniculumWrapper {
 		return text;
 	}
 
-	public static boolean getField(HtmlViewRenderable component){
+	public static boolean getField(HtmlViewRenderable component) {
 		return isField(component);
 	}
-	
+
 	public static boolean isField(HtmlViewRenderable component) {
 		SchemaClassElement el = getSchemaElement(component);
 		if (el instanceof SchemaField) {
@@ -298,9 +299,8 @@ public class JaniculumWrapper {
 	public static String actionName(HtmlViewRenderable component) {
 		HtmlViewGenericComponent actionComponent = (HtmlViewGenericComponent) component;
 
-		return TransformerHelper.POJO_ACTION_PREFIX + TransformerHelper.SEPARATOR + actionComponent.getId()
-				+ TransformerHelper.SEPARATOR + actionComponent.getSchemaElement().getName() + TransformerHelper.SEPARATOR
-				+ actionComponent.getScreenArea();
+		return TransformerHelper.POJO_ACTION_PREFIX + TransformerHelper.SEPARATOR + actionComponent.getId() + TransformerHelper.SEPARATOR
+				+ actionComponent.getSchemaElement().getName() + TransformerHelper.SEPARATOR + actionComponent.getScreenArea();
 	}
 
 	public static String event(HtmlViewRenderable component, String event) {
@@ -313,6 +313,7 @@ public class JaniculumWrapper {
 	public static Set<String> getAvailableEvents(HtmlViewRenderable component) {
 		return availableEvents(component);
 	}
+
 	public static Set<String> availableEvents(HtmlViewRenderable component) {
 		Set<String> result = new HashSet<String>();
 		SchemaClassElement element = getSchemaElement(component);
@@ -332,8 +333,8 @@ public class JaniculumWrapper {
 	public static String action(HtmlViewRenderable component, String action) {
 		HtmlViewGenericComponent actionComponent = (HtmlViewGenericComponent) component;
 
-		return TransformerHelper.POJO_ACTION_PREFIX + TransformerHelper.SEPARATOR + actionComponent.getId()
-				+ TransformerHelper.SEPARATOR + action + TransformerHelper.SEPARATOR + actionComponent.getScreenArea();
+		return TransformerHelper.POJO_ACTION_PREFIX + TransformerHelper.SEPARATOR + actionComponent.getId() + TransformerHelper.SEPARATOR + action
+				+ TransformerHelper.SEPARATOR + actionComponent.getScreenArea();
 	}
 
 	public static String fieldName(HtmlViewRenderable component) {
@@ -506,7 +507,6 @@ public class JaniculumWrapper {
 		return result;
 	}
 
-
 	public static String areaVerticalAlignment(final HtmlViewRenderable iComponent) {
 		String align = null;
 
@@ -528,7 +528,6 @@ public class JaniculumWrapper {
 
 		return aligns[0];
 	}
-
 
 	public static String areaHorizontalAlignment(final HtmlViewRenderable iComponent) {
 		// if (iComponent == component)
@@ -564,8 +563,7 @@ public class JaniculumWrapper {
 		if (url.length() == 0)
 			return "";
 
-		HttpServletRequest request = (HttpServletRequest) Roma.context().component(
-				HttpAbstractSessionAspect.CONTEXT_REQUEST_PAR);
+		HttpServletRequest request = (HttpServletRequest) Roma.context().component(HttpAbstractSessionAspect.CONTEXT_REQUEST_PAR);
 
 		boolean propagateSession = false;
 
@@ -619,8 +617,7 @@ public class JaniculumWrapper {
 	}
 
 	public static String contextPath() {
-		HttpServletRequest request = (HttpServletRequest) Roma.context().component(
-				HttpAbstractSessionAspect.CONTEXT_REQUEST_PAR);
+		HttpServletRequest request = (HttpServletRequest) Roma.context().component(HttpAbstractSessionAspect.CONTEXT_REQUEST_PAR);
 		return request.getContextPath();
 	}
 

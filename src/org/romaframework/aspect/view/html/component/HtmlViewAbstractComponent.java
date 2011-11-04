@@ -89,8 +89,7 @@ public abstract class HtmlViewAbstractComponent implements HtmlViewGenericCompon
 	 * @see org.romaframework.aspect.view.html.area.HtmlViewRenderable#render()
 	 */
 	public void render(Writer writer) throws IOException {
-		final Transformer transformer = getTransformer();
-		transformer.transform(this, writer);
+		getTransformer().transform(this, writer);
 	}
 
 	/*
@@ -109,7 +108,6 @@ public abstract class HtmlViewAbstractComponent implements HtmlViewGenericCompon
 	 * @see org.romaframework.aspect.view.html.area.HtmlViewRenderable#getTransformer()
 	 */
 	public Transformer getTransformer() {
-		final TransformerManager transformerManager = Roma.component(TransformerManager.class);
 		String render;
 		if (getSchemaField() != null) {
 			render = getSchemaField().getFeature(ViewFieldFeatures.RENDER);
@@ -125,7 +123,7 @@ public abstract class HtmlViewAbstractComponent implements HtmlViewGenericCompon
 				render = HtmlViewAspectHelper.getDefaultRenderType(getSchemaObject());
 			}
 		}
-		return transformerManager.getComponent(render);
+		return  Roma.component(TransformerManager.class).getComponent(render);
 	}
 
 	/**

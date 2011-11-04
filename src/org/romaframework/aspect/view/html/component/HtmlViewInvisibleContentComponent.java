@@ -22,29 +22,29 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.romaframework.aspect.view.html.area.HtmlViewBinder;
 import org.romaframework.aspect.view.html.area.HtmlViewRenderable;
 import org.romaframework.aspect.view.html.area.HtmlViewScreenArea;
+import org.romaframework.aspect.view.html.constants.TransformerConstants;
 import org.romaframework.aspect.view.html.transformer.Transformer;
-import org.romaframework.aspect.view.html.transformer.plain.HtmlViewInvisibleTransformer;
 import org.romaframework.core.schema.SchemaField;
 
 /**
  * @author molino
  * 
  */
-public class HtmlViewInvisibleContentComponent extends HtmlViewAbstractContentComponent implements HtmlViewContentComponent {
+public class HtmlViewInvisibleContentComponent extends HtmlViewAbstractContentComponent implements HtmlViewContentComponent, Transformer {
 
 	private static final HashSet<Integer>	EMPTY_INDEXES	= new HashSet<Integer>();
 	private int														mapIndex			= 0;
 	private String												label;
 
-	public HtmlViewInvisibleContentComponent(HtmlViewContentComponent containerComponent, SchemaField schemaField, Object content,
-			HtmlViewScreenArea screenArea) {
+	public HtmlViewInvisibleContentComponent(HtmlViewContentComponent containerComponent, SchemaField schemaField, Object content, HtmlViewScreenArea screenArea) {
 		super(containerComponent, schemaField, content, screenArea);
 	}
 
-	public HtmlViewInvisibleContentComponent(HtmlViewContentComponent containerComponent, int mapIndex, Object content,
-			HtmlViewScreenArea screenArea, String label) {
+	public HtmlViewInvisibleContentComponent(HtmlViewContentComponent containerComponent, int mapIndex, Object content, HtmlViewScreenArea screenArea,
+			String label) {
 		super(containerComponent, null, content, screenArea);
 		this.mapIndex = mapIndex;
 		this.label = label;
@@ -56,11 +56,6 @@ public class HtmlViewInvisibleContentComponent extends HtmlViewAbstractContentCo
 
 	public void resetValidation() {
 	}
-
-	// @Override
-	// public Object getContent() {
-	// return "<div id=\"" + getHtmlId() + "\" class=\"invisible_field\" ></div>";
-	// }
 
 	@Override
 	public void render(Writer writer) throws IOException {
@@ -78,7 +73,7 @@ public class HtmlViewInvisibleContentComponent extends HtmlViewAbstractContentCo
 
 	@Override
 	public Transformer getTransformer() {
-		return new HtmlViewInvisibleTransformer(getHtmlId());
+		return this;
 	}
 
 	public boolean hasLabel() {
@@ -96,8 +91,26 @@ public class HtmlViewInvisibleContentComponent extends HtmlViewAbstractContentCo
 	public Set<Integer> selectedIndex() {
 		return EMPTY_INDEXES;
 	}
-	
+
 	public void clearChildren() {
+	}
+
+	public void transform(final HtmlViewRenderable component, Writer writer) throws IOException {
+		transformPart(component, TransformerConstants.PART_ALL, writer);
+	}
+
+	public HtmlViewBinder getBinder(HtmlViewRenderable renderable) {
+		return null;
+	}
+
+	public String getType() {
+		return "";
+	}
+
+	public void transformPart(HtmlViewRenderable component, String part, Writer writer) throws IOException {
+		writer.write("<div id=\"");
+		writer.write(component.getHtmlId());
+		writer.write("\" class=\"invisible_field\" ></div>");
 	}
 
 }

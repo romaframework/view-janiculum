@@ -1,7 +1,5 @@
 package org.romaframework.aspect.view.html.component;
 
-import java.io.IOException;
-import java.io.Writer;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -46,28 +44,6 @@ public abstract class HtmlViewAbstractContentComponent extends HtmlViewAbstractC
 		return (SchemaField) getSchemaElement();
 	}
 
-	/**
-	 * Bind the pojo with the component
-	 * 
-	 * @param schemaField
-	 * @param value
-	 */
-	public void bind(final SchemaField schemaField, final Object value) {
-		bind(schemaField, value, null);
-	}
-
-	/**
-	 * Bind the pojo
-	 * 
-	 * @param schemaField
-	 * @param value
-	 * @param component
-	 */
-	public void bind(final SchemaField schemaField, final Object value, final Object component) {
-		schemaElement = schemaField;
-		content = value;
-	}
-
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -87,16 +63,6 @@ public abstract class HtmlViewAbstractContentComponent extends HtmlViewAbstractC
 		schemaElement = null;
 		content = null;
 		htmlString = "";
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.romaframework.aspect.view.html.area.HtmlViewRenderable#render()
-	 */
-	@Override
-	public void render(Writer writer) throws IOException {
-		getTransformer().transform(this, writer);
 	}
 
 	/**

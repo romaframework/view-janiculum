@@ -17,26 +17,15 @@ package org.romaframework.aspect.view.html.transformer.jsp;
 
 import java.io.IOException;
 import java.io.Writer;
-import java.util.HashMap;
-import java.util.Map;
 
-import org.romaframework.aspect.view.feature.ViewActionFeatures;
-import org.romaframework.aspect.view.feature.ViewFieldFeatures;
 import org.romaframework.aspect.view.html.area.HtmlViewBinder;
 import org.romaframework.aspect.view.html.area.HtmlViewRenderable;
 import org.romaframework.aspect.view.html.area.ViewHtmlBinderFactory;
-import org.romaframework.aspect.view.html.component.HtmlViewGenericComponent;
 import org.romaframework.aspect.view.html.template.ViewTemplateManager;
 import org.romaframework.aspect.view.html.transformer.Transformer;
-import org.romaframework.aspect.view.html.transformer.helper.JaniculumWrapper;
-import org.romaframework.aspect.view.html.transformer.helper.TransformerHelper;
 import org.romaframework.core.Roma;
 
 public class JspTransformer implements Transformer {
-
-	private static final String	HTML					= "html";
-	private static final String	JS						= "js";
-	private static final String	CSS						= "css";
 
 	public static final String	FILE_SUFFIX		= ".jsp";
 	public static final String	JANICULUM			= "janiculum";
@@ -55,41 +44,10 @@ public class JspTransformer implements Transformer {
 	}
 
 	public void transform(HtmlViewRenderable component, Writer writer) throws IOException {
-		transform(component, null, writer);
+		transformPart(component, null, writer);
 	}
 
 	public void transformPart(HtmlViewRenderable component, String part, Writer writer) throws IOException {
-		transform(component, part, writer);
-	}
-
-	private void transform(HtmlViewRenderable component, String part, Writer writer) throws IOException {
-		String styles = "";
-		if (component instanceof HtmlViewGenericComponent) {
-			if (((HtmlViewGenericComponent) component).getSchemaField() != null) {
-				styles = ((HtmlViewGenericComponent) component).getSchemaField().getFeature(ViewFieldFeatures.STYLE);
-			} else {
-				if(((HtmlViewGenericComponent) component).getSchemaElement()!=null){
-					styles = (String) ((HtmlViewGenericComponent) component).getSchemaElement().getFeature(ViewActionFeatures.STYLE);
-				}
-			}
-		}
-
-//		Map<String, Object> context = getGeneralContext(part, component, styles);
-		// context.put(JS, JsFreemarkerDirective.getInstance());
-		// context.put(CSS, CssFreemarkerDirective.getInstance());
-		// context.put("delegate", DelegateDirective.getInstance());
-		// context.put("raw", RawDirective.getInstance());
-		transformHtml(component, part, writer);
-
-	}
-
-	private void transformHtml(HtmlViewRenderable component, String part, Writer writer) throws IOException {
-		String string = HTML;
-		printCode(component, part, string, writer);
-	}
-
-	private void printCode(HtmlViewRenderable component, String part, String codeType, Writer writer) throws IOException {
-//		context.put(CODE_TO_PRINT, codeType);//TODO!!!
 		ViewTemplateManager mgr = Roma.component(ViewTemplateManager.class);
 		mgr.execute(getTemplateName(), component, part, writer);
 	}
@@ -107,27 +65,6 @@ public class JspTransformer implements Transformer {
 	@Override
 	public String toString() {
 		return renderName;
-	}
-
-	protected Map<String, Object> getGeneralContext(String part, HtmlViewRenderable renderable, String styles) {
-		Map<String, Object> ctx = new HashMap<String, Object>();
-		ctx.put(JANICULUM, new JaniculumWrapper(this, renderable, styles));
-		// TODO!!!
-
-		// Add the part info
-		TransformerHelper helper = TransformerHelper.getInstance();
-		if (renderable instanceof HtmlViewGenericComponent) {
-			ctx.put("htmlClass", helper.getHtmlClass(this.toString(), null, (HtmlViewGenericComponent) renderable));
-		}
-		ctx.put("htmlId", helper.getHtmlId(renderable, null));
-
-		if (part != null) {
-			ctx.put(PART_TO_PRINT, part);
-		} else {
-			ctx.put(PART_TO_PRINT, "");
-		}
-
-		return ctx;
 	}
 
 	public String getRenderName() {
