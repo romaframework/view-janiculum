@@ -4,7 +4,7 @@ import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.BodyTagSupport;
 
 import org.romaframework.aspect.view.html.HtmlViewAspectHelper;
-import org.romaframework.aspect.view.html.component.HtmlViewConfigurableEntityForm;
+import org.romaframework.aspect.view.html.area.HtmlViewRenderable;
 import org.romaframework.aspect.view.html.constants.RequestConstants;
 
 public class RomaAddJsTag extends BodyTagSupport {
@@ -13,10 +13,10 @@ public class RomaAddJsTag extends BodyTagSupport {
 
 	@Override
 	public int doAfterBody() throws JspException {
-		final Object currentForm = pageContext.getRequest().getAttribute(RequestConstants.CURRENT_REQUEST_FORM);
-		if (currentForm != null && currentForm instanceof HtmlViewConfigurableEntityForm) {
+		final Object currentForm = pageContext.getRequest().getAttribute(RequestConstants.CURRENT_COMPONENT_IN_TRANSFORMER);
+		if (currentForm != null && currentForm instanceof HtmlViewRenderable) {
 			try {
-				HtmlViewConfigurableEntityForm form = (HtmlViewConfigurableEntityForm) currentForm;
+				HtmlViewRenderable form = (HtmlViewRenderable) currentForm;
 				String body = getBodyContent().getString();
 				HtmlViewAspectHelper.getJsBuffer().setScript(form.getHtmlId(), body);
 			} catch (final Exception e) {
