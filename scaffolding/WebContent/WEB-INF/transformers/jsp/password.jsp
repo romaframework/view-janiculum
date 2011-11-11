@@ -8,19 +8,17 @@
 	pageContext.setAttribute("part", part);
 	if(!("raw".equals(part)||"label".equals(part))){
 	%><div class="<%=JaniculumWrapper.cssClass(component, "password", null)%>" style="<%=JaniculumWrapper.inlineStyle(component, null)%>" id="<%=JaniculumWrapper.id(component, null)%>">
-		<input id="<%=JaniculumWrapper.id(component, "content")%>" class="<%=JaniculumWrapper.cssClass(component, "password", "content")%>" style="<%=!JaniculumWrapper.isValid(component)?"border-color:red;":""%><%=JaniculumWrapper.inlineStyle(component, null)%>" type="password" name="<%=JaniculumWrapper.fieldName(component)%>" value="<%=JaniculumWrapper.content(component)==null?"":JaniculumWrapper.content(component)%>" <%=JaniculumWrapper.disabled(component)?"disabled=\"disabled\"":""%>
+		<input id="<%=JaniculumWrapper.id(component, "content")%>" style="<%=!JaniculumWrapper.isValid(component)?"border-color:red;":""%><%=JaniculumWrapper.inlineStyle(component, null)%>" type="password" name="<%=JaniculumWrapper.fieldName(component)%>" value="<%=JaniculumWrapper.content(component)==null?"":JaniculumWrapper.content(component)%>" <%=JaniculumWrapper.disabled(component)?"disabled=\"disabled\"":""%>
 		<% boolean existsChangeEvent=false;
 		for(String event: JaniculumWrapper.availableEvents(component)){
-			if(!"change".equals(event)){%>
+			%>
 			on<%=event%>="romaFieldChanged('<%=JaniculumWrapper.fieldName(component)%>'); romaEvent('<%=JaniculumWrapper.fieldName(component)%>', '<%=event%>')"
-			<%}else{
+			<%if("change".equals(event)){
 				existsChangeEvent=true;
 			}
 		}
-		if(existsChangeEvent){%>
-		onchange="romaFieldChanged('<%=JaniculumWrapper.fieldName(component)%>'); romaEvent('<%=JaniculumWrapper.fieldName(component)%>', 'change')"
-		<%}else{ %>
-		onchange="romaFieldChanged('<%=JaniculumWrapper.fieldName(component)%>')"
+		if(!existsChangeEvent){%>
+			onchange="romaFieldChanged('<%=JaniculumWrapper.fieldName(component)%>')"
 		<%} %>
 		/>
 		<%if(!JaniculumWrapper.isValid(component)){%>

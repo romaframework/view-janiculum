@@ -13,22 +13,17 @@
 	<%
 	boolean existsChangeEvent = true;
 	if( !JaniculumWrapper.isValid(component)){%>
-		<input id="<%=JaniculumWrapper.id(component, "content")%>" class="<%=JaniculumWrapper.cssClass(component, "time", "content")%>_invalid" type="text" name="<%=JaniculumWrapper.fieldName(component)%>_time" value="<%=JaniculumWrapper.formatDateContent(component)%>" <%if( JaniculumWrapper.disabled(component)){%> disabled="disabled" <%}%> 
+		<input id="<%=JaniculumWrapper.id(component, "content")%>" type="text" name="<%=JaniculumWrapper.fieldName(component)%>_time" value="<%=JaniculumWrapper.formatDateContent(component)%>" <%if( JaniculumWrapper.disabled(component)){%> disabled="disabled" <%}%> 
 		<%
 		existsChangeEvent = false;
 		for(String event: JaniculumWrapper.availableEvents(component)){
 		%>
-		
-		
-		<%if(!"change".equals(event)){%>
 		on<%=event%>="romaFieldChanged('<%=JaniculumWrapper.fieldName(component)%>_time'); romaEvent('<%=JaniculumWrapper.fieldName(component)%>_time', '<%=event%>')"
-		<%}else{
+		<%if("change".equals(event)){
 			existsChangeEvent = true;
 		}%>
 		<%}%>
-		<%if( existsChangeEvent){%>
-		onchange="romaFieldChanged('<%=JaniculumWrapper.fieldName(component)%>_time'); romaEvent('<%=JaniculumWrapper.fieldName(component)%>_time', 'change')"
-		<%}else{%>
+		<%if(!existsChangeEvent){%>
 		onchange="romaFieldChanged('<%=JaniculumWrapper.fieldName(component)%>_time');"
 		<%}%>
 		/>
@@ -39,15 +34,11 @@
 		existsChangeEvent = false;
 	for(String event: JaniculumWrapper.availableEvents(component) ){
 	%>
-		
-		<%if( !"change".equals(event)){%>
 		on<%=event%>="romaFieldChanged('<%=JaniculumWrapper.fieldName(component)%>_time'); romaEvent('<%=JaniculumWrapper.fieldName(component)%>_time', '<%=event%>')"
-		<%}else{
+		<%if( "change".equals(event)){
 			existsChangeEvent=true;
 		}}%>
-		<%if( existsChangeEvent){%>
-		onchange="romaFieldChanged('<%=JaniculumWrapper.fieldName(component)%>_time'); romaEvent('<%=JaniculumWrapper.fieldName(component)%>_time', 'change')"
-		<%}else{%>
+		<%if(!existsChangeEvent){%>
 		onchange="romaFieldChanged('<%=JaniculumWrapper.fieldName(component)%>_time');"
 		<%}%>
 	/>

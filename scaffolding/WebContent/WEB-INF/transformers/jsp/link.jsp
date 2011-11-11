@@ -9,7 +9,7 @@
 %>
 <div class="<%=JaniculumWrapper.cssClass(component, "link", null)%>" style="<%=JaniculumWrapper.inlineStyle(component, null)%>" id="<%=JaniculumWrapper.id(component, null)%>">
 <% if(JaniculumWrapper.isField(component)){%>
-<a class="<%=JaniculumWrapper.cssClass(component, "link", "content")%>" id="<%=JaniculumWrapper.id(component, "content")%>" value="<%=JaniculumWrapper.content(component, true)==null?"":JaniculumWrapper.content(component, true)%>" href="javascript:void(component, 0)"
+<a id="<%=JaniculumWrapper.id(component, "content")%>" value="<%=JaniculumWrapper.content(component, true)==null?"":JaniculumWrapper.content(component, true)%>" href="javascript:void(component, 0)"
 <%=JaniculumWrapper.disabled(component)?"disabled=\"disabled\"":"" %>
 <%
 for(String event:JaniculumWrapper.availableEvents(component)){
@@ -20,7 +20,7 @@ for(String event:JaniculumWrapper.availableEvents(component)){
 </a>
 <%} else if(JaniculumWrapper.isAction(component)){%>
 
-<a class="<%=JaniculumWrapper.cssClass(component, "link", "content")%>" id="<%=JaniculumWrapper.id(component, "content")%>" value="<%=JaniculumWrapper.i18NLabel(component)%>" href="javascript:void(0)" title="<%=JaniculumWrapper.i18NHint(component)%>"
+<a id="<%=JaniculumWrapper.id(component, "content")%>" value="<%=JaniculumWrapper.i18NLabel(component)%>" href="javascript:void(0)" title="<%=JaniculumWrapper.i18NHint(component)%>"
 <%=JaniculumWrapper.disabled(component)? "disabled=\"disabled\"":""%>
 onclick="romaAction('<%=JaniculumWrapper.actionName(component)%>')" >
 <%=JaniculumWrapper.i18NLabel(component)%>

@@ -33,7 +33,7 @@
 	JspTransformerHelper.addCss(JaniculumWrapper.id(component, null)+" > table", "margin-right", marginRight);
 %>
 
-<table id="<%=JaniculumWrapper.id(component, null)%>" class="<%=JaniculumWrapper.cssClass(component, "column", null)%> area-column" style="<%=JaniculumWrapper.inlineStyle(component, null)%>" cellpadding="0" cellspacing="0">
+<table id="<%=JaniculumWrapper.id(component, null)%>" class="<%=JaniculumWrapper.cssClass(component, "column", null)%>" style="<%=JaniculumWrapper.inlineStyle(component, null)%>" cellpadding="0" cellspacing="0">
   <%
   int row = 0;
   for(Object c:JaniculumWrapper.getChildren(component)){
@@ -63,7 +63,7 @@
   		JspTransformerHelper.addCss(JaniculumWrapper.id(component, null)+"_"+row+" > div.POJO > table.area_main", "width", "100%");
   	}
 	  %>
-	    <tr><td id="<%=JaniculumWrapper.id(component, null)%>_<%=row%>" class="row_<%=row%>">
+	    <tr><td id="<%=JaniculumWrapper.id(component, null)%>_<%=row%>" class="row_<%=row%> <%=JaniculumWrapper.cssClass(child,null, null)%> ">
 	    <% JspTransformerHelper.delegate(child, null,pageContext.getOut());%>
 		</td></tr>
 	  <%

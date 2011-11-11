@@ -16,7 +16,7 @@
 		<%}
 		}%>
 	>
-	 <span id="<%=JaniculumWrapper.id(component, "content")%>" class="<%=JaniculumWrapper.cssClass(component, "label", "content")%>" >
+	 <span id="<%=JaniculumWrapper.id(component, "content")%>"  >
     	<%=JaniculumWrapper.formattedContent(component)==null?"":JaniculumWrapper.formattedContent(component)%>
 	 </span>
 </div>

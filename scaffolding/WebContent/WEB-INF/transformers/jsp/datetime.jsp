@@ -17,7 +17,7 @@
 <div class="<%=JaniculumWrapper.cssClass(component, "datetime", null)%>" style="<%=JaniculumWrapper.inlineStyle(component, null)%>" id="<%=JaniculumWrapper.id(component, null)%>">
 
 <%if(!JaniculumWrapper.isValid(component)){%>
-	<input id="<%=JaniculumWrapper.id(component, "content")%>" class="<%=JaniculumWrapper.cssClass(component,  "datetime", "content")%>_invalid" type="text" name="<%=JaniculumWrapper.fieldName(component)%>" 
+	<input id="<%=JaniculumWrapper.id(component, "content")%>" type="text" name="<%=JaniculumWrapper.fieldName(component)%>" 
 	value="<%=JaniculumWrapper.formatDateContent(component)%>" <%=JaniculumWrapper.disabled(component)?" disabled='disabled'":""%>
 	<%
 	boolean existsChangeEvent=false;

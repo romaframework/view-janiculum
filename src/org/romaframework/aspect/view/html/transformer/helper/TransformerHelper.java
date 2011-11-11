@@ -5,10 +5,10 @@ import java.util.List;
 import org.romaframework.aspect.view.feature.ViewClassFeatures;
 import org.romaframework.aspect.view.form.ViewComponent;
 import org.romaframework.aspect.view.html.area.HtmlViewRenderable;
+import org.romaframework.aspect.view.html.area.mode.HtmlViewAreaMode;
 import org.romaframework.aspect.view.html.component.HtmlViewActionComponent;
 import org.romaframework.aspect.view.html.component.HtmlViewContentComponent;
 import org.romaframework.aspect.view.html.component.HtmlViewContentForm;
-import org.romaframework.aspect.view.html.component.HtmlViewGenericComponent;
 import org.romaframework.aspect.view.html.constants.TransformerConstants;
 import org.romaframework.core.schema.SchemaAction;
 import org.romaframework.core.schema.SchemaClass;
@@ -17,9 +17,14 @@ import org.romaframework.core.schema.SchemaObject;
 
 public class TransformerHelper {
 
-	private static final String			CLASS_NAME_		= "className_";
+	private static final String			RENDER_NAME_	= " render_";
+	private static final String			CLASS_NAME_		= " class_";
 
-	private static final String			ELEMENT_NAME_	= "elementName_";
+	private static final String			FIELD_NAME_		= " field_";
+
+	private static final String			ACTION_NAME_	= " action_";
+	private static final String			SCREEN_NAME_	= " screen_";
+	private static final String			AREA_NAME_		= " area_";
 
 	public static TransformerHelper	instance			= new TransformerHelper();
 
@@ -57,54 +62,60 @@ public class TransformerHelper {
 	 * @param part
 	 * @return
 	 */
-	public String getHtmlClass(final String transformerName, final String part, final HtmlViewGenericComponent iGenericComponent) {
+	public String getHtmlClass(final String transformerName, final String part, final HtmlViewRenderable iGenericComponent) {
 
-		final String classPrefix = transformerName;
 		String result = "";
-		if (part == null) {
-			result = classPrefix;
-		} else {
-			result = classPrefix + SEPARATOR + part;
-		}
+		if (transformerName != null) {
+			final String classPrefix = RENDER_NAME_ + transformerName;
 
+			if (part == null) {
+				result = classPrefix;
+			} else {
+				result = classPrefix + SEPARATOR + part;
+			}
+		}
 		if (iGenericComponent != null) {
 			result = result + " " + getMultiClass(iGenericComponent);
 		}
 
-		return result;
+		return result.trim();
 	}
 
-	private String getMultiClass(final HtmlViewGenericComponent genericComponent) {
+	private String getMultiClass(final HtmlViewRenderable genericComponent) {
 		String result = "";
 
+		String style = null;
 		if (genericComponent instanceof HtmlViewActionComponent) {
-			final SchemaAction schemaAction = (SchemaAction) genericComponent.getSchemaElement();
+			final SchemaAction schemaAction = (SchemaAction) ((HtmlViewActionComponent) genericComponent).getSchemaElement();
 			if (schemaAction != null) {
-				Object feature = schemaAction.getFeature(ViewClassFeatures.STYLE);
-				if (feature != null) {
-					result = result + " " + schemaAction.getName() + " " + feature.toString();
-				} else {
-					result = result + " " + schemaAction.getName();
-				}
+				result = result + ACTION_NAME_ + schemaAction.getName();
+				style = schemaAction.getFeature(ViewClassFeatures.STYLE);
 			}
-
 		} else if (genericComponent instanceof HtmlViewContentForm) {
-
-			final SchemaObject schemaObject = genericComponent.getSchemaObject();
+			final SchemaObject schemaObject = ((HtmlViewContentForm) genericComponent).getSchemaObject();
 			if (schemaObject != null) {
-				Object feature = schemaObject.getFeature(ViewClassFeatures.STYLE);
-				if (feature != null) {
-					result = result + " " + getAllClassHierarchy(schemaObject.getSchemaClass()) + " " + feature.toString();
-				} else {
-					result = result + " " + getAllClassHierarchy(schemaObject.getSchemaClass());
-				}
+				result = result + " " + getAllClassHierarchy(schemaObject.getSchemaClass());
+				style = schemaObject.getFeature(ViewClassFeatures.STYLE);
 			}
 
 		} else if (genericComponent instanceof HtmlViewContentComponent) {
-			final SchemaField schemaField = (SchemaField) genericComponent.getSchemaElement();
-			result = result + " " + ELEMENT_NAME_ + schemaField.getName();
+			final SchemaField schemaField = (SchemaField) ((HtmlViewContentComponent) genericComponent).getSchemaElement();
+			result = result + " " + FIELD_NAME_ + schemaField.getName();
+			style = schemaField.getFeature(ViewClassFeatures.STYLE);
+		} else if (genericComponent instanceof HtmlViewAreaMode) {
+			style = ((HtmlViewAreaMode) genericComponent).getContainer().getStyle();
+			String areaName = ((HtmlViewAreaMode) genericComponent).getAreaName();
+			if (areaName != null) {
+				if (((HtmlViewAreaMode) genericComponent).isScreenArea()) {
+					return SCREEN_NAME_ + areaName;
+				} else {
+					return AREA_NAME_ + areaName;
+				}
+			}
 		}
-
+		if (style != null && !style.startsWith("{")) {
+			result += " " + style;
+		}
 		return result;
 	}
 
@@ -112,11 +123,7 @@ public class TransformerHelper {
 		String result = "";
 
 		if (contentClass != null) {
-
 			result = getAllClassHierarchy(contentClass.getSuperClass()) + " " + CLASS_NAME_ + contentClass.getName();
-
-		} else {
-			result = CLASS_NAME_ + "Object";
 		}
 
 		return result;

@@ -16,27 +16,20 @@
 
 <div class="<%=JaniculumWrapper.cssClass(component, "date", null)%>" style="<%=JaniculumWrapper.inlineStyle(component, null)%>" id="<%=JaniculumWrapper.id(component, null)%>">
 
-<input id="<%=JaniculumWrapper.id(component, "content")%>" class="<%=JaniculumWrapper.cssClass(component, "date", "content")%><%=JaniculumWrapper.isValid(component)?"":"_invalid" %>" type="text" name="<%=JaniculumWrapper.fieldName(component)%>" 
+<input id="<%=JaniculumWrapper.id(component, "content")%>" type="text" name="<%=JaniculumWrapper.fieldName(component)%>" 
 value="<%=JaniculumWrapper.formatDateContent(component)%>" <%=JaniculumWrapper.disabled(component)?"disabled=\"disabled\"":""%> 
 <%
 	boolean existsChangeEvent = false;
 
 	for(String event:JaniculumWrapper.availableEvents(component)){
-        if("change".equals(event)){
-%>
-        on<%=event%>="romaFieldChanged('<%=JaniculumWrapper.fieldName(component)%>'); romaEvent('<%=JaniculumWrapper.fieldName(component)%>', '<%=event%>')"
-        <%}else{ 
-        existsChangeEvent=true;
+	%>on<%=event%>="romaFieldChanged('<%=JaniculumWrapper.fieldName(component)%>'); romaEvent('<%=JaniculumWrapper.fieldName(component)%>', '<%=event%>')" <%
+        if("change".equals(event)){ 
+        	existsChangeEvent=true;
         } %>
 	<%} 
-	if(existsChangeEvent){
-	%>
-       onchange="romaFieldChanged('<%=JaniculumWrapper.fieldName(component)%>'); romaEvent('<%=JaniculumWrapper.fieldName(component)%>', 'change')"
-    <%}else{ %>
-       onchange="romaFieldChanged('<%=JaniculumWrapper.fieldName(component)%>')"
-    <%} %>
-/>
-
+	if(!existsChangeEvent){
+		%>onchange="romaFieldChanged('<%=JaniculumWrapper.fieldName(component)%>')" <%
+	} %> />
 <%if(!JaniculumWrapper.isValid(component)){ %>
     <span class="<%=JaniculumWrapper.cssClass(component, "date", "validation_message")%>"><%=JaniculumWrapper.validationMessage(component)==null?"Invalid":JaniculumWrapper.validationMessage(component)%></span>
 <%} %>

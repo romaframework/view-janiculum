@@ -16,12 +16,10 @@
 %>
 <div class="<%=JaniculumWrapper.cssClass(component, "chart", null)%>" style="<%=JaniculumWrapper.inlineStyle(component, null)%>" id="<%=JaniculumWrapper.id(component, null)%>">
 
-
 <% if(part==null ||  "".equals(part) || "all".equals(part)) {%>
 
-
-<span id="<%=JaniculumWrapper.id(component, "content") %>" class="<%=JaniculumWrapper.cssClass(component, "chart", "content") %>" >
-<img id="<%=JaniculumWrapper.id(component, "content")%>_img" class="<%=JaniculumWrapper.cssClass(component, "chart", "content")%>" src="chart.png?imagePojo=<%=JaniculumWrapper.imageId(component)%>&t=<%=JaniculumWrapper.currentTime()%>"
+<span id="<%=JaniculumWrapper.id(component, "content") %>" >
+<img id="<%=JaniculumWrapper.id(component, "content_img")%>" src="chart.png?imagePojo=<%=JaniculumWrapper.imageId(component)%>&t=<%=JaniculumWrapper.currentTime()%>"
 	<%for(String event: JaniculumWrapper.getAvailableEvents(component)){ %> 
 		
 		on<%=event%>="romaFieldChanged('<%=JaniculumWrapper.fieldName(component) %>'); romaEvent('<%=JaniculumWrapper.fieldName(component) %>', '<%=event%>')"
@@ -34,9 +32,8 @@
 
 
 <%if ("content".equals(part)){ %>
-<img id="<%=JaniculumWrapper.id(component, "content")%>" class="<%=JaniculumWrapper.cssClass(component, "chart", "content")%>" src="chart.png?imagePojo=<%=JaniculumWrapper.imageId(component)%>&t=<%=JaniculumWrapper.currentTime()%>" 
+<img id="<%=JaniculumWrapper.id(component, "content")%>" src="chart.png?imagePojo=<%=JaniculumWrapper.imageId(component)%>&t=<%=JaniculumWrapper.currentTime()%>" 
 	<%for(String event: JaniculumWrapper.getAvailableEvents(component)){ %>
-	
 		on<%=event%>="romaFieldChanged('<%=JaniculumWrapper.fieldName(component) %>'); romaEvent('<%=JaniculumWrapper.fieldName(component) %>', '<%=event%>')"
 	<%} %>
 	
@@ -47,7 +44,7 @@
 
 
 <%if (part.equals("label")){%>
-<label id="<%=JaniculumWrapper.id(component, "label")%>" class="<%=JaniculumWrapper.cssClass(component, "chart", "label")%>" for="<%=JaniculumWrapper.id(component, "content")%>"><%=JaniculumWrapper.i18NLabel(component)%></label>
+<label id="<%=JaniculumWrapper.id(component, "label")%>" for="<%=JaniculumWrapper.id(component, "content")%>"><%=JaniculumWrapper.i18NLabel(component)%></label>
 <% } %>
 
 </div>

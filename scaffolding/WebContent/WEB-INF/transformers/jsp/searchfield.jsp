@@ -15,28 +15,25 @@
 	if (!("label".equals(part) || "raw".equals(part) ) ){   %>
 	<div class="<%=janiculum.cssClass(null)%>" style="<%=janiculum.inlineStyle(null)%>" id="<%=janiculum.id(null)%>">
 		<p>
-		<input id="<%=janiculum.id("content")%>" class="<%=janiculum.cssClass("content")%>" style="<#if janiculum.isValid() = false>border-color:red;"</#if><%=janiculum.inlineStyle(null)%>" type="text" name="<%=janiculum.fieldName()%>" value="<%=janiculum.content(true)!""%>" 
+		<input id="<%=janiculum.id("content")%>" style="<%=janiculum.inlineStyle(null)%>" type="text" name="<%=janiculum.fieldName()%>" value="<%=janiculum.content(true)!""%>" 
 		<%if(janiculum.disabled()){%> disabled="disabled"
 		<%}
 			boolean existsChangeEvent=false;
 			for(String event: janiculum.availableEvents()){
-				if(!"change".equals(event)){
 				%> 
 				on<%=event%>="romaFieldChanged('<%=janiculum.fieldName()%>'); romaEvent('<%=janiculum.fieldName()%>', '<%=event%>')"
-				<%}else{ 
+				<%if("change".equals(event)){ 
 					existsChangeEvent=true;
 				}
 			}
-			if(existsChangeEvent){
+			if(!existsChangeEvent){
 		%>
-		onchange="romaFieldChanged('<%=janiculum.fieldName()%>'); romaEvent('<%=janiculum.fieldName()%>', 'change')"
-		<%	}else{ %>
 		onchange="romaFieldChanged('<%=janiculum.fieldName()%>')"
 		onkeyup="romaAutoEvent('<%=janiculum.fieldName()%>', 'search')"
 		<%	} %>
 		 />
-		<%if(!janiculum.isValid()){
-			<span class="<%=janiculum.cssClass("validation_message")%>"><%=janiculum.validationMessage()!"Invalid"%></span>	
+		<%if(!janiculum.isValid()){%>
+			<span class="<%=janiculum.cssClass("validation_message")%>"><%=janiculum.validationMessage()%></span>	
 		<%} %>
 		<button type="submit">Go</button>
 		</p>

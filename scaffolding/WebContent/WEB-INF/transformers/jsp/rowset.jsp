@@ -19,14 +19,14 @@
 	}
 	String halign = JaniculumWrapper.areaHorizontalAlignment(component);
 %>
-<table cellpadding="0" cellspacing="0" id="<%=JaniculumWrapper.id(component, null)%>" class="<%=JaniculumWrapper.cssClass(component, "rowset", null)%> rowset-table" style="<%=JaniculumWrapper.inlineStyle(component, null)%>">
+<table cellpadding="0" cellspacing="0" id="<%=JaniculumWrapper.id(component, null)%>" class="<%=JaniculumWrapper.cssClass(component, "rowset", null)%>" style="<%=JaniculumWrapper.inlineStyle(component, null)%>">
 	<%
 	int row = 0;
 	for(Object c:JaniculumWrapper.getChildren(component)){
 		HtmlViewRenderable child=(HtmlViewRenderable)c;
 	
 	%>
-    <tr><td id="<%=JaniculumWrapper.id(component, null)%>_<%=row%>_td"><%JspTransformerHelper.delegate(child, null,pageContext.getOut()); %></td></tr>
+    <tr><td id="<%=JaniculumWrapper.id(component, null)%>_<%=row%>_td" class="<%=JaniculumWrapper.cssClass(child, null, null)%>"><%JspTransformerHelper.delegate(child, null,pageContext.getOut()); %></td></tr>
    <%
 	   	JspTransformerHelper.addCss("#"+JaniculumWrapper.id(component, null)+"_"+row+"_td", "vertical-align", valign);
 	   	JspTransformerHelper.addCss("#"+JaniculumWrapper.id(component, null)+"_"+row+"_td", "text-align", halign);

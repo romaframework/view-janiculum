@@ -10,7 +10,7 @@
 		if(JaniculumWrapper.content(component)!=null){
 %>
 <div class="<%=JaniculumWrapper.cssClass(component, "image", null)%>" style="<%=JaniculumWrapper.inlineStyle(component, null)%>" id="<%=JaniculumWrapper.id(component, null)%>">
-<img id="<%=JaniculumWrapper.id(component, "content")%>" class="<%=JaniculumWrapper.cssClass(component, "image", "content")%>" src="<%=JaniculumWrapper.contextPath()%>/image.png?imagePojo=<%=JaniculumWrapper.imageId(component)%>" 		
+<img id="<%=JaniculumWrapper.id(component, "content")%>"  src="<%=JaniculumWrapper.contextPath()%>/image.png?imagePojo=<%=JaniculumWrapper.imageId(component)%>" 		
 <%
 			for(String event: JaniculumWrapper.availableEvents(component)){
 %>			

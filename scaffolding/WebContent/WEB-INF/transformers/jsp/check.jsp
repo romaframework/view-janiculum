@@ -11,7 +11,7 @@
 
 <%if (part==null || "".equals(part) || "all".equals(part)){%>
 	<input id="<%=JaniculumWrapper.id(component, "reset")%>" type="hidden" name="<%=JaniculumWrapper.fieldName(component)%>_reset" />
-	<input id="<%=JaniculumWrapper.id(component, "content")%>" class="<%=JaniculumWrapper.cssClass(component, "check", null)%>" style="<%=JaniculumWrapper.inlineStyle(component, null)%>" type="checkbox" name="<%=JaniculumWrapper.fieldName(component)%>" 
+	<input id="<%=JaniculumWrapper.id(component, "content")%>" style="<%=JaniculumWrapper.inlineStyle(component, null)%>" type="checkbox" name="<%=JaniculumWrapper.fieldName(component)%>" 
 	
 	<%if(JaniculumWrapper.checked(component)){%> checked="checked"<%}%> 
 	<%if(JaniculumWrapper.disabled(component)){%> disabled="disabled" <%}%> 
@@ -19,23 +19,16 @@
 	<% 
 	boolean existsChangeEvent = false;
 	for(String event: JaniculumWrapper.availableEvents(component)){
-		if(!event.equals("change")){
 	%>
-			on<%=event%>="romaFieldChanged('<%=JaniculumWrapper.fieldName(component)%>'); romaFieldChanged('<%=JaniculumWrapper.fieldName(component)%>_reset'); romaEvent('<%=JaniculumWrapper.fieldName(component)%>', '<%=event%>')"
-	<%	}else{
+	on<%=event%>="romaFieldChanged('<%=JaniculumWrapper.fieldName(component)%>'); romaFieldChanged('<%=JaniculumWrapper.fieldName(component)%>_reset'); romaEvent('<%=JaniculumWrapper.fieldName(component)%>', '<%=event%>')"
+	<%	if(event.equals("change")){
 			existsChangeEvent = true;
 		}		
 	} 
 	
-	
-	if(existsChangeEvent){
-	%>	
-		onchange="romaFieldChanged('<%=JaniculumWrapper.fieldName(component)%>'); romaFieldChanged('<%=JaniculumWrapper.fieldName(component)%>_reset'); romaEvent('<%=JaniculumWrapper.fieldName(component)%>', 'change')"
-	<%}else{ %>
-			
-			onchange="romaFieldChanged('<%=JaniculumWrapper.fieldName(component)%>'); romaFieldChanged('<%=JaniculumWrapper.fieldName(component)%>_reset'); romaSendAjaxRequest()"
-	<%} %> 
-			/>
+	if(!existsChangeEvent) {
+	%>onchange="romaFieldChanged('<%=JaniculumWrapper.fieldName(component)%>'); romaFieldChanged('<%=JaniculumWrapper.fieldName(component)%>_reset'); romaSendAjaxRequest()"
+	<%} %> />
 			
 		<%if (!JaniculumWrapper.isValid(component)){%>
 			<span class="<%=JaniculumWrapper.cssClass(component, "check", "validation_message")%>"></span>	

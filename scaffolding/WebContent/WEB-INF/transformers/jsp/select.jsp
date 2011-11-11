@@ -17,28 +17,21 @@
 	if (part==null || "".equals(part) || "all".equals(part)|| "content".equals(part)){   %>
 
 	<div class="<%=JaniculumWrapper.cssClass(component, "select", null)%>" id="<%=JaniculumWrapper.id(component, null)%>" style="<%=JaniculumWrapper.inlineStyle(component, null)%>">
-		<span class="<%=JaniculumWrapper.cssClass(component, "select", "content")%>" id="<%=JaniculumWrapper.id(component, "content")%>">
+		<span  id="<%=JaniculumWrapper.id(component, "content")%>">
 			<%if(JaniculumWrapper.getChildren(component)!=null){%>
 				<select id="<%=JaniculumWrapper.id(component, "select")%>"
 				name="<%=JaniculumWrapper.fieldName(component)%>"
 				<%if(JaniculumWrapper.disabled(component)){%> disabled="disabled" <%}
 					boolean existsChangeEvent=false;
 					for(String event: JaniculumWrapper.availableEvents(component)){
-						if(!"change".equals(event)){	
-					
 						%>
-						
 						on<%=event%>="romaFieldChanged('<%=JaniculumWrapper.fieldName(component)%>'); romaEvent('<%=JaniculumWrapper.fieldName(component)%>', '<%=event%>')"
-						<%}else{
+						<%if("change".equals(event)){	
 							existsChangeEvent = true;
 						}
 					}
-					if(existsChangeEvent){
+					if(!existsChangeEvent){
 				%>
-				
-				
-				onchange="romaFieldChanged('<%=JaniculumWrapper.fieldName(component)%>'); romaEvent('<%=JaniculumWrapper.fieldName(component)%>', 'change')"
-				<%}else{ %>
 				onchange="romaFieldChanged('<%=JaniculumWrapper.fieldName(component)%>'); romaSendAjaxRequest()"
 				<%} %>
 				style="<%if(!JaniculumWrapper.isValid(component)){%>border-color:red;<%} %>"

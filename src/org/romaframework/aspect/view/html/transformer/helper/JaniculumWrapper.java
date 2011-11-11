@@ -141,25 +141,7 @@ public class JaniculumWrapper {
 	}
 
 	public static String cssSpecificClass(HtmlViewRenderable thisComponent, String transformerName, String part) {
-		if (thisComponent instanceof HtmlViewGenericComponent) {
-			SchemaField schemaField = ((HtmlViewGenericComponent) thisComponent).getSchemaField();
-
-			if (schemaField != null) {
-				Object feature = schemaField.getFeature(ViewFieldFeatures.STYLE);
-				if (feature != null && !feature.toString().isEmpty() && feature.toString().charAt(0) != '{') {
-					// CLASS NAME: USE IT
-					return feature.toString();
-				}
-			}
-
-			return helper.getHtmlClass(transformerName, part, (HtmlViewGenericComponent) thisComponent);
-		} else if (thisComponent instanceof HtmlViewAreaMode) {
-			String areaName = ((HtmlViewAreaMode) thisComponent).getAreaName();
-			if (areaName != null) {
-				return "area_" + areaName;
-			}
-		}
-		return helper.getHtmlClass(transformerName, part, null);
+		return helper.getHtmlClass(transformerName, part, thisComponent);
 	}
 
 	public static String tableRowCssClass(HtmlViewRenderable component, String transformerName, int rowIndex) {
