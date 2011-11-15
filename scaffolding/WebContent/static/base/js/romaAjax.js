@@ -7,6 +7,21 @@ var lastFocusName;
 var janiculumFrontendLocked = false;
 var janiculumFrontendLockedCount = 0;
 
+var romaRemoveArray = new Object();
+
+function romaAddRemove(id,func) {
+	romaRemoveArray[id]=func;
+}
+
+function romaOnRemove(id){
+	for(var index in romaRemoveArray){
+		if(index.startsWith(id) && romaRemoveArray[id] instanceof Function){
+			romaRemoveArray[id]();
+			delete romaRemoveArray[id]
+		}
+	}
+}
+
 function isPageLocked(){
 	return janiculumFrontendLocked;
 }
@@ -190,6 +205,7 @@ function romaOnSuccess(data, textStatus) {
 	}else if(romaRespStatus="ok"){
 		var changes = data["changes"];
 		for(var i in changes){
+			romaOnRemove(i);
 			jQuery('#'+i).after(changes[i]).remove();
 		}
 		if(data["bindingExecuted"]){				
@@ -222,7 +238,7 @@ function romaSendAjaxRequest(force){
 	romaSendAjaxRequestData(romaBuildAjaxRequestData(),force);
 }
 
-function romaSendAjaxRequestData(data,force,wait){
+function romaSendAjaxRequestData(data,force,wait,onResponseOk){
 	if(isPageLocked()){
 		if(force==true)
 			janiculumFrontendLockedCount++;
@@ -240,7 +256,11 @@ function romaSendAjaxRequestData(data,force,wait){
 	if(typeof(requestContextPath)!='undefined'){
 		requestPath = requestContextPath +"ajax";
 	}
-	jQuery.ajax({ type: 'POST', url: requestPath, data:data, contentType: "application/x-www-form-urlencoded; " + globalCharType, success: romaOnSuccess, 
+	var succesFunction=romaOnSuccess;
+	if(onResponseOk) {
+		succesFunction =function(data, textStatus){romaOnSuccess(data, textStatus);onResponseOk(data, textStatus);};
+	}
+	jQuery.ajax({ type: 'POST', url: requestPath, data:data, contentType: "application/x-www-form-urlencoded; " + globalCharType, success: succesFunction, 
 	dataType: "json"});
 }
 
@@ -256,62 +276,16 @@ function reloadBaseJs(pageId){
 	scriptTag.setAttribute("src", newSrc);
 	scriptTag.setAttribute("id", "romajszz");
 	// alert(jQuery('#romajs'));
-	// TODO NON FUNGE!!!
 	jQuery('#romajs').after(scriptTag);
 }
 
 
 function romaSendPollAjaxRequest(){
-	if(isPageLocked()){
-		return;
-	}
-	var requestPath = "ajax";
-	if(typeof(requestPathPrefix)!='undefined'){
-		requestPath = requestPathPrefix; 
-	}
-	if(typeof(requestContextPath)!='undefined'){
-		requestPath = requestContextPath +"ajax";
-	}
-	
-	jQuery.ajax({
-		  type: 'POST',
-		  contentType: 'text/html; charset=utf-8',
-		  url: requestPath,
-		  data: new Object(),
-		  success: function(data, textStatus){
-			romaRespStatus = data["status"];
-			
-			if(romaRespStatus=="stop"){
-			}else{
-				startPushCommandPolling();
-
-				if(romaRespStatus=="reload"){
-					// RELOAD THE PAGE
-					window.location.href = window.location.href;
-				}else if(romaRespStatus="ok"){
-					var changes = data["changes"];
-					var wasChanged = false;
-					for(var i in changes){
-						jQuery('#'+i).after(changes[i]).remove();
-						wasChanged = true;
-					}
-					if(wasChanged) {
-						eval(data["romajs"]);
-					}
-				}
-			}
-			handlePushCommands(data);
-		    }, 
-		  dataType: "json",
-		  error : function(data, textStatus){
-				alert("Comunication error with the application. Press the 'refresh' button of your Internet Browser to reconnect");
-		  }
-		});
-
+	romaSendAjaxRequestData(new Object(),false,false,function(data,status){if(data["status"]!="stop")startPushCommandPolling();});
 }
 
 function startPushCommandPolling(){
-	window.setTimeout("romaSendPollAjaxRequest()",10000);
+	window.setTimeout("romaSendPollAjaxRequest()",1000);
 }
 
 function changeTab(fieldName,id){
