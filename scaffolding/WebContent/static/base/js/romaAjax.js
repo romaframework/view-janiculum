@@ -7,6 +7,24 @@ var lastFocusName;
 var janiculumFrontendLocked = false;
 var janiculumFrontendLockedCount = 0;
 
+<<<<<<< Updated upstream
+=======
+var romaRemoveArray = new Object();
+
+function romaAddRemove(id,func) {
+	romaRemoveArray[id]=func;
+}
+
+function romaOnRemove(id){
+	for(var index in romaRemoveArray){
+		if(index && index.indexOf(id) === 0 && romaRemoveArray[index] instanceof Function){
+			romaRemoveArray[index]();
+			delete romaRemoveArray[index];
+		}
+	}
+}
+
+>>>>>>> Stashed changes
 function isPageLocked(){
 	return janiculumFrontendLocked;
 }

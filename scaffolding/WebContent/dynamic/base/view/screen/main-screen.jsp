@@ -20,6 +20,7 @@ String appName = Roma.component(ApplicationConfiguration.class).getApplicationNa
 <link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/static/base/css/style-sorter.css" />
 <link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/static/base/css/ui.datepicker.css" />
 <link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/static/base/css/uitabs.css" />
+<link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/static/base/css/jquery-ui.css" />
 <link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/static/base/css/style.css" />
 <link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/static/base/css/application-style.css" />
 <!-- ADDITIONAL CSS -->
