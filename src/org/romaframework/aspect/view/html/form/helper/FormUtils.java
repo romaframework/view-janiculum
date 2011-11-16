@@ -214,8 +214,7 @@ public class FormUtils {
 			return;
 		}
 		Object value = SchemaHelper.getFieldValue(field, iForm.getContent());
-		final HtmlViewMenuForm newComponent = new HtmlViewMenuForm(iForm, Roma.session().getSchemaObject(value), field, iForm.getScreenAreaObject(), null, null,
-				null);
+		final HtmlViewMenuForm newComponent = new HtmlViewMenuForm(iForm, Roma.session().getSchemaObject(value), field, iForm.getScreenAreaObject());
 		newComponent.setContent(value);
 		if (areaForRendering instanceof HtmlViewFormArea) {
 			if (iForm.getFieldComponent(field.getName()) == null) {
@@ -325,7 +324,7 @@ public class FormUtils {
 			schemaObj = Roma.session().getSchemaObject(fieldValue);
 		}
 		final HtmlViewConfigurableExpandedEntityForm newComponent = new HtmlViewConfigurableExpandedEntityForm(iForm, schemaObj, field, fieldValue,
-				iForm.getScreenAreaObject(), null, null, null);
+				iForm.getScreenAreaObject());
 		newComponent.setContent(fieldValue);
 		iForm.addExpandedChild(newComponent);
 		// iForm.addChild(field.getName(), null, newComponent);
@@ -377,7 +376,7 @@ public class FormUtils {
 			try {
 				Object value = SchemaHelper.getFieldValue(field, iForm.getContent());
 				final HtmlViewConfigurableEntityForm newComponent = new HtmlViewMenuForm(iForm, Roma.session().getSchemaObject(value), field,
-						iForm.getScreenAreaObject(), null, null, null);
+						iForm.getScreenAreaObject());
 				newComponent.setContent(value);
 				screenArea.bindForm(newComponent);
 			} catch (final Exception e) {
@@ -405,7 +404,7 @@ public class FormUtils {
 			try {
 				final SchemaClass embeddedSchemaClass = field.getClassInfo();
 				final HtmlViewConfigurableEntityForm newComponent = new HtmlViewMenuForm(iForm, Roma.session().getSchemaObject(embeddedSchemaClass), field,
-						iForm.getScreenAreaObject(), null, null, null);
+						iForm.getScreenAreaObject());
 				screenArea.bindForm(newComponent);
 			} catch (final Exception e) {
 				// TODO Handle he exception

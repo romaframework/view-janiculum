@@ -60,7 +60,6 @@ import org.romaframework.aspect.view.html.component.HtmlViewGenericComponent;
 import org.romaframework.aspect.view.html.component.HtmlViewInvisibleContentComponent;
 import org.romaframework.aspect.view.html.form.helper.FormUtils;
 import org.romaframework.aspect.view.html.screen.HtmlViewScreen;
-import org.romaframework.aspect.view.html.transformer.plain.HtmlViewPopupTransformer;
 import org.romaframework.aspect.view.screen.Screen;
 import org.romaframework.core.Roma;
 import org.romaframework.core.Utility;
@@ -554,10 +553,7 @@ public class HtmlViewAspect extends ViewAspectAbstract implements SchemaFeatures
 		ContentForm currentComponent = (ContentForm) getFormByObject(iUserObject);
 		if (currentComponent.isFirstToOpenPopup(iUserObject)) {
 			final Screen screen = getScreen();
-
 			screen.close(iUserObject);
-			// TODO REVIEW THIS LOGIC!!!
-			HtmlViewPopupTransformer.removeCss();
 			return true;
 		}
 		return false;

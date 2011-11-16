@@ -46,7 +46,6 @@ import org.romaframework.aspect.view.html.component.HtmlViewContentComponentImpl
 import org.romaframework.aspect.view.html.component.HtmlViewGenericComponent;
 import org.romaframework.aspect.view.html.screen.HtmlViewScreen;
 import org.romaframework.aspect.view.html.transformer.helper.TransformerHelper;
-import org.romaframework.aspect.view.html.transformer.plain.HtmlViewPopupTransformer;
 import org.romaframework.core.Roma;
 import org.romaframework.core.domain.type.Stream;
 import org.romaframework.core.flow.Controller;
@@ -57,6 +56,7 @@ public class RequestParserImpl implements RequestParser {
 	protected static final int	ACTION_PART_CURRENT_ACTION_AREA	= 3;
 	protected static final int	ACTION_PART_ACTION_NAME					= 2;
 	protected static final int	ACTION_PART_OBJECT_ID						= 1;
+	public static final String	CLOSE_POPUP_EVENT_NAME					= "ClosePopup";
 
 	protected static final Log	log															= LogFactory.getLog(RequestParserImpl.class);
 
@@ -143,16 +143,17 @@ public class RequestParserImpl implements RequestParser {
 			String componentId = EventHelper.getComponentId(eventHtmlName);
 			renderable = session.getRenderableById(Long.parseLong(componentId));
 			String event = EventHelper.getEvent(eventHtmlName);
-			if (renderable instanceof HtmlViewScreenPopupAreaInstance && HtmlViewPopupTransformer.CLOSE_POPUP_EVENT_NAME.equals(event)) {
+			if (renderable instanceof HtmlViewScreenPopupAreaInstance && CLOSE_POPUP_EVENT_NAME.equals(event)) {
 				Roma.flow().back();
 			} else if (renderable instanceof HtmlViewGenericComponent) {
 				HtmlViewGenericComponent component = (HtmlViewGenericComponent) renderable;
-				if(event!=null && event.endsWith("[]"))event = event.substring(0,event.length()-2);
-				Object result =null;
-				if(component.getSchemaField()!=null){
-				 result = SchemaHelper.invokeEvent(component.getContainerComponent().getContent(), component.getSchemaField().getName(), event,
-						(Object[]) eventEntry.getValue());
-				}else {
+				if (event != null && event.endsWith("[]"))
+					event = event.substring(0, event.length() - 2);
+				Object result = null;
+				if (component.getSchemaField() != null) {
+					result = SchemaHelper.invokeEvent(component.getContainerComponent().getContent(), component.getSchemaField().getName(), event,
+							(Object[]) eventEntry.getValue());
+				} else {
 					result = SchemaHelper.invokeEvent(component.getContent(), event);
 				}
 				if (component instanceof HtmlViewContentComponentImpl) {
@@ -190,8 +191,7 @@ public class RequestParserImpl implements RequestParser {
 		}
 	}
 
-	private Map<String, Map<String, Object>> groupParameters(final HttpServletRequest request) throws FileUploadException,
-			IOException {
+	private Map<String, Map<String, Object>> groupParameters(final HttpServletRequest request) throws FileUploadException, IOException {
 		final Map<String, Map<String, Object>> paramGroups = new HashMap<String, Map<String, Object>>();
 		final Map<String, Object> reqParams = new HashMap<String, Object>(request.getParameterMap());
 
@@ -257,7 +257,7 @@ public class RequestParserImpl implements RequestParser {
 		}
 		return l.values().toArray();
 	}
-	
+
 	public HtmlViewRenderable invokeEvent(HttpServletRequest request) throws Throwable {
 		final Map<String, Map<String, Object>> reqParams = groupParameters(request);
 		HtmlViewScreen screen = getScreen();
