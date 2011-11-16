@@ -27,7 +27,7 @@ $('#<%=JaniculumWrapper.id(component, "dialog")%>').dialog({
 	title: '<%=JaniculumWrapper.i18NObjectLabel(((HtmlViewScreenPopupAreaInstance)component).getForm())%>'
 });
 romaAddRemove('<%=JaniculumWrapper.id(component, "dialog")%>',function(){
-	$('#<%=JaniculumWrapper.id(component, "dialog")%>').dialog( "close" );
+	$('#<%=JaniculumWrapper.id(component, "dialog")%>').dialog('destroy');
 	$('#<%=JaniculumWrapper.id(component, "dialog")%>').remove();
 });
 </roma:addjs>
