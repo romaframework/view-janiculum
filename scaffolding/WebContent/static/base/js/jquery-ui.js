@@ -6010,7 +6010,7 @@ $.extend(Datepicker.prototype, {
 				var daysInMonth = this._getDaysInMonth(drawYear, drawMonth);
 				if (drawYear == inst.selectedYear && drawMonth == inst.selectedMonth)
 					inst.selectedDay = Math.min(inst.selectedDay, daysInMonth);
-				var leadDays = (this._getFirstDayOfMonth(drawYear, drawMonth) - firstDay + 7) % 7;
+				var leadDays = (this._getFirstDayOfMonth(drawYear, drawMonth) - firstDay + 6) % 7;
 				var printDate = new Date(drawYear, drawMonth, 1 - leadDays);
 				var numRows = (isMultiMonth ? 6 : Math.ceil((leadDays + daysInMonth) / 7)); // calculate the number of rows to generate
 				for (var dRow = 0; dRow < numRows; dRow++) { // create date picker rows
