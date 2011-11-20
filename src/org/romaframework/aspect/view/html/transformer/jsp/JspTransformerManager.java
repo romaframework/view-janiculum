@@ -15,10 +15,10 @@
  */
 package org.romaframework.aspect.view.html.transformer.jsp;
 
-import java.io.File;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.romaframework.aspect.view.html.template.ViewTemplateManager;
 import org.romaframework.aspect.view.html.transformer.Transformer;
@@ -30,12 +30,13 @@ public class JspTransformerManager implements TransformerManager {
 
 	private Map<String, Transformer>	transformers	= new HashMap<String, Transformer>();
 
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public JspTransformerManager() {
 		ViewTemplateManager mgr = Roma.component(ViewTemplateManager.class);
-		File file = new File(RomaApplicationContext.getApplicationPath() + "/" + mgr.getTemplatesPath());
+		Set<String> resources = (Set) RomaApplicationContext.getResourceAccessor().getResourcePaths(mgr.getTemplatesPath());
 
-		for (String fileName : file.list()) {
-
+		for (String fileName : resources) {
+			fileName = fileName.substring(mgr.getTemplatesPath().length());
 			if (fileName.toLowerCase().endsWith(".grid" + JspTransformer.FILE_SUFFIX)) {
 				fileName = fileName.replaceAll("\\.grid\\" + JspTransformer.FILE_SUFFIX, "");
 				String type = Transformer.GRID;

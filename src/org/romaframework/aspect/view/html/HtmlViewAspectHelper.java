@@ -15,9 +15,9 @@
  */
 package org.romaframework.aspect.view.html;
 
-import java.io.File;
 import java.io.IOException;
 import java.io.Writer;
+import java.net.URL;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
@@ -318,8 +318,8 @@ public class HtmlViewAspectHelper {
 	}
 
 	private static boolean existsJspForClass(final Class<?> clazz) {
-		final String path = RomaApplicationContext.getApplicationPath() + calculateJspPath(clazz);
-		if (new File(path).exists()) {
+		final URL url = RomaApplicationContext.getResourceAccessor().getResource(calculateJspPath(clazz));
+		if (url != null) {
 			return true;
 		}
 		return false;
