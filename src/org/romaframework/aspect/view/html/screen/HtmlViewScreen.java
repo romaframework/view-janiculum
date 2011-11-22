@@ -38,6 +38,10 @@ public interface HtmlViewScreen extends Screen, HtmlViewRenderable {
 	public void addPopup(Object iPojo, String iAreaName);
 
 	public AreaComponent getPopupsScreenArea();
-	
+
 	public String getName();
+
+	public String getRenderSet();
+
+	public void setRenderSet(String renderSet);
 }

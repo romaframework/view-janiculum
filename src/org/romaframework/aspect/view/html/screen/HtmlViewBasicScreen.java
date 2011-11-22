@@ -32,6 +32,8 @@ import org.romaframework.core.schema.SchemaClass;
 
 public class HtmlViewBasicScreen implements HtmlViewScreen, Serializable {
 
+	private static final long	serialVersionUID	= -6748849977057967217L;
+
 	protected Long												id;
 
 	protected String											name;
@@ -46,6 +48,7 @@ public class HtmlViewBasicScreen implements HtmlViewScreen, Serializable {
 
 	protected Map<String, Object>					popupOpeners		= new HashMap<String, Object>();
 	protected String											activeArea;
+	protected String											renderSet;
 
 	protected HtmlViewBasicScreen(final Object iObj) {
 	}
@@ -349,6 +352,14 @@ public class HtmlViewBasicScreen implements HtmlViewScreen, Serializable {
 
 	public void setActiveArea(String area) {
 		this.activeArea = area;
+	}
+
+	public String getRenderSet() {
+		return renderSet;
+	}
+
+	public void setRenderSet(String renderSet) {
+		this.renderSet = renderSet;
 	}
 
 }

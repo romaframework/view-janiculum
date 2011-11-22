@@ -15,32 +15,13 @@
 	pageContext.setAttribute("part", part);
 %>
 <div class="<%=JaniculumWrapper.cssClass(component, "chart", null)%>" style="<%=JaniculumWrapper.inlineStyle(component, null)%>" id="<%=JaniculumWrapper.id(component, null)%>">
-
-
 <% if(part==null ||  "".equals(part) || "all".equals(part)) {%>
-
-
 <span id="<%=JaniculumWrapper.id(component, "content") %>" class="<%=JaniculumWrapper.cssClass(component, "chart", "content") %>" >
-<img alt="<%=JaniculumWrapper.i18NHint(component) %>" id="<%=JaniculumWrapper.id(component, "content")%>_img" class="<%=JaniculumWrapper.cssClass(component, "chart", "content")%>" src="chart.png?imagePojo=<%=JaniculumWrapper.imageId(component)%>&t=<%=JaniculumWrapper.currentTime()%>"
-	<%for(String event: JaniculumWrapper.getAvailableEvents(component)){ %> 
-		
-		on<%=event%>="romaFieldChanged('<%=JaniculumWrapper.fieldName(component) %>'); romaEvent('<%=JaniculumWrapper.fieldName(component) %>', '<%=event%>')"
-	<%} %>
-	/>
+<img alt="<%=JaniculumWrapper.i18NHint(component) %>" id="<%=JaniculumWrapper.id(component, "content")%>_img" class="<%=JaniculumWrapper.cssClass(component, "chart", "content")%>" src="chart.png?imagePojo=<%=JaniculumWrapper.imageId(component)%>&t=<%=JaniculumWrapper.currentTime()%>"/>
 </span>
-
 <%} %>
-
-
-
 <%if ("content".equals(part)){ %>
-<img alt="<%=JaniculumWrapper.i18NHint(component) %>" id="<%=JaniculumWrapper.id(component, "content")%>" class="<%=JaniculumWrapper.cssClass(component, "chart", "content")%>" src="chart.png?imagePojo=<%=JaniculumWrapper.imageId(component)%>&t=<%=JaniculumWrapper.currentTime()%>" 
-	<%for(String event: JaniculumWrapper.getAvailableEvents(component)){ %>
-	
-		on<%=event%>="romaFieldChanged('<%=JaniculumWrapper.fieldName(component) %>'); romaEvent('<%=JaniculumWrapper.fieldName(component) %>', '<%=event%>')"
-	<%} %>
-	
-	/>
+<img id="<%=JaniculumWrapper.id(component, "content")%>" alt="<%=JaniculumWrapper.i18NHint(component) %>" class="<%=JaniculumWrapper.cssClass(component, "chart", "content")%>" src="chart.png?imagePojo=<%=JaniculumWrapper.imageId(component)%>&t=<%=JaniculumWrapper.currentTime()%>" />
 <%=JaniculumWrapper.content(component)==null?"":JaniculumWrapper.content(component)%>
 
 <%} %>

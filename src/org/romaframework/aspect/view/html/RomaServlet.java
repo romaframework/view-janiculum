@@ -8,7 +8,6 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.romaframework.aspect.view.ViewAspect;
 import org.romaframework.aspect.view.form.FormViewer;
-import org.romaframework.aspect.view.html.screen.HtmlViewScreenContainer;
 import org.romaframework.aspect.view.screen.Screen;
 import org.romaframework.aspect.view.screen.config.ScreenManager;
 import org.romaframework.core.Roma;
@@ -24,7 +23,6 @@ public abstract class RomaServlet extends HttpServlet {
 	protected void startUserSession(final HttpServletRequest request, final HttpServletResponse response) {
 		// During session creation it create a controller context and invoke the
 		// application starter
-		FormViewer.getInstance().setScreenContainer(new HtmlViewScreenContainer());
 		Screen screen = Roma.component(ScreenManager.class).getScreen("main-screen.xml");
 		Roma.aspect(ViewAspect.class).setScreen(screen);
 
