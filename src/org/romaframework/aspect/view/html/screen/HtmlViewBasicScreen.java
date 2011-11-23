@@ -32,19 +32,21 @@ import org.romaframework.core.schema.SchemaClass;
 
 public class HtmlViewBasicScreen implements HtmlViewScreen, Serializable {
 
+	private static final long							serialVersionUID	= -6748849977057967217L;
+
 	protected Long												id;
 
 	protected String											name;
 
 	protected HtmlViewScreenAreaInstance	rootArea;
 
-	private static Log										log							= LogFactory.getLog(HtmlViewConfigurableScreen.class);
+	private static Log										log								= LogFactory.getLog(HtmlViewConfigurableScreen.class);
 
 	protected String											lastUsedArea;
 
-	protected Stack<String>								popupFormStack	= new Stack<String>();
+	protected Stack<String>								popupFormStack		= new Stack<String>();
 
-	protected Map<String, Object>					popupOpeners		= new HashMap<String, Object>();
+	protected Map<String, Object>					popupOpeners			= new HashMap<String, Object>();
 	protected String											activeArea;
 
 	protected HtmlViewBasicScreen(final Object iObj) {
@@ -71,7 +73,7 @@ public class HtmlViewBasicScreen implements HtmlViewScreen, Serializable {
 
 	public AreaComponent getArea(String areaName) {
 		if (areaName == null) {
-			return rootArea.searchArea(DEFAULT_SCREEN_AREA);
+			return rootArea.searchArea("//" + DEFAULT_SCREEN_AREA);
 		}
 
 		// Search for a popup whit the given name if doesn't exists search it on the rootArea
@@ -84,7 +86,7 @@ public class HtmlViewBasicScreen implements HtmlViewScreen, Serializable {
 
 		if (searchNode == null) {
 			// Return the default area
-			searchNode = rootArea.searchArea(DEFAULT_SCREEN_AREA);
+			searchNode = rootArea.searchArea("//" + DEFAULT_SCREEN_AREA);
 		}
 		return searchNode;
 	}
@@ -320,7 +322,7 @@ public class HtmlViewBasicScreen implements HtmlViewScreen, Serializable {
 	}
 
 	public AreaComponent getDefaultArea() {
-		final AreaComponent defaultArea = rootArea.searchArea(DEFAULT_SCREEN_AREA);
+		final AreaComponent defaultArea = rootArea.searchArea("//" + DEFAULT_SCREEN_AREA);
 		if (defaultArea == null) {
 			throw new DefaultScreenAreaNotDefinedException();
 		}
