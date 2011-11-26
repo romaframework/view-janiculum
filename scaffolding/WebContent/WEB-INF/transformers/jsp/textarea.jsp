@@ -15,23 +15,18 @@
 	if(!("raw".equals(part)||"label".equals(part))){
 %>
 	<div class="<%=JaniculumWrapper.cssClass(component, "textarea", null)%>" style="<%=JaniculumWrapper.inlineStyle(component, null)%>" id="<%=JaniculumWrapper.id(component, null)%>">
-		<textarea id="<%=JaniculumWrapper.id(component, "content")%>" class="<%=JaniculumWrapper.cssClass(component, "textarea", null)%>" style="<%if(!JaniculumWrapper.isValid(component)){%>border-color:red;<%}%><%=JaniculumWrapper.inlineStyle(component, null)%>" name="<%=JaniculumWrapper.fieldName(component)%>" <%if(JaniculumWrapper.disabled(component)){%> disabled="disabled" <%} %> 
+		<textarea id="<%=JaniculumWrapper.id(component, "content")%>" style="<%if(!JaniculumWrapper.isValid(component)){%>border-color:red;<%}%><%=JaniculumWrapper.inlineStyle(component, null)%>" name="<%=JaniculumWrapper.fieldName(component)%>" <%if(JaniculumWrapper.disabled(component)){%> disabled="disabled" <%} %> 
 		<% 
 			boolean existsChangeEvent=false;
 			for(String event: JaniculumWrapper.availableEvents(component)){
-				if(!"change".equals(event)){	
-			
 				%>
 				on<%=event%>="romaFieldChanged('<%=JaniculumWrapper.fieldName(component)%>'); romaEvent('<%=JaniculumWrapper.fieldName(component)%>', '<%=event%>')"
-				<%}else{
+				<%if("change".equals(event)){	
 					existsChangeEvent = true;
 				}
 			}
-			if(existsChangeEvent){
-				%>
-		onchange="romaFieldChanged('<%=JaniculumWrapper.fieldName(component)%>'); romaEvent('<%=JaniculumWrapper.fieldName(component)%>', 'change')"
-		<%}else{ %>
-		onchange="romaFieldChanged('<%=JaniculumWrapper.fieldName(component)%>')"
+			if(!existsChangeEvent){
+				%> onchange="romaFieldChanged('<%=JaniculumWrapper.fieldName(component)%>')"
 		<%} %>
 		><%=JaniculumWrapper.content(component, true)==null?"":JaniculumWrapper.content(component, true)%></textarea>
 		<%if(!JaniculumWrapper.isValid(component)){%>

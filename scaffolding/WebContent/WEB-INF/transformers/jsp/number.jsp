@@ -15,18 +15,13 @@
 	<%
 	boolean existsChangeEvent=false;
 	for(String event: JaniculumWrapper.availableEvents(component)){
-		if(!"change".equals(event)){
-	%> 
-		on<%=event%>="romaFieldChanged('<%=JaniculumWrapper.fieldName(component)%>'); romaEvent('<%=JaniculumWrapper.fieldName(component)%>', '<%=event%>')"
-		<%}else{ 
+		%> on<%=event%>="romaFieldChanged('<%=JaniculumWrapper.fieldName(component)%>'); romaEvent('<%=JaniculumWrapper.fieldName(component)%>', '<%=event%>')"
+		<%if("change".equals(event)){ 
 			existsChangeEvent=true;
 		}
 	}
-	if(existsChangeEvent){
+	if(!existsChangeEvent){
 		%>
-		
-		onchange="romaFieldChanged('<%=JaniculumWrapper.fieldName(component)%>'); romaEvent('<%=JaniculumWrapper.fieldName(component)%>', 'change')"
-		<%}else{ %>
 		onchange="romaFieldChanged('<%=JaniculumWrapper.fieldName(component)%>')"
 		<%} %>
 		/>

@@ -46,7 +46,6 @@ import org.romaframework.aspect.view.html.http.MockHttpServletResponse;
 import org.romaframework.aspect.view.html.screen.HtmlViewBasicScreen;
 import org.romaframework.aspect.view.html.screen.HtmlViewScreen;
 import org.romaframework.aspect.view.html.transformer.helper.TransformerHelper;
-import org.romaframework.aspect.view.html.transformer.plain.HtmlViewPojoTransformer;
 import org.romaframework.core.Roma;
 import org.romaframework.core.config.RomaApplicationContext;
 import org.romaframework.core.flow.ObjectContext;
@@ -64,6 +63,7 @@ public class HtmlViewAspectHelper {
 	 */
 	private final static String	VA_SESSION	= "$#$HtmlViewVASession$#$";
 	public static final String	REDIRECTED	= "$#$REDIRECTED$#$";
+	public static final String	POJO_NAME	= "pojo";
 
 	/**
 	 * Return the HttpRequest
@@ -186,13 +186,13 @@ public class HtmlViewAspectHelper {
 
 		if (result != null) {
 			if (result.equals(ViewConstants.LAYOUT_POPUP)) {
-				return HtmlViewPojoTransformer.NAME;
+				return HtmlViewAspectHelper.POJO_NAME;
 			}
 			return result;
 		}
 
 		if (schemaFeatures instanceof SchemaClassDefinition) {
-			return getRender(((SchemaClassDefinition) schemaFeatures).getName(), HtmlViewPojoTransformer.NAME);
+			return getRender(((SchemaClassDefinition) schemaFeatures).getName(), HtmlViewAspectHelper.POJO_NAME);
 		} else if (schemaFeatures instanceof SchemaAction) {
 			return ViewConstants.RENDER_LINK;
 		} else {
@@ -528,4 +528,5 @@ public class HtmlViewAspectHelper {
 		MockHttpServletResponse response = new MockHttpServletResponse(writer);
 		request.getRequestDispatcher(jspUrl).include(request, response);
 	}
+
 }

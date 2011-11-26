@@ -17,9 +17,8 @@ public class HtmlViewConfigurableExpandedEntityForm extends HtmlViewConfigurable
 	// }
 
 	public HtmlViewConfigurableExpandedEntityForm(final HtmlViewContentForm containerComponent, final SchemaObject schemaObject,
-			final SchemaField field, final Object fieldValue, final HtmlViewScreenArea iScreenArea, Integer rowIndex, Integer colIndex,
-			String label) {
-		super(containerComponent, schemaObject, field, iScreenArea, rowIndex, colIndex, label);
+			final SchemaField field, final Object fieldValue, final HtmlViewScreenArea iScreenArea) {
+		super(containerComponent, schemaObject, field, iScreenArea, null, null, null);
 	}
 
 	@Override

@@ -6,12 +6,8 @@
 	
 	String part = (String) request.getAttribute(RequestConstants.CURRENT_COMPONENT_PART_IN_TRANSFORMER);
 	pageContext.setAttribute("part", part);
-	
 
-	
-//if( "html".equals(codeToPrint)){
-%>
-<div id="<%=JaniculumWrapper.id(component, null)%>" class="<%=JaniculumWrapper.cssClass(component, "objectlink", null)%>" style="<%=JaniculumWrapper.inlineStyle(component, null)%>">
+%><div id="<%=JaniculumWrapper.id(component, null)%>" class="<%=JaniculumWrapper.cssClass(component, "objectlink", null)%>" style="<%=JaniculumWrapper.inlineStyle(component, null)%>">
 <table>
 <tr>
 	<td>
@@ -36,4 +32,3 @@
 </tr>
 </table>
 </div>                        
-<%--} --%>

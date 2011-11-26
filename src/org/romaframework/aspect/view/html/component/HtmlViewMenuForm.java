@@ -34,8 +34,8 @@ public class HtmlViewMenuForm extends HtmlViewConfigurableEntityForm {
 //	}
 
 	public HtmlViewMenuForm(final HtmlViewContentComponent htmlViewConfigurableEntityForm, final SchemaObject schemaObject,
-			final SchemaField field, final HtmlViewScreenArea screenArea,Integer rowIndex, Integer colIndex, String label) {
-		super(htmlViewConfigurableEntityForm, schemaObject, field, screenArea, rowIndex,colIndex,label);
+			final SchemaField field, final HtmlViewScreenArea screenArea) {
+		super(htmlViewConfigurableEntityForm, schemaObject, field, screenArea, null,null,null);
 
 	}
 

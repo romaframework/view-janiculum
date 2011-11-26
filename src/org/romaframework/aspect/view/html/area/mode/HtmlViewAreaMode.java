@@ -18,5 +18,9 @@ public interface HtmlViewAreaMode extends AreaMode, HtmlViewRenderable {
 	public String getAreaName();
 
 	public void clear();
+	
+	public boolean isScreenArea();
+	
+	public AreaComponent getContainer();
 
 }

@@ -30,7 +30,7 @@
 	JspTransformerHelper.addCss(JaniculumWrapper.id(component, null)+" > table", "margin-right", marginRight);
 %>
 
-<table cellpaddign="0" cellspacing="0" id="<%=JaniculumWrapper.id(component, null)%>" class="<%=JaniculumWrapper.cssClass(component, "grid", null)%> grid-table" style="<%=JaniculumWrapper.inlineStyle(component, null)%>">
+<table cellpaddign="0" cellspacing="0" id="<%=JaniculumWrapper.id(component, null)%>" class="<%=JaniculumWrapper.cssClass(component, "grid", null)%>" style="<%=JaniculumWrapper.inlineStyle(component, null)%>">
 <%
 int row = -1;
 int col = 0;
@@ -63,7 +63,7 @@ for(Object c:JaniculumWrapper.getChildren(component)){
 		JspTransformerHelper.addCss(JaniculumWrapper.id(component, null)+"_"+row+"_"+col+" > div.POJO > table.area_main", "width", "100%");
 	}
 %>
-<td id="<%=JaniculumWrapper.id(component, null)%>_<%=row%>_<%=col%>" class="row_<%=row%> col_<%=col%>"><% JspTransformerHelper.delegate(child, null,pageContext.getOut());%></td>
+<td id="<%=JaniculumWrapper.id(component, null)%>_<%=row%>_<%=col%>" class="row_<%=row%> col_<%=col%> <%=JaniculumWrapper.cssClass(child, null, null)%>"><% JspTransformerHelper.delegate(child, null,pageContext.getOut());%></td>
 <%
 	if(col%JaniculumWrapper.areaSize(component)==JaniculumWrapper.areaSize(component)-1){
 %>

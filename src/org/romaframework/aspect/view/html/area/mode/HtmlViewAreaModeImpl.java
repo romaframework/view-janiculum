@@ -10,6 +10,7 @@ import org.romaframework.aspect.view.area.AreaComponent;
 import org.romaframework.aspect.view.html.HtmlViewAspectHelper;
 import org.romaframework.aspect.view.html.HtmlViewSession;
 import org.romaframework.aspect.view.html.area.HtmlViewRenderable;
+import org.romaframework.aspect.view.html.area.HtmlViewScreenArea;
 import org.romaframework.aspect.view.html.component.HtmlViewComponentLabel;
 import org.romaframework.aspect.view.html.component.HtmlViewContentComponent;
 import org.romaframework.aspect.view.html.transformer.Transformer;
@@ -19,16 +20,15 @@ import org.romaframework.core.Roma;
 public class HtmlViewAreaModeImpl implements HtmlViewAreaMode {
 
 	protected List<HtmlViewRenderable>	renderables	= new LinkedList<HtmlViewRenderable>();
+	protected AreaComponent							area;
 	protected String										htmlString;
 	protected AreaComponent							areaContainer;
 	private Long												id;
 	private String											areaName;
 	private String											type;
 
-	public HtmlViewAreaModeImpl() {
-	}
-
 	public HtmlViewAreaModeImpl(final AreaComponent iContainer, final String type) {
+		this.area = iContainer;
 		this.type = type;
 	}
 
@@ -150,4 +150,11 @@ public class HtmlViewAreaModeImpl implements HtmlViewAreaMode {
 		renderables.clear();
 	}
 
+	public boolean isScreenArea() {
+		return area instanceof HtmlViewScreenArea;
+	}
+
+	public AreaComponent getContainer() {
+		return areaContainer;
+	}
 }

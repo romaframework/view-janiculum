@@ -19,7 +19,7 @@ if(!JaniculumWrapper.isMultiSelection(component)){
         <table>
         <tr>
         <td class="list_box">
-        <select id="<%=JaniculumWrapper.id(component, "content")%>" name="<%=JaniculumWrapper.fieldName(component)%>" class="<%=JaniculumWrapper.cssClass(component, "list", "content")%>"  size="5" selection="<%=selection%>" >
+        <select id="<%=JaniculumWrapper.id(component, "content")%>" name="<%=JaniculumWrapper.fieldName(component)%>" size="5" selection="<%=selection%>" >
         <%
         int rowIndex = 0;
         for(Object o:JaniculumWrapper.getChildren(component)){
@@ -29,11 +29,9 @@ if(!JaniculumWrapper.isMultiSelection(component)){
                         <%=JaniculumWrapper.isSelected(component, rowIndex)?"selected=\"selected\"":""%>
                         <%if(JaniculumWrapper.isMultiSelection(component)){%>
                             onclick="romaMultiSelectChanged('<%=JaniculumWrapper.fieldName(component)%>_<%=rowIndex%>'); romaSendAjaxRequest();"
-                        <%}else{ %>
-                        
-                            onclick="romaFieldChanged('<%=JaniculumWrapper.fieldName(component)%>'); romaSendAjaxRequest();"
-                        <%} %>  
-                    >
+                        <%}else{ 
+                        %> onclick="romaFieldChanged('<%=JaniculumWrapper.fieldName(component)%>'); romaSendAjaxRequest();" <%
+                        } %> >
                     <%=JspTransformerHelper.raw(opt) %>
                     </option>
             <%

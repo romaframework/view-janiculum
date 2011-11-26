@@ -54,5 +54,4 @@ public interface HtmlViewRenderable {
 	 */
 	public void resetValidation();
 
-	// TODO add a print now parameter
 }

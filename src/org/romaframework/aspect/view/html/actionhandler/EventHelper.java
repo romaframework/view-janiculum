@@ -23,7 +23,6 @@ import org.romaframework.aspect.view.html.transformer.helper.TransformerHelper;
 
 public class EventHelper {
 
-	private static final int		POJO_EVENT_PREFIX_INDEX	= 0;
 	private static final int		COMPONENT_ID_INDEX			= 1;
 	private static final int		EVENT_NAME_INDEX				= 2;
 	private static Set<String>	standardEvents					= new HashSet<String>();

@@ -18,7 +18,7 @@
 	%>
 
     <div id="<%=JaniculumWrapper.id(component, null)%>" class="<%=JaniculumWrapper.cssClass(component, "table", null)%>" style="<%=JaniculumWrapper.inlineStyle(component, null)%>">
-        <table id="<%=JaniculumWrapper.id(component, "content")%>"  class="<%=JaniculumWrapper.cssClass(component, "table", "content")%>">
+        <table id="<%=JaniculumWrapper.id(component, "content")%>" >
             <thead id="<%=JaniculumWrapper.id(component, "header")%>" class="<%=JaniculumWrapper.cssClass(component, "table", "header")%>">
                 <tr class="<%=JaniculumWrapper.cssClass(component, "table", "header_row")%>">
                     <%if(JaniculumWrapper.selectionAviable(component)){

@@ -15,6 +15,7 @@
  */
 package org.romaframework.aspect.view.html.taglib;
 
+import org.romaframework.aspect.view.html.HtmlViewAspectHelper;
 import org.romaframework.aspect.view.html.area.HtmlViewRenderable;
 import org.romaframework.aspect.view.html.component.HtmlViewGenericComponent;
 import org.romaframework.aspect.view.html.constants.RequestConstants;
@@ -22,7 +23,6 @@ import org.romaframework.aspect.view.html.constants.TransformerConstants;
 import org.romaframework.aspect.view.html.transformer.Transformer;
 import org.romaframework.aspect.view.html.transformer.helper.TransformerHelper;
 import org.romaframework.aspect.view.html.transformer.manager.TransformerManager;
-import org.romaframework.aspect.view.html.transformer.plain.HtmlViewPojoTransformer;
 import org.romaframework.core.Roma;
 
 /**
@@ -64,11 +64,11 @@ public class RomaClassTag extends RomaAbstractTab {
 					pageContext.getOut().print(TransformerHelper.getInstance().getHtmlId((HtmlViewRenderable) currentForm, null));
 				} else if (part != null && part.equals(TransformerConstants.PART_STYLE)) {
 					pageContext.getOut().print(
-							TransformerHelper.getInstance().getHtmlClass(HtmlViewPojoTransformer.NAME, null,
+							TransformerHelper.getInstance().getHtmlClass(HtmlViewAspectHelper.POJO_NAME, null,
 									(HtmlViewGenericComponent) currentForm));
 				} else {
 					final TransformerManager transformerManager = Roma.component(TransformerManager.class);
-					final Transformer transformer = transformerManager.getComponent(HtmlViewPojoTransformer.NAME);
+					final Transformer transformer = transformerManager.getComponent(HtmlViewAspectHelper.POJO_NAME);
 					transformer.transform((HtmlViewRenderable) currentForm, pageContext.getOut());
 					pageContext.getOut().flush();
 				}

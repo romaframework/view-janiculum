@@ -15,9 +15,9 @@ function romaAddRemove(id,func) {
 
 function romaOnRemove(id){
 	for(var index in romaRemoveArray){
-		if(index.startsWith(id) && romaRemoveArray[id] instanceof Function){
-			romaRemoveArray[id]();
-			delete romaRemoveArray[id]
+		if(index && index.indexOf(id) === 0 && romaRemoveArray[index] instanceof Function){
+			romaRemoveArray[index]();
+			delete romaRemoveArray[index];
 		}
 	}
 }

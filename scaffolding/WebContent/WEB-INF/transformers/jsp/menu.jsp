@@ -11,7 +11,7 @@
 %>
 <div class="<%=JaniculumWrapper.cssClass(component, "menu", null)%>" style="<%=JaniculumWrapper.inlineStyle(component, null)%>" id="<%=JaniculumWrapper.id(component, null)%>" inited="false">
 	<%if(JaniculumWrapper.isAction(component)){%>
-		<a class="<%=JaniculumWrapper.cssClass(component, "menu", "content")%>" id="<%=JaniculumWrapper.id(component, "content")%>" value="<%=JaniculumWrapper.i18NLabel(component)%>" href="javascript:void(0)" title="<%=JaniculumWrapper.i18NHint(component)%>"
+		<a  id="<%=JaniculumWrapper.id(component, "content")%>" value="<%=JaniculumWrapper.i18NLabel(component)%>" href="javascript:void(0)" title="<%=JaniculumWrapper.i18NHint(component)%>"
 		<%=JaniculumWrapper.disabled(component)?"disabled=\"disabled\"":""%>
 			onclick="romaAction('<%=JaniculumWrapper.actionName(component)%>')">
 			<label for="<%=JaniculumWrapper.id(component, "content")%>" id="<%=JaniculumWrapper.id(component, "label")%>" class="<%=JaniculumWrapper.cssClass(component, "menu", "label")%>">
@@ -19,15 +19,15 @@
 			</label> 
 		</a>
 	<%}else{ %>
-			<label for="<%=JaniculumWrapper.id(component, "content")%>" id="<%=JaniculumWrapper.id(component, "label")%>" class="<%=JaniculumWrapper.cssClass(component, "menu", "label")%>">
+			<label for="<%=JaniculumWrapper.id(component, "content")%>" id="<%=JaniculumWrapper.id(component, "label")%>">
 			<%=JaniculumWrapper.i18NLabel(component)%>
 			</label> 
 	<%} %>
 	
 	<%if(JaniculumWrapper.haveChildren(component)){%>
-	<ul class="<%=JaniculumWrapper.cssClass(component, "menu", "content")%>"  id="<%=JaniculumWrapper.id(component, "content")%>">
+	<ul id="<%=JaniculumWrapper.id(component, "content_children")%>">
 		<%for(Object child:JaniculumWrapper.getChildren(component)){%>
-			<li class="<%=JaniculumWrapper.cssClass(component, "menu", "content")%>">
+			<li >
 					<% JspTransformerHelper.delegate((HtmlViewRenderable)child, null,pageContext.getOut()); %>							
 			</li>			
 		<%} %>
