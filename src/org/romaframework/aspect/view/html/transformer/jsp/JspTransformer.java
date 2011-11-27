@@ -33,6 +33,7 @@ public class JspTransformer implements Transformer {
 	public static final String	CODE_TO_PRINT	= "codeToPrint";
 	private String							renderName;
 	private String							type;
+	private String							set;
 
 	public JspTransformer(String fileName) {
 		renderName = fileName;
@@ -49,7 +50,13 @@ public class JspTransformer implements Transformer {
 
 	public void transformPart(HtmlViewRenderable component, String part, Writer writer) throws IOException {
 		ViewTemplateManager mgr = Roma.component(ViewTemplateManager.class);
-		mgr.execute(getTemplateName(), component, part, writer);
+		String templateName;
+		if (getSet() != null) {
+			templateName = getSet() + "/" + getTemplateName();
+		} else {
+			templateName = getTemplateName();
+		}
+		mgr.execute(templateName, component, part, writer);
 	}
 
 	/**
@@ -82,4 +89,13 @@ public class JspTransformer implements Transformer {
 	public void setType(String type) {
 		this.type = type;
 	}
+
+	public String getSet() {
+		return set;
+	}
+
+	public void setSet(String set) {
+		this.set = set;
+	}
+
 }

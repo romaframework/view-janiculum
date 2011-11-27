@@ -2,7 +2,7 @@
 
 body {
     background: url("../image/back.gif") repeat-x scroll 0 0 #006E89;
-    color: #555555;
+    color: #000000;
     font: 90%/180% Arial,Helvetica,sans-serif;
     margin: 0;
     padding: 0;
@@ -17,70 +17,60 @@ ul {
 	list-style-type: none;	
 }
 
-/* 0 - Feature & Object STYLES */
-/* Object */
-div.className_Object a.advancedSearch,
-div.className_Object a.simpleSearch,
-div.className_Object a.search,
-div.className_Object a.create,
-div.className_Object a.showAll,
-div.className_Object a.read,
-div.className_Object a.update,
-div.className_Object a.delete,
-div.className_Object a.report,
-div.className_Object a.exportToCsv,
-div.className_Object a.selectAll,
-div.className_Object a.deselectAll
-{
-    padding-left: 25px;
-}
-
-div.className_Object a.advancedSearch {
+.class_Object .action_advancedSearch button > img{
     background-image: url(../image/more.png);
 }
 
-div.className_Object a.simpleSearch {
+.class_Object .action_simpleSearch button > img {
     background-image: url(../image/less.png);
 }
 
-div.className_Object a.search {
+.class_Object .action_search button > img{
     background-image: url(../image/search.png);
 }
 
-div.className_Object a.create {
+.class_Object .action_create button > img{
     background-image: url(../image/add.png);
 }
 
-div.className_Object a.showAll {
+.class_Object .action_showAll button > img {
     background-image: url(../image/view.png);
 }
 
-div.className_Object a.read {
+.class_Object .action_read button > img {
     background-image: url(../image/view.png);
 }
 
-div.className_Object a.update {
+.class_Object .action_update button > img {
     background-image: url(../image/edit.png);
 }
 
-div.className_Object a.delete {
+.class_Object .action_delete button > img {
     background-image: url(../image/remove.png);
 }
 
-div.className_Object a.report {
+.class_Object .action_report button > img {
     background-image: url(../image/print.gif);
 }
 
-div.className_Object a.exportToCsv {
+.class_Object .action_exportToCsv button > img {
     background-image: url(../image/CSVCrud.png);
 }
 
-div.className_Object a.selectAll {
+.class_Object .action_selectAll button > img {
     background-image: url(../image/selectall.png);
 }
 
-div.className_Object a.deselectAll {
+.class_Object .action_deselectAll button > img {
     background-image: url(../image/deselectall.png);
+}
+
+.class_Object .action_save button > img {
+    background-image: url(../image/save.png);
+}
+
+.class_Object .action_cancel button > img {
+    background-image: url(../image/cancel.png);
 }
 
 

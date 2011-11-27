@@ -13,87 +13,13 @@
 	HtmlViewRenderable component = (HtmlViewRenderable)request.getAttribute(RequestConstants.CURRENT_COMPONENT_IN_TRANSFORMER);
 	
 %>
-
 <div class="<%=JaniculumWrapper.cssClass(component, "datetime", null)%>" style="<%=JaniculumWrapper.inlineStyle(component, null)%>" id="<%=JaniculumWrapper.id(component, null)%>">
+<input id="<%=JaniculumWrapper.id(component, "content")%>" type="text" name="<%=JaniculumWrapper.fieldName(component)%>" 
+	value="<%=JaniculumWrapper.formatDateContent(component)%>" <%=JaniculumWrapper.disabled(component)?" disabled='disabled'":""%> />
+<input id="<%=JaniculumWrapper.id(component, "time")%>" type="text" name="<%=JaniculumWrapper.fieldName(component)%>_time" 
+value="<%=JaniculumWrapper.formatDateContent(component, "HH:mm:ss")%>" <%=JaniculumWrapper.disabled(component)?"disabled=\"disabled\"":""%>/>
 
 <%if(!JaniculumWrapper.isValid(component)){%>
-	<input id="<%=JaniculumWrapper.id(component, "content")%>" class="<%=JaniculumWrapper.cssClass(component,  "datetime", "content")%>_invalid" type="text" name="<%=JaniculumWrapper.fieldName(component)%>" 
-	value="<%=JaniculumWrapper.formatDateContent(component)%>" <%=JaniculumWrapper.disabled(component)?" disabled='disabled'":""%>
-	<%
-	boolean existsChangeEvent=false;
-	for(String event: JaniculumWrapper.availableEvents(component)){
-		if(!"change".equals(event)){
-	%>
-			on<%=event%>="romaFieldChanged('<%=JaniculumWrapper.fieldName(component)%>'); romaEvent('<%=JaniculumWrapper.fieldName(component)%>', '<%=event%>')"
-	<%	}else{
-		existsChangeEvent = true;
-		}
-	} 
-	if(existsChangeEvent){
-	%>
-	
-		onchange="romaFieldChanged('<%=JaniculumWrapper.fieldName(component)%>'); romaEvent('<%=JaniculumWrapper.fieldName(component)%>', 'change')"
-	<%}else{ %>
-		onchange="romaFieldChanged('<%=JaniculumWrapper.fieldName(component)%>')"
-	<%} %> 
-		/>
 	<span class="<%=JaniculumWrapper.cssClass(component,  "datetime", "validation_message")%></span>"></span>
-<%}else{ %>
-<input id="<%=JaniculumWrapper.id(component, "content")%>" class="<%=JaniculumWrapper.cssClass(component, "datetime", "content")%>" type="text" name="<%=JaniculumWrapper.fieldName(component)%>" 
-value="<%=JaniculumWrapper.formatDateContent(component)%>" <%=JaniculumWrapper.disabled(component)?"disabled=\"disabled\"":""%>
-<%
-	boolean existsChangeEvent=false;
-	for(String event: JaniculumWrapper.availableEvents(component)){
-		if(!"change".equals(event)){
-%> 
-		on<%=event%>="romaFieldChanged('<%=JaniculumWrapper.fieldName(component)%>'); romaEvent('<%=JaniculumWrapper.fieldName(component)%>', '<%=event%>')"
-		
-<%
-		}else{
-			existsChangeEvent = true;
-		}
-	}
-	if(existsChangeEvent){
-%>
-		
-		onchange="romaFieldChanged('<%=JaniculumWrapper.fieldName(component)%>'); romaEvent('<%=JaniculumWrapper.fieldName(component)%>', 'change')"
-<%
-	}else{
-%>
-		onchange="romaFieldChanged('<%=JaniculumWrapper.fieldName(component)%>')"
-<%
-	}
-%>
-		 />
-		 
-<input id="<%=JaniculumWrapper.id(component, "time")%>" class="<%=JaniculumWrapper.cssClass(component, "datetime","content")%>" type="text" name="<%=JaniculumWrapper.fieldName(component)%>_time" 
-value="<%=JaniculumWrapper.formatDateContent(component, "HH:mm:ss")%>" <%=JaniculumWrapper.disabled(component)?"disabled=\"disabled\"":""%>
-<%
-	existsChangeEvent=false;
-	for(String event:JaniculumWrapper.availableEvents(component)){
-		if(!"change".equals(event)){
-%> 
-		on<%=event%>="romaFieldChanged('<%=JaniculumWrapper.fieldName(component)%>_time'); romaEvent('<%=JaniculumWrapper.fieldName(component)%>_time', '<%=event%>')"
-<%
-		}else{
-			existsChangeEvent=true;
-		}
-	} 
-	if(existsChangeEvent){
-%>
-		onchange="romaFieldChanged('<%=JaniculumWrapper.fieldName(component)%>_time'); romaEvent('<%=JaniculumWrapper.fieldName(component)%>_time', 'change')"
-<%
-	}else{
-%>
-		onchange="romaFieldChanged('<%=JaniculumWrapper.fieldName(component)%>_time')"
-<%
-	}
-%> 
-		/>
-<%}
-StringBuffer buffer = new StringBuffer();
-buffer.append("jQuery('#"+JaniculumWrapper.id(component, "content")+"').datepicker({ dateFormat: 'dd/mm/yy' });\n");
-buffer.append("jQuery('#"+JaniculumWrapper.id(component, "time")+"').timeEntry({spinnerImage: '"+JaniculumWrapper.contextPath()+"/static/base/image/spinnerDefault.png', show24Hours: true, showSeconds: true});");
-
-JspTransformerHelper.addJs(JaniculumWrapper.id(component, TransformerConstants.PART_ALL), buffer.toString());
-%>
+<%}%>
+</div>

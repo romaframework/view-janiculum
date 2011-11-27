@@ -17,8 +17,8 @@
 	if (part==null || "".equals(part) || "all".equals(part)|| "content".equals(part)){   %>
 
 	<div class="<%=JaniculumWrapper.cssClass(component, "select", null)%>" id="<%=JaniculumWrapper.id(component, null)%>" style="<%=JaniculumWrapper.inlineStyle(component, null)%>">
-		<span class="<%=JaniculumWrapper.cssClass(component, "select", "content")%>" id="<%=JaniculumWrapper.id(component, "content")%>">
 			<%if(JaniculumWrapper.getChildren(component)!=null){%>
+				<label for="<%=JaniculumWrapper.id(component, "select")%>" style="display: none;"><%=JaniculumWrapper.i18NLabel(component)%></label>
 				<select id="<%=JaniculumWrapper.id(component, "select")%>"
 				name="<%=JaniculumWrapper.fieldName(component)%>"
 				<%if(JaniculumWrapper.disabled(component)){%> disabled="disabled" <%}%>
@@ -47,8 +47,6 @@
                     <span class="<%=JaniculumWrapper.cssClass(component, "select", "validation_message")%>"><%=JaniculumWrapper.validationMessage(component)==null?"Invalid":JaniculumWrapper.validationMessage(component)%></span> 
                 <%} 
                 }%>
-			
-		</span>
 	</div>
 <%} 
 if ("label".equals(part) ){   %>

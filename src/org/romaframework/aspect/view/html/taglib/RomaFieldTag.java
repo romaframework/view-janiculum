@@ -66,16 +66,8 @@ public class RomaFieldTag extends RomaAbstractTab {
 				}
 				if (result != null) {
 					if (part != null && part.equals(TransformerConstants.PART_ID)) {
-//						pageContext.getOut().flush();
 						pageContext.getOut().print(TransformerHelper.getInstance().getHtmlId(result, null));
-					} else if (part != null) {
-						// pageContext.getOut().println(result.renderPart(part));
-//						pageContext.getOut().flush();
-						
-						result.renderPart(part, pageContext.getOut());
 					} else {
-						// pageContext.getOut().println(result.render());
-//						pageContext.getOut().flush();
 						result.renderPart(part, pageContext.getOut());
 					}
 				}

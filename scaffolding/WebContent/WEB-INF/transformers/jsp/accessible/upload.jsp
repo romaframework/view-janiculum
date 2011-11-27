@@ -10,8 +10,5 @@
 	
 %>
 <div id="<%=JaniculumWrapper.id(component, null)%>" class="<%=JaniculumWrapper.cssClass(component, "upload", null)%>" style="<%=JaniculumWrapper.inlineStyle(component, null)%>">
-	<form id="<%=JaniculumWrapper.id(component, "form")%>" action="<%=JaniculumWrapper.contextPath()%>/fileUpload" sent="0" method="post" enctype="multipart/form-data" target="<%=JaniculumWrapper.id(component, "iframe")%>">
-		<input name="<%=JaniculumWrapper.fieldName(component)%>" type="file" onchange="jQuery('#<%=JaniculumWrapper.id(component, "form")%>').attr('sent', 1); submit()"/>
-	</form>
-	<iframe name="<%=JaniculumWrapper.id(component, "iframe")%>" width="0" height="0" frameborder="0" onload="if(jQuery('#<%=JaniculumWrapper.id(component, "form")%>').attr('sent') == '1'){jQuery('#<%=JaniculumWrapper.id(component, "form")%>').attr('sent', 0); romaEvent('<%=JaniculumWrapper.fieldName(component)%>', 'upload')}"></iframe>
+	<input name="<%=JaniculumWrapper.fieldName(component)%>" type="file" />
 </div>

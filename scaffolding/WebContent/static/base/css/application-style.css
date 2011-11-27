@@ -1,5 +1,5 @@
 /* Application Style */
-.className_HeaderMainPage .home button {
+.class_Header .action_home button {
 	padding-left: 0px;
 	border: none;
 	background-color: #ffffff;
@@ -10,7 +10,7 @@
 	height: 48px;
 }
 
-.className_HeaderMainPage .changePassword button {
+.class_Header .action_changePassword button {
 	padding-left: 0px;
 	border: none;
 	background-color: #ffffff;
@@ -21,7 +21,7 @@
 	height: 48px;
 }
 
-.className_HeaderMainPage .controlPanel button {
+.class_Header .action_controlPanel button {
 	padding-left: 0px;
 	border: none;
 	background-color: #ffffff;

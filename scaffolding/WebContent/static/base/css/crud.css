@@ -3,115 +3,48 @@
 /* 3 - CRUD & COMPOSED */
 /* COMPOSED ENTITY */
 
-div.className_ComposedEntityInstance > table.area_main > tbody > tr > td > table.area_fields > tbody > tr > td {
-    border-bottom-width: 1px;
-    border-bottom-style: solid;
-    border-bottom-color: #f4f4f4;
-    padding: 2px;
-}
 
 /* CRUD MAIN */
 
-div.className_CRUDMain table.area_0 {
+div.class_CRUDMain table.area_0 {
     width: 100%;
 }
 
-div.className_CRUDMain table.area_centerPanel {
+.class_CRUDMain table.area_centerPanel {
     width: 100%;
 }
 
-div.className_CRUDMain table.area_centerPanelLeft {
+.class_CRUDMain table.area_centerPanelLeft {
     width: 100%;
 }
 
-div.className_CRUDMain input.elementName_totalItems {
+.class_CRUDMain input.field_totalItems {
 	width: 50px;
 	margin-left: 3px;	
 }
 
-div.className_CRUDMain a {
-    padding-left: 25px;
-}
 
-div.className_CRUDMain .advancedSearch a {
-    background-image: url(../image/more.png);
-}
-
-div.className_CRUDMain .simpleSearch a {
-    background-image: url(../image/less.png);
-}
-
-.className_CRUDMain .search a {
-    background-image: url(../image/search.png);
-}
-
-.className_CRUDMain .create a {
-    background-image: url(../image/add.png);
-}
-
-.className_CRUDMain .showAll a {
-    background-image: url(../image/view.png);
-}
-
-.className_CRUDMain .read a {
-    background-image: url(../image/view.png);
-}
-
-.className_CRUDMain .update a {
-    background-image: url(../image/edit.png);
-}
-
-.className_CRUDMain .delete a {
-    background-image: url(../image/remove.png);
-}
-
-.className_CRUDMain .report a {
-    background-image: url(../image/print.gif);
-}
-
-.className_CRUDMain .exportToCsv a {
-    background-image: url(../image/CSVCrud.png);
-}
-
-.className_CRUDMain .selectAll a {
-    background-image: url(../image/selectall.png);
-}
-
-.className_CRUDMain .deselectAll a {
-    background-image: url(../image/deselectall.png);
-}
-
-div.className_CRUDMain a.first,
-div.className_CRUDMain a.prev,
-div.className_CRUDMain a.next,
-div.className_CRUDMain a.last,
-div.className_CRUDMain a.queryAll {
-	padding: 0;
-	width: 25px;
-    height: 25px;
-}
-
-.className_CRUDMain .first a {
+.class_CRUDPaging .action_first button{
     background-image: url(../image/first.png);
 }
 
-.className_CRUDMain .prev a {
+.class_CRUDPaging .action_prev button{
     background-image: url(../image/prev.png);
 }
 
-.className_CRUDMain .next a {
+.class_CRUDPaging .action_next button{
     background-image: url(../image/next.png);
 }
 
-.className_CRUDMain .last a {
+.class_CRUDPaging .action_last button{
     background-image: url(../image/last.png);
 }
 
-.className_CRUDMain .queryAll a {
+.class_CRUDPaging .action_queryAll button{
     background-image: url(../image/queryall.png);
 }
 
-.className_CRUDMain .select a {
+.class_CRUDMain .action_select button{
     padding-left: 20px;
     background-image: url(../image/yes.gif);
     background-repeat: no-repeat;
@@ -122,57 +55,24 @@ div.className_CRUDMain a.queryAll {
     margin-top: 2px;
 }
 
-/* CRUD ENTITY */
-
-div.className_CRUDEntity table.area_actions >
-	tbody > tr > td > div > a {
-	padding-left: 25px;
-} 
-
-.className_CRUDEntity .report a {
-    background-image: url(../image/print.gif);
-}
-
-.className_CRUDEntity .save a {
-    background-image: url(../image/save.png);
-}
-
-.className_CRUDEntity .cancel a {
-    background-image: url(../image/cancel.png);
-}
-
-/* CRUD INSTANCE */
-
-div.className_CRUDInstance > table.area_main > tbody > tr > td > table.area_fields {
-    border: 1px solid #f4f4f4;
-    padding: 4px;
-}
-
-div.className_CRUDInstance > table.area_main > tbody > tr > td > table.area_fields > tbody > tr > td {
-    border-bottom-width: 1px;
-    border-bottom-style: solid;
-    border-bottom-color: #f4f4f4;
-    padding: 2px;
-}
-
 /* SEARCH ENGINE */
 
-div.className_QueryCondition a.addRight {
+.class_QueryCondition .action_addRight button{
 	 background-image: url(../image/next.gif);
 }
 
-div.className_QueryCondition a.addLeft {
+.class_QueryCondition .action_addLeft button{
 	 background-image: url(../image/prev.gif);
 }
 
-div.className_QueryCondition a.remove {
+.class_QueryCondition .action_remove button{
 	 background-image: url(../image/remove.gif);
 }
 
-div.className_QueryCondition a.edit {
+.class_QueryCondition .action_edit button{
 	 background-image: url(../image/edit.gif);
 }
 
-a.queryOperationAddOperator{
+.queryOperationAddOperator button{
 	background-image: url(../image/add.gif);
 }

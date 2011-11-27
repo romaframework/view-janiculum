@@ -8,7 +8,7 @@
 	pageContext.setAttribute("part", part);
 
 %><div id="<%=JaniculumWrapper.id(component, null)%>" class="<%=JaniculumWrapper.cssClass(component, "objectlink", null)%>" style="<%=JaniculumWrapper.inlineStyle(component, null)%>">
-<table>
+<table style="border-spacing:0;border-collapse:collapse">
 <tr>
 	<td>
 		<input type="text" disabled="disabled" value="<%=JaniculumWrapper.content(component, true)==null?"":JaniculumWrapper.content(component, true)%>"

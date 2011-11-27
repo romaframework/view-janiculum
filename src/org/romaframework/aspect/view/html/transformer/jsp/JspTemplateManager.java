@@ -26,9 +26,7 @@ import org.apache.commons.logging.LogFactory;
 import org.romaframework.aspect.view.html.HtmlViewAspectHelper;
 import org.romaframework.aspect.view.html.area.HtmlViewRenderable;
 import org.romaframework.aspect.view.html.constants.RequestConstants;
-import org.romaframework.aspect.view.html.screen.HtmlViewScreen;
 import org.romaframework.aspect.view.html.template.ViewTemplateManager;
-import org.romaframework.core.Roma;
 
 public class JspTemplateManager implements ViewTemplateManager {
 
@@ -54,10 +52,6 @@ public class JspTemplateManager implements ViewTemplateManager {
 
 	public void execute(String templateName, HtmlViewRenderable renderable, String part, Writer writer) {
 		ServletRequest request = HtmlViewAspectHelper.getServletRequest();
-		String renderSet = ((HtmlViewScreen) Roma.view().getScreen()).getRenderSet();
-		if (renderSet != null && !renderSet.trim().isEmpty()) {
-			templateName = renderSet + "/" + templateName;
-		}
 		final String classJsp = getTemplatesPath() + templateName;
 		final Object previousComponent = request.getAttribute(RequestConstants.CURRENT_COMPONENT_IN_TRANSFORMER);
 		request.setAttribute(RequestConstants.CURRENT_COMPONENT_IN_TRANSFORMER, renderable);

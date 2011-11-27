@@ -23,13 +23,14 @@
                 <tr class="<%=JaniculumWrapper.cssClass(component, "table", "header_row")%>">
                     <%if(JaniculumWrapper.selectionAviable(component)){
                         if(JaniculumWrapper.isMultiSelection(component)){ %>
-                               <th class="table_selection"># <input class="table_selection" name="<%=JaniculumWrapper.fieldName(component)%>_-1" type="hidden" 
-                                value="1" /></th>
+                               <th class="table_selection"># <input id="<%=JaniculumWrapper.id(component, null)%>_table_selection" class="table_selection" name="<%=JaniculumWrapper.fieldName(component)%>_-1" type="hidden" 
+                                value="1" /><label for="<%=JaniculumWrapper.id(component, null)%>_table_selection" style="display:none;">Table Selection</label></th>
                         <%}
                         if(JaniculumWrapper.isSingleSelection(component)){
                         %>		
                         		<th id="<%=JaniculumWrapper.id(component, "selectionCheck")%>_-1"><span> 
-                                <input class="table_selection" name="<%=JaniculumWrapper.fieldName(component)%>" type="radio" 
+                        		<label for="<%=JaniculumWrapper.id(component, null)%>_table_selection" style="display:none;">Table Selection</label>
+                                <input id="<%=JaniculumWrapper.id(component, null)%>_table_selection" class="table_selection" name="<%=JaniculumWrapper.fieldName(component)%>" type="radio" 
                                 value="<%=JaniculumWrapper.fieldName(component)%>_-1" /> 
                                 </span></th>
                         <%}
@@ -57,13 +58,14 @@
                             <td id="<%=JaniculumWrapper.id(component, "selectionCheck")%>_<%=rowIndex%>" class="table_selection">
                                 <span>
                                 <%if(JaniculumWrapper.isMultiSelection(component)){%>
-                                    <input class="<%=JaniculumWrapper.cssClass(component, "table", "selection")%>" name="<%=JaniculumWrapper.fieldName(component)%>_<%=rowIndex%>" 
+                                	<label for="<%=JaniculumWrapper.id(component, null)%>_table_selection_<%=rowIndex%>" style="display:none;">Table Selection for <%=rowIndex%> row</label>
+                                    <input id="<%=JaniculumWrapper.id(component, null)%>_table_selection_<%=rowIndex%>" class="<%=JaniculumWrapper.cssClass(component, "table", "selection")%>" name="<%=JaniculumWrapper.fieldName(component)%>_<%=rowIndex%>" 
                                     <%if(JaniculumWrapper.isSelected(component, rowIndex)){%> checked="checked" <%} %>  type="checkbox"  />
                                 <%}
                                 if(JaniculumWrapper.isSingleSelection(component)){
                                 %>
-                                
-                                    <input class="<%=JaniculumWrapper.cssClass(component, "table", "selection")%>" name="<%=JaniculumWrapper.fieldName(component)%>" type="radio" 
+                                	<label for="<%=JaniculumWrapper.id(component, null)%>_table_selection_<%=rowIndex%>" style="display:none;">Table Selection for <%=rowIndex%> row </label>
+                                    <input id="<%=JaniculumWrapper.id(component, null)%>_table_selection_<%=rowIndex%>" class="<%=JaniculumWrapper.cssClass(component, "table", "selection")%>" name="<%=JaniculumWrapper.fieldName(component)%>" type="radio" 
                                     <%if(JaniculumWrapper.isSelected(component, rowIndex)){%> checked="checked" <%} %> value="<%=JaniculumWrapper.fieldName(component)%>_<%=rowIndex %>" />
                                 <%} %>
                                 </span>

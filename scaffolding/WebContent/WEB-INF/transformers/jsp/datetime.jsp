@@ -97,3 +97,4 @@ buffer.append("jQuery('#"+JaniculumWrapper.id(component, "time")+"').timeEntry({
 
 JspTransformerHelper.addJs(JaniculumWrapper.id(component, TransformerConstants.PART_ALL), buffer.toString());
 %>
+</div>

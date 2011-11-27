@@ -32,52 +32,55 @@ public class JspTransformerManager implements TransformerManager {
 	private Map<String, Transformer>							transformers		= new HashMap<String, Transformer>();
 	private Map<String, Map<String, Transformer>>	setTransformers	= new HashMap<String, Map<String, Transformer>>();
 
-	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public JspTransformerManager() {
 		ViewTemplateManager mgr = Roma.component(ViewTemplateManager.class);
-		Set<String> resources = (Set) RomaApplicationContext.getResourceAccessor().getResourcePaths(mgr.getTemplatesPath());
+		loadTransformers(mgr.getTemplatesPath(), this.transformers, null);
+	}
+
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	private void loadTransformers(String path, Map<String, Transformer> transMap, String set) {
+		Set<String> resources = (Set) RomaApplicationContext.getResourceAccessor().getResourcePaths(path);
 
 		for (String fileName : resources) {
-			fileName = fileName.substring(mgr.getTemplatesPath().length());
-			if (fileName.contains("/")) {
-				int index = fileName.indexOf('/');
-				String setName = fileName.substring(0, index);
-				fileName = fileName.substring(index + 1);
+			if (fileName.endsWith("/")) {
+				String setName = fileName.substring(path.length(), fileName.length() - 1);
 				Map<String, Transformer> trans = setTransformers.get(setName);
 				if (trans == null) {
 					trans = new HashMap<String, Transformer>();
 					setTransformers.put(setName, trans);
 				}
-				addTransformer(trans, fileName);
+				loadTransformers(fileName, trans, setName);
 			} else {
-				addTransformer(transformers, fileName);
+				fileName = fileName.substring(path.length());
+				addTransformer(transMap, fileName, set);
 			}
 		}
 
 	}
 
-	private void addTransformer(Map<String, Transformer> set, String fileName) {
+	private void addTransformer(Map<String, Transformer> set, String fileName, String setName) {
 		if (fileName.contains("/"))
 			return;
 		if (fileName.toLowerCase().endsWith(".grid" + JspTransformer.FILE_SUFFIX)) {
 			fileName = fileName.replaceAll("\\.grid\\" + JspTransformer.FILE_SUFFIX, "");
 			String type = Transformer.GRID;
-			newTransformer(set, fileName, type);
+			newTransformer(set, fileName, type, setName);
 		} else if (fileName.toLowerCase().endsWith(".list" + JspTransformer.FILE_SUFFIX)) {
 			String type = Transformer.LIST;
 			fileName = fileName.replaceAll("\\.list\\" + JspTransformer.FILE_SUFFIX, "");
-			newTransformer(set, fileName, type);
+			newTransformer(set, fileName, type, setName);
 		} else if (fileName.toLowerCase().endsWith(JspTransformer.FILE_SUFFIX)) {
 			String type = Transformer.PRIMITIVE;
 			fileName = fileName.replaceAll("\\" + JspTransformer.FILE_SUFFIX, "");
-			newTransformer(set, fileName, type);
+			newTransformer(set, fileName, type, setName);
 		}
 
 	}
 
-	private void newTransformer(Map<String, Transformer> set, String fileName, String type) {
+	private void newTransformer(Map<String, Transformer> set, String fileName, String type, String setName) {
 		JspTransformer transformer = new JspTransformer(fileName);
 		transformer.setType(type);
+		transformer.setSet(setName);
 		set.put(fileName, transformer);
 	}
 

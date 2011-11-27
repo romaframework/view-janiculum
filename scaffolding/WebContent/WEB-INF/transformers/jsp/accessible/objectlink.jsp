@@ -8,19 +8,21 @@
 	pageContext.setAttribute("part", part);
 %>
 <div id="<%=JaniculumWrapper.id(component, null)%>" class="<%=JaniculumWrapper.cssClass(component, "objectlink", null)%>" style="<%=JaniculumWrapper.inlineStyle(component, null)%>">
-<table>
-<tr>
-	<td>
-		<input type="text" disabled="disabled" value="<%=JaniculumWrapper.content(component, true)==null?"":JaniculumWrapper.content(component, true)%>" />
-	</td>
+<div style="display:table;border-spacing:0;border-collapse:collapse">
+<div style="display:table-row">
+	<div style="display:table-cell">
+		<label for="<%=JaniculumWrapper.id(component, "text")%>" style="display:none;"><%=JaniculumWrapper.i18NLabel(component)%></label>
+		<input id="<%=JaniculumWrapper.id(component, "text")%>" type="text" disabled="disabled" value="<%=JaniculumWrapper.content(component, true)==null?"":JaniculumWrapper.content(component, true)%>" />
+	</div>
 	<%if(!JaniculumWrapper.disabled(component)){%>
-		<td>
+		<div style="display:table-cell">
 			<input id="<%=JaniculumWrapper.id(component, "open")%>" class="<%=JaniculumWrapper.cssClass(component, "objectlink", "open")%>" value="" name="<%=JaniculumWrapper.event(component, "open")%>" type="submit" />
-		</td>
-		<td>
+		</div>
+		<div style="display:table-cell">
 			<input id="<%=JaniculumWrapper.id(component, "reset")%>" class="<%=JaniculumWrapper.cssClass(component, "objectlink", "reset")%>" value="" name="<%=JaniculumWrapper.action(component, "reset")%>" type="submit" />
-		</td>
+		</div>
 	<% }%>
-</tr>
-</table>
+</div>
+</div>
 </div>                        
+

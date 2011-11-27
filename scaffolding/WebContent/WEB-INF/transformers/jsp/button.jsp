@@ -5,10 +5,12 @@
 <%@page import="org.romaframework.aspect.view.html.transformer.jsp.JspTransformer"%>
 <%@page import="org.romaframework.aspect.view.html.transformer.helper.JaniculumWrapper"%>
 <%@page import="org.romaframework.aspect.view.html.constants.RequestConstants"%>
+<%@page import="org.romaframework.core.Roma"%>
 <%@page import="java.util.Map"%>
 <%
 	
 	HtmlViewRenderable component = (HtmlViewRenderable)request.getAttribute(RequestConstants.CURRENT_COMPONENT_IN_TRANSFORMER);
+	String img = Roma.view().getContextPath()+"/static/base/image/basebutton.png"; 
 
 %> <div class="<%=JaniculumWrapper.cssClass(component,"button", null)%>" style="<%=JaniculumWrapper.inlineStyle(component, null)%>" id="<%=JaniculumWrapper.id(component, null)%>">
 
@@ -18,15 +20,14 @@
 	<%
 	for(String event:JaniculumWrapper.getAvailableEvents(component)){%>
 		on<%=event %>="romaEvent('<%=JaniculumWrapper.fieldName(component)%>', '<%=event%>')"
-	<%} %> > <%=JaniculumWrapper.content(component, true)==null?"":JaniculumWrapper.content(component, true)%>
+	<%} %> ><img class="<%=JaniculumWrapper.cssClass(component, "button", "icon")%>" src="<%=img%>" alt="<%=JaniculumWrapper.i18NLabel(component)%>"/><%=JaniculumWrapper.content(component, true)==null?"":JaniculumWrapper.content(component, true)%>
 	</button>
 <%} 
 if(JaniculumWrapper.isAction(component)){%>
 	<button class="<%=JaniculumWrapper.cssClass(component, "button",null)%>" id="<%=JaniculumWrapper.id(component,"content")%>" type="button" value="<%=JaniculumWrapper.i18NLabel(component)%>" name="<%=JaniculumWrapper.actionName(component)%>"
 	<%if(JaniculumWrapper.isDisabled(component)){%> disabled="disabled" <%} %>
 	onclick="romaAction('<%=JaniculumWrapper.actionName(component)%>')"
-	>
-	<%=JaniculumWrapper.i18NLabel(component)%>
+	> <img class="<%=JaniculumWrapper.cssClass(component, "button", "icon")%>" src="<%=img%>" alt="<%=JaniculumWrapper.i18NLabel(component)%>"/><%=JaniculumWrapper.i18NLabel(component)%>
 	</button>
 <%} %>
 </div>

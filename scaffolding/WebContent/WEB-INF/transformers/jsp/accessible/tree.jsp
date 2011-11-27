@@ -60,19 +60,3 @@ private int tree(HtmlViewRenderable comp, Collection<?> children, String cssClas
 }
 %>
 
-<%
-StringBuffer buffer = new StringBuffer();
-buffer.append("jQuery(\"#"+pId+"\").tree({");
-buffer.append("	callback : {");
-buffer.append(		"onselect : function() {");
-buffer.append("			jQuery(\"#"+JaniculumWrapper.id(component, "hidden")+"\").attr('value', $.tree_reference('"+pId+"').selected.find(\"a\").attr(\"idx\"));");
-buffer.append("			romaFieldChanged('"+JaniculumWrapper.fieldName(component)+"');");
-buffer.append("			romaSendAjaxRequest();");
-buffer.append("		}");
-buffer.append("	}");
-buffer.append("});");
-buffer.append("if ($.tree_reference(\""+pId+"\") != null) {");
-buffer.append("	$.tree_reference(\""+pId+"\").open_all();");
-buffer.append("}");
-JspTransformerHelper.addJs(JaniculumWrapper.id(component, TransformerConstants.PART_ALL), buffer.toString());
-%>

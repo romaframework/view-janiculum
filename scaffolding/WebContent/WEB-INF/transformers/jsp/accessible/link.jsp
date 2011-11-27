@@ -5,15 +5,15 @@
 	
 	HtmlViewRenderable component = (HtmlViewRenderable)request.getAttribute(RequestConstants.CURRENT_COMPONENT_IN_TRANSFORMER);
 
-%> <div class="<%=JaniculumWrapper.cssClass(component,"html", null)%>" style="<%=JaniculumWrapper.inlineStyle(component, null)%>" id="<%=JaniculumWrapper.id(component, null)%>">
+%> <div class="<%=JaniculumWrapper.cssClass(component,"link", null)%>" style="<%=JaniculumWrapper.inlineStyle(component, null)%>" id="<%=JaniculumWrapper.id(component, null)%>">
 
 <%if(JaniculumWrapper.isField(component)){%>
-	<button class="<%=JaniculumWrapper.cssClass(component, "button", "content")%>" id="<%=JaniculumWrapper.id(component, "content")%>" type="submit" value="<%=JaniculumWrapper.content(component, true)==null?"":JaniculumWrapper.content(component, true)%>" name="<%=JaniculumWrapper.event(component, "change")%>"
+	<button class="<%=JaniculumWrapper.cssClass(component, "link", "content")%>" id="<%=JaniculumWrapper.id(component, "content")%>" type="submit" value="<%=JaniculumWrapper.content(component, true)==null?"":JaniculumWrapper.content(component, true)%>" name="<%=JaniculumWrapper.event(component, "change")%>"
 	<%if(JaniculumWrapper.isDisabled(component)){%> disabled="disabled" <%} %> > <%=JaniculumWrapper.content(component, true)==null?"":JaniculumWrapper.content(component, true)%>
 	</button>
 <%} 
 if(JaniculumWrapper.isAction(component)){%>
-	<button class="<%=JaniculumWrapper.cssClass(component, "button", "content")%>" id="<%=JaniculumWrapper.id(component,"content")%>" type="submit" value="<%=JaniculumWrapper.i18NLabel(component)%>" name="<%=JaniculumWrapper.actionName(component)%>"
+	<button class="<%=JaniculumWrapper.cssClass(component, "link", "content")%>" id="<%=JaniculumWrapper.id(component,"content")%>" type="submit" value="<%=JaniculumWrapper.i18NLabel(component)%>" name="<%=JaniculumWrapper.actionName(component)%>"
 	<%if(JaniculumWrapper.isDisabled(component)){%> disabled="disabled" <%} %>
 	>
 	<%=JaniculumWrapper.i18NLabel(component)%>

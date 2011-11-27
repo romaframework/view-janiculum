@@ -9,6 +9,7 @@
 	if(!("raw".equals(part)||"label".equals(part))){
 %>
 	<div class="<%=JaniculumWrapper.cssClass(component, "text", null)%>" style="<%=JaniculumWrapper.inlineStyle(component, null)%>" id="<%=JaniculumWrapper.id(component, null)%>">
+		<label style="display:none;" class="<%=JaniculumWrapper.cssClass(component, "text", "label")%>" for="<%=JaniculumWrapper.id(component, "content")%>"><%=JaniculumWrapper.i18NLabel(component)%></label>
 		<input id="<%=JaniculumWrapper.id(component, "content")%>" class="<%=JaniculumWrapper.cssClass(component, "text", "content")%>" style="<%if(!JaniculumWrapper.isValid(component)){%>border-color:red;<%}%><%=JaniculumWrapper.inlineStyle(component, null)%>" type="text" name="<%=JaniculumWrapper.fieldName(component)%>" value="<%=JaniculumWrapper.content(component, true)==null?"":JaniculumWrapper.content(component, true)%>" 
 		<%if(JaniculumWrapper.disabled(component)){%> disabled="disabled" <%}%>/>
 		<%if(!JaniculumWrapper.isValid(component)){%>

@@ -1,118 +1,47 @@
-/* Grid */
-table.grid tbody tr.odd td {
-    background-color: #F0F0F6;
-}
-
-table.grid thead tr .headerSortUp {
-    background-image: url(../image/asc.gif);
-}
-
-table.grid thead tr .headerSortDown {
-    background-image: url(../image/desc.gif);
-}
-
-table.grid thead tr .headerSortDown, table.tablesorter thead tr .headerSortUp {
-    background-color: #8dbdd8;
-}
-
-/* tables */
-table.table_content {
-    width: 100%;
-    margin-top: 10px;
-    margin-bottom: 15px;
-}
 
 .table_selection {
     width: 20px;
 }
 
-table.table_content thead tr th, table.tablesorter tfoot tr th {
-    background-color: #e6EEEE;
-    border: 1px solid #C4D7D7;
-    padding: 2px;
-}
 
-table.table_content thead tr .header {
+table.render_table_content thead tr .header {
     background-image: url(../image/bg.gif);
     background-repeat: no-repeat;
     background-position: center right;
     cursor: pointer;
 }
 
-table.table_content tbody td {
-    color: #3D3D3D;
-    padding: 2px;
-    background-color: #FFF;
-    vertical-align: top;
-    border-bottom-width: 1px;
-    border-bottom-style: solid;
-    border-bottom-color: #f6f6f6;
-}
-
-table.table_content tbody tr.odd td {
-    background-color: #F0F0F6;
-}
-
-table.table_content thead tr .headerSortUp {
+table.render_table_content thead tr .headerSortUp {
     background-image: url(../image/asc.gif);
 }
 
-table.table_content thead tr .headerSortDown {
+table.render_table_content thead tr .headerSortDown {
     background-image: url(../image/desc.gif);
 }
 
-table.table_content thead tr .headerSortDown, table.tablesorter thead tr .headerSortUp {
+table.render_table_content thead tr .headerSortDown, table.tablesorter thead tr .headerSortUp {
     background-color: #8dbdd8;
 }
 
 /* tables edit */
-table.tableedit_content {
-    width: 100%;
-    text-align: left;
-}
 
-table.tableedit_content > thead > tr > td {
+table.render_tableedit_content > thead > tr > td {
     border: 1px solid #CDCDCD;
     background-color: #CDCDCD;
 }
 
-table.tableedit_content > thead > tr > th {
+table.render_tableedit_content > thead > tr > th {
     border: 1px solid #CDCDCD !important;
 }
 
-table.tableedit_content thead tr th, table.tablesorter tfoot tr th {
-    background-color: #e6EEEE;
-    border: 1px solid #FFF;
-    padding: 4px;
-}
-
-table.tableedit_content thead tr .header {
-    background-image: url(../image/bg.gif);
-    background-repeat: no-repeat;
-    background-position: center right;
-    cursor: pointer;
-}
-
-table.tableedit_content > tbody > tr > td {
-    color: #3D3D3D;
-    padding: 4px;
-    background-color: #FFF;
-    vertical-align: middle !important;
-    border: 1px solid #EEE;
-}
-
-table.tableedit_content tbody tr.odd td {
-    background-color: #F0F0F6;
-}
-
-table.tableedit_content thead tr .headerSortUp {
+.render_tableedit_content thead tr .headerSortUp {
     background-image: url(../image/asc.gif);
 }
 
-table.tableedit_content thead tr .headerSortDown {
+.render_tableedit_content thead tr .headerSortDown {
     background-image: url(../image/desc.gif);
 }
 
-table.tableedit_content thead tr .headerSortDown, table.tablesorter thead tr .headerSortUp {
+table.render_tableedit_content thead tr .headerSortDown, table.tablesorter thead tr .headerSortUp {
     background-color: #8dbdd8;
 }

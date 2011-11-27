@@ -33,28 +33,32 @@
 .ui-tabs-nav a, .ui-tabs-nav a span {
     display: block;
     padding: 0 10px;
-    background: url(../image/tab.png) no-repeat;
 }
 
 .ui-tabs-nav a {
     margin: 1px 0 0; /* position: relative makes opacity fail for disabled tab in IE */
     padding-left: 0;
-    color: #27537a;
-    font-weight: bold;
     line-height: 1.2;
     text-align: center;
     text-decoration: none;
     white-space: nowrap; /* required in IE 6 */
     outline: 0; /* prevent dotted border in Firefox */
+    border: 1px solid #CCCCCC;
+    border-bottom-style:none;
+    background-color: #F5F5F5;
+    border-radius: 5px 5px 0 0;
+    color: #555555;
 }
 
 .ui-tabs-nav .ui-tabs-selected a {
     position: relative;
     padding-left: 0px;
     top: 1px;
+    font-weight: bold;
     z-index: 2;
     margin-top: 0;
     color: #000;
+    background-color: #FFFFFF;
 }
 
 .ui-tabs-nav a span {
@@ -104,9 +108,9 @@
 }
 
 .ui-tabs-panel {
-    border: 1px solid #97a5b0;
+    border: 1px solid #CCCCCC;
     padding: 1em 8px;
-    -moz-border-radius: 5px;
+    border-radius: 5px;
     background: #fff; /* declare background color for container to avoid distorted fonts in IE while fading */
 }
 

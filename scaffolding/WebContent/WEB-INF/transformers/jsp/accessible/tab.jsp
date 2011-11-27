@@ -39,14 +39,15 @@
 					childLabel = ((HtmlViewInvisibleContentComponent)child).getLabel();
 				}
 		%>
-				<li class="<%=currentClass%>" onclick="changeTab(<%=JaniculumWrapper.fieldName(component)%>,<%=childIndex%>)"><a><span ><%=childLabel%></span></a></li>
+				<li class="<%=currentClass%>" >
+					<a href="<%=request.getRequestURI() %>?<%=JaniculumWrapper.fieldName(component)%>=<%=JaniculumWrapper.fieldName(component)%>_<%=childIndex%>"><span><%=childLabel%></span></a>
+				</li>				
 			<%
 				currentClass = "";
 				childIndex++;
 			} %>
 		</ul>
 	</div>
-	<input type="hidden" id="<%=JaniculumWrapper.id(component, null)%>_selected" name="<%=JaniculumWrapper.fieldName(component)%>" value="<%=JaniculumWrapper.fieldName(component)%>_<%=selected_id%>"  />
 
 <%	
 	childIndex = 0;
@@ -65,8 +66,3 @@
 		childIndex++;
 	} %>
 </div>
-<%if(!empty && "".equals(selected_id)){
-
-	JspTransformerHelper.addJs(JaniculumWrapper.id(component, TransformerConstants.PART_ALL), "changeTab("+JaniculumWrapper.fieldName(component)+", "+JaniculumWrapper.selectedIndexesAsString(component)+");");
-}
-%>

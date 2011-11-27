@@ -194,7 +194,7 @@ public class HtmlViewAspectHelper {
 		if (schemaFeatures instanceof SchemaClassDefinition) {
 			return getRender(((SchemaClassDefinition) schemaFeatures).getName(), HtmlViewAspectHelper.POJO_NAME);
 		} else if (schemaFeatures instanceof SchemaAction) {
-			return ViewConstants.RENDER_LINK;
+			return ViewConstants.RENDER_BUTTON;
 		} else {
 			final SchemaField schemaField = (SchemaField) schemaFeatures;
 			Class<?> fieldType = (Class<?>) schemaField.getLanguageType();

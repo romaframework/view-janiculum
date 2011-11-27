@@ -34,13 +34,4 @@
 	</ul>
 	<%} %>
 </div>
-<%if(!"content".equals(part)){
-	StringBuffer buffer = new StringBuffer();
-	buffer.append("if(jQuery(\"#"+JaniculumWrapper.id(component, null)+"\").attr(\"inited\") == \"true\"){");
-	buffer.append("}else{");
-	buffer.append("jquerycssmenu.buildmenu(\""+JaniculumWrapper.id(component, null)+"\", arrowimages);");
-	buffer.append("jQuery(\"#"+JaniculumWrapper.id(component, null)+"\").attr(\"inited\", \"true\");");
-	buffer.append("}");
-	JspTransformerHelper.addJs(JaniculumWrapper.id(component, TransformerConstants.PART_ALL), buffer.toString());
-}
 %>

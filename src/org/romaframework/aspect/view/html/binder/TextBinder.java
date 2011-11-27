@@ -22,12 +22,17 @@ public class TextBinder implements HtmlViewBinder {
 		log.debug("binding " + renderable);
 		final ViewComponent contentComponent = (ViewComponent) renderable;
 		final SchemaField schemaField = contentComponent.getSchemaField();
-		final Object enabled = schemaField.getFeature( ViewFieldFeatures.ENABLED);
+		final Object enabled = schemaField.getFeature(ViewFieldFeatures.ENABLED);
 		if (enabled != null && Boolean.FALSE.equals(enabled)) {
 			return;
 		}
 
 		try {
+			if ("".equals(value)) {
+				Object actVal = SchemaHelper.getFieldValue(schemaField, contentComponent.getContainerComponent().getContent());
+				if (actVal == null)
+					return;
+			}
 			Object val = FormatHelper.parse(value, schemaField);
 			SchemaHelper.setFieldValue(schemaField, contentComponent.getContainerComponent().getContent(), val);
 			contentComponent.setContent(SchemaHelper.getFieldValue(schemaField, contentComponent.getContainerComponent().getContent()));
