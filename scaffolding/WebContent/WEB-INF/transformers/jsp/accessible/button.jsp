@@ -5,11 +5,12 @@
 <%@page import="org.romaframework.aspect.view.html.transformer.jsp.JspTransformer"%>
 <%@page import="org.romaframework.aspect.view.html.transformer.helper.JaniculumWrapper"%>
 <%@page import="org.romaframework.aspect.view.html.constants.RequestConstants"%>
+<%@page import="org.romaframework.core.Roma"%>
 <%@page import="java.util.Map"%>
 <%
 	
 	HtmlViewRenderable component = (HtmlViewRenderable)request.getAttribute(RequestConstants.CURRENT_COMPONENT_IN_TRANSFORMER);
-
+	String img = Roma.view().getContextPath()+"/static/base/image/basebutton.png"; 
 %> <div class="<%=JaniculumWrapper.cssClass(component,"button", null)%>" style="<%=JaniculumWrapper.inlineStyle(component, null)%>" id="<%=JaniculumWrapper.id(component, null)%>">
 
 <%if(JaniculumWrapper.isField(component)){%>
