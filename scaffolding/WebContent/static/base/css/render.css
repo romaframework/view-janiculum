@@ -23,7 +23,12 @@
     border-color: #CCCCCC #CCCCCC #BBBBBB;
     border-radius: 4px 4px 4px 4px;
     border-style: solid;
-    background-image: -moz-linear-gradient(center top , #FFFFFF, #FFFFFF 25%, #E6E6E6);
+	background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#ffffff), color-stop(25%, #ffffff), to(#e6e6e6));
+	background-image: -webkit-linear-gradient(#ffffff, #ffffff 25%, #e6e6e6);
+	background-image: -moz-linear-gradient(top, #ffffff, #ffffff 25%, #e6e6e6);
+	background-image: -ms-linear-gradient(#ffffff, #ffffff 25%, #e6e6e6);
+	background-image: -o-linear-gradient(#ffffff, #ffffff 25%, #e6e6e6);
+	background-image: linear-gradient(#ffffff, #ffffff 25%, #e6e6e6);
     border-width: 1px;
     box-shadow: 0 1px 0 rgba(255, 255, 255, 0.2) inset, 0 1px 2px rgba(0, 0, 0, 0.05);
     line-height: normal;
@@ -43,14 +48,17 @@ img.render_button_icon {
 }
 
 .render_table th {
-	border: 1px solid #DDDDDD;
+	background-color: #dddddd;
+	border-top: 1px solid #DDDDDD;
+	border-bottom: 1px solid #DDDDDD;
 }
 
 .render_table td {
-	border: 1px solid #DDDDDD;
+	border-top: 1px solid #DDDDDD;
+	border-bottom: 1px solid #DDDDDD;
 }
 
-.render_table tr:HOVER {
+.render_table tr:HOVER td{
 	background-color: #F5F5F5;
 }
 
@@ -75,12 +83,6 @@ img.render_button_icon {
 
 .render_tableedit td {
 	border: 1px solid #DDDDDD;
-}
-
-.render_table  th{
-    background-color: #ffffff;
-    border: 1px solid #DDDDDD;
-    padding: 2px;
 }
 
 .render_tableedit th {
@@ -262,7 +264,7 @@ input.table_selection {
 }
 
 /* RENDER POPUP */
-table.popup {
+table.render_popup {
 	margin: auto;
 }
 
@@ -460,7 +462,7 @@ div.render_upload iframe {
 }
 
 /* RENDER POPUP */
-input.popup_close {
+input.render_popup_close {
 	cursor: pointer;
 }
 
@@ -469,94 +471,94 @@ div.jqDrag {
 	color: #aabbcc;
 }
 
-table.popup {
+table.render_popup {
 	position: relative;
 	overflow: auto;
 	top: 80px;
 }
 
-table.popup tr.popup_row_1 {
+table.render_popup tr.render_popup_row_1 {
 	height: 17px;
 }
 
-table.popup tr.popup_row_3 {
+table.render_popup tr.render_popup_row_3 {
 	height: 23px;
 }
 
-table.popup td.popup_col_1 {
+table.render_popup td.render_popup_col_1 {
 	width: 17px;
 }
 
-table.popup td.popup_col_3 {
+table.render_popup td.render_popup_col_3 {
 	width: 23px;
 }
 
-table.popup tr.popup_row_1 td.popup_col_1 {
+table.render_popup tr.render_popup_row_1 td.render_popup_col_1 {
 	background-color: transparent;
 	padding: 0 0;
 	background-image: url(../image/BorderTopLeft.png);
 }
 
-table.popup tr.popup_row_1 td.popup_col_2 {
+table.render_popup tr.render_popup_row_1 td.render_popup_col_2 {
 	background-color: transparent;
 	padding: 0 0;
 	background-image: url(../image/BorderTop.png);
 }
 
-table.popup tr.popup_row_1 td.popup_col_3 {
+table.render_popup tr.render_popup_row_1 td.render_popup_col_3 {
 	background-color: transparent;
 	padding: 0 0;
 	background-image: url(../image/BorderTopRight.png);
 }
 
-table.popup tr.popup_row_2 td.popup_col_2 {
+table.render_popup tr.render_popup_row_2 td.render_popup_col_2 {
 	vertical-align: top;
 	background-color: #FFFFFF;
 }
 
-table.popup tr.popup_row_3 td.popup_col_1 {
+table.render_popup tr.render_popup_row_3 td.render_popup_col_1 {
 	background-color: transparent;
 	padding: 0 0;
 	background-image: url(../image/BorderBottomLeft.png);
 }
 
-table.popup tr.popup_row_3 td.popup_col_2 {
+table.render_popup tr.render_popup_row_3 td.render_popup_col_2 {
 	background-color: transparent;
 	padding: 0 0;
 	background-image: url(../image/BorderBottom.png);
 }
 
-table.popup tr.popup_row_3 td.popup_col_3 {
+table.render_popup tr.render_popup_row_3 td.render_popup_col_3 {
 	background-color: transparent;
 	padding: 0 0;
 	background-image: url(../image/BorderBottomRight.png);
 }
 
-.popup_left_border {
+.render_popup_left_border {
 	background-color: transparent;
 	padding: 0 0;
 	background-image: url(../image/BorderLeft.png);
 }
 
-.popup_right_border {
+.render_popup_right_border {
 	background-color: transparent;
 	padding: 0 0;
 	background-image: url(../image/BorderRight.png);
 }
 
-td.popup_col_2 div.header {
+td.render_popup_col_2 div.header {
 	line-height: 21px;
 	color: #FFFFFF;
 	font: 14px Verdana, Arial, Helvetica, sans-serif;
 	font-weight: bold;
 }
 
-td.popup_col_2 div.header div {
+td.render_popup_col_2 div.header div {
 	height: 17px;
 	padding: 3px;
 }
 
-td.popup_col_2 div.header input.popup_close {
+td.render_popup_col_2 div.header input.render_popup_close {
 	height: 23px;
 	width: 23px;
 	margin: 0;
@@ -566,6 +568,6 @@ td.popup_col_2 div.header input.popup_close {
 	background-image: url(../image/close.png);
 }
 
-td.popup_col_2 div.header input.popup_close:hover {
+td.render_popup_col_2 div.header input.render_popup_close:hover {
 	background-image: url(../image/closeOver.png);
 }

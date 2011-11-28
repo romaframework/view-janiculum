@@ -22,6 +22,7 @@ String appName = Roma.component(ApplicationConfiguration.class).getApplicationNa
 <link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/static/base/css/uitabs.css" />
 <link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/static/base/css/jquery-ui.css" />
 <link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/static/base/css/style.css" />
+<link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/static/base/css/font.css" />
 <link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/static/base/css/application-style.css" />
 <!-- ADDITIONAL CSS -->
 <link rel="icon" href="<%=request.getContextPath() %>/static/images/favicon.ico" />
@@ -36,7 +37,9 @@ String appName = Roma.component(ApplicationConfiguration.class).getApplicationNa
 <script type="text/javascript" src="<%=request.getContextPath() %>/static/base/js/romaAjax.js"></script>
 <roma:inlinejs/>
 <roma:inlinecss/>
-<!-- For Ponzio Pilato, remove errors in id generation instead to remove this script -->
+<%
+if(Roma.component(ApplicationConfiguration.class).isApplicationDevelopment()){
+ %>
 <script type="text/javascript">
 $(document).ready(function() {
 	var res = '';
@@ -46,7 +49,6 @@ $(document).ready(function() {
 		  if(ids.length>1 && ids[0]==this) {
 		      console.warn('Multiple IDs #'+this.id);
 	      	  res = res+"\n"+'Multiple IDs #'+this.id;
-			  //alert('Multiple IDs #'+this.id);
 		  }
 		});
 	if (res != '') {
@@ -57,14 +59,11 @@ requestContextPath = "<%=request.getContextPath() %>/";
 globalCharType = "charset=UTF-8";
 
 </script>
+<%} %>
 </head>
 <body>
 <div id="janiculumWaitDiv" class="janiculumWaitImage" style="background-repeat: no-repeat; background-position: center center; background-image: url(<%=request.getContextPath()%>/static/base/image/wait.gif); position:absolute; width: 100%; height: 100%; left:-10000px; top: -10000px; z-index: -1000">
 </div>
-<div></div>
-<!-- <form method="post" action="<%=request.getRequestURI() %>"> --> 
- <roma:screenArea name="/"/>
-<!-- </form> -->
- 
+<roma:screenArea name="/"/>
 </body>
 </html>

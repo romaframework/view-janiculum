@@ -15,13 +15,15 @@ String appName = Roma.component(ApplicationConfiguration.class).getApplicationNa
 %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"> 
-<html lang="<%=Roma.session().getActiveLocale()%>">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="<%=Roma.session().getActiveLocale()%>" xml:lang="<%=Roma.session().getActiveLocale()%>">
 <head>
 <link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/static/base/css/style-sorter.css" />
 <link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/static/base/css/ui.datepicker.css" />
 <link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/static/base/css/uitabs.css" />
 <link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/static/base/css/style.css" />
 <link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/static/base/css/application-style.css" />
+<link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/static/base/css/font.css" />
+<link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/static/base/css/accessible-style.css" />
 <!-- ADDITIONAL CSS -->
 <link rel="icon" href="<%=request.getContextPath() %>/static/images/favicon.ico" />
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />

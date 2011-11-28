@@ -24,27 +24,27 @@ div.class_CRUDMain table.area_0 {
 }
 
 
-.class_CRUDPaging .action_first button{
+.class_CRUDPaging .action_first button > img{
     background-image: url(../image/first.png);
 }
 
-.class_CRUDPaging .action_prev button{
+.class_CRUDPaging .action_prev button > img{
     background-image: url(../image/prev.png);
 }
 
-.class_CRUDPaging .action_next button{
+.class_CRUDPaging .action_next button > img{
     background-image: url(../image/next.png);
 }
 
-.class_CRUDPaging .action_last button{
+.class_CRUDPaging .action_last button > img{
     background-image: url(../image/last.png);
 }
 
-.class_CRUDPaging .action_queryAll button{
+.class_CRUDPaging .action_queryAll button > img{
     background-image: url(../image/queryall.png);
 }
 
-.class_CRUDMain .action_select button{
+.class_CRUDMain .action_select button > img{
     padding-left: 20px;
     background-image: url(../image/yes.gif);
     background-repeat: no-repeat;
@@ -57,22 +57,22 @@ div.class_CRUDMain table.area_0 {
 
 /* SEARCH ENGINE */
 
-.class_QueryCondition .action_addRight button{
+.class_QueryCondition .action_addRight button > img{
 	 background-image: url(../image/next.gif);
 }
 
-.class_QueryCondition .action_addLeft button{
+.class_QueryCondition .action_addLeft button > img{
 	 background-image: url(../image/prev.gif);
 }
 
-.class_QueryCondition .action_remove button{
+.class_QueryCondition .action_remove button > img{
 	 background-image: url(../image/remove.gif);
 }
 
-.class_QueryCondition .action_edit button{
+.class_QueryCondition .action_edit button > img{
 	 background-image: url(../image/edit.gif);
 }
 
-.queryOperationAddOperator button{
+.queryOperationAddOperator button > img{
 	background-image: url(../image/add.gif);
 }
