@@ -263,11 +263,6 @@ input.table_selection {
 	cursor: pointer;
 }
 
-/* RENDER POPUP */
-table.render_popup {
-	margin: auto;
-}
-
 /* RENDER TAB */
 div.ui-tabs-nav a {
 	background-repeat: no-repeat;
@@ -472,6 +467,8 @@ div.jqDrag {
 }
 
 table.render_popup {
+	margin: auto;
+	background-color:#ffffff;
 	position: relative;
 	overflow: auto;
 	top: 80px;
