@@ -43,8 +43,7 @@ public class HtmlViewInvisibleContentComponent extends HtmlViewAbstractContentCo
 		super(containerComponent, schemaField, content, screenArea);
 	}
 
-	public HtmlViewInvisibleContentComponent(HtmlViewContentComponent containerComponent, int mapIndex, Object content, HtmlViewScreenArea screenArea,
-			String label) {
+	public HtmlViewInvisibleContentComponent(HtmlViewContentComponent containerComponent, int mapIndex, Object content, HtmlViewScreenArea screenArea, String label) {
 		super(containerComponent, null, content, screenArea);
 		this.mapIndex = mapIndex;
 		this.label = label;
@@ -112,5 +111,4 @@ public class HtmlViewInvisibleContentComponent extends HtmlViewAbstractContentCo
 		writer.write(component.getHtmlId());
 		writer.write("\" class=\"invisible_field\" ></div>");
 	}
-
 }

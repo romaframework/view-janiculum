@@ -54,17 +54,6 @@ public abstract class HtmlViewAbstractContentComponent extends HtmlViewAbstractC
 
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.romaframework.core.config.Destroyable#destroy()
-	 */
-	public void destroy() {
-		schemaElement = null;
-		content = null;
-		htmlString = "";
-	}
-
 	/**
 	 * returns true if the component contains a valid value (regarding validation rules given in the validate() method of its pojo)
 	 * 
@@ -193,5 +182,9 @@ public abstract class HtmlViewAbstractContentComponent extends HtmlViewAbstractC
 		}
 		components.clear();
 		clearChildren();
+	}
+	
+	public void destroy() {
+
 	}
 }

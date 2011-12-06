@@ -52,34 +52,11 @@ public class HtmlViewNullComponent implements HtmlViewGenericComponent {
 		return false;
 	}
 
-	public void bind(SchemaField iSchemaField, Object iValue) {
-
-	}
-
-	public void bind(SchemaField iSchemaField, Object iValue, Object component) {
-
-	}
-
-	public void close() {
-	}
-
 	public String getScreenArea() {
 		return null;
 	}
 
-	public void handleException(Throwable t) {
-	}
-
-	public void render(ViewComponent iFormToRender) {
-	}
-
-	public void renderContent() {
-	}
-
 	public void setScreenArea(String area) {
-	}
-
-	public void destroy() {
 	}
 
 	public ViewComponent getContainerComponent() {
@@ -122,5 +99,8 @@ public class HtmlViewNullComponent implements HtmlViewGenericComponent {
 	}
 
 	public void clearChildren() {
+	}
+	public void destroy() {
+
 	}
 }

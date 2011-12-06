@@ -213,12 +213,6 @@ public class HtmlViewCollectionComposedComponent extends HtmlViewAbstractCompose
 		placeComponents();
 	}
 
-	@Override
-	public void renderContent() {
-		// Makes nothing
-
-	}
-
 	public List<String> getHeadersRaw() {
 		if (isCollection()) {
 			List<String> result = new LinkedList<String>();

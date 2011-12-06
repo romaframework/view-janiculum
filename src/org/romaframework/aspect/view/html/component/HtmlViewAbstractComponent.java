@@ -38,8 +38,7 @@ public abstract class HtmlViewAbstractComponent implements HtmlViewGenericCompon
 	protected boolean										dirty			= true;
 	protected Long											id;
 
-	public HtmlViewAbstractComponent(final HtmlViewContentComponent containerComponent, final HtmlViewScreenArea screenArea,
-			final SchemaClassElement schemaElement) {
+	public HtmlViewAbstractComponent(final HtmlViewContentComponent containerComponent, final HtmlViewScreenArea screenArea, final SchemaClassElement schemaElement) {
 		super();
 		this.containerComponent = containerComponent;
 		this.screenArea = screenArea;
@@ -123,7 +122,7 @@ public abstract class HtmlViewAbstractComponent implements HtmlViewGenericCompon
 				render = HtmlViewAspectHelper.getDefaultRenderType(getSchemaObject());
 			}
 		}
-		return  Roma.component(TransformerManager.class).getComponent(render);
+		return Roma.component(TransformerManager.class).getComponent(render);
 	}
 
 	/**
@@ -153,28 +152,8 @@ public abstract class HtmlViewAbstractComponent implements HtmlViewGenericCompon
 
 	}
 
-	public void handleException(final Throwable t) {
-		// TODO Manage Exception
-		t.printStackTrace();
-	}
-
 	public SchemaClassElement getSchemaElement() {
 		return schemaElement;
-	}
-
-	public void bind(SchemaField schemaField, Object value, Object component) {
-	}
-
-	public void bind(SchemaField schemaField, Object value) {
-	}
-
-	public void close() {
-	}
-
-	public void render(ViewComponent formToRender) {
-	}
-
-	public void renderContent() {
 	}
 
 	public Object getContent() {
@@ -200,9 +179,6 @@ public abstract class HtmlViewAbstractComponent implements HtmlViewGenericCompon
 	}
 
 	public void setSchemaObject(SchemaObject schemaObject) {
-	}
-
-	public void destroy() {
 	}
 
 	@Override
@@ -277,5 +253,9 @@ public abstract class HtmlViewAbstractComponent implements HtmlViewGenericCompon
 
 	public Collection<HtmlViewGenericComponent> getChildrenFilled() {
 		return getChildren();
+	}
+
+	public void destroy() {
+
 	}
 }

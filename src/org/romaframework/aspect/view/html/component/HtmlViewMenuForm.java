@@ -28,11 +28,6 @@ import org.romaframework.core.schema.SchemaObject;
 
 public class HtmlViewMenuForm extends HtmlViewConfigurableEntityForm {
 
-//	public HtmlViewMenuForm(final HtmlViewContentComponent containerComponent, final SchemaObject schemaObject,
-//			final HtmlViewScreenArea screenArea) {
-//		super(containerComponent, schemaObject, null,screenArea);
-//	}
-
 	public HtmlViewMenuForm(final HtmlViewContentComponent htmlViewConfigurableEntityForm, final SchemaObject schemaObject,
 			final SchemaField field, final HtmlViewScreenArea screenArea) {
 		super(htmlViewConfigurableEntityForm, schemaObject, field, screenArea, null,null,null);

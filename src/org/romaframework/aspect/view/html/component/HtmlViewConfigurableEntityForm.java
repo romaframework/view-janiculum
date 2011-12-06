@@ -134,48 +134,11 @@ public class HtmlViewConfigurableEntityForm extends HtmlViewAbstractContentCompo
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.romaframework.aspect.view.form.ViewComponent#close()
-	 */
-	public void close() {
-		// Roma.aspect(FlowAspect.class).back();
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.romaframework.aspect.view.form.ViewComponent#render(org.romaframework.aspect.view.form.ViewComponent)
-	 */
-	public void render(final ViewComponent formToRender) {
-		// It makes nothing
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.romaframework.aspect.view.form.ContentForm#activate()
-	 */
-	public void activate() {
-		// TODO Auto-generated method stub
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
 	 * @see org.romaframework.aspect.view.form.ContentForm#isFirstToOpenPopup(java.lang.Object)
 	 */
 	public boolean isFirstToOpenPopup(final Object object) {
 		final HtmlViewScreen screen = (HtmlViewScreen) Roma.aspect(ViewAspect.class).getScreen();
 		return screen.isFirstToOpenPopup(object);
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.romaframework.aspect.view.form.ContentForm#passivate()
-	 */
-	public void passivate() {
-		// TODO Auto-generated method stub
-
 	}
 
 	/*
@@ -414,10 +377,6 @@ public class HtmlViewConfigurableEntityForm extends HtmlViewAbstractContentCompo
 		return HtmlViewAspectHelper.searchAreaForRendering(featureLayout, iField, rootArea);
 	}
 
-	public void renderContent() {
-		// make nothing
-
-	}
 
 	public String getLabel() {
 		return label;
@@ -433,6 +392,9 @@ public class HtmlViewConfigurableEntityForm extends HtmlViewAbstractContentCompo
 
 	public void addExpandedChild(HtmlViewConfigurableExpandedEntityForm iChildForm) {
 		expandedChildren.add(iChildForm);
+	}
+	
+	public void destroy() {
 	}
 
 }
