@@ -145,7 +145,7 @@ public class HtmlViewBasicScreen implements HtmlViewScreen, Serializable {
 			form.setContent(iPojo);
 		}
 		if (iAreaName == null) {
-			iAreaName = (String) form.getSchemaObject().getFeature(ViewClassFeatures.LAYOUT);
+			iAreaName = (String) form.getSchemaObject().getFeature(ViewClassFeatures.POSITION);
 		}
 		HtmlViewScreenArea popupArea = null;
 		if (getPopupsScreenArea().searchArea("popup") == null) {
