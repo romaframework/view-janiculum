@@ -199,17 +199,4 @@ public class HtmlViewFormAreaInstance extends HtmlViewAbstractAreaInstance imple
 			areaMode.clear();
 	}
 
-	// public boolean isDirty() {
-	// if(super.isDirty()){
-	// return true;
-	// }
-	// if(components!=null){
-	// for (HtmlViewGenericComponent component:components){
-	// if(component instanceof HtmlViewAbstractComponent && ((HtmlViewAbstractComponent)component).isDirty()){
-	// return true;
-	// }
-	// }
-	// }
-	// return false;
-	// }
 }

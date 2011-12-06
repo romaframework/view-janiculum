@@ -67,20 +67,8 @@ public class HtmlViewAreaModeImpl implements HtmlViewAreaMode {
 
 	public void addRenderables(final AreaComponent container, final List<HtmlViewRenderable> irenderables) {
 		areaContainer = container;
-
 		renderables.clear();
-
-		for (final HtmlViewRenderable renderable : irenderables) {
-			if (renderable instanceof HtmlViewContentComponent) {
-				final HtmlViewContentComponent component = (HtmlViewContentComponent) renderable;
-				renderables.add(createLabelForElement(component));
-			}
-			renderables.add(renderable);
-		}
-	}
-
-	private HtmlViewRenderable createLabelForElement(final HtmlViewContentComponent element) {
-		return new HtmlViewComponentLabel(element, element.getScreenAreaObject());
+		renderables.addAll(irenderables);
 	}
 
 	public long getId() {
