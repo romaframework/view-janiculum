@@ -117,7 +117,7 @@ public class HtmlViewScreenAreaInstance extends HtmlViewAbstractAreaInstance imp
 		if (form != null && form.getContent() != null) {
 			if (this.form != null && this.form.getContent() != form.getContent()) {
 				disposeForm(this.form);
-				((HtmlViewAspect)Roma.aspect(ViewAspect.class)).releaseForm(this.form);
+				((HtmlViewAspect) Roma.aspect(ViewAspect.class)).releaseForm(this.form);
 			}
 		}
 		this.form = form;
@@ -229,13 +229,14 @@ public class HtmlViewScreenAreaInstance extends HtmlViewAbstractAreaInstance imp
 		return false;
 	}
 
-	public void clearArea() {
+	public void clear() {
 		if (childrenMap != null)
 			childrenMap.clear();
 		if (areaMode != null)
 			areaMode.clear();
-		parent = null;
-		if (form != null)
+		if (form != null) {
 			form.clearAreas();
+			form = null;
+		}
 	}
 }

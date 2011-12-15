@@ -17,6 +17,4 @@ public interface HtmlViewScreenArea extends HtmlViewRenderable, AreaComponent {
 
 	public HtmlViewContentForm getForm();
 
-	public void clearArea();
-
 }

@@ -277,7 +277,7 @@ public class JaniculumWrapper {
 		SchemaClassElement el = ((HtmlViewGenericComponent) component).getSchemaElement();
 		return el;
 	}
-
+	
 	public static String actionName(HtmlViewRenderable component) {
 		HtmlViewGenericComponent actionComponent = (HtmlViewGenericComponent) component;
 
