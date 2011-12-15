@@ -59,11 +59,6 @@ public class HtmlViewSimpleComponent extends HtmlViewAbstractContentComponent im
 	public void resetValidation() {
 	}
 
-	public void render(final ViewComponent formToRender) {
-	}
-
-	public void close() {
-	}
 
 	@Override
 	public void renderPart(final String part, Writer writer) {
@@ -80,10 +75,6 @@ public class HtmlViewSimpleComponent extends HtmlViewAbstractContentComponent im
 	}
 
 	public void setMetaDataSchema(SchemaObject schemaObject) {
-	}
-
-	public void renderContent() {
-		// makes nothing
 	}
 
 	public Collection<HtmlViewGenericComponent> getChildren() {

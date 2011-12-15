@@ -16,10 +16,6 @@ public class HtmlViewActionComponent extends HtmlViewAbstractComponent {
 		super(containerComponent, screenArea, schemaElement);
 	}
 
-	public void close() {
-		// TODO Auto-generated method stub
-
-	}
 
 	public SchemaAction getActionField() {
 		return (SchemaAction) getSchemaElement();
@@ -38,11 +34,6 @@ public class HtmlViewActionComponent extends HtmlViewAbstractComponent {
 	}
 
 	public void setMetaDataSchema(SchemaObject schemaObject) {
-
-	}
-
-	public void renderContent() {
-		// makes nothing
 
 	}
 

@@ -14,7 +14,7 @@ import org.romaframework.core.schema.SchemaField;
 public class LayoutExpandHelper {
 	
 	public static boolean isLayoutExpand(SchemaField field) {
-		Object layout = field.getFeature(ViewFieldFeatures.LAYOUT);
+		Object layout = field.getFeature(ViewFieldFeatures.POSITION);
 		return ViewConstants.LAYOUT_EXPAND.equals(layout);
 	}
 	

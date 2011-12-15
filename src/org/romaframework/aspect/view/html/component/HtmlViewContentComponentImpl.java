@@ -23,14 +23,6 @@ public class HtmlViewContentComponentImpl extends HtmlViewAbstractContentCompone
 		super(containerComponent, schemaField, content, screenArea);
 	}
 
-	public void close() {
-		// TODO Auto-generated method stub
-	}
-
-	public void render(final ViewComponent formToRender) {
-		// TODO Auto-generated method stub
-	}
-
 	public void resetValidation() {
 		if (!isValid())
 			setDirty(true);
@@ -47,11 +39,6 @@ public class HtmlViewContentComponentImpl extends HtmlViewAbstractContentCompone
 	}
 
 	public void setMetaDataSchema(SchemaObject schemaObject) {
-
-	}
-
-	public void renderContent() {
-		// make nothing
 
 	}
 

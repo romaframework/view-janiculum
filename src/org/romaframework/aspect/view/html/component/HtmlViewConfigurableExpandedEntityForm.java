@@ -11,11 +11,6 @@ import org.romaframework.core.schema.SchemaObject;
 
 public class HtmlViewConfigurableExpandedEntityForm extends HtmlViewConfigurableEntityForm {
 
-	// public HtmlViewConfigurableExpandedEntityForm(final HtmlViewContentForm containerComponent, final SchemaObject schemaObject,
-	// final HtmlViewScreenArea screenArea) {
-	// super(containerComponent, schemaObject, null,screenArea);
-	// }
-
 	public HtmlViewConfigurableExpandedEntityForm(final HtmlViewContentForm containerComponent, final SchemaObject schemaObject,
 			final SchemaField field, final Object fieldValue, final HtmlViewScreenArea iScreenArea) {
 		super(containerComponent, schemaObject, field, iScreenArea, null, null, null);

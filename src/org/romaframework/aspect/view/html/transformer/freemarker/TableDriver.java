@@ -204,7 +204,7 @@ public class TableDriver {
 
 	private void addFieldName(List<String> fieldNames, SchemaField field) {
 		Object visible = field.getFeature(ViewFieldFeatures.VISIBLE);
-		Object layout = field.getFeature(ViewFieldFeatures.LAYOUT);
+		Object layout = field.getFeature(ViewFieldFeatures.POSITION);
 		if (Boolean.TRUE.equals(visible)) {
 			if (ViewConstants.LAYOUT_EXPAND.equals(layout)) {
 				fieldNames.addAll(getFieldNames(field));
@@ -222,7 +222,7 @@ public class TableDriver {
 
 	private void addActionName(List<String> actionNames, SchemaField field) {
 		Object visible = field.getFeature(ViewFieldFeatures.VISIBLE);
-		Object layout = field.getFeature(ViewFieldFeatures.LAYOUT);
+		Object layout = field.getFeature(ViewFieldFeatures.POSITION);
 		if (Boolean.TRUE.equals(visible)) {
 			if (ViewConstants.LAYOUT_EXPAND.equals(layout)) {
 				actionNames.addAll(getActionNames(field));

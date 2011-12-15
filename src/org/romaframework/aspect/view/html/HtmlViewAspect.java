@@ -155,7 +155,7 @@ public class HtmlViewAspect extends ViewAspectAbstract implements SchemaFeatures
 	public String showForm(final ContentForm form, final String where, final Screen desktop) {
 
 		final String renderFeature = (String) form.getSchemaObject().getFeature(ViewClassFeatures.RENDER);
-		final String renderLayout = (String) form.getSchemaObject().getFeature(ViewClassFeatures.LAYOUT);
+		final String renderLayout = (String) form.getSchemaObject().getFeature(ViewClassFeatures.POSITION);
 		if (ViewConstants.LAYOUT_POPUP.equals(renderFeature) || ViewConstants.LAYOUT_POPUP.equals(renderLayout) || ViewConstants.RENDER_POPUP.equals(renderFeature) || where != null
 				&& (where.startsWith(HtmlViewScreen.SCREEN_POPUP) || where.startsWith(HtmlViewScreen.POPUP))) {
 			HtmlViewScreenAreaInstance area = (HtmlViewScreenAreaInstance) desktop.getArea(HtmlViewScreen.POPUPS);
@@ -432,7 +432,7 @@ public class HtmlViewAspect extends ViewAspectAbstract implements SchemaFeatures
 
 			componentToUpdate.setContent(value);
 			// FIX FOR FIELD REFRESH OF EXPANDED COMPONENTS
-		} else if (ViewConstants.LAYOUT_EXPAND.equals(iField.getFeature(ViewFieldFeatures.LAYOUT))) {
+		} else if (ViewConstants.LAYOUT_EXPAND.equals(iField.getFeature(ViewFieldFeatures.POSITION))) {
 			boolean first = true;
 			for (String fieldName : iField.getClassInfo().getFields().keySet()) {
 				SchemaField iSubField = iField.getClassInfo().getFields().get(fieldName);

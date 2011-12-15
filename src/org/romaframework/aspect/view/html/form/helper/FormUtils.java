@@ -42,7 +42,7 @@ public class FormUtils {
 
 	public static void createFieldComponent(final SchemaField field, final HtmlViewContentForm iForm) {
 
-		String featureLayout = (String) field.getFeature(ViewFieldFeatures.LAYOUT);
+		String featureLayout = (String) field.getFeature(ViewFieldFeatures.POSITION);
 		String featureRender = (String) field.getFeature(ViewFieldFeatures.RENDER);
 
 		if (field.getType() != null && field.getClassInfo() != null) {
@@ -53,7 +53,7 @@ public class FormUtils {
 				}
 			}
 			if (featureLayout == null || ViewConstants.LAYOUT_DEFAULT.equals(featureLayout)) {
-				String tmpLayout = (String) field.getClassInfo().getFeature(ViewFieldFeatures.LAYOUT);
+				String tmpLayout = (String) field.getClassInfo().getFeature(ViewFieldFeatures.POSITION);
 				if (tmpLayout != null && !tmpLayout.equals(ViewConstants.LAYOUT_DEFAULT)) {
 					featureLayout = tmpLayout;
 				}
@@ -340,7 +340,7 @@ public class FormUtils {
 
 	public static void createActionComponent(final SchemaAction action, final HtmlViewContentForm iForm) {
 		if (visible(action)) {
-			final String featureLayout = (String) action.getFeature(ViewActionFeatures.LAYOUT);
+			final String featureLayout = (String) action.getFeature(ViewActionFeatures.POSITION);
 			final HtmlViewFormArea areaForRendering = (HtmlViewFormArea) iForm.searchAreaForRendering(featureLayout, action);
 			if (areaForRendering == null) {
 				log.warn("[HtmlViewAspect]: no area found for the rendering of " + action + " in form iForm");
