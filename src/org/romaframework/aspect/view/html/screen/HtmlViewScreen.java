@@ -29,13 +29,9 @@ public interface HtmlViewScreen extends Screen, HtmlViewRenderable {
 
 	public HtmlViewScreenAreaInstance getRootArea();
 
-	public boolean isFirstToOpenPopup(Object content);
-
 	public void render(ServletRequest request, boolean css, boolean js, Writer writer);
 
 	public AreaComponent getDefaultArea();
-
-	public void addPopup(Object iPojo, String iAreaName);
 
 	public AreaComponent getPopupsScreenArea();
 

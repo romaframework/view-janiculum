@@ -29,7 +29,6 @@ import org.romaframework.aspect.view.html.area.HtmlViewScreenArea;
 import org.romaframework.aspect.view.html.area.component.ChildrenMap;
 import org.romaframework.aspect.view.html.component.composed.list.HtmlViewCollectionComposedComponent;
 import org.romaframework.aspect.view.html.form.helper.FormUtils;
-import org.romaframework.aspect.view.html.screen.HtmlViewScreen;
 import org.romaframework.aspect.view.html.transformer.freemarker.TableDriver;
 import org.romaframework.aspect.view.screen.AbstractConfigurableScreenFactory;
 import org.romaframework.core.Roma;
@@ -156,16 +155,6 @@ public class HtmlViewConfigurableEntityForm extends HtmlViewAbstractContentCompo
 	 */
 	public void activate() {
 		// TODO Auto-generated method stub
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.romaframework.aspect.view.form.ContentForm#isFirstToOpenPopup(java.lang.Object)
-	 */
-	public boolean isFirstToOpenPopup(final Object object) {
-		final HtmlViewScreen screen = (HtmlViewScreen) Roma.aspect(ViewAspect.class).getScreen();
-		return screen.isFirstToOpenPopup(object);
 	}
 
 	/*

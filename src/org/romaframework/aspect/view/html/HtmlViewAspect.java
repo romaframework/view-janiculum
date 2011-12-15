@@ -52,6 +52,7 @@ import org.romaframework.aspect.view.form.ViewComponent;
 import org.romaframework.aspect.view.html.area.HtmlViewFormAreaInstance;
 import org.romaframework.aspect.view.html.area.HtmlViewScreenArea;
 import org.romaframework.aspect.view.html.area.HtmlViewScreenAreaInstance;
+import org.romaframework.aspect.view.html.area.HtmlViewScreenPopupAreaInstance;
 import org.romaframework.aspect.view.html.component.HtmlViewAbstractComponent;
 import org.romaframework.aspect.view.html.component.HtmlViewConfigurableEntityForm;
 import org.romaframework.aspect.view.html.component.HtmlViewContentComponent;
@@ -64,6 +65,7 @@ import org.romaframework.aspect.view.screen.Screen;
 import org.romaframework.core.Roma;
 import org.romaframework.core.Utility;
 import org.romaframework.core.binding.Bindable;
+import org.romaframework.core.domain.type.TreeNodeMap;
 import org.romaframework.core.flow.Controller;
 import org.romaframework.core.flow.FieldRefreshListener;
 import org.romaframework.core.flow.SchemaFieldListener;
@@ -154,14 +156,17 @@ public class HtmlViewAspect extends ViewAspectAbstract implements SchemaFeatures
 
 		final String renderFeature = (String) form.getSchemaObject().getFeature(ViewClassFeatures.RENDER);
 		final String renderLayout = (String) form.getSchemaObject().getFeature(ViewClassFeatures.LAYOUT);
-		if (ViewConstants.LAYOUT_POPUP.equals(renderFeature) || ViewConstants.LAYOUT_POPUP.equals(renderLayout) || ViewConstants.RENDER_POPUP.equals(renderFeature)) {
-			((HtmlViewScreen) desktop).addPopup(form, renderLayout);
-			// ViewHelper.invokeOnShow(form.getContent());
+		if (ViewConstants.LAYOUT_POPUP.equals(renderFeature) || ViewConstants.LAYOUT_POPUP.equals(renderLayout) || ViewConstants.RENDER_POPUP.equals(renderFeature) || where != null
+				&& (where.startsWith(HtmlViewScreen.SCREEN_POPUP) || where.startsWith(HtmlViewScreen.POPUP))) {
+			HtmlViewScreenAreaInstance area = (HtmlViewScreenAreaInstance) desktop.getArea(HtmlViewScreen.POPUPS);
+			HtmlViewScreenPopupAreaInstance popupArea = new HtmlViewScreenPopupAreaInstance(area, "popup");
+			area.addChild((TreeNodeMap) popupArea);
+			area.setDirty(true);
+			popupArea.bindForm((HtmlViewContentForm) form);
+			form.setScreenArea(where);
+			if (where != null)
+				return where;
 			return renderLayout;
-		} else if (where != null && (where.startsWith(HtmlViewScreen.SCREEN_POPUP) || where.startsWith(HtmlViewScreen.POPUP))) {
-			((HtmlViewScreen) desktop).addPopup(form, where);
-			// ViewHelper.invokeOnShow(form.getContent());
-			return where;
 		}
 
 		if (where.startsWith("form:")) {
@@ -178,7 +183,7 @@ public class HtmlViewAspect extends ViewAspectAbstract implements SchemaFeatures
 
 		} else {
 			HtmlViewScreenAreaInstance area = (HtmlViewScreenAreaInstance) desktop.getArea(where);
-			if (area == null && Roma.view().getScreen().getActiveArea() == null) {
+			if (area == null) {
 				area = (HtmlViewScreenAreaInstance) ((HtmlViewScreen) desktop).getDefaultArea();
 				Roma.view().getScreen().setActiveArea(area.getName());
 			}
@@ -541,22 +546,6 @@ public class HtmlViewAspect extends ViewAspectAbstract implements SchemaFeatures
 				else if (child instanceof HtmlViewConfigurableEntityForm)
 					cleanDirtyForm((HtmlViewConfigurableEntityForm) child);
 			}
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.romaframework.aspect.view.ViewAspectAbstract#close(java.lang.Object)
-	 */
-	@Override
-	public boolean close(final Object iUserObject) {
-		ContentForm currentComponent = (ContentForm) getFormByObject(iUserObject);
-		if (currentComponent.isFirstToOpenPopup(iUserObject)) {
-			final Screen screen = getScreen();
-			screen.close(iUserObject);
-			return true;
-		}
-		return false;
 	}
 
 	/*

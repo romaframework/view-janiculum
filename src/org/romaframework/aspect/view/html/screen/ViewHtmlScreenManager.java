@@ -22,10 +22,11 @@ import org.romaframework.core.schema.xmlannotations.XmlFormAreaAnnotation;
 public class ViewHtmlScreenManager extends ScreenManager {
 
 	@Override
-	public Screen createScreenFromDefaultFactory(final String name, final XmlFormAreaAnnotation areaTag) {
+	public Screen createScreenFromDefaultFactory(final String name, final XmlFormAreaAnnotation areaTag, String defaultArea) {
 		final HtmlViewConfigurableScreen htmlViewConfigurableScreen = new HtmlViewConfigurableScreen();
 		htmlViewConfigurableScreen.setName(name);
 		htmlViewConfigurableScreen.configure(areaTag);
+		htmlViewConfigurableScreen.setDefautlArea(defaultArea);
 		return htmlViewConfigurableScreen;
 	}
 }
