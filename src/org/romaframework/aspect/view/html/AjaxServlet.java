@@ -97,22 +97,22 @@ public class AjaxServlet extends HtmlServlet {
 				ErrorMessageTextDetail toShow = new ErrorMessageTextDetail("application.error", "Application Error", null, e.getMessage(), e);
 				toShow.setDetail(ExceptionHelper.toString(e));
 				log.info(e.getMessage(), e);
-				Roma.flow().forward(toShow, "screen:popup:error");
+				Roma.flow().popup(toShow);
 			} catch (final BindingException e) {
 				ErrorMessageTextDetail toShow = new ErrorMessageTextDetail("application.error", "Application Error", null, e.getMessage(), e);
 				toShow.setDetail(ExceptionHelper.toString(e));
 				log.warn(e.getMessage(), e);
-				Roma.flow().forward(toShow, "screen:popup:error");
+				Roma.flow().popup(toShow);
 			} catch (UserException e) {
 				ErrorMessageTextDetail toShow = new ErrorMessageTextDetail("application.error", "Application Error", null, e.getMessage(), e);
 				toShow.setDetail(ExceptionHelper.toString(e));
 				log.debug(e.getMessage(), e);
-				Roma.flow().forward(toShow, "screen:popup:error");
+				Roma.flow().popup(toShow);
 			} catch (final Throwable e) {
 				ErrorMessageTextDetail toShow = new ErrorMessageTextDetail("application.error", "Application Error", e);
 				toShow.setDetail(ExceptionHelper.toString(e));
 				log.warn(e.getMessage(), e);
-				Roma.flow().forward(toShow, "screen:popup:error");
+				Roma.flow().popup(toShow);
 				// throw new ServletException(e);
 			}
 

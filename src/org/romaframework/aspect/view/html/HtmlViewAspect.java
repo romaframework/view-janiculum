@@ -154,25 +154,18 @@ public class HtmlViewAspect extends ViewAspectAbstract implements SchemaFeatures
 	 */
 	public String showForm(final ContentForm form, String where, final Screen desktop) {
 
-		final String renderFeature = (String) form.getSchemaObject().getFeature(ViewClassFeatures.RENDER);
-		final String renderLayout = (String) form.getSchemaObject().getFeature(ViewClassFeatures.POSITION);
-		if (ViewConstants.LAYOUT_POPUP.equals(renderFeature) || ViewConstants.LAYOUT_POPUP.equals(renderLayout) || ViewConstants.RENDER_POPUP.equals(renderFeature) || where != null
-				&& (where.startsWith(HtmlViewScreen.SCREEN_POPUP) || where.startsWith(HtmlViewScreen.POPUP))) {
+		if (where != null && (where.startsWith(HtmlViewScreen.SCREEN_POPUP) || where.startsWith(HtmlViewScreen.POPUP))) {
 			HtmlViewScreenAreaInstance area = (HtmlViewScreenAreaInstance) desktop.getArea(HtmlViewScreen.POPUPS);
 			HtmlViewScreenPopupAreaInstance popupArea = new HtmlViewScreenPopupAreaInstance(area, "popup");
 			area.addChild((TreeNodeMap) popupArea);
 			area.setDirty(true);
 			popupArea.bindForm((HtmlViewContentForm) form);
-			if (where != null) {
-				if (where.startsWith(HtmlViewScreen.SCREEN_DOUBLE_DOTS))
-					where = where.substring(HtmlViewScreen.SCREEN_DOUBLE_DOTS.length());
-				if (where.contains(":"))
-					where = where.substring(0,where.indexOf(":"));
-				form.setScreenArea(where);
-				return where;
-			} else
-				form.setScreenArea(renderLayout);
-			return renderLayout;
+			if (where.startsWith(HtmlViewScreen.SCREEN_DOUBLE_DOTS))
+				where = where.substring(HtmlViewScreen.SCREEN_DOUBLE_DOTS.length());
+			if (where.contains(":"))
+				where = where.substring(0, where.indexOf(":"));
+			form.setScreenArea(where);
+			return where;
 		}
 
 		if (where.startsWith("form:")) {

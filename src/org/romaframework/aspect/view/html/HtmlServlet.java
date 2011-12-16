@@ -91,17 +91,17 @@ public class HtmlServlet extends RomaServlet {
 				ErrorMessageTextDetail toShow = new ErrorMessageTextDetail("application.error", "Application Error", e);
 				toShow.setMessage(e.getMessage());
 				toShow.setDetail(ExceptionHelper.toString(e));
-				Roma.flow().forward(toShow, "screen:popup:error", null, Roma.session().getActiveSessionInfo());
+				Roma.flow().forward(toShow, "popup", null, Roma.session().getActiveSessionInfo());
 			} catch (final BindingException e) {
 				ErrorMessageTextDetail toShow = new ErrorMessageTextDetail("application.error", "Application Error", e);
 				toShow.setMessage(e.getMessage());
 				toShow.setDetail(ExceptionHelper.toString(e));
-				Roma.flow().forward(toShow, "screen:popup:error", null, Roma.session().getActiveSessionInfo());
+				Roma.flow().forward(toShow, "popup", null, Roma.session().getActiveSessionInfo());
 			} catch (final Throwable e) {
 				ErrorMessageTextDetail toShow = new ErrorMessageTextDetail("application.error", "Application Error", e);
 				toShow.setMessage(e.getMessage());
 				toShow.setDetail(ExceptionHelper.toString(e));
-				Roma.flow().forward(toShow, "screen:popup:error", null, Roma.session().getActiveSessionInfo());
+				Roma.flow().forward(toShow, "popup", null, Roma.session().getActiveSessionInfo());
 				// throw new ServletException(e);
 			}
 
