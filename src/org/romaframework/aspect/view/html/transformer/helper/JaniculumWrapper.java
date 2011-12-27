@@ -224,7 +224,7 @@ public class JaniculumWrapper {
 
 	@Deprecated
 	public static String i18N(HtmlViewRenderable component, String string) {
-		String text = Roma.i18n().getString(string);
+		String text = Roma.i18n().get(string);
 		if (text == null) {
 			text = "";
 			if (string.endsWith(".label")) {
