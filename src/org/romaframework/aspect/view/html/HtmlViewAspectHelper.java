@@ -26,7 +26,6 @@ import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 
-import org.romaframework.aspect.i18n.I18NHelper;
 import org.romaframework.aspect.session.SessionAspect;
 import org.romaframework.aspect.view.SelectionMode;
 import org.romaframework.aspect.view.ViewAspect;
@@ -144,28 +143,6 @@ public class HtmlViewAspectHelper {
 			fieldRender = iFeatures.getFeature(ViewActionFeatures.DESCRIPTION);
 		}
 		return fieldRender;
-	}
-
-	/**
-	 * Get the i18ned label of an element
-	 * 
-	 * @param schemaField
-	 *          the schema feature
-	 * @return The i18ned label of the element
-	 */
-	public static String getI18NLabel(final SchemaClassElement schemaField) {
-		return I18NHelper.getLabel(schemaField, getLabel(schemaField));
-	}
-
-	/**
-	 * Get the i18ned label of an element
-	 * 
-	 * @param schemaField
-	 *          the schema feature
-	 * @return The i18ned label of the element
-	 */
-	public static String getI18NHint(final SchemaClassElement schemaField) {
-		return I18NHelper.getHint(schemaField, getHint(schemaField));
 	}
 
 	/**
