@@ -1,93 +1,104 @@
 @CHARSET "ISO-8859-1";
 
 body {
-    color: #000000;
-    font: 90%/180% 'MuseoSans500',Arial,Helvetica,sans-serif;
-    margin: 0;
-    padding: 0;
-    text-align: left;
+	color: #000000;
+	font: 90%/180% 'MuseoSans500', Arial, Helvetica, sans-serif;
+	margin: 0;
+	padding: 0;
+	text-align: left;
 	background: url("../image/background.png") repeat scroll 0 0 #FFFFFF;
 }
 
 img {
-    display: block;
+	display: block;
 }
 
 ul {
-	list-style-type: none;	
+	list-style-type: none;
 }
 
-.class_Object .action_advancedSearch button > img{
-    background-image: url(../image/more.png);
+.class_Object button.action_advancedSearch>img {
+	background-image: url(../image/more.png);
+	display: inline;
 }
 
-.class_Object .action_simpleSearch button > img {
-    background-image: url(../image/less.png);
+.class_Object button.action_simpleSearch>img {
+	background-image: url(../image/less.png);
+	display: inline;
 }
 
-.class_Object .action_search button > img{
-    background-image: url(../image/search.png);
+.class_Object button.action_search>img {
+	background-image: url(../image/search.png);
+	display: inline;
 }
 
-.class_Object .action_create button > img{
-    background-image: url(../image/add.png);
+.class_Object button.action_create>img {
+	background-image: url(../image/add.png);
+	display: inline;
 }
 
-.class_Object .action_showAll button > img {
-    background-image: url(../image/view.png);
+.class_Object button.action_showAll>img {
+	background-image: url(../image/view.png);
+	display: inline;
 }
 
-.class_Object .action_read button > img {
-    background-image: url(../image/view.png);
+.class_Object .action_read button>img {
+	background-image: url(../image/view.png);
+	display: inline;
 }
 
-.class_Object .action_update button > img {
-    background-image: url(../image/edit.png);
+.class_Object button.action_update>img {
+	background-image: url(../image/edit.png);
+	display: inline;
 }
 
-.class_Object .action_delete button > img {
-    background-image: url(../image/remove.png);
+.class_Object button.action_delete>img {
+	background-image: url(../image/remove.png);
+	display: inline;
 }
 
-.class_Object .action_report button > img {
-    background-image: url(../image/print.gif);
+.class_Object button.action_report>img {
+	background-image: url(../image/print.gif);
+	display: inline;
 }
 
-.class_Object .action_exportToCsv button > img {
-    background-image: url(../image/CSVCrud.png);
+.class_Object button.action_exportToCsv>img {
+	background-image: url(../image/CSVCrud.png);
+	display: inline;
 }
 
-.class_Object .action_selectAll button > img {
-    background-image: url(../image/selectall.png);
+.class_Object button.action_selectAll>img {
+	background-image: url(../image/selectall.png);
+	display: inline;
 }
 
-.class_Object .action_deselectAll button > img {
-    background-image: url(../image/deselectall.png);
+.class_Object button.action_deselectAll>img {
+	background-image: url(../image/deselectall.png);
+	display: inline;
 }
 
-.class_Object .action_save button > img {
-    background-image: url(../image/save.png);
+.class_Object button.action_save>img {
+	background-image: url(../image/save.png);
+	display: inline;
 }
 
-.class_Object .action_cancel button > img {
-    background-image: url(../image/cancel.png);
+.class_Object button.action_cancel>img {
+	background-image: url(../image/cancel.png);
+	display: inline;
 }
-
 
 /* ViewField.disabled */
-
 select:disabled {
-    background-color: #f6f6f6;
-    border: 1px solid #eee;
+	background-color: #f6f6f6;
+	border: 1px solid #eee;
 }
 
-input:disabled, textarea:disabled {
-    background-color: #f6f6f6;
-    border: 1px solid #eee;
+input:disabled,textarea:disabled {
+	background-color: #f6f6f6;
+	border: 1px solid #eee;
 }
 
 /* Validate.invalid */
-
 .text_content_invalid {
-    color: red;
+	color: red;
 }

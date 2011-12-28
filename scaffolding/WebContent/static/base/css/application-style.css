@@ -1,33 +1,21 @@
 /* Application Style */
-.class_Header .action_home button {
-	padding-left: 0px;
-	border: none;
-	background-color: #ffffff;
+.class_Header button.action_home > img {
 	background-image: url('../image/home.png');
-	background-repeat: no-repeat;
-	background-position: 0px 0px;
+	display: inline;
 	width: 48px;
 	height: 48px;
 }
 
-.class_Header .action_changePassword button {
-	padding-left: 0px;
-	border: none;
-	background-color: #ffffff;
+.class_Header button.action_changePassword > img {
 	background-image: url('../image/changepassword.png');
-	background-repeat: no-repeat;
-	background-position: 0px 0px;
+	display: inline;
 	width: 48px;
 	height: 48px;
 }
 
-.class_Header .action_controlPanel button {
-	padding-left: 0px;
-	border: none;
-	background-color: #ffffff;
+.class_Header button.action_controlPanel > img {
 	background-image: url('../image/controlPanel.png');
-	background-repeat: no-repeat;
-	background-position: 0px 0px;
+	display: inline;
 	width: 48px;
 	height: 48px;
 }

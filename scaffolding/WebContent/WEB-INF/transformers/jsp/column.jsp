@@ -5,6 +5,7 @@
 <%@page import="java.util.Set"%>
 <%@page import="org.romaframework.aspect.view.html.transformer.jsp.JspTransformer"%>
 <%@page import="org.romaframework.aspect.view.html.transformer.helper.JaniculumWrapper"%>
+<%@page import="org.romaframework.aspect.view.html.component.HtmlViewContentComponent"%>
 <%@page import="org.romaframework.aspect.view.html.constants.RequestConstants"%>
 <%@page import="java.util.Map"%>
 <%
@@ -64,7 +65,10 @@
   	}
 	  %>
 	    <tr><td id="<%=JaniculumWrapper.id(component, null)%>_<%=row%>" class="row_<%=row%> <%=JaniculumWrapper.cssClass(child,null, null)%> ">
-	    <% JspTransformerHelper.delegate(child, null,pageContext.getOut());%>
+	    <%if(child instanceof HtmlViewContentComponent){
+	    	%><label class="<%=JaniculumWrapper.cssClass(child, "label", "label")%>" for="<%=JaniculumWrapper.id(child, "content")%>"><%=JaniculumWrapper.i18NLabel(child)%></label><%
+	    } 
+	    JspTransformerHelper.delegate(child, null,pageContext.getOut());%>
 		</td></tr>
 	  <%
 	row++;

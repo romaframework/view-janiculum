@@ -3,76 +3,82 @@
 /* 3 - CRUD & COMPOSED */
 /* COMPOSED ENTITY */
 
-
 /* CRUD MAIN */
-
 div.class_CRUDMain table.area_0 {
-    width: 100%;
+	width: 100%;
 }
 
 .class_CRUDMain table.area_centerPanel {
-    width: 100%;
+	width: 100%;
 }
 
 .class_CRUDMain table.area_centerPanelLeft {
-    width: 100%;
+	width: 100%;
 }
 
 .class_CRUDMain input.field_totalItems {
 	width: 50px;
-	margin-left: 3px;	
+	margin-left: 3px;
 }
 
-
-.class_CRUDPaging .action_first button > img{
-    background-image: url(../image/first.png);
+.class_CRUDPaging button.action_first > img {
+	background-image: url(../image/first.png);
+	display: inline;
 }
 
-.class_CRUDPaging .action_prev button > img{
-    background-image: url(../image/prev.png);
+.class_CRUDPaging button.action_prev > img {
+	background-image: url(../image/prev.png);
+	display: inline;
 }
 
-.class_CRUDPaging .action_next button > img{
-    background-image: url(../image/next.png);
+.class_CRUDPaging button.action_next >img {
+	background-image: url(../image/next.png);
+	display: inline;
 }
 
-.class_CRUDPaging .action_last button > img{
-    background-image: url(../image/last.png);
+.class_CRUDPaging button.action_last >img {
+	background-image: url(../image/last.png);
+	display: inline;
 }
 
-.class_CRUDPaging .action_queryAll button > img{
-    background-image: url(../image/queryall.png);
+.class_CRUDPaging button.action_queryAll >img {
+	background-image: url(../image/queryall.png);
+	display: inline;
 }
 
-.class_CRUDMain .action_select button > img{
-    padding-left: 20px;
-    background-image: url(../image/yes.gif);
-    background-repeat: no-repeat;
-    text-align: left;
-    padding-top: 4px;
-    padding-bottom: 4px;
-    background-color: white;
-    margin-top: 2px;
+.class_CRUDMain button.action_select >img {
+	padding-left: 20px;
+	background-image: url(../image/yes.gif);
+	background-repeat: no-repeat;
+	text-align: left;
+	padding-top: 4px;
+	padding-bottom: 4px;
+	background-color: white;
+	margin-top: 2px;
 }
 
 /* SEARCH ENGINE */
-
-.class_QueryCondition .action_addRight button > img{
-	 background-image: url(../image/next.gif);
+.class_QueryCondition button.action_addRight >img {
+	background-image: url(../image/next.gif);
+	display: inline;
 }
 
-.class_QueryCondition .action_addLeft button > img{
-	 background-image: url(../image/prev.gif);
+.class_QueryCondition button.action_addLeft >img {
+	background-image: url(../image/prev.gif);
+	display: inline;
 }
 
-.class_QueryCondition .action_remove button > img{
-	 background-image: url(../image/remove.gif);
+.class_QueryCondition button.action_remove >img {
+	background-image: url(../image/remove.gif);
+	display: inline;
 }
 
-.class_QueryCondition .action_edit button > img{
-	 background-image: url(../image/edit.gif);
+.class_QueryCondition button.action_edit >img {
+	background-image: url(../image/edit.gif);
+	display: inline;
 }
 
-.queryOperationAddOperator button > img{
+.queryOperationAddOperator button>img {
 	background-image: url(../image/add.gif);
+	display: inline;
 }

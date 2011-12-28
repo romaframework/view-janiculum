@@ -1,7 +1,7 @@
 <%@page import="org.romaframework.aspect.view.html.constants.TransformerConstants"%><%@page import="org.romaframework.aspect.view.html.area.HtmlViewRenderable"%><%@page import="org.romaframework.aspect.view.html.transformer.jsp.directive.JspTransformerHelper"%><%@ page language="java" contentType="text/html; charset=UTF-8"	pageEncoding="UTF-8"%>
 <%@page import="org.romaframework.aspect.view.html.area.HtmlViewRenderable"%>
 <%@page import="org.romaframework.aspect.view.html.constants.RequestConstants"%>
-<%@page import="java.util.Set"%><%@page import="org.romaframework.aspect.view.html.transformer.jsp.JspTransformer"%><%@page import="org.romaframework.aspect.view.html.transformer.helper.JaniculumWrapper"%><%@page import="org.romaframework.aspect.view.html.constants.RequestConstants"%><%@page import="java.util.Map"%><%
+<%@page import="java.util.Set"%><%@page import="org.romaframework.aspect.view.html.transformer.jsp.JspTransformer"%><%@page import="org.romaframework.aspect.view.html.transformer.helper.JaniculumWrapper"%><%@page import="org.romaframework.aspect.view.html.constants.RequestConstants"%><%@page import="java.util.Map"%><%@page import="org.romaframework.aspect.view.html.component.HtmlViewGenericComponent"%><%
 	
 	HtmlViewRenderable component = (HtmlViewRenderable)request.getAttribute(RequestConstants.CURRENT_COMPONENT_IN_TRANSFORMER);
 	
@@ -63,7 +63,10 @@ for(Object c:JaniculumWrapper.getChildren(component)){
 		JspTransformerHelper.addCss(JaniculumWrapper.id(component, null)+"_"+row+"_"+col+" > div.POJO > table.area_main", "width", "100%");
 	}
 %>
-<td id="<%=JaniculumWrapper.id(component, null)%>_<%=row%>_<%=col%>" class="row_<%=row%> col_<%=col%> <%=JaniculumWrapper.cssClass(child, null, null)%>"><% JspTransformerHelper.delegate(child, null,pageContext.getOut());%></td>
+<td id="<%=JaniculumWrapper.id(component, null)%>_<%=row%>_<%=col%>" class="row_<%=row%> col_<%=col%> <%=JaniculumWrapper.cssClass(child, null, null)%>"><% 
+if(child instanceof HtmlViewGenericComponent){
+%><label class="<%=JaniculumWrapper.cssClass(child, "label", "label")%>" for="<%=JaniculumWrapper.id(child, "content")%>"><%=JaniculumWrapper.i18NLabel(child)%></label><%
+ } JspTransformerHelper.delegate(child, null,pageContext.getOut());%></td>
 <%
 	if(col%JaniculumWrapper.areaSize(component)==JaniculumWrapper.areaSize(component)-1){
 %>

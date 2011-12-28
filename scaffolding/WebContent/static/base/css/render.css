@@ -37,7 +37,7 @@
 img.render_button_icon {
 	vertical-align: middle;
 	background-repeat: no-repeat;
-	display: inline;
+	display: none;
 }
 
 .render_table table {
