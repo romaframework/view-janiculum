@@ -49,13 +49,13 @@ public class HtmlViewCollectionComposedComponent extends HtmlViewAbstractCompose
 		}
 
 		String selectionField = (String) getSchemaField().getFeature(ViewFieldFeatures.SELECTION_FIELD);
-		if (selectionField != null && getContainerComponent().getContent() != null) {
+		if (selectionField != null && !"".equals(selectionField) && getContainerComponent().getContent() != null) {
 			SchemaClassDefinition classDefinition = Roma.schema().getSchemaClass(getContainerComponent().getContent().getClass());
 			SchemaField selectionFieldSchema = classDefinition.getField(selectionField);
 			// SELECTION FIELD IS SETTED ONLY FOR MAP AND SINGLE SELECTION.
 			if (!SchemaHelper.isMultiValueObject(selectionFieldSchema)) {
 				Object selectionFieldValue = SchemaHelper.getFieldValue(getContainerComponent().getContent(), selectionField);
-				SelectionMode selectionMode =  getSchemaField().getFeature(ViewFieldFeatures.SELECTION_MODE);
+				SelectionMode selectionMode = getSchemaField().getFeature(ViewFieldFeatures.SELECTION_MODE);
 				if (selectionMode == SelectionMode.SELECTION_MODE_INDEX) {
 					if (selectionFieldValue instanceof Integer)
 						setSelectedMapIndex((Integer) selectionFieldValue);
@@ -162,8 +162,7 @@ public class HtmlViewCollectionComposedComponent extends HtmlViewAbstractCompose
 			List<Object> asList = Arrays.asList(SchemaHelper.getObjectArrayForMultiValueObject(content));
 			return asList;
 		} else {
-			log.error("[HtmlViewAspect]: " + "Render " + getSchemaField().getFeature(ViewFieldFeatures.RENDER)
-					+ "  supported only for Collection and Object[] elements");
+			log.error("[HtmlViewAspect]: " + "Render " + getSchemaField().getFeature(ViewFieldFeatures.RENDER) + "  supported only for Collection and Object[] elements");
 			return new LinkedList<Object>();
 		}
 	}

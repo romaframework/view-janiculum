@@ -11,13 +11,14 @@ import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.romaframework.aspect.i18n.I18NHelper;
+import org.romaframework.aspect.i18n.I18NType;
 import org.romaframework.aspect.view.FormatHelper;
 import org.romaframework.aspect.view.area.AreaComponent;
+import org.romaframework.aspect.view.feature.ViewActionFeatures;
 import org.romaframework.aspect.view.feature.ViewBaseFeatures;
+import org.romaframework.aspect.view.feature.ViewClassFeatures;
 import org.romaframework.aspect.view.feature.ViewElementFeatures;
 import org.romaframework.aspect.view.feature.ViewFieldFeatures;
-import org.romaframework.aspect.view.html.HtmlViewAspectHelper;
 import org.romaframework.aspect.view.html.actionhandler.EventHelper;
 import org.romaframework.aspect.view.html.area.HtmlViewFormArea;
 import org.romaframework.aspect.view.html.area.HtmlViewFormAreaInstance;
@@ -39,6 +40,7 @@ import org.romaframework.aspect.view.html.transformer.freemarker.Griddable;
 import org.romaframework.core.Roma;
 import org.romaframework.core.schema.SchemaAction;
 import org.romaframework.core.schema.SchemaClassElement;
+import org.romaframework.core.schema.SchemaElement;
 import org.romaframework.core.schema.SchemaEvent;
 import org.romaframework.core.schema.SchemaField;
 import org.romaframework.core.schema.SchemaObject;
@@ -210,16 +212,30 @@ public class JaniculumWrapper {
 	}
 
 	public static String i18NLabel(HtmlViewRenderable component) {
-		return HtmlViewAspectHelper.getI18NLabel(((HtmlViewGenericComponent) component).getSchemaElement());
+		if (((HtmlViewGenericComponent) component).getSchemaElement() != null) {
+			SchemaElement element = ((HtmlViewGenericComponent) component).getSchemaElement();
+			if (element instanceof SchemaField)
+				return Roma.i18n().get(element, I18NType.LABEL, ViewFieldFeatures.LABEL);
+			else if (element instanceof SchemaAction)
+				return Roma.i18n().get(element, I18NType.LABEL, ViewActionFeatures.LABEL);
+		}
+		return "";
 	}
 
 	public static String i18NObjectLabel(HtmlViewRenderable component) {
 		SchemaObject object = ((HtmlViewGenericComponent) component).getSchemaObject();
-		return I18NHelper.getLabel(object, HtmlViewAspectHelper.getLabel(object));
+		return Roma.i18n().get(object, I18NType.LABEL, ViewClassFeatures.LABEL);
 	}
 
 	public static String i18NHint(HtmlViewRenderable component) {
-		return HtmlViewAspectHelper.getI18NHint(((HtmlViewGenericComponent) component).getSchemaElement());
+		if (((HtmlViewGenericComponent) component).getSchemaElement() != null) {
+			SchemaElement element = ((HtmlViewGenericComponent) component).getSchemaElement();
+			if (element instanceof SchemaField)
+				return Roma.i18n().get(element, I18NType.HINT, ViewFieldFeatures.DESCRIPTION);
+			else if (element instanceof SchemaAction)
+				return Roma.i18n().get(element, I18NType.HINT, ViewActionFeatures.DESCRIPTION);
+		}
+		return "";
 	}
 
 	@Deprecated
@@ -315,8 +331,8 @@ public class JaniculumWrapper {
 	public static String action(HtmlViewRenderable component, String action) {
 		HtmlViewGenericComponent actionComponent = (HtmlViewGenericComponent) component;
 
-		return TransformerHelper.POJO_ACTION_PREFIX + TransformerHelper.SEPARATOR + actionComponent.getId() + TransformerHelper.SEPARATOR + action
-				+ TransformerHelper.SEPARATOR + actionComponent.getScreenArea();
+		return TransformerHelper.POJO_ACTION_PREFIX + TransformerHelper.SEPARATOR + actionComponent.getId() + TransformerHelper.SEPARATOR + action + TransformerHelper.SEPARATOR
+				+ actionComponent.getScreenArea();
 	}
 
 	public static String fieldName(HtmlViewRenderable component) {
