@@ -20,12 +20,14 @@ import java.io.Writer;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import org.romaframework.aspect.i18n.I18NType;
 import org.romaframework.aspect.view.form.ViewComponent;
-import org.romaframework.aspect.view.html.HtmlViewAspectHelper;
 import org.romaframework.aspect.view.html.area.HtmlViewRenderable;
 import org.romaframework.aspect.view.html.area.HtmlViewScreenArea;
 import org.romaframework.aspect.view.html.transformer.AbstractHtmlViewTransformer;
 import org.romaframework.aspect.view.html.transformer.Transformer;
+import org.romaframework.aspect.view.html.transformer.helper.JaniculumWrapper;
+import org.romaframework.core.Roma;
 import org.romaframework.core.schema.SchemaObject;
 
 /**
@@ -65,7 +67,7 @@ public class HtmlViewComponentLabel extends HtmlViewAbstractContentComponent {
 			return;
 		}
 
-		String label = HtmlViewAspectHelper.getI18NLabel(getSchemaElement());
+		String label = JaniculumWrapper.i18NLabel(this);
 		label = AbstractHtmlViewTransformer.getComponentLabel((HtmlViewContentComponent) contentComponent, label);
 
 		writer.write(label);

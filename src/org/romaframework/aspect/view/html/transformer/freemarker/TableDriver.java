@@ -8,10 +8,10 @@ import java.util.List;
 import java.util.ListIterator;
 import java.util.Set;
 
+import org.romaframework.aspect.i18n.I18NType;
 import org.romaframework.aspect.view.ViewConstants;
 import org.romaframework.aspect.view.feature.ViewActionFeatures;
 import org.romaframework.aspect.view.feature.ViewFieldFeatures;
-import org.romaframework.aspect.view.html.HtmlViewAspectHelper;
 import org.romaframework.core.Roma;
 import org.romaframework.core.schema.SchemaAction;
 import org.romaframework.core.schema.SchemaClass;
@@ -172,10 +172,15 @@ public class TableDriver {
 	public List<String> getLabels() {
 		List<String> labels = new ArrayList<String>();
 		for (SchemaClassElement element : expandedElements) {
-			labels.add(HtmlViewAspectHelper.getI18NLabel(element));
+			if (element instanceof SchemaField) {
+				labels.add(Roma.i18n().get(element, I18NType.LABEL, ViewFieldFeatures.LABEL));
+			} else if (element instanceof SchemaAction) {
+				labels.add(Roma.i18n().get(element, I18NType.LABEL, ViewActionFeatures.LABEL));
+			}
 		}
 		return labels;
 	}
+
 	public List<String> getRawName() {
 		List<String> labels = new ArrayList<String>();
 		for (SchemaClassElement element : expandedElements) {
@@ -183,6 +188,7 @@ public class TableDriver {
 		}
 		return labels;
 	}
+
 	public List<String> getFieldNames() {
 		List<String> fieldNames = new ArrayList<String>();
 		for (SchemaField field : fields) {

@@ -8,12 +8,14 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import org.romaframework.aspect.i18n.I18NType;
 import org.romaframework.aspect.view.form.ViewComponent;
-import org.romaframework.aspect.view.html.HtmlViewAspectHelper;
 import org.romaframework.aspect.view.html.area.HtmlViewRenderable;
 import org.romaframework.aspect.view.html.area.HtmlViewScreenArea;
 import org.romaframework.aspect.view.html.transformer.AbstractHtmlViewTransformer;
 import org.romaframework.aspect.view.html.transformer.Transformer;
+import org.romaframework.aspect.view.html.transformer.helper.JaniculumWrapper;
+import org.romaframework.core.Roma;
 import org.romaframework.core.schema.SchemaHelper;
 import org.romaframework.core.schema.SchemaObject;
 
@@ -23,8 +25,7 @@ public class HtmlViewSimpleComponent extends HtmlViewAbstractContentComponent im
 	private final ViewComponent																contentComponent;
 
 	public HtmlViewSimpleComponent(final ViewComponent iContentComponent, final HtmlViewScreenArea area) {
-		super((HtmlViewContentComponent) iContentComponent.getContainerComponent(), iContentComponent.getSchemaField(),
-				iContentComponent.getContent(), area);
+		super((HtmlViewContentComponent) iContentComponent.getContainerComponent(), iContentComponent.getSchemaField(), iContentComponent.getContent(), area);
 		contentComponent = iContentComponent;
 	}
 
@@ -49,7 +50,8 @@ public class HtmlViewSimpleComponent extends HtmlViewAbstractContentComponent im
 			return;
 		}
 
-		String label = HtmlViewAspectHelper.getI18NLabel(getSchemaElement());
+
+		String label = JaniculumWrapper.i18NLabel(this);
 		label = AbstractHtmlViewTransformer.getComponentLabel((HtmlViewContentComponent) contentComponent, label);
 
 		writer.write(label);
