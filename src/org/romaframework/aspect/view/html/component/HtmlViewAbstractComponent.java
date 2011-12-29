@@ -38,7 +38,8 @@ public abstract class HtmlViewAbstractComponent implements HtmlViewGenericCompon
 	protected boolean										dirty			= true;
 	protected Long											id;
 
-	public HtmlViewAbstractComponent(final HtmlViewContentComponent containerComponent, final HtmlViewScreenArea screenArea, final SchemaClassElement schemaElement) {
+	public HtmlViewAbstractComponent(final HtmlViewContentComponent containerComponent, final HtmlViewScreenArea screenArea,
+			final SchemaClassElement schemaElement) {
 		super();
 		this.containerComponent = containerComponent;
 		this.screenArea = screenArea;
@@ -107,12 +108,13 @@ public abstract class HtmlViewAbstractComponent implements HtmlViewGenericCompon
 	 * @see org.romaframework.aspect.view.html.area.HtmlViewRenderable#getTransformer()
 	 */
 	public Transformer getTransformer() {
-		String render;
+		String render = null;
 		if (getSchemaField() != null) {
 			render = getSchemaField().getFeature(ViewFieldFeatures.RENDER);
 		} else if (getSchemaElement() != null) {
 			render = getSchemaElement().getFeature(ViewActionFeatures.RENDER);
-		} else {
+		}
+		if (render == null && getSchemaObject() != null) {
 			render = getSchemaObject().getFeature(ViewClassFeatures.RENDER);
 		}
 		if (render == null) {
