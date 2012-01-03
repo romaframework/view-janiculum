@@ -6,6 +6,7 @@ import org.romaframework.aspect.view.feature.ViewClassFeatures;
 import org.romaframework.aspect.view.form.ViewComponent;
 import org.romaframework.aspect.view.html.area.HtmlViewRenderable;
 import org.romaframework.aspect.view.html.area.mode.HtmlViewAreaMode;
+import org.romaframework.aspect.view.html.component.HtmlViewAbstractContentComponent;
 import org.romaframework.aspect.view.html.component.HtmlViewActionComponent;
 import org.romaframework.aspect.view.html.component.HtmlViewContentComponent;
 import org.romaframework.aspect.view.html.component.HtmlViewContentForm;
@@ -36,6 +37,7 @@ public class TransformerHelper {
 
 	public static final String	POJO_ACTION_PREFIX	= "(PojoAction)";
 	public static final String	POJO_EVENT_PREFIX		= "(PojoEvent)";
+	private static final String	CSS_INVALID_CLASS	= "invalid";
 
 	/**
 	 * Return the id to use in the HTML chunk
@@ -76,6 +78,11 @@ public class TransformerHelper {
 		}
 		if (iGenericComponent != null) {
 			result = result + " " + getMultiClass(iGenericComponent);
+		}
+		if(iGenericComponent instanceof HtmlViewAbstractContentComponent) {
+			if(!((HtmlViewAbstractContentComponent) iGenericComponent).isValid()) {
+				result = result + " " + CSS_INVALID_CLASS;
+			}
 		}
 
 		return result.trim();
