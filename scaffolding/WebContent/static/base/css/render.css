@@ -16,7 +16,7 @@
     text-shadow: 0 1px 1px rgba(255, 255, 255, 0.75);
 }
 
-.render_text input .invalid,.render_date input,.render_password input .invalid,.render_number input .invalid,.render_decimal input .invalid,.render_select select .invalid,.render_textarea textarea .invalid,.render_objectlink input .invalid {
+.render_text input .invalid,.render_date input .invalid,.render_password input .invalid,.render_number input .invalid,.render_decimal input .invalid,.render_select select .invalid,.render_textarea textarea .invalid,.render_objectlink input .invalid {
 	border: 1px solid #B30222;
 }
 
