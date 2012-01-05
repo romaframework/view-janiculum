@@ -19,14 +19,13 @@ import org.romaframework.core.config.RomaApplicationContext;
 
 public class ImageManager {
 
-	private final static Log									LOG						= LogFactory.getLog(ImageManager.class);
+	private final static Log									LOG							= LogFactory.getLog(ImageManager.class);
 
-	public static final String								IMAGE_PACKAGE	= ".image";
+	public static final String								IMAGE_PACKAGE		= ".image";
 
-	private static final Map<String, byte[]>	images				= new WeakHashMap<String, byte[]>();
-	private List<String>											imagePaths		= new ArrayList<String>();
-	public List<String>												additionalPaths;
-	// private List<String> additionalPaths = new ArrayList<String>();
+	private static final Map<String, byte[]>	images					= new WeakHashMap<String, byte[]>();
+	private List<String>											imagePaths			= new ArrayList<String>();
+	public List<String>												additionalPaths	= new ArrayList<String>();								;
 
 	private ApplicationConfiguration					config;
 
@@ -44,7 +43,7 @@ public class ImageManager {
 				+ Utility.PACKAGE_SEPARATOR + ViewAspect.ASPECT_NAME;
 		imagePaths.clear();
 		addImagePath(Utility.CLASSPATH_PREFIX + viewAspectPath + IMAGE_PACKAGE, imagePaths);
-		addImagePath("static"+File.separator + "base" + File.separator + "image", imagePaths);
+		addImagePath("static" + File.separator + "base" + File.separator + "image", imagePaths);
 
 	}
 
@@ -59,7 +58,7 @@ public class ImageManager {
 		String path = iPath;
 		if (path.startsWith("classpath:")) {
 			path = path.substring("classpath:".length());
-			path = "WEB-INF"+File.separator +"classes" + File.separator + path;
+			path = "WEB-INF" + File.separator + "classes" + File.separator + path;
 		}
 		if (path.charAt(0) != File.separatorChar) {
 			path = File.separator + path;

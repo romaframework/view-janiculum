@@ -55,11 +55,13 @@ $(document).ready(function() {
 	alert(res);
 	}
 });
-requestContextPath = "<%=request.getContextPath() %>/";
-globalCharType = "charset=UTF-8";
 
 </script>
 <%} %>
+<script type="text/javascript">
+requestContextPath = "<%=request.getContextPath() %>/";
+globalCharType = "charset=UTF-8";
+</script>
 </head>
 <body>
 <div id="janiculumWaitDiv" class="janiculumWaitImage" style="background-repeat: no-repeat; background-position: center center; background-image: url(<%=request.getContextPath()%>/static/base/image/wait.gif); position:absolute; width: 100%; height: 100%; left:-10000px; top: -10000px; z-index: -1000">

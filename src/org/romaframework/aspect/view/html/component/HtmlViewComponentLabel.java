@@ -20,14 +20,12 @@ import java.io.Writer;
 import java.util.ArrayList;
 import java.util.Collection;
 
-import org.romaframework.aspect.i18n.I18NType;
 import org.romaframework.aspect.view.form.ViewComponent;
 import org.romaframework.aspect.view.html.area.HtmlViewRenderable;
 import org.romaframework.aspect.view.html.area.HtmlViewScreenArea;
 import org.romaframework.aspect.view.html.transformer.AbstractHtmlViewTransformer;
 import org.romaframework.aspect.view.html.transformer.Transformer;
 import org.romaframework.aspect.view.html.transformer.helper.JaniculumWrapper;
-import org.romaframework.core.Roma;
 import org.romaframework.core.schema.SchemaObject;
 
 /**

@@ -8,14 +8,12 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import org.romaframework.aspect.i18n.I18NType;
 import org.romaframework.aspect.view.form.ViewComponent;
 import org.romaframework.aspect.view.html.area.HtmlViewRenderable;
 import org.romaframework.aspect.view.html.area.HtmlViewScreenArea;
 import org.romaframework.aspect.view.html.transformer.AbstractHtmlViewTransformer;
 import org.romaframework.aspect.view.html.transformer.Transformer;
 import org.romaframework.aspect.view.html.transformer.helper.JaniculumWrapper;
-import org.romaframework.core.Roma;
 import org.romaframework.core.schema.SchemaHelper;
 import org.romaframework.core.schema.SchemaObject;
 
