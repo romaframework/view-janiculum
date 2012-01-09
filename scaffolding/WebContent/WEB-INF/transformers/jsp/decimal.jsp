@@ -21,27 +21,16 @@
 		<%
 		boolean existsChangeEvent=false;
 		for(String event:JaniculumWrapper.availableEvents(component)){
-			if(!"change".equals(event)){
+			if("change".equals(event)){
+				existsChangeEvent=true;
+			}
 		%>
 		on<%=event%>="romaFieldChanged('<%=JaniculumWrapper.fieldName(component)%>'); romaEvent('<%=JaniculumWrapper.fieldName(component)%>', '<%=event%>')"
-		<%}else{ %>
-			existsChangeEvent=true;
-		
 		<%
-		}
 	}
-		if(existsChangeEvent){
-	%>
-		
-		onchange="romaFieldChanged('<%=JaniculumWrapper.fieldName(component)%>'); romaEvent('<%=JaniculumWrapper.fieldName(component)%>', 'change')"
-		<%}else{ %>class
-		onchange="romaFieldChanged('<%=JaniculumWrapper.fieldName(component)%>')"
-		<%} %>
-		/>
-		<%if(!JaniculumWrapper.isValid(component)){%>
-			<span class="<%=JaniculumWrapper.cssClass(component, "decimal", "validation_message")%>"></span>	
-		<%} %>
-	</div>
+	if(existsChangeEvent) {
+	%> onchange="romaFieldChanged('<%=JaniculumWrapper.fieldName(component)%>')"<%
+	} %> /></div>
 <%}else if("raw".equals(part)){%><%=JaniculumWrapper.content(component, true)==null?"":JaniculumWrapper.content(component, true)%><%}
 else if("label".equals(part)){ %>
 	<label id="<%=JaniculumWrapper.id(component, "label")%>" class="<%=JaniculumWrapper.cssClass(component, "decimal", "label")%>" for="<%=JaniculumWrapper.id(component, "content")%>"><%=JaniculumWrapper.i18NLabel(component)%></label>
