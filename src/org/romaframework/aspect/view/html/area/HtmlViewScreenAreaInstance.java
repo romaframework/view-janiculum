@@ -23,6 +23,7 @@ import java.util.List;
 
 import org.romaframework.aspect.view.ViewAspect;
 import org.romaframework.aspect.view.ViewHelper;
+import org.romaframework.aspect.view.area.AreaComponent;
 import org.romaframework.aspect.view.html.HtmlViewAspect;
 import org.romaframework.aspect.view.html.area.mode.HtmlViewAreaMode;
 import org.romaframework.aspect.view.html.area.mode.HtmlViewAreaModeImpl;
@@ -34,6 +35,7 @@ import org.romaframework.aspect.view.html.screen.HtmlViewScreen;
 import org.romaframework.aspect.view.html.transformer.Transformer;
 import org.romaframework.aspect.view.html.transformer.helper.TransformerHelper;
 import org.romaframework.core.Roma;
+import org.romaframework.core.domain.type.TreeNode;
 import org.romaframework.core.schema.xmlannotations.XmlFormAreaAnnotation;
 
 /**
@@ -230,12 +232,19 @@ public class HtmlViewScreenAreaInstance extends HtmlViewAbstractAreaInstance imp
 	}
 
 	public void clear() {
-		if (childrenMap != null)
+		if (childrenMap != null) {
+			for (TreeNode tn : childrenMap.values()) {
+				if (tn instanceof AreaComponent) {
+					((AreaComponent) tn).clear();
+				}
+			}
 			childrenMap.clear();
+		}
 		if (areaMode != null)
 			areaMode.clear();
 		if (form != null) {
-			form.clearAreas();
+			disposeForm(form);
+			((HtmlViewAspect) Roma.aspect(ViewAspect.class)).releaseForm(this.form);
 			form = null;
 		}
 	}

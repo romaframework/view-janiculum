@@ -12,7 +12,10 @@ import org.romaframework.aspect.view.area.AreaComponent;
 import org.romaframework.aspect.view.form.ContentForm;
 import org.romaframework.aspect.view.form.ViewComponent;
 import org.romaframework.aspect.view.html.HtmlViewAspect;
+import org.romaframework.aspect.view.html.HtmlViewAspectHelper;
 import org.romaframework.aspect.view.html.area.HtmlViewFormArea;
+import org.romaframework.aspect.view.html.area.HtmlViewRenderable;
+import org.romaframework.aspect.view.html.component.HtmlViewContentComponent;
 import org.romaframework.aspect.view.html.component.HtmlViewContentForm;
 import org.romaframework.aspect.view.html.component.HtmlViewGenericComponent;
 import org.romaframework.core.Roma;
@@ -35,16 +38,23 @@ public class ChildrenMap {
 		}
 	}
 
-	private void replaceChild(HtmlViewGenericComponent oldComponent, HtmlViewGenericComponent newComponent, AreaComponent areaComponent) {
+	private void replaceChild(HtmlViewGenericComponent oldComponent, HtmlViewGenericComponent newComponent,
+			AreaComponent areaComponent) {
 		if (newComponent == null || newComponent.getContent() != oldComponent.getContent()) {
 			oldComponent.clearComponents();
 		}
 		if (oldComponent instanceof HtmlViewContentForm) {
 			if (newComponent == null || newComponent.getContent() != oldComponent.getContent()) {
 				((HtmlViewAspect) Roma.aspect(ViewAspect.class)).releaseForm((ContentForm) oldComponent);
+			} else {
+				((HtmlViewAspect) Roma.aspect(ViewAspect.class)).removeObjectFormAssociation(oldComponent, null);
 			}
 			((HtmlViewContentForm) oldComponent).clearAreas();
+		} else if (oldComponent instanceof HtmlViewContentComponent) {
+			((HtmlViewAspect) Roma.aspect(ViewAspect.class)).removeObjectFormAssociation(oldComponent, null);
 		}
+
+		HtmlViewAspectHelper.getHtmlViewSession().removeRenderableBinding(oldComponent);
 		if (areaComponent != null && areaComponent instanceof HtmlViewFormArea) {
 			((HtmlViewFormArea) areaComponent).replaceComponent(oldComponent, newComponent);
 		}
@@ -53,6 +63,9 @@ public class ChildrenMap {
 	public void remove(final String fieldName) {
 		final Pair<AreaComponent, HtmlViewGenericComponent> values = children.get(fieldName);
 		if (values != null) {
+			if (values.getValue() != null) {
+				HtmlViewAspectHelper.getHtmlViewSession().removeRenderableBinding(values.getValue());
+			}
 			children.put(fieldName, null);
 			if (values.getValue() instanceof HtmlViewContentForm) {
 				((HtmlViewAspect) Roma.aspect(ViewAspect.class)).releaseForm((ContentForm) values.getValue());

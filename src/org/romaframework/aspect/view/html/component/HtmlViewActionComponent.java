@@ -16,7 +16,6 @@ public class HtmlViewActionComponent extends HtmlViewAbstractComponent {
 		super(containerComponent, screenArea, schemaElement);
 	}
 
-
 	public SchemaAction getActionField() {
 		return (SchemaAction) getSchemaElement();
 	}
@@ -29,26 +28,19 @@ public class HtmlViewActionComponent extends HtmlViewAbstractComponent {
 	}
 
 	public SchemaObject getSchemaInstance() {
-
 		return null;
 	}
 
 	public void setMetaDataSchema(SchemaObject schemaObject) {
-
 	}
 
 	public Collection<HtmlViewGenericComponent> getChildren() {
-
 		return children;
 	}
 
 	public void clearComponents() {
-		// TODO Auto-generated method stub
-
 	}
 
 	public void clearChildren() {
-		if (children != null)
-			children.clear();
 	}
 }
