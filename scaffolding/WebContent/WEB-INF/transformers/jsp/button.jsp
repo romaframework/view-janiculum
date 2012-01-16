@@ -13,7 +13,7 @@
 	String part = (String) request.getAttribute(RequestConstants.CURRENT_COMPONENT_PART_IN_TRANSFORMER);
 	String img = Roma.view().getContextPath()+"/static/base/image/basebutton.png"; 
 	if(JaniculumWrapper.isField(component)){
-		%><button id="<%=JaniculumWrapper.id(component, "content")%>" type="button"  class="<%=JaniculumWrapper.cssClass(component,"button", null)%>" style="<%=JaniculumWrapper.inlineStyle(component, null)%>" name="<%=JaniculumWrapper.event(component, "change")%>"
+		%><button id="<%=JaniculumWrapper.id(component, null)%>" type="button"  class="<%=JaniculumWrapper.cssClass(component,"button", null)%>" style="<%=JaniculumWrapper.inlineStyle(component, null)%>" name="<%=JaniculumWrapper.event(component, "change")%>"
 		<%if(JaniculumWrapper.isDisabled(component)){%> disabled="disabled" <%} %>
 		<%
 		for(String event:JaniculumWrapper.getAvailableEvents(component)){%>
@@ -22,7 +22,7 @@
 		</button><%
 	} 
 	if(JaniculumWrapper.isAction(component)){
-	%><button  class="<%=JaniculumWrapper.cssClass(component,"button", null)%>" style="<%=JaniculumWrapper.inlineStyle(component, null)%>" id="<%=JaniculumWrapper.id(component,"content")%>" type="button" name="<%=JaniculumWrapper.actionName(component)%>"
+	%><button  class="<%=JaniculumWrapper.cssClass(component,"button", null)%>" style="<%=JaniculumWrapper.inlineStyle(component, null)%>" id="<%=JaniculumWrapper.id(component,null)%>" type="button" name="<%=JaniculumWrapper.actionName(component)%>"
 		<%if(JaniculumWrapper.isDisabled(component)){%> disabled="disabled" <%} %>
 		onclick="romaAction('<%=JaniculumWrapper.actionName(component)%>')"
 		> <img class="<%=JaniculumWrapper.cssClass(component, "button", "icon")%>" src="<%=img%>" alt="<%=JaniculumWrapper.i18NLabel(component)%>"/><%=JaniculumWrapper.i18NLabel(component)%>

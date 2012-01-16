@@ -57,7 +57,9 @@ public class ImageServlet extends RomaServlet {
 		if (pojo instanceof byte[]) {
 			return (byte[]) pojo;
 		}
-		final String imageName = pojo.toString();
+		String imageName = pojo.toString();
+		if (imageName.startsWith("$"))
+			imageName = imageName.substring(1);
 		final ImageManager manager = Roma.component(ImageManager.class);
 		return manager.getImage(imageName);
 	}

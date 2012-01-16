@@ -10,9 +10,7 @@ public class RomaInlineJsTag extends TagSupport {
 	public int doStartTag() {
 
 		try {
-			pageContext.getOut().flush();
 			pageContext.getOut().print("<script type=\"text/javascript\" >\n"+ROMA_JS+"</script>\n");
-			pageContext.getOut().flush();
 		} catch (final Exception e) {
 			e.printStackTrace();// TODO handle exception
 		}

@@ -132,7 +132,8 @@ public class JaniculumWrapper {
 			}
 		} else {
 
-			result = ((String) ((HtmlViewGenericComponent) component).getSchemaElement().getFeature(ViewBaseFeatures.LABEL)).replaceAll("\\$", "");
+			result = ((String) ((HtmlViewGenericComponent) component).getSchemaElement().getFeature(ViewBaseFeatures.LABEL)).replaceAll(
+					"\\$", "");
 
 		}
 		return result;
@@ -293,12 +294,13 @@ public class JaniculumWrapper {
 		SchemaClassElement el = ((HtmlViewGenericComponent) component).getSchemaElement();
 		return el;
 	}
-	
+
 	public static String actionName(HtmlViewRenderable component) {
 		HtmlViewGenericComponent actionComponent = (HtmlViewGenericComponent) component;
 
-		return TransformerHelper.POJO_ACTION_PREFIX + TransformerHelper.SEPARATOR + actionComponent.getId() + TransformerHelper.SEPARATOR
-				+ actionComponent.getSchemaElement().getName() + TransformerHelper.SEPARATOR + actionComponent.getScreenArea();
+		return TransformerHelper.POJO_ACTION_PREFIX + TransformerHelper.SEPARATOR + actionComponent.getId()
+				+ TransformerHelper.SEPARATOR + actionComponent.getSchemaElement().getName() + TransformerHelper.SEPARATOR
+				+ actionComponent.getScreenArea();
 	}
 
 	public static String event(HtmlViewRenderable component, String event) {
@@ -331,8 +333,8 @@ public class JaniculumWrapper {
 	public static String action(HtmlViewRenderable component, String action) {
 		HtmlViewGenericComponent actionComponent = (HtmlViewGenericComponent) component;
 
-		return TransformerHelper.POJO_ACTION_PREFIX + TransformerHelper.SEPARATOR + actionComponent.getId() + TransformerHelper.SEPARATOR + action + TransformerHelper.SEPARATOR
-				+ actionComponent.getScreenArea();
+		return TransformerHelper.POJO_ACTION_PREFIX + TransformerHelper.SEPARATOR + actionComponent.getId()
+				+ TransformerHelper.SEPARATOR + action + TransformerHelper.SEPARATOR + actionComponent.getScreenArea();
 	}
 
 	public static String fieldName(HtmlViewRenderable component) {
@@ -642,5 +644,4 @@ public class JaniculumWrapper {
 		}
 		return new Object();
 	}
-
 }

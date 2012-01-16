@@ -15,7 +15,6 @@ public class RomaCssTag extends TagSupport {
 			pageContext.getOut().print(HtmlServlet.PAGE_ID_PARAM);
 			pageContext.getOut().print("=");
 			pageContext.getOut().print(pageContext.getRequest().getAttribute(HtmlServlet.PAGE_ID_PARAM) + "\">");
-			pageContext.getOut().flush();
 		} catch (final Exception e) {
 			e.printStackTrace();// TODO handle exception
 		}

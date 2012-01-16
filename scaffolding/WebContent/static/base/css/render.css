@@ -126,7 +126,7 @@ a {
 }
 
 /* RENDER BUTTON */
-.button_content {
+.render_button_content {
 	border: 1px solid #CADBDF;
 	font-size: 13px;
 	font-family: Verdana;
@@ -137,11 +137,11 @@ a {
 	cursor: pointer;
 }
 
-.button_content:HOVER {
+.render_button_content:HOVER {
 	background-color: #E8E8E8;
 }
 
-.button {
+.render_button {
 	cursor: hand;
 }
 

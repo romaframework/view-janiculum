@@ -9,13 +9,13 @@ import org.apache.commons.logging.LogFactory;
 import org.romaframework.aspect.view.ViewAspect;
 import org.romaframework.aspect.view.area.AreaComponent;
 import org.romaframework.aspect.view.feature.ViewActionFeatures;
-import org.romaframework.aspect.view.feature.ViewClassFeatures;
 import org.romaframework.aspect.view.feature.ViewFieldFeatures;
 import org.romaframework.aspect.view.form.ViewComponent;
 import org.romaframework.aspect.view.html.HtmlViewAspectHelper;
 import org.romaframework.aspect.view.html.HtmlViewSession;
 import org.romaframework.aspect.view.html.area.HtmlViewRenderable;
 import org.romaframework.aspect.view.html.area.HtmlViewScreenArea;
+import org.romaframework.aspect.view.html.exception.TransformerRuntimeException;
 import org.romaframework.aspect.view.html.transformer.Transformer;
 import org.romaframework.aspect.view.html.transformer.helper.TransformerHelper;
 import org.romaframework.aspect.view.html.transformer.manager.TransformerManager;
@@ -98,8 +98,7 @@ public abstract class HtmlViewAbstractComponent implements HtmlViewGenericCompon
 	 * @see org.romaframework.aspect.view.html.area.HtmlViewRenderable#renderPart(java.lang.String)
 	 */
 	public void renderPart(final String part, Writer writer) throws IOException {
-		final Transformer transformer = getTransformer();
-		transformer.transformPart(this, part, writer);
+		getTransformer().transformPart(this, part, writer);
 	}
 
 	/*
@@ -114,17 +113,14 @@ public abstract class HtmlViewAbstractComponent implements HtmlViewGenericCompon
 		} else if (getSchemaElement() != null) {
 			render = getSchemaElement().getFeature(ViewActionFeatures.RENDER);
 		}
-		if (render == null && getSchemaObject() != null) {
-			render = getSchemaObject().getFeature(ViewClassFeatures.RENDER);
-		}
 		if (render == null) {
-			if (getSchemaElement() != null) {
-				render = HtmlViewAspectHelper.getDefaultRenderType(getSchemaElement());
-			} else {
-				render = HtmlViewAspectHelper.getDefaultRenderType(getSchemaObject());
-			}
+			render = HtmlViewAspectHelper.getDefaultRenderType(getSchemaElement());
 		}
-		return Roma.component(TransformerManager.class).getComponent(render);
+		Transformer transformer = Roma.component(TransformerManager.class).getComponent(render);
+		if (transformer == null) {
+			throw new TransformerRuntimeException("Not found transformer for render:" + render);
+		}
+		return transformer;
 	}
 
 	/**

@@ -1,15 +1,11 @@
 package org.romaframework.aspect.view.html.component;
 
-import java.io.IOException;
-import java.io.Writer;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
-
-import javax.servlet.ServletException;
 
 import org.romaframework.aspect.session.SessionInfo;
 import org.romaframework.aspect.validation.MultiValidationException;
@@ -18,6 +14,7 @@ import org.romaframework.aspect.view.ViewAspect;
 import org.romaframework.aspect.view.ViewConstants;
 import org.romaframework.aspect.view.ViewHelper;
 import org.romaframework.aspect.view.area.AreaComponent;
+import org.romaframework.aspect.view.feature.ViewClassFeatures;
 import org.romaframework.aspect.view.feature.ViewFieldFeatures;
 import org.romaframework.aspect.view.form.ViewComponent;
 import org.romaframework.aspect.view.html.HtmlViewAspect;
@@ -28,8 +25,11 @@ import org.romaframework.aspect.view.html.area.HtmlViewRenderable;
 import org.romaframework.aspect.view.html.area.HtmlViewScreenArea;
 import org.romaframework.aspect.view.html.area.component.ChildrenMap;
 import org.romaframework.aspect.view.html.component.composed.list.HtmlViewCollectionComposedComponent;
+import org.romaframework.aspect.view.html.exception.TransformerRuntimeException;
 import org.romaframework.aspect.view.html.form.helper.FormUtils;
+import org.romaframework.aspect.view.html.transformer.Transformer;
 import org.romaframework.aspect.view.html.transformer.freemarker.TableDriver;
+import org.romaframework.aspect.view.html.transformer.manager.TransformerManager;
 import org.romaframework.aspect.view.screen.AbstractConfigurableScreenFactory;
 import org.romaframework.core.Roma;
 import org.romaframework.core.Utility;
@@ -56,8 +56,9 @@ public class HtmlViewConfigurableEntityForm extends HtmlViewAbstractContentCompo
 
 	protected ChildrenMap																	childrenMap				= new ChildrenMap();
 
-	public HtmlViewConfigurableEntityForm(final HtmlViewContentComponent htmlViewConfigurableEntityForm, final SchemaObject iSchemaObject,
-			final SchemaField field, final HtmlViewScreenArea iScreenArea, Integer rowIndex, Integer colIndex, String label) {
+	public HtmlViewConfigurableEntityForm(final HtmlViewContentComponent htmlViewConfigurableEntityForm,
+			final SchemaObject iSchemaObject, final SchemaField field, final HtmlViewScreenArea iScreenArea, Integer rowIndex,
+			Integer colIndex, String label) {
 		super(htmlViewConfigurableEntityForm, field, null, iScreenArea);
 		// Create the pojo form association
 		schemaObject = iSchemaObject;
@@ -218,19 +219,6 @@ public class HtmlViewConfigurableEntityForm extends HtmlViewAbstractContentCompo
 	}
 
 	@Override
-	public void render(Writer writer) throws IOException {
-		try {
-			HtmlViewAspectHelper.renderByJsp(this, writer);
-		} catch (final ServletException e) {
-			// TODO handle exception!!!
-			e.printStackTrace();
-		} catch (final IOException e) {
-			// TODO handle exception!!!
-			e.printStackTrace();
-		}
-	}
-
-	@Override
 	public void setScreenArea(final HtmlViewScreenArea screenArea) {
 		this.screenArea = screenArea;
 		for (final ViewComponent component : childrenMap.getChildren()) {
@@ -254,7 +242,8 @@ public class HtmlViewConfigurableEntityForm extends HtmlViewAbstractContentCompo
 	public HtmlViewContentComponent getFieldComponent(String name) {
 		if (name.contains(Utility.PACKAGE_SEPARATOR_STRING)) {
 			Object object = SchemaHelper.getFieldObject(getContent(), name);
-			HtmlViewContentForm childComponent = (HtmlViewContentForm)((HtmlViewAspect) Roma.aspect(ViewAspect.class)).getFormByObject(object);
+			HtmlViewContentForm childComponent = (HtmlViewContentForm) ((HtmlViewAspect) Roma.aspect(ViewAspect.class))
+					.getFormByObject(object);
 			name = Utility.getResourceNamesLastSeparator(name, Utility.PACKAGE_SEPARATOR_STRING, "")[1];
 			return childComponent.getFieldComponent(name);
 		}
@@ -290,7 +279,7 @@ public class HtmlViewConfigurableEntityForm extends HtmlViewAbstractContentCompo
 
 	private void setInvalidField(Object pojo, final ValidationException vex) {
 		final String fieldName = vex.getFieldName();
-		final ViewComponent parent = ((HtmlViewAspect)Roma.view()).getFormByObject(pojo);
+		final ViewComponent parent = ((HtmlViewAspect) Roma.view()).getFormByObject(pojo);
 		final ViewComponent child = (ViewComponent) parent.getFieldComponent(fieldName);
 		if (child != null && child instanceof HtmlViewAbstractContentComponent) {
 			((HtmlViewAbstractContentComponent) child).setValid(false);
@@ -357,6 +346,21 @@ public class HtmlViewConfigurableEntityForm extends HtmlViewAbstractContentCompo
 		return HtmlViewAspectHelper.searchAreaForRendering(featureLayout, iField, rootArea);
 	}
 
+	@Override
+	public Transformer getTransformer() {
+		String render = null;
+		if (render == null && getSchemaObject() != null) {
+			render = getSchemaObject().getFeature(ViewClassFeatures.RENDER);
+		}
+		if (render == null) {
+			render = HtmlViewAspectHelper.getDefaultRenderType(getSchemaObject());
+		}
+		Transformer transformer = Roma.component(TransformerManager.class).getComponent(render);
+		if (transformer == null) {
+			throw new TransformerRuntimeException("Not found transformer for render:" + render);
+		}
+		return transformer;
+	}
 
 	public String getLabel() {
 		return label;
@@ -373,7 +377,7 @@ public class HtmlViewConfigurableEntityForm extends HtmlViewAbstractContentCompo
 	public void addExpandedChild(HtmlViewConfigurableExpandedEntityForm iChildForm) {
 		expandedChildren.add(iChildForm);
 	}
-	
+
 	public void destroy() {
 	}
 

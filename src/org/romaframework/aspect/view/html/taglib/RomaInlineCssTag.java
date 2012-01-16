@@ -10,9 +10,7 @@ public class RomaInlineCssTag extends TagSupport {
 	@Override
 	public int doStartTag() {
 		try {
-			pageContext.getOut().flush();
 			pageContext.getOut().print("<style id=\""+ROMA_INLINE_CSS_ID+"\" type=\"text/css\">"+ROMA_CSS+" </style>\n");
-			pageContext.getOut().flush();
 		} catch (final Exception e) {
 			e.printStackTrace();// TODO handle exception
 		}
