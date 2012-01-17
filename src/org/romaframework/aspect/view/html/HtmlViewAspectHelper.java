@@ -62,7 +62,7 @@ public class HtmlViewAspectHelper {
 	 */
 	private final static String	VA_SESSION	= "$#$HtmlViewVASession$#$";
 	public static final String	REDIRECTED	= "$#$REDIRECTED$#$";
-	public static final String	POJO_NAME	= "pojo";
+	public static final String	POJO_NAME		= "pojo";
 
 	/**
 	 * Return the HttpRequest
@@ -154,10 +154,10 @@ public class HtmlViewAspectHelper {
 	 */
 	public static String getDefaultRenderType(final SchemaFeatures schemaFeatures) {
 
-		final String result;
+		String result = null;
 		if (schemaFeatures instanceof SchemaField) {
 			result = schemaFeatures.getFeature(ViewFieldFeatures.RENDER);
-		} else {
+		} else if (schemaFeatures instanceof SchemaAction) {
 			result = schemaFeatures.getFeature(ViewActionFeatures.RENDER);
 		}
 
@@ -252,7 +252,8 @@ public class HtmlViewAspectHelper {
 	 * @throws IOException
 	 *           {@link IOException}
 	 */
-	public static void renderByJsp(final ViewComponent component, final ServletRequest request, Writer writer) throws ServletException, IOException {
+	public static void renderByJsp(final ViewComponent component, final ServletRequest request, Writer writer)
+			throws ServletException, IOException {
 		final Object obj = component.getContent();
 		if (obj != null) {
 			final Class<?> clazz = obj.getClass();
@@ -403,7 +404,8 @@ public class HtmlViewAspectHelper {
 		return TransformerHelper.getInstance().getHtmlId(mode, null);
 	}
 
-	public static AreaComponent searchAreaForRendering(final String featureLayout, final SchemaClassElement iField, final HtmlViewFormArea rootArea) {
+	public static AreaComponent searchAreaForRendering(final String featureLayout, final SchemaClassElement iField,
+			final HtmlViewFormArea rootArea) {
 		AreaComponent areaForRendering = null;
 		// Search for a defined area
 		if (featureLayout != null && featureLayout.startsWith("form:")) {
@@ -501,7 +503,8 @@ public class HtmlViewAspectHelper {
 		return false;
 	}
 
-	public static void getHtmlFromJSP(final ServletRequest request, String jspUrl, Writer writer) throws ServletException, IOException {
+	public static void getHtmlFromJSP(final ServletRequest request, String jspUrl, Writer writer) throws ServletException,
+			IOException {
 		MockHttpServletResponse response = new MockHttpServletResponse(writer);
 		request.getRequestDispatcher(jspUrl).include(request, response);
 	}

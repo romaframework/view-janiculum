@@ -29,10 +29,11 @@
 		on<%=event%>="romaFieldChanged('<%=JaniculumWrapper.fieldName(component)%>'); romaEvent('<%=JaniculumWrapper.fieldName(component)%>', '<%=event%>')"
 		<%
 		}
-	}
-	if(existsChangeEvent) {
-	%> onchange="romaFieldChanged('<%=JaniculumWrapper.fieldName(component)%>')"<%
-	} %> />
+			if(existsChangeEvent) {
+			%> onchange="romaFieldChanged('<%=JaniculumWrapper.fieldName(component)%>')"<%
+			}
+		} %> />
+		
 		<%if(!JaniculumWrapper.isValid(component)){%>
 			<span class="<%=JaniculumWrapper.cssClass(component, "decimal", "validation_message")%>"></span>	
 		<%} %>
