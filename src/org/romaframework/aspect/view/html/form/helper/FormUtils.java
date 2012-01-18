@@ -10,6 +10,7 @@ import org.romaframework.aspect.view.ViewConstants;
 import org.romaframework.aspect.view.ViewHelper;
 import org.romaframework.aspect.view.area.AreaComponent;
 import org.romaframework.aspect.view.feature.ViewActionFeatures;
+import org.romaframework.aspect.view.feature.ViewClassFeatures;
 import org.romaframework.aspect.view.feature.ViewFieldFeatures;
 import org.romaframework.aspect.view.html.HtmlViewAspectHelper;
 import org.romaframework.aspect.view.html.area.HtmlViewFormArea;
@@ -47,15 +48,9 @@ public class FormUtils {
 
 		if (field.getType() != null && field.getClassInfo() != null) {
 			if (featureRender == null || ViewConstants.RENDER_DEFAULT.equals(featureRender)) {
-				String tmpRender = (String) field.getClassInfo().getFeature(ViewFieldFeatures.RENDER);
+				String tmpRender = (String) field.getClassInfo().getFeature(ViewClassFeatures.RENDER);
 				if (tmpRender != null && !tmpRender.equals(ViewConstants.RENDER_DEFAULT)) {
 					featureRender = tmpRender;
-				}
-			}
-			if (featureLayout == null || ViewConstants.LAYOUT_DEFAULT.equals(featureLayout)) {
-				String tmpLayout = (String) field.getClassInfo().getFeature(ViewFieldFeatures.POSITION);
-				if (tmpLayout != null && !tmpLayout.equals(ViewConstants.LAYOUT_DEFAULT)) {
-					featureLayout = tmpLayout;
 				}
 			}
 		}

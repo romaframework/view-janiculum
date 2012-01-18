@@ -157,7 +157,7 @@ public class JaniculumWrapper {
 			if (tableComponent.getChildren().size() > rowIndex) {
 				HtmlViewGenericComponent rowComponent = new ArrayList<HtmlViewGenericComponent>(tableComponent.getChildren()).get(rowIndex);
 				if (rowComponent.getSchemaObject() != null) {
-					Object feature = rowComponent.getSchemaObject().getFeature(ViewFieldFeatures.STYLE);
+					Object feature = rowComponent.getSchemaObject().getFeature(ViewClassFeatures.STYLE);
 					if (feature != null && !feature.toString().isEmpty() && feature.toString().charAt(0) != '{') {
 						// CLASS NAME: USE IT
 						return feature.toString();
@@ -346,11 +346,21 @@ public class JaniculumWrapper {
 	}
 
 	public static boolean disabled(HtmlViewRenderable component) {
-		Boolean feature = ((HtmlViewGenericComponent) component).getSchemaElement().getFeature(ViewElementFeatures.ENABLED);
-		if (feature == null) {
-			return false;
+		if (((HtmlViewGenericComponent) component).getSchemaElement() instanceof SchemaAction) {
+			Boolean feature = ((HtmlViewGenericComponent) component).getSchemaElement().getFeature(ViewActionFeatures.ENABLED);
+			if (feature == null) {
+				return false;
+			}
+			return !feature;
+		} else if (((HtmlViewGenericComponent) component).getSchemaElement() instanceof SchemaField) {
+			Boolean feature = ((HtmlViewGenericComponent) component).getSchemaElement().getFeature(ViewFieldFeatures.ENABLED);
+			if (feature == null) {
+				return false;
+			}
+			return !feature;
 		}
-		return !feature;
+		return false;
+
 	}
 
 	public static boolean checked(HtmlViewRenderable component) {

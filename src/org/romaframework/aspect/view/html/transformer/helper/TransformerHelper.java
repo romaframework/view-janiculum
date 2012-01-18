@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.romaframework.aspect.view.feature.ViewActionFeatures;
 import org.romaframework.aspect.view.feature.ViewClassFeatures;
+import org.romaframework.aspect.view.feature.ViewFieldFeatures;
 import org.romaframework.aspect.view.form.ViewComponent;
 import org.romaframework.aspect.view.html.area.HtmlViewRenderable;
 import org.romaframework.aspect.view.html.area.mode.HtmlViewAreaMode;
@@ -109,7 +110,7 @@ public class TransformerHelper {
 		} else if (genericComponent instanceof HtmlViewContentComponent) {
 			final SchemaField schemaField = (SchemaField) ((HtmlViewContentComponent) genericComponent).getSchemaElement();
 			result = result + " " + FIELD_NAME_ + schemaField.getName();
-			style = schemaField.getFeature(ViewClassFeatures.STYLE);
+			style = schemaField.getFeature(ViewFieldFeatures.STYLE);
 		} else if (genericComponent instanceof HtmlViewAreaMode) {
 			style = ((HtmlViewAreaMode) genericComponent).getContainer().getStyle();
 			String areaName = ((HtmlViewAreaMode) genericComponent).getAreaName();
