@@ -16,7 +16,6 @@
 %>
 <%if (!("raw".equals(part) || "label".equals(part))){   %>
 	<div class="<%=JaniculumWrapper.cssClass(component, "decimal", null)%>" style="<%=JaniculumWrapper.inlineStyle(component, null)%>" id="<%=JaniculumWrapper.id(component, null)%>">
-	<%if(part==null || "".equals(part) || "all".equals(part)){ %>
 		<input id="<%=JaniculumWrapper.id(component, "content")%>" type="text" 
 		name="<%=JaniculumWrapper.fieldName(component)%>" value="<%=JaniculumWrapper.formatNumberContent(component)==null?"":JaniculumWrapper.formatNumberContent(component)%>" <%=JaniculumWrapper.disabled(component)?" disabled=\"disabled\"":""%> 
 		<%
@@ -32,7 +31,7 @@
 			if(existsChangeEvent) {
 			%> onchange="romaFieldChanged('<%=JaniculumWrapper.fieldName(component)%>')"<%
 			}
-		} %> />
+		 %> />
 		
 		<%if(!JaniculumWrapper.isValid(component)){%>
 			<span class="<%=JaniculumWrapper.cssClass(component, "decimal", "validation_message")%>"></span>	
