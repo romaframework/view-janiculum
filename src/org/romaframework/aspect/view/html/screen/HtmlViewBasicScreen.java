@@ -199,7 +199,6 @@ public class HtmlViewBasicScreen implements HtmlViewScreen, Serializable {
 		this.defautlArea = defautlArea;
 	}
 
-	@Override
 	public void clear() {
 		getRootArea().clear();
 	}
