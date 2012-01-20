@@ -15,6 +15,7 @@
 	</publications>
 	<dependencies>
 		<dependency org="org.romaframework" name="roma-project-web" rev="latest.integration" conf="*->default;wizard->wizard" />
+		<dependency org="commons-io" name="commons-io" rev="latest.integration" conf="*->default" />
 		<dependency org="javax.servlet" name="jsp-api" rev="2.0" conf="provided->default" />
 		<dependency org="javax.servlet" name="servlet-api" rev="2.4" conf="provided->default" />
 	</dependencies>
