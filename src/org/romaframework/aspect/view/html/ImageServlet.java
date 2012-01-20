@@ -30,6 +30,10 @@ public class ImageServlet extends RomaServlet {
 	public void service(final HttpServletRequest request, final HttpServletResponse response) throws ServletException, IOException {
 
 		response.setContentType("image");
+		response.addHeader("Cache-Control", "must-revalidate");
+		response.addHeader("Cache-Control", "no-cache");
+		response.addHeader("Cache-Control", "no-store");
+		response.setHeader("Pragma", "no-cache"); // HTTP 1.0
 
 		final String pojoId = request.getParameter(IMAGE_POJO_PARAMETER);
 		if (pojoId == null) {
