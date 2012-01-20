@@ -8,7 +8,6 @@ import org.romaframework.aspect.view.html.area.HtmlViewScreenArea;
 import org.romaframework.aspect.view.html.component.HtmlViewComposedComponent;
 import org.romaframework.aspect.view.html.component.HtmlViewContentComponent;
 import org.romaframework.aspect.view.html.component.HtmlViewContentComponentImpl;
-import org.romaframework.aspect.view.html.component.HtmlViewContentForm;
 import org.romaframework.aspect.view.html.component.HtmlViewGenericComponent;
 import org.romaframework.core.schema.SchemaField;
 
@@ -16,8 +15,8 @@ public abstract class HtmlViewAbstractComposedComponent extends HtmlViewContentC
 
 	protected Collection<HtmlViewGenericComponent>	components;
 
-	public HtmlViewAbstractComposedComponent(final HtmlViewContentComponent containerComponent, final SchemaField schemaField,
-			final Object content, final HtmlViewScreenArea screenArea) {
+	public HtmlViewAbstractComposedComponent(final HtmlViewContentComponent containerComponent, final SchemaField schemaField, final Object content,
+			final HtmlViewScreenArea screenArea) {
 		super(containerComponent, schemaField, content, screenArea);
 
 	}
@@ -31,10 +30,6 @@ public abstract class HtmlViewAbstractComposedComponent extends HtmlViewContentC
 			components = new ArrayList<HtmlViewGenericComponent>();
 		}
 		components.add(component);
-
-		if (invokeOnShow && (component instanceof HtmlViewContentForm)) {
-			// ViewHelper.invokeOnShow(((ViewComponent) component).getContent(),"Abstract component "+getClass().getSimpleName()+":");
-		}
 	}
 
 	public Collection<HtmlViewGenericComponent> getComponents() {

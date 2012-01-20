@@ -27,11 +27,6 @@ public class HtmlViewSimpleComponent extends HtmlViewAbstractContentComponent im
 		contentComponent = iContentComponent;
 	}
 
-	// @Override
-	// public long getId() {
-	// return -10;
-	// }
-
 	@Override
 	public Transformer getTransformer() {
 		return null;

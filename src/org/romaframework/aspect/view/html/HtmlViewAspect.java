@@ -86,8 +86,7 @@ import org.romaframework.web.session.HttpAbstractSessionAspect;
  * @author Giordano Maestro (giordano.maestro--at--assetdata.it)
  * 
  */
-public class HtmlViewAspect extends ViewAspectAbstract implements SchemaFeaturesChangeListener, FieldRefreshListener,
-		SchemaFieldListener {
+public class HtmlViewAspect extends ViewAspectAbstract implements SchemaFeaturesChangeListener, FieldRefreshListener, SchemaFieldListener {
 
 	private static Log					log	= LogFactory.getLog(HtmlViewAspect.class);
 	private Map<String, String>	typeRenders;
@@ -230,8 +229,7 @@ public class HtmlViewAspect extends ViewAspectAbstract implements SchemaFeatures
 	 * @see org.romaframework.core.schema.SchemaFeaturesChangeListener#signalChangeAction(java.lang.Object, java.lang.String,
 	 * java.lang.String, java.lang.String, java.lang.Object, java.lang.Object)
 	 */
-	public <T> void signalChangeAction(Object userObject, String actionName, final Feature<T> featureName, final T oldValue,
-			final T featureValue) {
+	public <T> void signalChangeAction(Object userObject, String actionName, final Feature<T> featureName, final T oldValue, final T featureValue) {
 
 		userObject = SchemaHelper.getFieldObject(userObject, actionName);
 		final HtmlViewContentForm form = (HtmlViewContentForm) getFormByObject(userObject);
@@ -311,8 +309,7 @@ public class HtmlViewAspect extends ViewAspectAbstract implements SchemaFeatures
 	 * @see org.romaframework.core.schema.SchemaFeaturesChangeListener#signalChangeField(java.lang.Object, java.lang.String,
 	 * java.lang.String, java.lang.String, java.lang.Object, java.lang.Object)
 	 */
-	public <T> void signalChangeField(Object userObject, String fieldName, final Feature<T> featureName, final T oldValue,
-			final T featureValue) {
+	public <T> void signalChangeField(Object userObject, String fieldName, final Feature<T> featureName, final T oldValue, final T featureValue) {
 
 		userObject = SchemaHelper.getFieldObject(userObject, fieldName);
 		final HtmlViewContentForm form = (HtmlViewContentForm) getFormByObject(userObject);
@@ -339,17 +336,20 @@ public class HtmlViewAspect extends ViewAspectAbstract implements SchemaFeatures
 			return;
 		}
 
+		int pos = fieldName.lastIndexOf(Utility.PACKAGE_SEPARATOR_STRING);
+		if (pos != -1) {
+			fieldName = fieldName.substring(pos + 1);
+		}
 		if (featureName.equals(ViewFieldFeatures.VISIBLE) || featureName.equals(ViewFieldFeatures.RENDER)) {
-			int pos = fieldName.lastIndexOf(Utility.PACKAGE_SEPARATOR_STRING);
-			if (pos != -1) {
-				fieldName = fieldName.substring(pos + 1);
-			}
 			SchemaField field = form.getSchemaObject().getField(fieldName);
 			FormUtils.createFieldComponent(field, form);
 		}
 
+		HtmlViewRenderable comp = form.getFieldComponent(fieldName);
+
 		if (featureName.equals(ViewFieldFeatures.ENABLED)) {
-			form.setDirty(true);
+			
+				form.setDirty(true);
 		}
 
 	}
@@ -460,8 +460,7 @@ public class HtmlViewAspect extends ViewAspectAbstract implements SchemaFeatures
 				if (((Boolean) iSubField.getFeature(ViewFieldFeatures.VISIBLE))) {
 					HtmlViewContentComponent expandedComponentToUpdate = form.getFieldComponent(fieldName);
 					if (first) {
-						expandedComponentToUpdate.getContainerComponent().setContent(
-								SchemaHelper.getFieldValue(form.getSchemaObject(), iField.getName(), iContent));
+						expandedComponentToUpdate.getContainerComponent().setContent(SchemaHelper.getFieldValue(form.getSchemaObject(), iField.getName(), iContent));
 						first = false;
 					}
 					if (expandedComponentToUpdate != null) {
@@ -518,8 +517,7 @@ public class HtmlViewAspect extends ViewAspectAbstract implements SchemaFeatures
 		updateFieldDependencies(form.getSchemaObject().getSchemaClass());
 	}
 
-	private void changeFieldDependsOn(String fieldName, final HtmlViewContentForm form, final Object oldValue,
-			final Object featureValue) {
+	private void changeFieldDependsOn(String fieldName, final HtmlViewContentForm form, final Object oldValue, final Object featureValue) {
 		SchemaField field = form.getSchemaObject().getField(fieldName);
 		if (oldValue != null) {
 			String[] currentDependsOn = (String[]) oldValue;
@@ -607,8 +605,7 @@ public class HtmlViewAspect extends ViewAspectAbstract implements SchemaFeatures
 	}
 
 	private void pushShowView(ShowViewCommand cmd) {
-		Roma.aspect(FlowAspect.class).forward(cmd.getForm().getContent(), cmd.getWhere(),
-				FormViewer.getInstance().getScreen(cmd.getSession()), cmd.getSession());
+		Roma.aspect(FlowAspect.class).forward(cmd.getForm().getContent(), cmd.getWhere(), FormViewer.getInstance().getScreen(cmd.getSession()), cmd.getSession());
 	}
 
 	private void pushDownloadReader(DownloadReaderViewCommand command) {

@@ -24,10 +24,6 @@ public interface HtmlViewContentForm extends ContentForm, HtmlViewContentCompone
 	public HtmlViewContentComponent getFieldComponent(String name);
 
 	public AreaComponent searchAreaForRendering(String featureLayout, SchemaClassElement iField);
-
-	public boolean isDirty();
-
-	public void setDirty(boolean dirty);
 	
 	public void addExpandedChild(HtmlViewConfigurableExpandedEntityForm iChildForm);
 }

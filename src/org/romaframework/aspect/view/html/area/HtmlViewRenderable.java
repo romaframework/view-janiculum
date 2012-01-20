@@ -53,5 +53,5 @@ public interface HtmlViewRenderable {
 	 * Reset the previous validation
 	 */
 	public void resetValidation();
-
+	
 }

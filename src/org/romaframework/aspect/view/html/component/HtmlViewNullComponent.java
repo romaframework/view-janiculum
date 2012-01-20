@@ -12,6 +12,16 @@ import org.romaframework.core.schema.SchemaObject;
 
 public class HtmlViewNullComponent implements HtmlViewGenericComponent {
 
+	private boolean	dirty	= false;
+
+	public boolean isDirty() {
+		return dirty;
+	}
+
+	public void setDirty(boolean dirty) {
+		this.dirty = dirty;
+	}
+
 	public Collection<HtmlViewGenericComponent> getChildren() {
 		return null;
 	}
@@ -100,6 +110,7 @@ public class HtmlViewNullComponent implements HtmlViewGenericComponent {
 
 	public void clearChildren() {
 	}
+
 	public void destroy() {
 
 	}
