@@ -105,6 +105,9 @@ public class RequestParserImpl implements RequestParser {
 					final HtmlViewRenderable renderable = session.getRenderableById(fieldId);
 					if (renderable != null) {
 						final HtmlViewBinder binder = renderable.getTransformer().getBinder(renderable);
+						if (binder instanceof ViewComponent) {
+							Roma.view().getScreen().setActiveArea(((ViewComponent) binder).getScreenArea());
+						}
 						if (binder != null) {
 							// TODO handle BindingException
 							binder.bind(renderable, reqParams.get(groupName));
@@ -150,9 +153,9 @@ public class RequestParserImpl implements RequestParser {
 				if (event != null && event.endsWith("[]"))
 					event = event.substring(0, event.length() - 2);
 				Object result = null;
+				Roma.view().getScreen().setActiveArea(component.getScreenArea());
 				if (component.getSchemaField() != null) {
-					result = SchemaHelper.invokeEvent(component.getContainerComponent().getContent(), component.getSchemaField().getName(), event,
-							(Object[]) eventEntry.getValue());
+					result = SchemaHelper.invokeEvent(component.getContainerComponent().getContent(), component.getSchemaField().getName(), event, (Object[]) eventEntry.getValue());
 				} else {
 					result = SchemaHelper.invokeEvent(component.getContent(), event);
 				}
