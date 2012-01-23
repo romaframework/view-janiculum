@@ -4,7 +4,7 @@ import org.romaframework.aspect.view.area.AreaComponent;
 import org.romaframework.aspect.view.form.ViewComponent;
 import org.romaframework.aspect.view.html.component.HtmlViewGenericComponent;
 
-public interface HtmlViewFormArea extends HtmlViewRenderable, AreaComponent {
+public interface HtmlViewFormArea extends HtmlViewArea {
 
 	/**
 	 * 

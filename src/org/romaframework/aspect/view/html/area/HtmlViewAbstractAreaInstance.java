@@ -1,27 +1,32 @@
 package org.romaframework.aspect.view.html.area;
 
+import java.io.IOException;
+import java.io.Writer;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+
 import org.romaframework.aspect.view.area.AreaComponent;
-import org.romaframework.aspect.view.area.AreaMode;
 import org.romaframework.aspect.view.html.HtmlViewAspectHelper;
 import org.romaframework.aspect.view.html.HtmlViewSession;
-import org.romaframework.aspect.view.html.area.mode.HtmlViewAreaMode;
 import org.romaframework.aspect.view.html.transformer.Transformer;
+import org.romaframework.aspect.view.html.transformer.manager.TransformerManager;
+import org.romaframework.core.Roma;
 import org.romaframework.core.domain.type.TreeNode;
 import org.romaframework.core.domain.type.TreeNodeLinkedHashMap;
 
-public abstract class HtmlViewAbstractAreaInstance extends TreeNodeLinkedHashMap implements Transformer {
+public abstract class HtmlViewAbstractAreaInstance extends TreeNodeLinkedHashMap implements HtmlViewArea {
 
 	/**
 	 * The previosly generated html
 	 */
-	protected String						htmlString;
-	protected boolean						visible;
-	protected int								areaSize;
-	protected String						areaAlign;
-	protected String						areaStyle;
-	protected HtmlViewAreaMode	areaMode;
-	protected boolean						dirty	= true;
-	protected Long							id;
+	protected String	htmlString;
+	protected boolean	visible;
+	protected int			areaSize;
+	protected String	areaAlign;
+	protected String	areaStyle;
+	protected boolean	dirty	= true;
+	protected Long		id;
 
 	public HtmlViewAbstractAreaInstance(final TreeNodeLinkedHashMap parent, final String name) {
 		super(parent, name);
@@ -72,7 +77,7 @@ public abstract class HtmlViewAbstractAreaInstance extends TreeNodeLinkedHashMap
 	public void setAreaAlign(final String areaAlign) {
 		this.areaAlign = areaAlign;
 	}
-	
+
 	/**
 	 * @return the areaStyle
 	 */
@@ -86,10 +91,6 @@ public abstract class HtmlViewAbstractAreaInstance extends TreeNodeLinkedHashMap
 	 */
 	public void setAreaStyle(final String areaStyle) {
 		this.areaStyle = areaStyle;
-	}
-
-	public AreaMode getAreaMode() {
-		return areaMode;
 	}
 
 	/**
@@ -112,17 +113,30 @@ public abstract class HtmlViewAbstractAreaInstance extends TreeNodeLinkedHashMap
 	}
 
 	public Transformer getTransformer() {
-		return this;
+		if (getType() == null) {
+			return Roma.component(TransformerManager.class).getComponent(DEF_AREAMODE_NAME);
+		}
+		return Roma.component(TransformerManager.class).getComponent(getType());
+
 	}
+
+	public void render(Writer writer) throws IOException {
+		getTransformer().transform(this, writer);
+	}
+
+	@Override
+	public void renderPart(String part, Writer writer) throws IOException {
+		getTransformer().transformPart(this, part, writer);
+	}
+
+	public abstract String getType();
 
 	@Override
 	public String toString() {
 		final StringBuilder buffer = new StringBuilder();
 		buffer.append(getName());
-		if (areaMode != null) {
-			buffer.append(":");
-			buffer.append(areaMode.toString());
-		}
+		buffer.append(":");
+		buffer.append(getType());
 
 		if (childrenMap != null) {
 			buffer.append("{");
@@ -135,6 +149,14 @@ public abstract class HtmlViewAbstractAreaInstance extends TreeNodeLinkedHashMap
 			buffer.append("}");
 		}
 		return buffer.toString();
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<HtmlViewRenderable> getComponents() {
+		if (getChildren() != null)
+			return new ArrayList<HtmlViewRenderable>((Collection<HtmlViewRenderable>) getChildren());
+		return new ArrayList<HtmlViewRenderable>();
 	}
 
 	public boolean isDirty() {

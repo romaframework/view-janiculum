@@ -150,7 +150,7 @@ public class HtmlViewBasicScreen implements HtmlViewScreen, Serializable {
 	}
 
 	public AreaComponent getDefaultArea() {
-		final AreaComponent defaultArea = rootArea.searchArea("//" + DEFAULT_SCREEN_AREA);
+		final AreaComponent defaultArea = rootArea.searchArea(this.defautlArea);
 		if (defaultArea == null) {
 			throw new DefaultScreenAreaNotDefinedException();
 		}
@@ -202,5 +202,5 @@ public class HtmlViewBasicScreen implements HtmlViewScreen, Serializable {
 	public void clear() {
 		getRootArea().clear();
 	}
-	
+
 }

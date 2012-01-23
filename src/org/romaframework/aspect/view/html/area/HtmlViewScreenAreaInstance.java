@@ -15,24 +15,17 @@
  */
 package org.romaframework.aspect.view.html.area;
 
-import java.io.IOException;
-import java.io.Writer;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 import org.romaframework.aspect.view.ViewAspect;
 import org.romaframework.aspect.view.ViewHelper;
 import org.romaframework.aspect.view.area.AreaComponent;
 import org.romaframework.aspect.view.html.HtmlViewAspect;
-import org.romaframework.aspect.view.html.area.mode.HtmlViewAreaMode;
-import org.romaframework.aspect.view.html.area.mode.HtmlViewAreaModeImpl;
-import org.romaframework.aspect.view.html.binder.NullBinder;
 import org.romaframework.aspect.view.html.component.HtmlViewConfigurableEntityForm;
 import org.romaframework.aspect.view.html.component.HtmlViewContentForm;
 import org.romaframework.aspect.view.html.component.HtmlViewGenericComponent;
 import org.romaframework.aspect.view.html.screen.HtmlViewScreen;
-import org.romaframework.aspect.view.html.transformer.Transformer;
 import org.romaframework.aspect.view.html.transformer.helper.TransformerHelper;
 import org.romaframework.core.Roma;
 import org.romaframework.core.domain.type.TreeNode;
@@ -48,10 +41,10 @@ import org.romaframework.core.schema.xmlannotations.XmlFormAreaAnnotation;
 public class HtmlViewScreenAreaInstance extends HtmlViewAbstractAreaInstance implements HtmlViewScreenArea {
 
 	protected HtmlViewContentForm	form;
+	protected String							type;
 
 	public HtmlViewScreenAreaInstance(final HtmlViewScreenAreaInstance parent, final String name) {
 		super(parent, name);
-		areaMode = new HtmlViewAreaModeImpl(this, HtmlViewAreaMode.DEF_AREAMODE_NAME);
 	}
 
 	public HtmlViewScreenAreaInstance(final HtmlViewScreenAreaInstance iParentAreaInstance, final XmlFormAreaAnnotation iAreaTag) {
@@ -63,11 +56,7 @@ public class HtmlViewScreenAreaInstance extends HtmlViewAbstractAreaInstance imp
 		areaAlign = iAreaTag.getAlign() != null ? iAreaTag.getAlign() : null;
 		// Set the style of the area
 		areaStyle = iAreaTag.getStyle() != null ? iAreaTag.getStyle() : null;
-		if (iAreaTag.getType() != null) {
-			areaMode = new HtmlViewAreaModeImpl(this, iAreaTag.getType());
-		} else {
-			areaMode = new HtmlViewAreaModeImpl(this, HtmlViewAreaMode.DEF_AREAMODE_NAME);
-		}
+		type = iAreaTag.getType();
 
 		if (iParentAreaInstance == null) {
 			addChild(new HtmlViewScreenAreaInstance(this, HtmlViewScreen.POPUPS));
@@ -83,15 +72,6 @@ public class HtmlViewScreenAreaInstance extends HtmlViewAbstractAreaInstance imp
 			}
 		}
 
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.romaframework.aspect.view.html.area.HtmlViewRenderable#render()
-	 */
-	public void render(Writer writer) throws IOException {
-		getTransformer().transform(this, writer);
 	}
 
 	/**
@@ -138,29 +118,6 @@ public class HtmlViewScreenAreaInstance extends HtmlViewAbstractAreaInstance imp
 
 	public HtmlViewContentForm getComponentInArea() {
 		return form;
-	}
-
-	public HtmlViewBinder getBinder(HtmlViewRenderable renderable) {
-		return NullBinder.getInstance();
-	}
-
-	public void transform(final HtmlViewRenderable component, Writer writer) throws IOException {
-		if (form != null) {
-			final List<HtmlViewRenderable> formTorender = new ArrayList<HtmlViewRenderable>();
-			formTorender.add(form);
-			areaMode.addRenderables(this, formTorender);
-		} else {
-			final List<HtmlViewRenderable> formsTorender = new ArrayList<HtmlViewRenderable>();
-			final Collection<? extends HtmlViewRenderable> childrens = (Collection<? extends HtmlViewRenderable>) getChildren();
-			if (childrens != null) {
-				formsTorender.addAll(childrens);
-			}
-			areaMode.addRenderables(this, formsTorender);
-		}
-		areaMode.render(writer);
-	}
-
-	public void transformPart(final HtmlViewRenderable component, final String part, Writer writer) {
 	}
 
 	/*
@@ -213,12 +170,8 @@ public class HtmlViewScreenAreaInstance extends HtmlViewAbstractAreaInstance imp
 		return form;
 	}
 
-	public void renderPart(final String part, Writer writer) {
-	}
-
 	public String getType() {
-
-		return Transformer.PRIMITIVE;
+		return type;
 	}
 
 	public boolean isDirty() {
@@ -231,6 +184,16 @@ public class HtmlViewScreenAreaInstance extends HtmlViewAbstractAreaInstance imp
 		return false;
 	}
 
+	@Override
+	public List<HtmlViewRenderable> getComponents() {
+		if (form != null) {
+			List<HtmlViewRenderable> list = new ArrayList<HtmlViewRenderable>();
+			list.add(form);
+			return list;
+		}
+		return super.getComponents();
+	}
+
 	public void clear() {
 		if (childrenMap != null) {
 			for (TreeNode tn : childrenMap.values()) {
@@ -240,8 +203,6 @@ public class HtmlViewScreenAreaInstance extends HtmlViewAbstractAreaInstance imp
 			}
 			childrenMap.clear();
 		}
-		if (areaMode != null)
-			areaMode.clear();
 		if (form != null) {
 			disposeForm(form);
 			((HtmlViewAspect) Roma.aspect(ViewAspect.class)).releaseForm(this.form);

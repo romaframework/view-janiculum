@@ -5,19 +5,16 @@ import java.util.Collection;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.romaframework.aspect.core.feature.CoreFieldFeatures;
 import org.romaframework.aspect.view.ViewConstants;
 import org.romaframework.aspect.view.ViewHelper;
 import org.romaframework.aspect.view.area.AreaComponent;
 import org.romaframework.aspect.view.feature.ViewActionFeatures;
-import org.romaframework.aspect.view.feature.ViewClassFeatures;
 import org.romaframework.aspect.view.feature.ViewFieldFeatures;
 import org.romaframework.aspect.view.html.HtmlViewAspectHelper;
 import org.romaframework.aspect.view.html.area.HtmlViewFormArea;
 import org.romaframework.aspect.view.html.area.HtmlViewScreenArea;
 import org.romaframework.aspect.view.html.component.HtmlViewActionComponent;
 import org.romaframework.aspect.view.html.component.HtmlViewConfigurableEntityForm;
-import org.romaframework.aspect.view.html.component.HtmlViewConfigurableExpandedEntityForm;
 import org.romaframework.aspect.view.html.component.HtmlViewContentComponentImpl;
 import org.romaframework.aspect.view.html.component.HtmlViewContentForm;
 import org.romaframework.aspect.view.html.component.HtmlViewInvisibleContentComponent;
@@ -34,7 +31,6 @@ import org.romaframework.core.schema.SchemaClass;
 import org.romaframework.core.schema.SchemaClassDefinition;
 import org.romaframework.core.schema.SchemaField;
 import org.romaframework.core.schema.SchemaHelper;
-import org.romaframework.core.schema.SchemaManager;
 import org.romaframework.core.schema.SchemaObject;
 
 public class FormUtils {
@@ -43,19 +39,9 @@ public class FormUtils {
 
 	public static void createFieldComponent(final SchemaField field, final HtmlViewContentForm iForm) {
 
-		String featureLayout = (String) field.getFeature(ViewFieldFeatures.POSITION);
 		String featureRender = (String) field.getFeature(ViewFieldFeatures.RENDER);
 
-		if (field.getType() != null && field.getClassInfo() != null) {
-			if (featureRender == null || ViewConstants.RENDER_DEFAULT.equals(featureRender)) {
-				String tmpRender = (String) field.getClassInfo().getFeature(ViewClassFeatures.RENDER);
-				if (tmpRender != null && !tmpRender.equals(ViewConstants.RENDER_DEFAULT)) {
-					featureRender = tmpRender;
-				}
-			}
-		}
-
-		if ((Boolean) field.getFeature(ViewFieldFeatures.VISIBLE)) {
+		if (field.getFeature(ViewFieldFeatures.VISIBLE)) {
 
 			Class<?> fieldType = (Class<?>) field.getLanguageType();
 			SchemaClass displayWithClass = field.getFeature(ViewFieldFeatures.DISPLAY_WITH);
@@ -81,43 +67,39 @@ public class FormUtils {
 				} finally {
 					Roma.context().destroy();
 				}
-
-				createFormComponentForDisplayReplacement(field, featureLayout, iForm, value);
+				createFormComponent(field, iForm, value);
 
 			} else if (SchemaHelper.isMultiValueObject(field)) {
 				if (featureRender != null && featureRender.equals(ViewConstants.RENDER_OBJECTEMBEDDED)) {
-					createExpandedCollectionFormComponents(field, featureLayout, iForm);
+					createExpandedCollectionFormComponents(field, iForm);
 				} else if (isExpandedCollection(field)) {
-					createCollectionComposedComponent(field, featureLayout, iForm);
+					createCollectionComposedComponent(field, iForm);
 				} else {
-					createLabelCollectionComponent(field, featureLayout, iForm);
+					createLabelCollectionComponent(field, iForm);
 				}
 				return;
 			} else if (TreeNode.class.isAssignableFrom(fieldType) && featureRender != null && featureRender.equals(ViewConstants.RENDER_TREE)) {
-				createTreeComposedComponent(field, featureLayout, iForm);
-			} else if (featureLayout != null && featureLayout.equals(ViewConstants.LAYOUT_EXPAND)) {
-				createExpandedFormComponent(field, featureLayout, iForm);
-				return;
+				createTreeComposedComponent(field, iForm);
 			} else if (featureRender != null && featureRender.equals(ViewConstants.RENDER_OBJECTEMBEDDED)) {
 				Object content = iForm.getContent();
 				if (content != null)
 					content = ViewHelper.getWrappedContent(content);
 				Object value = field.getValue(content);
 				if (content != null && value == null) {
-					createHiddenContentComponent(field, featureLayout, iForm);
+					createHiddenContentComponent(field, iForm);
 				} else {
-					createFormComponent(field, featureLayout, iForm, value);
+					createFormComponent(field, iForm, value);
 				}
 			} else if (featureRender != null && featureRender.equals(ViewConstants.RENDER_MENU)) {
 				// Manage the menu component
-				createMenuComponent(field, featureLayout, iForm);
+				createMenuComponent(field, iForm);
 			} else {
 				// Other renders mode
-				createContentComponent(field, featureLayout, iForm);
+				createContentComponent(field, iForm);
 			}
 		} else {
 			if (featureRender == null || !featureRender.equals(ViewConstants.RENDER_MENU))
-				createHiddenContentComponent(field, featureLayout, iForm);
+				createHiddenContentComponent(field, iForm);
 		}
 	}
 
@@ -142,8 +124,8 @@ public class FormUtils {
 		return true;
 	}
 
-	private static void createTreeComposedComponent(SchemaField field, String featureLayout, HtmlViewContentForm iForm) {
-		final AreaComponent areaForRendering = iForm.searchAreaForRendering(featureLayout, field);
+	private static void createTreeComposedComponent(SchemaField field, HtmlViewContentForm iForm) {
+		final AreaComponent areaForRendering = iForm.searchAreaForRendering(null, field);
 		if (areaForRendering == null) {
 			return;
 		}
@@ -162,8 +144,8 @@ public class FormUtils {
 	 * @param featureLayout
 	 * @param iForm
 	 */
-	private static void createCollectionComposedComponent(final SchemaField field, final String featureLayout, final HtmlViewContentForm iForm) {
-		final AreaComponent areaForRendering = iForm.searchAreaForRendering(featureLayout, field);
+	private static void createCollectionComposedComponent(final SchemaField field, final HtmlViewContentForm iForm) {
+		final AreaComponent areaForRendering = iForm.searchAreaForRendering(null, field);
 		if (areaForRendering == null) {
 			return;
 		}
@@ -183,13 +165,13 @@ public class FormUtils {
 	 * @param featureLayout
 	 * @param iForm
 	 */
-	private static void createLabelCollectionComponent(final SchemaField field, final String featureLayout, final HtmlViewContentForm iForm) {
-		final AreaComponent areaForRendering = iForm.searchAreaForRendering(featureLayout, field);
+	private static void createLabelCollectionComponent(final SchemaField field, final HtmlViewContentForm iForm) {
+		final AreaComponent areaForRendering = iForm.searchAreaForRendering(null, field);
 		if (areaForRendering == null) {
 			return;
 		}
-		final HtmlViewLabelCollectionComponent newComponent = new HtmlViewLabelCollectionComponent(iForm, field, SchemaHelper.getFieldValue(field,
-				iForm.getContent()), iForm.getScreenAreaObject());
+		final HtmlViewLabelCollectionComponent newComponent = new HtmlViewLabelCollectionComponent(iForm, field, SchemaHelper.getFieldValue(field, iForm.getContent()),
+				iForm.getScreenAreaObject());
 		if (iForm.getFieldComponent(field.getName()) == null) {
 			((HtmlViewFormArea) areaForRendering).addComponent(newComponent);
 		}
@@ -203,8 +185,8 @@ public class FormUtils {
 	 * @param featureLayout
 	 * @param iForm
 	 */
-	private static void createMenuComponent(final SchemaField field, final String featureLayout, final HtmlViewContentForm iForm) {
-		final AreaComponent areaForRendering = iForm.searchAreaForRendering(featureLayout, field);
+	private static void createMenuComponent(final SchemaField field, final HtmlViewContentForm iForm) {
+		final AreaComponent areaForRendering = iForm.searchAreaForRendering(null, field);
 		if (areaForRendering == null) {
 			return;
 		}
@@ -228,7 +210,7 @@ public class FormUtils {
 
 	}
 
-	private static void createExpandedCollectionFormComponents(final SchemaField field, final String featureLayout, final HtmlViewContentForm iForm) {
+	private static void createExpandedCollectionFormComponents(final SchemaField field, final HtmlViewContentForm iForm) {
 		Collection<?> elements = (Collection<?>) field.getValue(iForm.getContent());
 		if (elements != null) {
 
@@ -281,56 +263,9 @@ public class FormUtils {
 				};
 				sf.setValue(null, element);
 				sf.setFeature(ViewFieldFeatures.LABEL, "");
-				createFormComponent(sf, "form://" + field.getName(), iForm, element);
+				createFormComponent(sf, iForm, element);
 			}
 		}
-	}
-
-	private static void createExpandedFormComponent(final SchemaField field, final String featureLayout, final HtmlViewContentForm iForm) {
-
-		SchemaClassDefinition embeddedSchemaClassDef = field.getType();
-		final Boolean useRuntimeType = (Boolean) field.getFeature(CoreFieldFeatures.USE_RUNTIME_TYPE);
-		// Check for useRuntimeType
-		if (useRuntimeType == null || useRuntimeType.equals(Boolean.FALSE)) {
-			if (Object.class.equals(field.getLanguageType())) {
-				log.error("Cannot expand field " + field + " try to use the use runtimeType annotation.");
-			} else {
-				newExpandedForm(field, iForm, embeddedSchemaClassDef);
-			}
-
-		} else {
-
-			if (SchemaHelper.getFieldValue(field, iForm.getContent()) == null) {
-				log.warn("Cannot expand use runtime type because the content object is null, maybe it wasn't inizialized");
-			} else {
-				final SchemaManager schemaManager = Roma.schema();
-				embeddedSchemaClassDef = schemaManager.getSchemaClass(SchemaHelper.getFieldValue(field, iForm.getContent()).getClass().getSimpleName());
-				newExpandedForm(field, iForm, embeddedSchemaClassDef);
-			}
-		}
-	}
-
-	private static void newExpandedForm(final SchemaField field, final HtmlViewContentForm iForm, final SchemaClassDefinition embeddedSchemaClassDef,
-			final Object fieldValue) {
-		SchemaObject schemaObj = null;
-		if (embeddedSchemaClassDef instanceof SchemaObject) {
-			schemaObj = (SchemaObject) embeddedSchemaClassDef;
-		} else {
-			schemaObj = Roma.session().getSchemaObject(fieldValue);
-		}
-		final HtmlViewConfigurableExpandedEntityForm newComponent = new HtmlViewConfigurableExpandedEntityForm(iForm, schemaObj, field, fieldValue,
-				iForm.getScreenAreaObject());
-		newComponent.setContent(fieldValue);
-		iForm.addExpandedChild(newComponent);
-		// iForm.addChild(field.getName(), null, newComponent);
-	}
-
-	private static void newExpandedForm(final SchemaField field, final HtmlViewContentForm iForm, final SchemaClassDefinition embeddedSchemaClassDef) {
-
-		Object temp = ViewHelper.getWrappedContent(iForm.getContent());
-
-		Object fieldValue = field.getValue(temp);
-		newExpandedForm(field, iForm, embeddedSchemaClassDef, fieldValue);
 	}
 
 	public static void createActionComponent(final SchemaAction action, final HtmlViewContentForm iForm) {
@@ -355,8 +290,8 @@ public class FormUtils {
 		return feature;
 	}
 
-	private static void createContentComponent(final SchemaField field, final String featureLayout, final HtmlViewContentForm iForm) {
-		final AreaComponent areaForRendering = iForm.searchAreaForRendering(featureLayout, field);
+	private static void createContentComponent(final SchemaField field, final HtmlViewContentForm iForm) {
+		final AreaComponent areaForRendering = iForm.searchAreaForRendering(null, field);
 		if (areaForRendering == null) {
 			return;
 		}
@@ -370,8 +305,7 @@ public class FormUtils {
 			final HtmlViewScreenArea screenArea = (HtmlViewScreenArea) areaForRendering;
 			try {
 				Object value = SchemaHelper.getFieldValue(field, iForm.getContent());
-				final HtmlViewConfigurableEntityForm newComponent = new HtmlViewMenuForm(iForm, Roma.session().getSchemaObject(value), field,
-						iForm.getScreenAreaObject());
+				final HtmlViewConfigurableEntityForm newComponent = new HtmlViewMenuForm(iForm, Roma.session().getSchemaObject(value), field, iForm.getScreenAreaObject());
 				newComponent.setContent(value);
 				screenArea.bindForm(newComponent);
 			} catch (final Exception e) {
@@ -383,13 +317,13 @@ public class FormUtils {
 
 	}
 
-	private static void createHiddenContentComponent(final SchemaField field, final String featureLayout, final HtmlViewContentForm iForm) {
-		final AreaComponent areaForRendering = iForm.searchAreaForRendering(featureLayout, field);
+	private static void createHiddenContentComponent(final SchemaField field, final HtmlViewContentForm iForm) {
+		final AreaComponent areaForRendering = iForm.searchAreaForRendering(null, field);
 		if (areaForRendering == null) {
 			return;
 		}
-		final HtmlViewInvisibleContentComponent component = new HtmlViewInvisibleContentComponent(iForm, field, SchemaHelper.getFieldValue(field,
-				iForm.getContent()), iForm.getScreenAreaObject());
+		final HtmlViewInvisibleContentComponent component = new HtmlViewInvisibleContentComponent(iForm, field, SchemaHelper.getFieldValue(field, iForm.getContent()),
+				iForm.getScreenAreaObject());
 		if (areaForRendering instanceof HtmlViewFormArea) {
 			if (iForm.getFieldComponent(field.getName()) == null) {
 				((HtmlViewFormArea) areaForRendering).addComponent(component);
@@ -398,8 +332,7 @@ public class FormUtils {
 			final HtmlViewScreenArea screenArea = (HtmlViewScreenArea) areaForRendering;
 			try {
 				final SchemaClass embeddedSchemaClass = field.getClassInfo();
-				final HtmlViewConfigurableEntityForm newComponent = new HtmlViewMenuForm(iForm, Roma.session().getSchemaObject(embeddedSchemaClass), field,
-						iForm.getScreenAreaObject());
+				final HtmlViewConfigurableEntityForm newComponent = new HtmlViewMenuForm(iForm, Roma.session().getSchemaObject(embeddedSchemaClass), field, iForm.getScreenAreaObject());
 				screenArea.bindForm(newComponent);
 			} catch (final Exception e) {
 				// TODO Handle he exception
@@ -417,39 +350,13 @@ public class FormUtils {
 	 * @param featureLayout
 	 * @param iForm
 	 */
-	private static void createFormComponent(final SchemaField field, final String featureLayout, final HtmlViewContentForm iForm, final Object fieldValue) {
-		final AreaComponent areaForRendering = iForm.searchAreaForRendering(featureLayout, field);
+	private static void createFormComponent(final SchemaField field, final HtmlViewContentForm iForm, final Object fieldValue) {
+		final AreaComponent areaForRendering = iForm.searchAreaForRendering(null, field);
 		if (areaForRendering == null) {
 			return;
 		}
 		SchemaObject newSchemaObject = Roma.session().getSchemaObject(fieldValue);
-		final HtmlViewConfigurableEntityForm newComponent = new HtmlViewConfigurableEntityForm(iForm, newSchemaObject, field, iForm.getScreenAreaObject(), null,
-				null, null);
-		newComponent.setContent(fieldValue);
-		if (areaForRendering instanceof HtmlViewFormArea) {
-			if (iForm.getFieldComponent(field.getName()) == null) {
-				((HtmlViewFormArea) areaForRendering).addComponent(newComponent);
-			}
-		} else {
-			final HtmlViewScreenArea screenArea = (HtmlViewScreenArea) areaForRendering;
-			try {
-				screenArea.bindForm(newComponent);
-			} catch (final Exception e) {
-				// TODO remove log.error("Cannot retrieve the container component", e);
-			}
-		}
-		iForm.addChild(field.getName(), areaForRendering, newComponent);
-	}
-
-	private static void createFormComponentForDisplayReplacement(final SchemaField field, final String featureLayout, final HtmlViewContentForm iForm,
-			final Object fieldValue) {
-		final AreaComponent areaForRendering = iForm.searchAreaForRendering(featureLayout, field);
-		if (areaForRendering == null) {
-			return;
-		}
-		SchemaObject newSchemaObject = Roma.session().getSchemaObject(fieldValue);
-		final HtmlViewConfigurableEntityForm newComponent = new HtmlViewConfigurableEntityForm(iForm, newSchemaObject, field, iForm.getScreenAreaObject(), null,
-				null, null);
+		final HtmlViewConfigurableEntityForm newComponent = new HtmlViewConfigurableEntityForm(iForm, newSchemaObject, field, iForm.getScreenAreaObject(), null, null, null);
 		newComponent.setContent(fieldValue);
 		if (areaForRendering instanceof HtmlViewFormArea) {
 			if (iForm.getFieldComponent(field.getName()) == null) {

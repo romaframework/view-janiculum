@@ -348,8 +348,8 @@ public class HtmlViewAspect extends ViewAspectAbstract implements SchemaFeatures
 		HtmlViewRenderable comp = form.getFieldComponent(fieldName);
 
 		if (featureName.equals(ViewFieldFeatures.ENABLED)) {
-			
-				form.setDirty(true);
+
+			form.setDirty(true);
 		}
 
 	}
@@ -538,10 +538,12 @@ public class HtmlViewAspect extends ViewAspectAbstract implements SchemaFeatures
 
 	private void cleanDirtyArea(HtmlViewScreenAreaInstance area) {
 		area.setDirty(false);
-		if (area.getChildren() != null)
-			for (Object child : area.getChildren()) {
-				HtmlViewScreenAreaInstance childArea = (HtmlViewScreenAreaInstance) child;
-				cleanDirtyArea(childArea);
+		if (area.getComponents() != null)
+			for (Object child : area.getComponents()) {
+				if (child instanceof HtmlViewScreenAreaInstance) {
+					HtmlViewScreenAreaInstance childArea = (HtmlViewScreenAreaInstance) child;
+					cleanDirtyArea(childArea);
+				}
 			}
 		if (area.getComponentInArea() != null)
 			cleanDirtyForm((HtmlViewConfigurableEntityForm) area.getComponentInArea());

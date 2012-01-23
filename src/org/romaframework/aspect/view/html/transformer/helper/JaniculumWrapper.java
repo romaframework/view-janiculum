@@ -17,15 +17,13 @@ import org.romaframework.aspect.view.area.AreaComponent;
 import org.romaframework.aspect.view.feature.ViewActionFeatures;
 import org.romaframework.aspect.view.feature.ViewBaseFeatures;
 import org.romaframework.aspect.view.feature.ViewClassFeatures;
-import org.romaframework.aspect.view.feature.ViewElementFeatures;
 import org.romaframework.aspect.view.feature.ViewFieldFeatures;
 import org.romaframework.aspect.view.html.actionhandler.EventHelper;
+import org.romaframework.aspect.view.html.area.HtmlViewArea;
 import org.romaframework.aspect.view.html.area.HtmlViewFormArea;
 import org.romaframework.aspect.view.html.area.HtmlViewFormAreaInstance;
 import org.romaframework.aspect.view.html.area.HtmlViewRenderable;
 import org.romaframework.aspect.view.html.area.HtmlViewScreenArea;
-import org.romaframework.aspect.view.html.area.mode.HtmlViewAreaMode;
-import org.romaframework.aspect.view.html.area.mode.HtmlViewAreaModeImpl;
 import org.romaframework.aspect.view.html.component.HtmlViewAbstractComponent;
 import org.romaframework.aspect.view.html.component.HtmlViewAbstractContentComponent;
 import org.romaframework.aspect.view.html.component.HtmlViewActionComponent;
@@ -67,8 +65,8 @@ public class JaniculumWrapper {
 	public static HtmlViewGenericComponent getContainerComponent(HtmlViewRenderable component) {
 		if (component instanceof HtmlViewGenericComponent) {
 			return (HtmlViewGenericComponent) ((HtmlViewGenericComponent) component).getContainerComponent();
-		} else if (component instanceof HtmlViewAreaModeImpl) {
-			return (HtmlViewGenericComponent) ((HtmlViewAreaModeImpl) component).getAreaContainer();
+		} else if (component instanceof AreaComponent) {
+			return (HtmlViewGenericComponent) ((AreaComponent) component).getParent();
 		}
 		return null;
 	}
@@ -76,8 +74,8 @@ public class JaniculumWrapper {
 	public static Collection<?> getChildren(HtmlViewRenderable component) {
 		if (component instanceof HtmlViewGenericComponent) {
 			return ((HtmlViewGenericComponent) component).getChildren();
-		} else if (component instanceof HtmlViewAreaModeImpl) {
-			return ((HtmlViewAreaModeImpl) component).getRenderables();
+		} else if (component instanceof HtmlViewArea && ((HtmlViewArea) component).getComponents() != null) {
+			return ((HtmlViewArea) component).getComponents();
 		}
 		return EMPTY_LIST;
 	}
@@ -132,8 +130,7 @@ public class JaniculumWrapper {
 			}
 		} else {
 
-			result = ((String) ((HtmlViewGenericComponent) component).getSchemaElement().getFeature(ViewBaseFeatures.LABEL)).replaceAll(
-					"\\$", "");
+			result = ((String) ((HtmlViewGenericComponent) component).getSchemaElement().getFeature(ViewBaseFeatures.LABEL)).replaceAll("\\$", "");
 
 		}
 		return result;
@@ -181,16 +178,13 @@ public class JaniculumWrapper {
 					return style.substring(1, style.length() - 2);
 				}
 			}
-		} else if (component instanceof HtmlViewAreaModeImpl) {
-			if (((HtmlViewAreaModeImpl) component).getAreaContainer() instanceof HtmlViewFormAreaInstance) {
-				HtmlViewFormAreaInstance instance = (HtmlViewFormAreaInstance) ((HtmlViewAreaModeImpl) component).getAreaContainer();
-				if (instance.getAreaStyle() != null) {
-					String style = instance.getAreaStyle();
-					if (style.isEmpty() || style.charAt(0) != '{')
-						return "";
-
-					return style.substring(1, style.length() - 2);
-				}
+		} else if (component instanceof HtmlViewFormAreaInstance) {
+			HtmlViewFormAreaInstance instance = (HtmlViewFormAreaInstance) component;
+			if (instance.getAreaStyle() != null) {
+				String style = instance.getAreaStyle();
+				if (style.isEmpty() || style.charAt(0) != '{')
+					return "";
+				return style.substring(1, style.length() - 2);
 			}
 		}
 		return "";
@@ -298,9 +292,8 @@ public class JaniculumWrapper {
 	public static String actionName(HtmlViewRenderable component) {
 		HtmlViewGenericComponent actionComponent = (HtmlViewGenericComponent) component;
 
-		return TransformerHelper.POJO_ACTION_PREFIX + TransformerHelper.SEPARATOR + actionComponent.getId()
-				+ TransformerHelper.SEPARATOR + actionComponent.getSchemaElement().getName() + TransformerHelper.SEPARATOR
-				+ actionComponent.getScreenArea();
+		return TransformerHelper.POJO_ACTION_PREFIX + TransformerHelper.SEPARATOR + actionComponent.getId() + TransformerHelper.SEPARATOR
+				+ actionComponent.getSchemaElement().getName() + TransformerHelper.SEPARATOR + actionComponent.getScreenArea();
 	}
 
 	public static String event(HtmlViewRenderable component, String event) {
@@ -333,8 +326,8 @@ public class JaniculumWrapper {
 	public static String action(HtmlViewRenderable component, String action) {
 		HtmlViewGenericComponent actionComponent = (HtmlViewGenericComponent) component;
 
-		return TransformerHelper.POJO_ACTION_PREFIX + TransformerHelper.SEPARATOR + actionComponent.getId()
-				+ TransformerHelper.SEPARATOR + action + TransformerHelper.SEPARATOR + actionComponent.getScreenArea();
+		return TransformerHelper.POJO_ACTION_PREFIX + TransformerHelper.SEPARATOR + actionComponent.getId() + TransformerHelper.SEPARATOR + action + TransformerHelper.SEPARATOR
+				+ actionComponent.getScreenArea();
 	}
 
 	public static String fieldName(HtmlViewRenderable component) {
@@ -502,8 +495,8 @@ public class JaniculumWrapper {
 
 	public static int areaSize(HtmlViewRenderable component) {
 		int result = 1;
-		if (component instanceof HtmlViewAreaMode) {
-			return ((HtmlViewAreaModeImpl) component).getAreaContainer().getAreaSize();
+		if (component instanceof AreaComponent) {
+			return ((AreaComponent) component).getAreaSize();
 		}
 
 		if (component instanceof HtmlViewCollectionComposedComponent) {
@@ -520,12 +513,12 @@ public class JaniculumWrapper {
 	public static String areaVerticalAlignment(final HtmlViewRenderable iComponent) {
 		String align = null;
 
-		if (iComponent instanceof HtmlViewFormAreaInstance) {
-			align = ((HtmlViewFormAreaInstance) iComponent).getAreaAlign();
+		if (iComponent instanceof AreaComponent) {
+			align = ((AreaComponent) iComponent).getAreaAlign();
 
-		} else if (iComponent instanceof HtmlViewAreaModeImpl) {
-			HtmlViewAreaModeImpl c = (HtmlViewAreaModeImpl) iComponent;
-			align = c.getAreaContainer().getAreaAlign();
+		} else if (iComponent instanceof AreaComponent) {
+			AreaComponent c = (AreaComponent) iComponent;
+			align = c.getAreaAlign();
 		}
 
 		if (align == null)
@@ -549,8 +542,6 @@ public class JaniculumWrapper {
 
 		if (iComponent instanceof AreaComponent)
 			area = (AreaComponent) iComponent;
-		else if (iComponent instanceof HtmlViewAreaModeImpl)
-			area = ((HtmlViewAreaModeImpl) iComponent).getAreaContainer();
 		else
 			return "";
 

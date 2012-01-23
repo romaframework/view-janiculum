@@ -1,6 +1,7 @@
 package org.romaframework.aspect.view.html.css;
 
-import org.romaframework.aspect.view.html.area.mode.HtmlViewAreaModeImpl;
+import org.romaframework.aspect.view.area.AreaComponent;
+import org.romaframework.aspect.view.html.area.HtmlViewAbstractAreaInstance;
 
 /**
  * TODO:
@@ -38,18 +39,18 @@ public class CssHelper {
 	public static final String	LEFT						= "left";
 	public static final String	RIGHT						= "right";
 	public static final String	JUSTIFY					= "justify";
-	
-	public static final String 	AUTO						= "auto";
-	public static final String 	ZERO						= "0";
 
-	public static void addCssAlignRule(final StyleBuffer style, final HtmlViewAreaModeImpl area) {
+	public static final String	AUTO						= "auto";
+	public static final String	ZERO						= "0";
 
-		final String align = area.getAreaContainer().getAreaAlign();
+	public static void addCssAlignRule(final StyleBuffer style, final AreaComponent area) {
+
+		final String align = area.getAreaAlign();
 
 		if (align != null) {
 
-			final String rowItemId = "#" + area.getHtmlId() + "_" + CssHelper.ROWITEM;
-			final String tableId = "#" + area.getHtmlId();
+			final String rowItemId = "#" + ((HtmlViewAbstractAreaInstance) area).getHtmlId() + "_" + CssHelper.ROWITEM;
+			final String tableId = "#" + ((HtmlViewAbstractAreaInstance) area).getHtmlId();
 
 			// RIGHT
 			if (align.equals(RIGHT)) {

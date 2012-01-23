@@ -37,7 +37,6 @@ import org.romaframework.aspect.view.feature.ViewFieldFeatures;
 import org.romaframework.aspect.view.form.ViewComponent;
 import org.romaframework.aspect.view.html.area.HtmlViewFormArea;
 import org.romaframework.aspect.view.html.area.HtmlViewScreenArea;
-import org.romaframework.aspect.view.html.area.mode.HtmlViewAreaMode;
 import org.romaframework.aspect.view.html.constants.RequestConstants;
 import org.romaframework.aspect.view.html.css.StyleBuffer;
 import org.romaframework.aspect.view.html.exception.DefaultJspTemplateNotFoundException;
@@ -400,8 +399,7 @@ public class HtmlViewAspectHelper {
 
 	public static String getPopupsScreenAreaId() {
 		final HtmlViewScreen screen = (HtmlViewScreen) Roma.aspect(ViewAspect.class).getScreen();
-		final HtmlViewAreaMode mode = (HtmlViewAreaMode) ((HtmlViewScreenArea) screen.getPopupsScreenArea()).getAreaMode();
-		return TransformerHelper.getInstance().getHtmlId(mode, null);
+		return TransformerHelper.getInstance().getHtmlId((HtmlViewScreenArea) screen.getPopupsScreenArea(), null);
 	}
 
 	public static AreaComponent searchAreaForRendering(final String featureLayout, final SchemaClassElement iField,

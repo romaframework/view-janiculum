@@ -2,12 +2,13 @@ package org.romaframework.aspect.view.html.transformer.helper;
 
 import java.util.List;
 
+import org.romaframework.aspect.view.area.AreaComponent;
 import org.romaframework.aspect.view.feature.ViewActionFeatures;
 import org.romaframework.aspect.view.feature.ViewClassFeatures;
 import org.romaframework.aspect.view.feature.ViewFieldFeatures;
 import org.romaframework.aspect.view.form.ViewComponent;
 import org.romaframework.aspect.view.html.area.HtmlViewRenderable;
-import org.romaframework.aspect.view.html.area.mode.HtmlViewAreaMode;
+import org.romaframework.aspect.view.html.area.HtmlViewScreenArea;
 import org.romaframework.aspect.view.html.component.HtmlViewAbstractContentComponent;
 import org.romaframework.aspect.view.html.component.HtmlViewActionComponent;
 import org.romaframework.aspect.view.html.component.HtmlViewContentComponent;
@@ -111,11 +112,11 @@ public class TransformerHelper {
 			final SchemaField schemaField = (SchemaField) ((HtmlViewContentComponent) genericComponent).getSchemaElement();
 			result = result + " " + FIELD_NAME_ + schemaField.getName();
 			style = schemaField.getFeature(ViewFieldFeatures.STYLE);
-		} else if (genericComponent instanceof HtmlViewAreaMode) {
-			style = ((HtmlViewAreaMode) genericComponent).getContainer().getStyle();
-			String areaName = ((HtmlViewAreaMode) genericComponent).getAreaName();
+		} else if (genericComponent instanceof AreaComponent) {
+			style = ((AreaComponent) genericComponent).getStyle();
+			String areaName = ((AreaComponent) genericComponent).getName();
 			if (areaName != null) {
-				if (((HtmlViewAreaMode) genericComponent).isScreenArea()) {
+				if (genericComponent instanceof HtmlViewScreenArea) {
 					return SCREEN_NAME_ + areaName;
 				} else {
 					return AREA_NAME_ + areaName;
