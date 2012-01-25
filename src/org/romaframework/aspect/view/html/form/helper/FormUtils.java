@@ -10,6 +10,7 @@ import org.romaframework.aspect.view.ViewHelper;
 import org.romaframework.aspect.view.area.AreaComponent;
 import org.romaframework.aspect.view.feature.ViewActionFeatures;
 import org.romaframework.aspect.view.feature.ViewFieldFeatures;
+import org.romaframework.aspect.view.html.HtmlViewAspect;
 import org.romaframework.aspect.view.html.HtmlViewAspectHelper;
 import org.romaframework.aspect.view.html.area.HtmlViewFormArea;
 import org.romaframework.aspect.view.html.area.HtmlViewScreenArea;
@@ -18,7 +19,6 @@ import org.romaframework.aspect.view.html.component.HtmlViewConfigurableEntityFo
 import org.romaframework.aspect.view.html.component.HtmlViewContentComponentImpl;
 import org.romaframework.aspect.view.html.component.HtmlViewContentForm;
 import org.romaframework.aspect.view.html.component.HtmlViewInvisibleContentComponent;
-import org.romaframework.aspect.view.html.component.HtmlViewMenuForm;
 import org.romaframework.aspect.view.html.component.composed.list.HtmlViewCollectionComposedComponent;
 import org.romaframework.aspect.view.html.component.composed.list.HtmlViewLabelCollectionComponent;
 import org.romaframework.aspect.view.html.component.composed.tree.HtmlViewTreeComposedComponent;
@@ -80,7 +80,7 @@ public class FormUtils {
 				return;
 			} else if (TreeNode.class.isAssignableFrom(fieldType) && featureRender != null && featureRender.equals(ViewConstants.RENDER_TREE)) {
 				createTreeComposedComponent(field, iForm);
-			} else if (featureRender != null && featureRender.equals(ViewConstants.RENDER_OBJECTEMBEDDED)) {
+			} else if (featureRender != null && ((HtmlViewAspect) Roma.view()).getFormRenders().contains(featureRender)) {
 				Object content = iForm.getContent();
 				if (content != null)
 					content = ViewHelper.getWrappedContent(content);
@@ -90,9 +90,6 @@ public class FormUtils {
 				} else {
 					createFormComponent(field, iForm, value);
 				}
-			} else if (featureRender != null && featureRender.equals(ViewConstants.RENDER_MENU)) {
-				// Manage the menu component
-				createMenuComponent(field, iForm);
 			} else {
 				// Other renders mode
 				createContentComponent(field, iForm);
@@ -176,38 +173,6 @@ public class FormUtils {
 			((HtmlViewFormArea) areaForRendering).addComponent(newComponent);
 		}
 		iForm.addChild(field.getName(), areaForRendering, newComponent);
-	}
-
-	/**
-	 * Create a tree component
-	 * 
-	 * @param field
-	 * @param featureLayout
-	 * @param iForm
-	 */
-	private static void createMenuComponent(final SchemaField field, final HtmlViewContentForm iForm) {
-		final AreaComponent areaForRendering = iForm.searchAreaForRendering(null, field);
-		if (areaForRendering == null) {
-			return;
-		}
-		Object value = SchemaHelper.getFieldValue(field, iForm.getContent());
-		final HtmlViewMenuForm newComponent = new HtmlViewMenuForm(iForm, Roma.session().getSchemaObject(value), field, iForm.getScreenAreaObject());
-		newComponent.setContent(value);
-		if (areaForRendering instanceof HtmlViewFormArea) {
-			if (iForm.getFieldComponent(field.getName()) == null) {
-				((HtmlViewFormArea) areaForRendering).addComponent(newComponent);
-			}
-		} else {
-			final HtmlViewScreenArea screenArea = (HtmlViewScreenArea) areaForRendering;
-			try {
-				screenArea.bindForm(newComponent);
-			} catch (final Exception e) {
-				// TODO Handle he exception
-				log.error("Cannot retrieve the container component", e);
-			}
-		}
-		iForm.addChild(field.getName(), areaForRendering, newComponent);
-
 	}
 
 	private static void createExpandedCollectionFormComponents(final SchemaField field, final HtmlViewContentForm iForm) {
@@ -301,17 +266,6 @@ public class FormUtils {
 			if (iForm.getFieldComponent(field.getName()) == null) {
 				((HtmlViewFormArea) areaForRendering).addComponent(component);
 			}
-		} else {
-			final HtmlViewScreenArea screenArea = (HtmlViewScreenArea) areaForRendering;
-			try {
-				Object value = SchemaHelper.getFieldValue(field, iForm.getContent());
-				final HtmlViewConfigurableEntityForm newComponent = new HtmlViewMenuForm(iForm, Roma.session().getSchemaObject(value), field, iForm.getScreenAreaObject());
-				newComponent.setContent(value);
-				screenArea.bindForm(newComponent);
-			} catch (final Exception e) {
-				// TODO Handle he exception
-				log.error("Cannot retrieve the container component", e);
-			}
 		}
 		iForm.addChild(field.getName(), areaForRendering, component);
 
@@ -327,16 +281,6 @@ public class FormUtils {
 		if (areaForRendering instanceof HtmlViewFormArea) {
 			if (iForm.getFieldComponent(field.getName()) == null) {
 				((HtmlViewFormArea) areaForRendering).addComponent(component);
-			}
-		} else {
-			final HtmlViewScreenArea screenArea = (HtmlViewScreenArea) areaForRendering;
-			try {
-				final SchemaClass embeddedSchemaClass = field.getClassInfo();
-				final HtmlViewConfigurableEntityForm newComponent = new HtmlViewMenuForm(iForm, Roma.session().getSchemaObject(embeddedSchemaClass), field, iForm.getScreenAreaObject());
-				screenArea.bindForm(newComponent);
-			} catch (final Exception e) {
-				// TODO Handle he exception
-				log.error("Cannot retrieve the container component", e);
 			}
 		}
 		iForm.addChild(field.getName(), areaForRendering, component);

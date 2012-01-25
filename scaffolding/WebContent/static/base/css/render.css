@@ -62,7 +62,7 @@ img.render_button_icon {
 	border-bottom: 1px solid #DDDDDD;
 }
 
-.render_table tr:HOVER td{
+.render_table tr:HOVER td {
 	background-color: #F5F5F5;
 }
 
@@ -90,9 +90,9 @@ img.render_button_icon {
 }
 
 .render_tableedit th {
-    background-color: #ffffff;
-    border: 1px solid #DDDDDD;
-    padding: 4px;
+	background-color: #ffffff;
+	border: 1px solid #DDDDDD;
+	padding: 4px;
 }
 
 .render_tableedit tr.odd td {
@@ -119,10 +119,6 @@ div.class_Object a.render_link_content {
 	background-repeat: no-repeat;
 	line-height: 25px;
 	display: block;
-}
-
-a {
-	color: #006e89;
 }
 
 /* RENDER BUTTON */
@@ -267,12 +263,6 @@ input.table_selection {
 	cursor: pointer;
 }
 
-/* RENDER TAB */
-div.ui-tabs-nav a {
-	background-repeat: no-repeat;
-	display: block;
-}
-
 /* RENDER MAP */
 .gsmsc-mapDiv {
 	height: 275px;
@@ -293,160 +283,6 @@ div.ui-tabs-nav a {
 	width: 400px;
 }
 
-/* RENDER MENU */
-.render_menu {
-	font: 12px Verdana, Mallige;;
-	font-weight: bold;
-	z-index: 100;
-	background-image: url(../image/menu_norm31.gif);
-	background-position: center center;
-}
-
-.render_menu input {
-	font: 12px Verdana, Mallige;;
-	font-weight: bold;
-	z-index: 100;
-	margin: 0;
-}
-
-.render_menu ul {
-	margin: 0;
-	padding: 0;
-	list-style-type: none;
-	z-index: 100;
-}
-
-.render_menu ul li {
-	position: relative;
-	display: inline;
-	float: left;
-	z-index: 100;
-}
-
-.render_menu ul li input {
-	display: block;
-	background: white url(../image/menu_active31.gif) center center repeat-x;
-	/*background of tabs (default state)*/
-	padding: 8px 7px 7px 7px;
-	margin-right: 0px; /*spacing between tabs*/
-	border: 1px solid #7e9db0;
-	color: #ffffff;
-	text-decoration: none;
-	z-index: 100;
-}
-
-.render_menu ul li label {
-	display: block;
-	background: white url(../image/menu_active31.gif) center center repeat-x;
-	/*background of tabs (default state)*/
-	padding: 9px 7px 8px 7px;
-	margin-right: 0px; /*spacing between tabs*/
-	border: 1px solid #7e9db0;
-	color: #ffffff;
-	text-decoration: none;
-	z-index: 100;
-}
-
-.render_menu ul li input:hover {
-	border: 1px solid #ffe82e;
-	background-image: url(../image/giallo.jpg);
-	/*tab link background during hover state*/
-	z-index: 100;
-}
-
-.render_menu ul li ul {
-	position: absolute;
-	left: 0;
-	display: block;
-	visibility: hidden;
-	z-index: 100;
-}
-
-.render_menu ul li ul li {
-	display: list-item;
-	float: none;
-	z-index: 100;
-}
-
-.render_menu ul li ul li ul {
-	top: 0;
-	z-index: 100;
-}
-
-.render_menu ul li ul li input {
-	font: normal 12px Verdana, Mallige;;
-	width: 172px; /*width of sub menus*/
-	background: white url(../image/menu_norm31.gif) top center repeat-x;
-	color: #000;
-	padding: 4px 5px;
-	margin: 0;
-	border: 1px solid #7e9db0;
-	z-index: 100;
-	text-align: left;
-	height: 24px;
-}
-
-.render_menu ul li ul li input:hover { /*sub menus hover style*/
-	background: white url(../image/giallochiaro.jpg) top center repeat-x;
-	color: black;
-	z-index: 100;
-}
-
-.render_menu ul li ul li label {
-	font: normal 12px Verdana, Mallige;;
-	width: 157px; /*width of sub menus*/
-	background: white url(../image/menu_norm31.gif) top center repeat-x;
-	color: black;
-	padding: 4px 5px;
-	padding-left: 8px;
-	margin: 0;
-	border: 1px solid #7e9db0;
-	z-index: 100;
-}
-
-.render_menu ul li ul li label:hover { /*sub menus hover style*/
-	background: white url(../image/giallochiaro.jpg) top center repeat-x;
-	color: black;
-	z-index: 100;
-}
-
-.render_menu ul li ul li.render_menu_content a.render_link_content {
-	width: 172px; /*width of sub menus*/
-	background: white url(../image/menu_norm31.gif) top center repeat-x;
-	color: #000;
-	padding: 3px 3px 3px 5px;
-	margin: 0;
-	border: 1px solid #7e9db0;
-	z-index: 100;
-	text-align: left;
-	font: normal 12px Verdana;
-}
-
-.render_menu ul li ul li.render_menu_content a.render_link_content:hover
-	{ /*sub menus hover style*/
-	background: white url(../image/giallochiaro.jpg) top center repeat-x;
-	color: black;
-	z-index: 100;
-}
-
-.render_menu_content  a.render_link_content {
-	background: white url(../image/menu_norm31.gif) repeat-x scroll center
-		center;
-	font: normal 12px Verdana, Mallige;;
-	color: #fff;
-	padding: 9px 7px 8px 7px;
-	padding-left: 8px;
-	margin: 0;
-	font-weight: bold;
-	border: 1px solid #7e9db0;
-	z-index: 100;
-}
-
-.render_menu_content  a.render_link_content:hover {
-	background: white url(../image/giallochiaro.jpg) top center repeat-x;
-	color: black;
-	z-index: 100;
-}
 
 /* RENDER CHACK */
 input.render_check {
@@ -472,7 +308,7 @@ div.jqDrag {
 
 table.render_popup {
 	margin: auto;
-	background-color:#ffffff;
+	background-color: #ffffff;
 	position: relative;
 	overflow: auto;
 	top: 80px;

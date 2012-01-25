@@ -32,6 +32,7 @@ import org.romaframework.aspect.view.html.component.HtmlViewConfigurableEntityFo
 import org.romaframework.aspect.view.html.component.HtmlViewContentComponent;
 import org.romaframework.aspect.view.html.component.HtmlViewContentComponentImpl;
 import org.romaframework.aspect.view.html.component.HtmlViewGenericComponent;
+import org.romaframework.aspect.view.html.component.HtmlViewInvisibleContentComponent;
 import org.romaframework.aspect.view.html.component.composed.list.HtmlViewCollectionComposedComponent;
 import org.romaframework.aspect.view.html.transformer.Transformer;
 import org.romaframework.aspect.view.html.transformer.freemarker.Griddable;
@@ -274,6 +275,13 @@ public class JaniculumWrapper {
 	public static boolean isAction(HtmlViewRenderable component) {
 		SchemaClassElement el = getSchemaElement(component);
 		if (el instanceof SchemaAction) {
+			return true;
+		}
+		return false;
+	}
+
+	public static boolean isHidden(HtmlViewRenderable component) {
+		if (component instanceof HtmlViewInvisibleContentComponent) {
 			return true;
 		}
 		return false;

@@ -35,51 +35,44 @@ public class JspTransformerHelper {
 		}
 	}
 
-	public static void addJs(String id, String script){
+	public static void addJs(String id, String script) {
 		final HtmlViewCodeBuffer jsBuffer = HtmlViewAspectHelper.getJsBuffer();
 		jsBuffer.setScript(id, script);
 	}
-	
 
-	public static final void delegate(HtmlViewRenderable component, String part,Writer writer) throws IOException {
+	public static final void delegate(HtmlViewRenderable component, String part, Writer writer) throws IOException {
 		if (part == null || part.toString().length() == 0) {
 			component.render(writer);
 		} else {
 			component.renderPart(part.toString(), writer);
 		}
 	}
-	
-	public static String raw(HtmlViewRenderable component){
-		String toRender = "";
-//		if (itemContent != null) {
-//			if (component instanceof HtmlViewContentComponent) {
-//				toRender = FormatHelper.format(itemContent.getAdaptedObject(Object.class),
-//						((HtmlViewContentComponent) component).getSchemaField());
-//			}
-//		} else {
-		
-			Object content = null;
-			if (component instanceof HtmlViewContentComponent) {
-				if (((HtmlViewContentComponent) component).getContent() != null) {
-					content = ((HtmlViewContentComponent) component).getContent();
-				}
-			} else if (component instanceof HtmlViewAbstractContentComponent) {
-				if (((HtmlViewAbstractContentComponent) component).getContent() != null) {
-					content = ((HtmlViewAbstractContentComponent) component).getContent();
-				}
-			}
-			if (component instanceof HtmlViewContentComponent) {
-				toRender = FormatHelper.format(content, ((HtmlViewContentComponent) component).getSchemaField());
-			} else {
-				if (content != null) {
-					if (content instanceof Date) {
-						toRender = Roma.i18n().getDateFormat().format(content);
-					} else {
-						toRender = content.toString();
-					}
-				}
 
+	public static String raw(HtmlViewRenderable component) {
+		String toRender = "";
+
+		Object content = null;
+		if (component instanceof HtmlViewContentComponent) {
+			if (((HtmlViewContentComponent) component).getContent() != null) {
+				content = ((HtmlViewContentComponent) component).getContent();
 			}
+		} else if (component instanceof HtmlViewAbstractContentComponent) {
+			if (((HtmlViewAbstractContentComponent) component).getContent() != null) {
+				content = ((HtmlViewAbstractContentComponent) component).getContent();
+			}
+		}
+		if (component instanceof HtmlViewContentComponent) {
+			toRender = FormatHelper.format(content, ((HtmlViewContentComponent) component).getSchemaField());
+		} else {
+			if (content != null) {
+				if (content instanceof Date) {
+					toRender = Roma.i18n().getDateFormat().format(content);
+				} else {
+					toRender = content.toString();
+				}
+			}
+
+		}
 
 		return toRender;
 

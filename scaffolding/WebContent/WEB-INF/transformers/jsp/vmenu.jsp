@@ -1,12 +1,13 @@
-<%@page import="org.romaframework.aspect.view.html.component.HtmlViewConfigurableEntityForm"%>
 <%@ taglib uri="/WEB-INF/roma.tld" prefix="roma"%>
+<%@page import="org.romaframework.aspect.view.html.component.HtmlViewConfigurableEntityForm"%>
 <%@page import="org.romaframework.core.schema.SchemaField"%>
 <%@page import="org.romaframework.core.schema.SchemaAction"%>
 <%@page import="org.romaframework.aspect.view.feature.ViewClassFeatures"%>
-<%@page import="org.romaframework.aspect.view.feature.ViewFieldFeatures"%>
-<%@page import="org.romaframework.aspect.view.html.component.HtmlViewContentComponent"%>
 <%@page import="org.romaframework.aspect.view.feature.ViewActionFeatures"%>
+<%@page import="org.romaframework.aspect.view.html.component.HtmlViewContentComponent"%>
+<%@page import="org.romaframework.aspect.view.feature.ViewFieldFeatures"%>
 <%@page import="org.romaframework.aspect.view.html.component.HtmlViewActionComponent"%>
+<%@page import="org.romaframework.aspect.view.html.component.HtmlViewGenericComponent"%>
 <%@page import="org.romaframework.aspect.view.html.constants.TransformerConstants"%>
 <%@page import="org.romaframework.aspect.view.html.transformer.jsp.directive.JspTransformerHelper"%>
 <%@page import="org.romaframework.aspect.view.html.area.HtmlViewRenderable"%>
@@ -18,19 +19,19 @@
 	
 	String part = (String) request.getAttribute(RequestConstants.CURRENT_COMPONENT_PART_IN_TRANSFORMER);
 %>
-<div class="<%=JaniculumWrapper.cssClass(component, "menu", null)%>" style="<%=JaniculumWrapper.inlineStyle(component, null)%>" id="<%=JaniculumWrapper.id(component, null)%>" inited="false">
+<div class="<%=JaniculumWrapper.cssClass(component, "vmenu", null)%>" style="<%=JaniculumWrapper.inlineStyle(component, null)%>" id="<%=JaniculumWrapper.id(component, null)%>" inited="false">
 	<%if(JaniculumWrapper.isAction(component)){%>
 		<a  id="<%=JaniculumWrapper.id(component, "content")%>" value="<%=JaniculumWrapper.i18NLabel(component)%>" href="javascript:void(0)" title="<%=JaniculumWrapper.i18NHint(component)%>"
 		<%=JaniculumWrapper.disabled(component)?"disabled=\"disabled\"":""%>
 			onclick="romaAction('<%=JaniculumWrapper.actionName(component)%>')">
-			<label for="<%=JaniculumWrapper.id(component, "content")%>" id="<%=JaniculumWrapper.id(component, "label")%>" class="<%=JaniculumWrapper.cssClass(component, "menu", "label")%>">
+			<label for="<%=JaniculumWrapper.id(component, "content")%>" id="<%=JaniculumWrapper.id(component, "label")%>" class="<%=JaniculumWrapper.cssClass(component, "vmenu", "label")%>">
 			<%=JaniculumWrapper.i18NLabel(component)%>
 			</label> 
 		</a>
 	<%} else if(JaniculumWrapper.isField(component)){ %>
-			<label for="<%=JaniculumWrapper.id(component, "content")%>" id="<%=JaniculumWrapper.id(component, "label")%>" >
+			<label for="<%=JaniculumWrapper.id(component, "content")%>" id="<%=JaniculumWrapper.id(component, "label")%>">
 			<%=JaniculumWrapper.i18NLabel(component)%>
-			</label> 
+			</label>
 	<%} %>
 	
 	<%if(JaniculumWrapper.haveChildren(component)){%>
@@ -53,9 +54,7 @@
 			<li >
 					<% JspTransformerHelper.delegate((HtmlViewRenderable)child, null,pageContext.getOut()); %>							
 			</li>			
-		<%
-			}
-		} %>
+		<%} }%>
 	</ul>
 	<%} %>
 </div>
@@ -64,10 +63,20 @@ boolean isRoot = !JaniculumWrapper.isField(component)&&!JaniculumWrapper.isActio
 if(!isRoot){ %>
 <roma:addjs>
 $('#<%=JaniculumWrapper.id(component,null)%>').mouseenter(function (){
-	$('#<%=JaniculumWrapper.id(component, "content_children")%>').css("display","block");
+	var par = $('#<%=JaniculumWrapper.id(component,null)%>');
+	var ch = $('#<%=JaniculumWrapper.id(component, "content_children")%>');
+	ch.css("display","block");
+	ch.css("z-index","100");
+	var parPos = par.offset();
+	var chPos = ch.offset();
+	if(!chPos||(Math.abs(parPos.left - chPos.left) <10 && Math.abs(parPos.top -chPos.top) <10)){
+		if(chPos)console.log("chPos:"+chPos+" first:"+(Math.abs(parPos.left - chPos.left)+" sec:"+Math.abs(parPos.top -chPos.top)));
+		ch.css("left",par.position().left+par.width());
+	}
 });
 $('#<%=JaniculumWrapper.id(component,null)%>').mouseleave(function (){
-	$('#<%=JaniculumWrapper.id(component, "content_children")%>').css("display","none");
+	$('#<%=JaniculumWrapper.id(component, "content_children")%>').css("display","none").css("z-index","0");
 });
+$('#<%=JaniculumWrapper.id(component,"content_children")%>').css("display","none");
 </roma:addjs>
 <%} %>

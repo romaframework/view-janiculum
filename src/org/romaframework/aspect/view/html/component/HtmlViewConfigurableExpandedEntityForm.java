@@ -50,7 +50,6 @@ public class HtmlViewConfigurableExpandedEntityForm extends HtmlViewConfigurable
 
 	@Override
 	public void render(Writer writer) {
-		// return super.render();
 	}
 
 }

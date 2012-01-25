@@ -90,6 +90,7 @@ public class HtmlViewAspect extends ViewAspectAbstract implements SchemaFeatures
 
 	private static Log					log	= LogFactory.getLog(HtmlViewAspect.class);
 	private Map<String, String>	typeRenders;
+	private Set<String>					formRenders;
 
 	public HtmlViewAspect() {
 		Controller.getInstance().registerListener(FieldRefreshListener.class, this);
@@ -655,6 +656,14 @@ public class HtmlViewAspect extends ViewAspectAbstract implements SchemaFeatures
 			typeRenders.get(typeName);
 		}
 		return null;
+	}
+
+	public Set<String> getFormRenders() {
+		return formRenders;
+	}
+
+	public void setFormRenders(Set<String> formRenders) {
+		this.formRenders = formRenders;
 	}
 
 }
