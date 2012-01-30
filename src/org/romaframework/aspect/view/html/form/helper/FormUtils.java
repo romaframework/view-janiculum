@@ -6,7 +6,6 @@ import java.util.Collection;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.romaframework.aspect.view.ViewConstants;
-import org.romaframework.aspect.view.ViewHelper;
 import org.romaframework.aspect.view.area.AreaComponent;
 import org.romaframework.aspect.view.feature.ViewActionFeatures;
 import org.romaframework.aspect.view.feature.ViewFieldFeatures;
@@ -80,10 +79,8 @@ public class FormUtils {
 				return;
 			} else if (TreeNode.class.isAssignableFrom(fieldType) && featureRender != null && featureRender.equals(ViewConstants.RENDER_TREE)) {
 				createTreeComposedComponent(field, iForm);
-			} else if (featureRender != null && ((HtmlViewAspect) Roma.view()).getFormRenders().contains(featureRender)) {
+			} else if (featureRender != null && ((HtmlViewAspect) Roma.view()).getFormRenders() != null && ((HtmlViewAspect) Roma.view()).getFormRenders().contains(featureRender)) {
 				Object content = iForm.getContent();
-				if (content != null)
-					content = ViewHelper.getWrappedContent(content);
 				Object value = field.getValue(content);
 				if (content != null && value == null) {
 					createHiddenContentComponent(field, iForm);

@@ -116,11 +116,11 @@ public class HtmlViewConfigurableEntityForm extends HtmlViewAbstractContentCompo
 			return;
 		}
 		for (HtmlViewGenericComponent component : expandedChildren) {
+			component.clearComponents();
+			if (Roma.session().getActiveSystemSession() != null)
+				HtmlViewAspectHelper.getHtmlViewSession().removeRenderableBinding((HtmlViewRenderable) component);
 			if (component.getContent() != null) {
 				ViewHelper.invokeOnDispose(component.getContent());
-				component.clearComponents();
-				if (Roma.session().getActiveSystemSession() != null)
-					HtmlViewAspectHelper.getHtmlViewSession().removeRenderableBinding((HtmlViewRenderable) component);
 				((HtmlViewAspect) Roma.aspect(ViewAspect.class)).removeObjectFormAssociation(component.getContent(), null);
 			}
 		}
@@ -262,7 +262,7 @@ public class HtmlViewConfigurableEntityForm extends HtmlViewAbstractContentCompo
 	@Override
 	public boolean validate() {
 		boolean result = true;
-		Object realContent = ViewHelper.getWrappedContent(content);
+		Object realContent = content;
 
 		MultiValidationException mvex = Roma.validation().validateAndCollectExceptions(realContent);
 		final Iterator<ValidationException> exceptions = mvex.getDetailIterator();

@@ -37,13 +37,12 @@ public class ChildrenMap {
 		}
 	}
 
-	private void replaceChild(HtmlViewGenericComponent oldComponent, HtmlViewGenericComponent newComponent,
-			AreaComponent areaComponent) {
-		if (newComponent == null || newComponent.getContent() != oldComponent.getContent()) {
+	private void replaceChild(HtmlViewGenericComponent oldComponent, HtmlViewGenericComponent newComponent, AreaComponent areaComponent) {
+		if (newComponent == null) {
 			oldComponent.clearComponents();
 		}
 		if (oldComponent instanceof HtmlViewContentForm) {
-			if (newComponent == null || newComponent.getContent() != oldComponent.getContent()) {
+			if (newComponent == null && oldComponent instanceof ContentForm) {
 				((HtmlViewAspect) Roma.aspect(ViewAspect.class)).releaseForm((ContentForm) oldComponent);
 			} else {
 				((HtmlViewAspect) Roma.aspect(ViewAspect.class)).removeObjectFormAssociation(oldComponent, null);
@@ -63,7 +62,8 @@ public class ChildrenMap {
 		final Pair<AreaComponent, HtmlViewGenericComponent> values = children.get(fieldName);
 		if (values != null) {
 			if (values.getValue() != null) {
-				HtmlViewAspectHelper.getHtmlViewSession().removeRenderableBinding(values.getValue());
+				if (Roma.session().getActiveSystemSession() != null)
+					HtmlViewAspectHelper.getHtmlViewSession().removeRenderableBinding(values.getValue());
 			}
 			children.put(fieldName, null);
 			if (values.getValue() instanceof HtmlViewContentForm) {

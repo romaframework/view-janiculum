@@ -24,8 +24,8 @@ public abstract class HtmlViewAbstractContentComponent extends HtmlViewAbstractC
 	protected boolean				valid	= true;
 	protected String				validationMessage;
 
-	public HtmlViewAbstractContentComponent(final HtmlViewContentComponent containerComponent, final SchemaField schemaField,
-			final Object content, final HtmlViewScreenArea screenArea) {
+	public HtmlViewAbstractContentComponent(final HtmlViewContentComponent containerComponent, final SchemaField schemaField, final Object content,
+			final HtmlViewScreenArea screenArea) {
 		super(containerComponent, screenArea, schemaField);
 		this.content = content;
 	}
@@ -172,18 +172,18 @@ public abstract class HtmlViewAbstractContentComponent extends HtmlViewAbstractC
 			return;
 		}
 		for (HtmlViewGenericComponent component : components) {
+			component.clearComponents();
+			if (Roma.session().getActiveSystemSession() != null)
+				HtmlViewAspectHelper.getHtmlViewSession().removeRenderableBinding((HtmlViewRenderable) component);
 			if (component.getContent() != null) {
 				ViewHelper.invokeOnDispose(component.getContent());
-				component.clearComponents();
-				if (Roma.session().getActiveSystemSession() != null)
-					HtmlViewAspectHelper.getHtmlViewSession().removeRenderableBinding((HtmlViewRenderable) component);
-				((HtmlViewAspect)Roma.aspect(ViewAspect.class)).removeObjectFormAssociation(component.getContent(), null);
+				((HtmlViewAspect) Roma.aspect(ViewAspect.class)).removeObjectFormAssociation(component.getContent(), null);
 			}
 		}
 		components.clear();
 		clearChildren();
 	}
-	
+
 	public void destroy() {
 
 	}

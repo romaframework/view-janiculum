@@ -147,6 +147,7 @@ public class RequestParserImpl implements RequestParser {
 			renderable = session.getRenderableById(Long.parseLong(componentId));
 			String event = EventHelper.getEvent(eventHtmlName);
 			if (renderable instanceof HtmlViewScreenPopupAreaInstance && CLOSE_POPUP_EVENT_NAME.equals(event)) {
+				Roma.view().getScreen().setActiveArea(((HtmlViewScreenPopupAreaInstance)renderable).getName());
 				Roma.flow().back();
 			} else if (renderable instanceof HtmlViewGenericComponent) {
 				HtmlViewGenericComponent component = (HtmlViewGenericComponent) renderable;

@@ -88,6 +88,8 @@ public class HtmlViewAspectHelper {
 	 */
 	public static HtmlViewSession getHtmlViewSession() {
 		final SessionAspect sessionAspect = Roma.session();
+		if (sessionAspect == null)
+			return null;
 		HtmlViewSession result = (HtmlViewSession) sessionAspect.getProperty(VA_SESSION);
 		if (result == null) {
 			result = new HtmlViewSession();
@@ -251,8 +253,7 @@ public class HtmlViewAspectHelper {
 	 * @throws IOException
 	 *           {@link IOException}
 	 */
-	public static void renderByJsp(final ViewComponent component, final ServletRequest request, Writer writer)
-			throws ServletException, IOException {
+	public static void renderByJsp(final ViewComponent component, final ServletRequest request, Writer writer) throws ServletException, IOException {
 		final Object obj = component.getContent();
 		if (obj != null) {
 			final Class<?> clazz = obj.getClass();
@@ -402,8 +403,7 @@ public class HtmlViewAspectHelper {
 		return TransformerHelper.getInstance().getHtmlId((HtmlViewScreenArea) screen.getPopupsScreenArea(), null);
 	}
 
-	public static AreaComponent searchAreaForRendering(final String featureLayout, final SchemaClassElement iField,
-			final HtmlViewFormArea rootArea) {
+	public static AreaComponent searchAreaForRendering(final String featureLayout, final SchemaClassElement iField, final HtmlViewFormArea rootArea) {
 		AreaComponent areaForRendering = null;
 		// Search for a defined area
 		if (featureLayout != null && featureLayout.startsWith("form:")) {
@@ -501,8 +501,7 @@ public class HtmlViewAspectHelper {
 		return false;
 	}
 
-	public static void getHtmlFromJSP(final ServletRequest request, String jspUrl, Writer writer) throws ServletException,
-			IOException {
+	public static void getHtmlFromJSP(final ServletRequest request, String jspUrl, Writer writer) throws ServletException, IOException {
 		MockHttpServletResponse response = new MockHttpServletResponse(writer);
 		request.getRequestDispatcher(jspUrl).include(request, response);
 	}

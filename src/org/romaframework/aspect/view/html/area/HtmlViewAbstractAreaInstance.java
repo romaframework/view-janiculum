@@ -114,7 +114,7 @@ public abstract class HtmlViewAbstractAreaInstance extends TreeNodeLinkedHashMap
 
 	public Transformer getTransformer() {
 		if (getType() == null) {
-			return Roma.component(TransformerManager.class).getComponent(DEF_AREAMODE_NAME);
+			return Roma.component(TransformerManager.class).getComponent(AreaComponent.DEF_AREAMODE_NAME);
 		}
 		return Roma.component(TransformerManager.class).getComponent(getType());
 
@@ -151,11 +151,11 @@ public abstract class HtmlViewAbstractAreaInstance extends TreeNodeLinkedHashMap
 		return buffer.toString();
 	}
 
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@Override
 	public List<HtmlViewRenderable> getComponents() {
 		if (getChildren() != null)
-			return new ArrayList<HtmlViewRenderable>((Collection<HtmlViewRenderable>) getChildren());
+			return new ArrayList<HtmlViewRenderable>((Collection) getChildren());
 		return new ArrayList<HtmlViewRenderable>();
 	}
 

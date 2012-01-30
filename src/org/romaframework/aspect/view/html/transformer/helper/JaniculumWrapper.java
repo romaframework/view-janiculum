@@ -208,12 +208,18 @@ public class JaniculumWrapper {
 	}
 
 	public static String i18NLabel(HtmlViewRenderable component) {
-		if (((HtmlViewGenericComponent) component).getSchemaElement() != null) {
-			SchemaElement element = ((HtmlViewGenericComponent) component).getSchemaElement();
-			if (element instanceof SchemaField)
-				return Roma.i18n().get(element, I18NType.LABEL, ViewFieldFeatures.LABEL);
-			else if (element instanceof SchemaAction)
-				return Roma.i18n().get(element, I18NType.LABEL, ViewActionFeatures.LABEL);
+		if (component instanceof HtmlViewGenericComponent) {
+			if (((HtmlViewGenericComponent) component).getSchemaElement() != null) {
+				SchemaElement element = ((HtmlViewGenericComponent) component).getSchemaElement();
+				if (element instanceof SchemaField)
+					return Roma.i18n().get(element, I18NType.LABEL, ViewFieldFeatures.LABEL);
+				else if (element instanceof SchemaAction)
+					return Roma.i18n().get(element, I18NType.LABEL, ViewActionFeatures.LABEL);
+			}
+		} else if (component instanceof HtmlViewFormArea) {
+			if (((HtmlViewFormArea) component).getComponents() != null && ((HtmlViewFormArea) component).getComponents().size() == 1) {
+				return i18NLabel(((HtmlViewFormArea) component).getComponents().get(0));
+			}
 		}
 		return "";
 	}
