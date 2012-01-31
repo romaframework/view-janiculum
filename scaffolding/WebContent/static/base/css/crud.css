@@ -1,4 +1,3 @@
-@CHARSET "ISO-8859-1";
 
 /* 3 - CRUD & COMPOSED */
 /* COMPOSED ENTITY */
@@ -21,64 +20,16 @@ div.class_CRUDMain table.area_0 {
 	margin-left: 3px;
 }
 
-.class_CRUDPaging button.action_first > img {
-	background-image: url(../image/first.png);
-	display: inline;
+
+div.jqDrag {
+	background-color: #ddeeff;
+	color: #aabbcc;
 }
 
-.class_CRUDPaging button.action_prev > img {
-	background-image: url(../image/prev.png);
-	display: inline;
-}
-
-.class_CRUDPaging button.action_next >img {
-	background-image: url(../image/next.png);
-	display: inline;
-}
-
-.class_CRUDPaging button.action_last >img {
-	background-image: url(../image/last.png);
-	display: inline;
-}
-
-.class_CRUDPaging button.action_queryAll >img {
-	background-image: url(../image/queryall.png);
-	display: inline;
-}
-
-.class_CRUDMain button.action_select >img {
-	padding-left: 20px;
-	background-image: url(../image/yes.gif);
-	background-repeat: no-repeat;
-	text-align: left;
-	padding-top: 4px;
-	padding-bottom: 4px;
-	background-color: white;
-	margin-top: 2px;
-}
 
 /* SEARCH ENGINE */
-.class_QueryCondition button.action_addRight >img {
-	background-image: url(../image/next.gif);
-	display: inline;
-}
-
-.class_QueryCondition button.action_addLeft >img {
-	background-image: url(../image/prev.gif);
-	display: inline;
-}
-
-.class_QueryCondition button.action_remove >img {
-	background-image: url(../image/remove.gif);
-	display: inline;
-}
-
-.class_QueryCondition button.action_edit >img {
-	background-image: url(../image/edit.gif);
-	display: inline;
-}
 
 .queryOperationAddOperator button>img {
 	background-image: url(../image/add.gif);
-	display: inline;
+	display: inline;HtmlViewAbstractAreaInstance
 }

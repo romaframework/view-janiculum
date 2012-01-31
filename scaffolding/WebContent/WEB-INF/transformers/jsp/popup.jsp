@@ -14,20 +14,19 @@
 <%@page import="org.romaframework.aspect.view.html.constants.RequestConstants"%><%@page import="java.util.Set"%><%@page import="org.romaframework.aspect.view.html.transformer.jsp.JspTransformer"%><%@page import="org.romaframework.aspect.view.html.transformer.helper.JaniculumWrapper"%><%@page import="org.romaframework.aspect.view.html.constants.RequestConstants"%><%@page import="java.util.Map"%><%
 	HtmlViewRenderable component = (HtmlViewRenderable)request.getAttribute(RequestConstants.CURRENT_COMPONENT_IN_TRANSFORMER);
 %>
-<div class="jqDnr <%=JaniculumWrapper.cssClass(component, "popup", null)%>" id="<%=JaniculumWrapper.id(component, null)%>">
-<div class="jqDnr <%=JaniculumWrapper.cssClass(component, "popup", "dialog")%>" id="<%=JaniculumWrapper.id(component, "dialog")%>">
-		<% HtmlViewAspectHelper.renderByJsp(((HtmlViewScreenPopupAreaInstance)component).getForm(), request, pageContext.getOut()); %>
-</div></div>
+<div class="<%=JaniculumWrapper.cssClass(component, "popup", null)%>" id="<%=JaniculumWrapper.id(component, null)%>">
+<% ((HtmlViewScreenPopupAreaInstance)component).getForm().render(pageContext.getOut()); %>
+</div>
 <roma:addjs>
-$('#<%=JaniculumWrapper.id(component, "dialog")%>').dialog({
+$('#<%=JaniculumWrapper.id(component, null)%>').dialog({
 	modal:true,
 	close:function (){ romaEvent('<%=JaniculumWrapper.fieldName(component)%>', 'ClosePopup');},
 	autoOpen: true,
 	width: 600,
 	title: '<%=JaniculumWrapper.i18NObjectLabel(((HtmlViewScreenPopupAreaInstance)component).getForm())%>'
 });
-romaAddRemove('<%=JaniculumWrapper.id(component, "dialog")%>',function(){
-	$('#<%=JaniculumWrapper.id(component, "dialog")%>').dialog('destroy');
-	$('#<%=JaniculumWrapper.id(component, "dialog")%>').remove();
+romaAddRemove('<%=JaniculumWrapper.id(component, null)%>',function(){
+	$('#<%=JaniculumWrapper.id(component, null)%>').dialog('destroy');
+	$('#<%=JaniculumWrapper.id(component, null)%>').remove();
 });
 </roma:addjs>

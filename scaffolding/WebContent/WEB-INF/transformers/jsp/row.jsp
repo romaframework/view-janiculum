@@ -23,7 +23,7 @@
 	JspTransformerHelper.addCss(JaniculumWrapper.id(component, null)+" > table", "margin-left", marginLeft);
 	JspTransformerHelper.addCss(JaniculumWrapper.id(component, null)+" > table", "margin-right", marginRight);
 %>
-<table id="<%=JaniculumWrapper.id(component, null)%>" class="<%=JaniculumWrapper.cssClass(component, "row", null)%>" style="<%=JaniculumWrapper.inlineStyle(component, null)%>" cellpadding="0" cellspacing="0">
+<table id="<%=JaniculumWrapper.id(component, null)%>" class="<%=JaniculumWrapper.cssClass(component, "row", null)%>" style="<%=JaniculumWrapper.inlineStyle(component, null)%>">
   <tr>
   <%
   int col = 0;

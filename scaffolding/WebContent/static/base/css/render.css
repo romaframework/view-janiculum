@@ -2,7 +2,7 @@
 
 /* 2 - RENDERS */ /* ALL INPUT RENDER */
 .render_text input,.render_date input,.render_password input,.render_number input,.render_decimal input,.render_select select,.render_textarea textarea,.render_objectlink input
-{
+	{
 	cursor: text;
 	height: 24px;
 	padding: 0px;
@@ -11,31 +11,34 @@
 	margin-right: 2px;
 	text-align: middle;
 	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1) inset;
-    border: 1px solid #CCCCCC;
-    border-radius: 3px 3px 3px 3px;
-    text-shadow: 0 1px 1px rgba(255, 255, 255, 0.75);
+	border: 1px solid #CCCCCC;
+	border-radius: 3px 3px 3px 3px;
+	text-shadow: 0 1px 1px rgba(255, 255, 255, 0.75);
 }
 
-.render_text input .invalid,.render_date input .invalid,.render_password input .invalid,.render_number input .invalid,.render_decimal input .invalid,.render_select select .invalid,.render_textarea textarea .invalid,.render_objectlink input .invalid {
+.render_text input .invalid,.render_date input .invalid,.render_password input .invalid,.render_number input .invalid,.render_decimal input .invalid,.render_select select .invalid,.render_textarea textarea .invalid,.render_objectlink input .invalid
+	{
 	border: 1px solid #B30222;
 }
 
-.render_button button {
+.render_button button ,.render_table button ,.render_tableedit button {
 	width: 100%;
 	max-width: 180px;
 	background-color: #F9F9F9;
-    border-color: #CCCCCC #CCCCCC #BBBBBB;
-    border-radius: 4px 4px 4px 4px;
-    border-style: solid;
-	background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#ffffff), color-stop(25%, #ffffff), to(#e6e6e6));
+	border-color: #CCCCCC #CCCCCC #BBBBBB;
+	border-radius: 4px 4px 4px 4px;
+	border-style: solid;
+	background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#ffffff),
+		color-stop(25%, #ffffff), to(#e6e6e6) );
 	background-image: -webkit-linear-gradient(#ffffff, #ffffff 25%, #e6e6e6);
 	background-image: -moz-linear-gradient(top, #ffffff, #ffffff 25%, #e6e6e6);
 	background-image: -ms-linear-gradient(#ffffff, #ffffff 25%, #e6e6e6);
 	background-image: -o-linear-gradient(#ffffff, #ffffff 25%, #e6e6e6);
 	background-image: linear-gradient(#ffffff, #ffffff 25%, #e6e6e6);
-    border-width: 1px;
-    box-shadow: 0 1px 0 rgba(255, 255, 255, 0.2) inset, 0 1px 2px rgba(0, 0, 0, 0.05);
-    line-height: normal;
+	border-width: 1px;
+	box-shadow: 0 1px 0 rgba(255, 255, 255, 0.2) inset, 0 1px 2px
+		rgba(0, 0, 0, 0.05);
+	line-height: normal;
 }
 
 img.render_button_icon {
@@ -44,99 +47,105 @@ img.render_button_icon {
 	display: none;
 }
 
-.render_table table {
+div.render_table ,div.render_tableedit {
+	display: table;
+}
+
+.render_table >div,.render_tableedit >div{
+	display: table-row;
+}
+
+.render_table >div>div,.render_tableedit >div>div{
+	display: table-cell;
+	vertical-align: top;
+}
+.render_table table,.render_tableedit table {
 	width: 100%;
 	border-spacing: 0;
 	border-collapse: collapse;
 	border: 1px solid #DDDDDD;
 }
 
-.render_table th {
+.render_table th,.render_tableedit th {
 	background-color: #dddddd;
 	border-top: 1px solid #DDDDDD;
 	border-bottom: 1px solid #DDDDDD;
 }
 
-.render_table td {
+.render_table td,.render_tableedit td {
 	border-top: 1px solid #DDDDDD;
 	border-bottom: 1px solid #DDDDDD;
 }
 
-.render_table tr:HOVER td {
+.render_table tr:HOVER td,.render_tableedit tr:HOVER td {
 	background-color: #F5F5F5;
 }
 
-.render_table tr.odd:HOVER td {
+.render_table tr.odd:HOVER td,.render_tableedit tr.odd:HOVER td {
 	background-color: #F5F5F5;
 }
 
-.render_table tr.odd td {
+.render_table tr.odd td,.render_tableedit tr.odd td {
 	background-color: #F9F9F9;
 }
 
-.render_tableedit table {
-	width: 100%;
-	border-spacing: 0;
-	border-collapse: collapse;
-	border: 1px solid #DDDDDD;
+/* RENDER_TABLE */
+button.table_actions_add,button.table_actions_edit,button.table_actions_view,button.table_actions_remove,button.table_actions_up,button.table_actions_down
+{
+	display: block;
+	margin: 2px;
+	width: 24px;
+	height: 24px;
+	background-repeat: no-repeat;
+	background-position: center; 
 }
 
-.render_tableedit th {
-	border: 1px solid #DDDDDD;
+button.table_actions_add {
+	background-image: url(../image/add.gif);
 }
 
-.render_tableedit td {
-	border: 1px solid #DDDDDD;
+button.table_actions_edit {
+	background-image: url(../image/edit.gif);
 }
 
-.render_tableedit th {
-	background-color: #ffffff;
-	border: 1px solid #DDDDDD;
-	padding: 4px;
+button.table_actions_view {
+	background-image: url(../image/view.gif);
 }
 
-.render_tableedit tr.odd td {
-	background-color: #F9F9F9;
+button.table_actions_remove {
+	background-image: url(../image/remove.gif);
+}
+
+button.table_actions_up {
+	background-image: url(../image/up.gif);
+}
+
+button.table_actions_down {
+	background-image: url(../image/down.gif);
 }
 
 /* ALL ACTION RENDER */
-.render_link_content { /*font-size: 14px;*/
+.render_link { /*font-size: 14px;*/
 	color: #333;
 	cursor: pointer;
 	text-decoration: none;
 }
 
-.render_link_content:HOVER {
+.render_link a:HOVER {
 	text-decoration: underline;
 }
 
-.render_link_content:VISITED {
+.render_link a:VISITED {
 	color: #333;
 }
 
-/* RENDER LINK */
-div.class_Object a.render_link_content {
+.render_link a {
 	background-repeat: no-repeat;
 	line-height: 25px;
 	display: block;
 }
 
 /* RENDER BUTTON */
-.render_button_content {
-	border: 1px solid #CADBDF;
-	font-size: 13px;
-	font-family: Verdana;
-	font-weight: normal;
-	padding: 2px;
-	color: #333;
-	background-color: #F7F9F9;
-	cursor: pointer;
-}
-
-.render_button_content:HOVER {
-	background-color: #E8E8E8;
-}
-
 .render_button {
 	cursor: hand;
 }
@@ -144,10 +153,6 @@ div.class_Object a.render_link_content {
 /* RENDER GRID */
 .render_grid {
 	width: 100%;
-}
-
-.render_grid td {
-	margin: 2px;
 }
 
 /* RENDER ROW */
@@ -186,30 +191,14 @@ select.render_list_content {
 }
 
 /* RENDER DATE */
-.timeEntry_wrap input.render_datetime_content {
-	width: 45px;
-}
-
-input.render_datetime_content {
-	width: 90px;
-}
 
 /* RENDER OBJECTLINK */
-input.render_objectlink_open,input.render_objectlink_reset {
-	border: none;
-}
-
-.render_objectlink_content {
-	padding-left: 4px;
-	padding-right: 4px;
-	margin: 0px;
-}
-
 input.render_objectlink_open,input.render_objectlink_reset {
 	width: 15px;
 	background-repeat: no-repeat;
 	background-position: 0 3px;
 	background-color: transparent;
+	border: none;
 }
 
 .render_objectlink_open {
@@ -220,71 +209,11 @@ input.render_objectlink_open,input.render_objectlink_reset {
 	background-image: url(../image/reset.gif);
 }
 
-/* RENDER_TABLE */
-input.table_actions_add,input.table_actions_edit,input.table_actions_view,input.table_actions_remove,input.table_actions_up,input.table_actions_down
-	{
-	border: 1px solid #CADBDF;
-	font-size: 13px;
-	font-weight: normal;
-	padding: 2px;
-	color: #333;
-	background-color: #F7F9F9;
-	background-position: center;
-	background-repeat: no-repeat;
-	width: 20px;
-	height: 20px;
-}
-
-input.table_actions_add {
-	background-image: url(../image/add.gif);
-}
-
-input.table_actions_edit {
-	background-image: url(../image/edit.gif);
-}
-
-input.table_actions_view {
-	background-image: url(../image/view.gif);
-}
-
-input.table_actions_remove {
-	background-image: url(../image/remove.gif);
-}
-
-input.table_actions_up {
-	background-image: url(../image/up.gif);
-}
-
-input.table_actions_down {
-	background-image: url(../image/down.gif);
-}
-
 input.table_selection {
 	cursor: pointer;
 }
 
-/* RENDER MAP */
-.gsmsc-mapDiv {
-	height: 275px;
-}
-
-.gsmsc-idleMapDiv {
-	height: 275px;
-}
-
-#mapsearch {
-	width: 365px;
-	margin: 10px;
-	padding: 4px;
-}
-
-.google_map_generated_map {
-	height: 300px;
-	width: 400px;
-}
-
-
-/* RENDER CHACK */
+/* RENDER CHECK */
 input.render_check {
 	cursor: pointer;
 	display: block;
@@ -294,117 +223,4 @@ input.render_check {
 /* RENDER UPLOAD */
 div.render_upload iframe {
 	display: none;
-}
-
-/* RENDER POPUP */
-input.render_popup_close {
-	cursor: pointer;
-}
-
-div.jqDrag {
-	background-color: #ddeeff;
-	color: #aabbcc;
-}
-
-table.render_popup {
-	margin: auto;
-	background-color: #ffffff;
-	position: relative;
-	overflow: auto;
-	top: 80px;
-}
-
-table.render_popup tr.render_popup_row_1 {
-	height: 17px;
-}
-
-table.render_popup tr.render_popup_row_3 {
-	height: 23px;
-}
-
-table.render_popup td.render_popup_col_1 {
-	width: 17px;
-}
-
-table.render_popup td.render_popup_col_3 {
-	width: 23px;
-}
-
-table.render_popup tr.render_popup_row_1 td.render_popup_col_1 {
-	background-color: transparent;
-	padding: 0 0;
-	background-image: url(../image/BorderTopLeft.png);
-}
-
-table.render_popup tr.render_popup_row_1 td.render_popup_col_2 {
-	background-color: transparent;
-	padding: 0 0;
-	background-image: url(../image/BorderTop.png);
-}
-
-table.render_popup tr.render_popup_row_1 td.render_popup_col_3 {
-	background-color: transparent;
-	padding: 0 0;
-	background-image: url(../image/BorderTopRight.png);
-}
-
-table.render_popup tr.render_popup_row_2 td.render_popup_col_2 {
-	vertical-align: top;
-	background-color: #FFFFFF;
-}
-
-table.render_popup tr.render_popup_row_3 td.render_popup_col_1 {
-	background-color: transparent;
-	padding: 0 0;
-	background-image: url(../image/BorderBottomLeft.png);
-}
-
-table.render_popup tr.render_popup_row_3 td.render_popup_col_2 {
-	background-color: transparent;
-	padding: 0 0;
-	background-image: url(../image/BorderBottom.png);
-}
-
-table.render_popup tr.render_popup_row_3 td.render_popup_col_3 {
-	background-color: transparent;
-	padding: 0 0;
-	background-image: url(../image/BorderBottomRight.png);
-}
-
-.render_popup_left_border {
-	background-color: transparent;
-	padding: 0 0;
-	background-image: url(../image/BorderLeft.png);
-}
-
-.render_popup_right_border {
-	background-color: transparent;
-	padding: 0 0;
-	background-image: url(../image/BorderRight.png);
-}
-
-td.render_popup_col_2 div.header {
-	line-height: 21px;
-	color: #FFFFFF;
-	font: 14px Verdana, Arial, Helvetica, sans-serif;
-	font-weight: bold;
-}
-
-td.render_popup_col_2 div.header div {
-	height: 17px;
-	padding: 3px;
-}
-
-td.render_popup_col_2 div.header input.render_popup_close {
-	height: 23px;
-	width: 23px;
-	margin: 0;
-	border: 0;
-	padding: 2px;
-	float: right;
-	background-image: url(../image/close.png);
-}
-
-td.render_popup_col_2 div.header input.render_popup_close:hover {
-	background-image: url(../image/closeOver.png);
 }

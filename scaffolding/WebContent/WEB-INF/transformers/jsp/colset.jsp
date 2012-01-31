@@ -21,7 +21,7 @@
 	}
 	String halign = JaniculumWrapper.areaHorizontalAlignment(component);
 %>
-<table cellpaddign="0" cellspacing="0" id="<%=JaniculumWrapper.id(component, null)%>" class="<%=JaniculumWrapper.cssClass(component, "colset", null)%>" style="<%=JaniculumWrapper.inlineStyle(component, null)%>">
+<table id="<%=JaniculumWrapper.id(component, null)%>" class="<%=JaniculumWrapper.cssClass(component, "colset", null)%>" style="<%=JaniculumWrapper.inlineStyle(component, null)%>">
 	<tr>
 	<%
 	int col = 0;

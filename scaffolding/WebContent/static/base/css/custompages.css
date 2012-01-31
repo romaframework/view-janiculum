@@ -11,24 +11,6 @@
     color: white;
 }
 
-.action_login button {
-    padding-left: 20px;
-    border: 1px solid #bbbbbb;
-    background-image: url(../image/login.png);
-    background-repeat: no-repeat;
-    color: #333;
-    background-color: #F7F9F9;
-}
-
-/*  ChangePassword */
-
-.class_ChangePassword .action_change a {
-    background-image: url(../image/save.png);
-    background-repeat: no-repeat;
-    text-align: left;
-    background-color: white;
-}
-
 /* ErrorMessageTextDetail */
 
 #screen_main_popups_popup_ErrorMessageTextDetail {

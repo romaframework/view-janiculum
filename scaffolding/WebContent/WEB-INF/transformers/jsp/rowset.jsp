@@ -19,7 +19,7 @@
 	}
 	String halign = JaniculumWrapper.areaHorizontalAlignment(component);
 %>
-<table cellpadding="0" cellspacing="0" id="<%=JaniculumWrapper.id(component, null)%>" class="<%=JaniculumWrapper.cssClass(component, "rowset", null)%>" style="<%=JaniculumWrapper.inlineStyle(component, null)%>">
+<table id="<%=JaniculumWrapper.id(component, null)%>" class="<%=JaniculumWrapper.cssClass(component, "rowset", null)%>" style="<%=JaniculumWrapper.inlineStyle(component, null)%>">
 	<%
 	int row = 0;
 	for(Object c:JaniculumWrapper.getChildren(component)){
