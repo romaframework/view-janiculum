@@ -13,6 +13,7 @@
 	border: 1px solid #CCCCCC;
 	border-radius: 3px 3px 3px 3px;
 	text-shadow: 0 1px 1px rgba(255, 255, 255, 0.75);
+	display: block;
 }
 
 .render_text input .invalid,.render_date input .invalid,.render_password input .invalid,.render_number input .invalid,.render_decimal input .invalid,.render_select select .invalid,.render_textarea textarea .invalid,.render_objectlink input .invalid {
@@ -38,6 +39,12 @@
 		rgba(0, 0, 0, 0.05);
 	line-height: normal;
 }
+table.render_grid,table.render_row,table.render_column,table.render_form, .render_grid > tr >td,.render_row > tr >td,.render_column > tr >td,.render_form > tr >td ,table.render_rowset{
+	width: 100%;
+	height: auto;
+	padding: 0;
+	margin: 0;
+}
 
 img.render_button_icon {
 	vertical-align: middle;
@@ -57,7 +64,7 @@ div.render_table ,div.render_tableedit {
 	display: table-cell;
 	vertical-align: top;
 }
-.render_table table,.render_tableedit table {
+table.render_table, table.render_tableedit {
 	width: 100%;
 	border-spacing: 0;
 	border-collapse: collapse;
@@ -73,13 +80,14 @@ div.render_table ,div.render_tableedit {
 .render_table td,.render_tableedit td {
 	border-top: 1px solid #DDDDDD;
 	border-bottom: 1px solid #DDDDDD;
+	border-collapse: collapse;
 }
 
-.render_table tr:HOVER td,.render_tableedit tr:HOVER td {
+.render_table >tr:HOVER >td,.render_tableedit >tr:HOVER >td {
 	background-color: #F5F5F5;
 }
 
-.render_table tr.odd:HOVER td,.render_tableedit tr.odd:HOVER td {
+.render_table >tr.odd:HOVER >td,.render_tableedit >tr.odd:HOVER >td {
 	background-color: #F5F5F5;
 }
 

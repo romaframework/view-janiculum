@@ -50,10 +50,11 @@
  		JspTransformerHelper.addCss(JaniculumWrapper.id(component, null)+"_"+col+" > table", "width", "100%");
  		JspTransformerHelper.addCss(JaniculumWrapper.id(component, null)+"_"+col+" > div.POJO > table.area_main", "width", "100%");
  	}
-  %>
-      <td id="<%=JaniculumWrapper.id(component, null)%>_<%=col%>" class="col_<%=col %> <%=JaniculumWrapper.cssClass(child, null, null)%>"><%if(child instanceof HtmlViewContentComponent){
-	    	%><td><label class="<%=JaniculumWrapper.cssClass(child, "label", "label")%>" for="<%=JaniculumWrapper.id(child, "content")%>"><%=JaniculumWrapper.i18NLabel(child)%></label><td><%
-	    } 
+    String label = JaniculumWrapper.getInAreaLabel(child);
+    if(label != null) {
+	  	%><td><label class="<%=JaniculumWrapper.cssClass(child, "label", "label")%>" for="<%=JaniculumWrapper.id(child, "content")%>"><%=label%></label></td><%
+	} 
+  	%><td id="<%=JaniculumWrapper.id(component, null)%>_<%=col%>" class="col_<%=col %> <%=JaniculumWrapper.cssClass(child, null, null)%>"><%
       JspTransformerHelper.delegate(child, null,pageContext.getOut()); %></td>
   <%
   

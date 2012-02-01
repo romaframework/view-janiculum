@@ -49,6 +49,7 @@ import org.romaframework.aspect.view.feature.ViewFieldFeatures;
 import org.romaframework.aspect.view.form.ContentForm;
 import org.romaframework.aspect.view.form.FormViewer;
 import org.romaframework.aspect.view.form.ViewComponent;
+import org.romaframework.aspect.view.html.area.HtmlViewArea;
 import org.romaframework.aspect.view.html.area.HtmlViewFormAreaInstance;
 import org.romaframework.aspect.view.html.area.HtmlViewRenderable;
 import org.romaframework.aspect.view.html.area.HtmlViewScreenArea;
@@ -346,10 +347,17 @@ public class HtmlViewAspect extends ViewAspectAbstract implements SchemaFeatures
 			FormUtils.createFieldComponent(field, form);
 		}
 
-		HtmlViewRenderable comp = form.getFieldComponent(fieldName);
-
+		if (featureName.equals(ViewFieldFeatures.LABEL)) {
+			HtmlViewContentComponent comp = form.getFieldComponent(fieldName);
+			if (comp != null) {
+				if (comp.getContainerComponent() instanceof HtmlViewArea) {
+					((HtmlViewArea) comp.getContainerComponent()).setDirty(true);
+				} else if (comp.getContainerComponent() instanceof HtmlViewGenericComponent) {
+					((HtmlViewGenericComponent) comp.getContainerComponent()).setDirty(true);
+				}
+			}
+		}
 		if (featureName.equals(ViewFieldFeatures.ENABLED)) {
-
 			form.setDirty(true);
 		}
 

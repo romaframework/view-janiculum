@@ -65,8 +65,8 @@
   	}
 	  %>
 	    <tr><td id="<%=JaniculumWrapper.id(component, null)%>_<%=row%>" class="row_<%=row%> <%=JaniculumWrapper.cssClass(child,null, null)%> ">
-	    <%String label = JaniculumWrapper.getInAreaLabel(child);
-	    if(label != null) {
+	    <% String label = JaniculumWrapper.getInAreaLabel(child);
+      	if(label != null) {
 	    	%><label class="<%=JaniculumWrapper.cssClass(child, "label", "label")%>" for="<%=JaniculumWrapper.id(child, "content")%>"><%=label%></label><%
 	    } 
 	    JspTransformerHelper.delegate(child, null,pageContext.getOut());%>
