@@ -398,7 +398,7 @@ public class HtmlViewAspect extends ViewAspectAbstract implements SchemaFeatures
 	 * org.romaframework.core.schema.SchemaField, java.lang.Object)
 	 */
 	public Object onBeforeFieldWrite(final Object content, final SchemaField field, final Object currentValue) {
-		return currentValue;
+		return IGNORED;
 	}
 
 	/*

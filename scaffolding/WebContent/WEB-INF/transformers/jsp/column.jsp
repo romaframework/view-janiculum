@@ -65,8 +65,9 @@
   	}
 	  %>
 	    <tr><td id="<%=JaniculumWrapper.id(component, null)%>_<%=row%>" class="row_<%=row%> <%=JaniculumWrapper.cssClass(child,null, null)%> ">
-	    <%if(child instanceof HtmlViewContentComponent){
-	    	%><label class="<%=JaniculumWrapper.cssClass(child, "label", "label")%>" for="<%=JaniculumWrapper.id(child, "content")%>"><%=JaniculumWrapper.i18NLabel(child)%></label><%
+	    <%String label = JaniculumWrapper.getInAreaLabel(child);
+	    if(label != null) {
+	    	%><label class="<%=JaniculumWrapper.cssClass(child, "label", "label")%>" for="<%=JaniculumWrapper.id(child, "content")%>"><%=label%></label><%
 	    } 
 	    JspTransformerHelper.delegate(child, null,pageContext.getOut());%>
 		</td></tr>
