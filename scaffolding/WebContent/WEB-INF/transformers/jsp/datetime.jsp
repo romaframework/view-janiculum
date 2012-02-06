@@ -1,3 +1,4 @@
+<%@ taglib uri="/WEB-INF/roma.tld" prefix="roma"%>
 <%@page import="org.romaframework.aspect.view.html.constants.TransformerConstants"%>
 <%@page import="org.romaframework.aspect.view.html.area.HtmlViewRenderable"%>
 <%@page import="org.romaframework.aspect.view.html.transformer.jsp.directive.JspTransformerHelper"%>
@@ -91,10 +92,10 @@ value="<%=JaniculumWrapper.formatDateContent(component, "HH:mm:ss")%>" <%=Janicu
 %> 
 		/>
 <%}
-StringBuffer buffer = new StringBuffer();
-buffer.append("jQuery('#"+JaniculumWrapper.id(component, "content")+"').datepicker({ dateFormat: 'dd/mm/yy' });\n");
-buffer.append("jQuery('#"+JaniculumWrapper.id(component, "time")+"').timeEntry({spinnerImage: '"+JaniculumWrapper.contextPath()+"/static/base/image/spinnerDefault.png', show24Hours: true, showSeconds: true});");
 
-JspTransformerHelper.addJs(JaniculumWrapper.id(component, TransformerConstants.PART_ALL), buffer.toString());
 %>
+<roma:addjs>
+jQuery('#<%=JaniculumWrapper.id(component, "content") %>').datepicker({ dateFormat: 'dd/mm/yy' });
+jQuery('#<%=JaniculumWrapper.id(component, "time") %>').timeEntry({spinnerImage: '<%=JaniculumWrapper.contextPath() %>/static/base/image/spinnerDefault.png', show24Hours: true, showSeconds: true});
+</roma:addjs>
 </div>

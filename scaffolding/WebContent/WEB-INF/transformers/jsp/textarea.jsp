@@ -1,3 +1,4 @@
+<%@ taglib uri="/WEB-INF/roma.tld" prefix="roma"%>
 <%@page import="org.romaframework.core.schema.SchemaField"%>
 <%@page import="org.romaframework.aspect.validation.feature.ValidationFieldFeatures"%>
 <%@page import="org.romaframework.aspect.view.feature.ViewFieldFeatures"%>
@@ -39,14 +40,17 @@
 	if(field.isSettedFeature(ValidationFieldFeatures.MAX)){
 		Integer max = ((HtmlViewContentComponent)component).getSchemaField().getFeature(ValidationFieldFeatures.MAX);
 		if(max!=null && max>0){
-			String js = "jQuery('#"+JaniculumWrapper.id(component, "content")+"').keyup(function(){"+
-		    "value = \"\"+jQuery('#"+  JaniculumWrapper.id(component, "content")+"').val();"+
-		    "if(value.length>"+max+"){"+
-		    "    jQuery('#"+ JaniculumWrapper.id(component, "content")+"').val(value.substring(0, "+max+"));"+
-		    "    romaFieldChanged('${janiculum.fieldName()}');"+
-		    "}"+ 
-			"});";
-			JspTransformerHelper.addJs(JaniculumWrapper.id(component, TransformerConstants.PART_ALL), "jQuery('#"+JaniculumWrapper.id(component, "content")+"').datepicker({ dateFormat: 'dd/mm/yy', yearRange: '1900:2050', changeYear: true, changeMonth: true });");
+			%>
+			<roma:addjs>
+			jQuery('#<%=JaniculumWrapper.id(component, "content") %>').keyup(function(){
+			    value = ""+jQuery('#<%=JaniculumWrapper.id(component, "content") %>').val();
+			    if(value.length> <%=max %>){
+			        jQuery('#<%=JaniculumWrapper.id(component, "content") %>').val(value.substring(0, <%=max %>));
+			        romaFieldChanged('${janiculum.fieldName()}');
+			    } 
+			});
+			</roma:addjs>
+			<%
 		}
 	}
 %>

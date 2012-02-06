@@ -1,3 +1,4 @@
+<%@ taglib uri="/WEB-INF/roma.tld" prefix="roma"%>
 <%@page import="org.romaframework.aspect.view.html.component.HtmlViewContentComponent"%>
 <%@page import="java.util.Collection"%>
 <%@page import="org.romaframework.aspect.view.html.component.HtmlViewGenericComponent"%>
@@ -59,20 +60,18 @@ private int tree(HtmlViewRenderable comp, Collection<?> children, String cssClas
 	return index;
 }
 %>
-
-<%
-StringBuffer buffer = new StringBuffer();
-buffer.append("jQuery(\"#"+pId+"\").tree({");
-buffer.append("	callback : {");
-buffer.append(		"onselect : function() {");
-buffer.append("			jQuery(\"#"+JaniculumWrapper.id(component, "hidden")+"\").attr('value', $.tree_reference('"+pId+"').selected.find(\"a\").attr(\"idx\"));");
-buffer.append("			romaFieldChanged('"+JaniculumWrapper.fieldName(component)+"');");
-buffer.append("			romaSendAjaxRequest();");
-buffer.append("		}");
-buffer.append("	}");
-buffer.append("});");
-buffer.append("if ($.tree_reference(\""+pId+"\") != null) {");
-buffer.append("	$.tree_reference(\""+pId+"\").open_all();");
-buffer.append("}");
-JspTransformerHelper.addJs(JaniculumWrapper.id(component, TransformerConstants.PART_ALL), buffer.toString());
+<roma:addjs>
+jQuery("#<%=pId%>").tree({
+	callback : {
+		onselect : function() {
+			jQuery("#<%=JaniculumWrapper.id(component, "hidden") %>").attr('value', $.tree_reference('<%=pId %>').selected.find("a").attr("idx"));
+			romaFieldChanged('<%=JaniculumWrapper.fieldName(component) %>');
+			romaSendAjaxRequest();
+		}
+	}
+});
+if ($.tree_reference("<%=pId %>") != null) {");
+	buffer.append("$.tree_reference("<%=pId%>").open_all();
+}
 %>
+</roma:addjs>

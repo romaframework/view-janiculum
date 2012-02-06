@@ -1,3 +1,4 @@
+<%@ taglib uri="/WEB-INF/roma.tld" prefix="roma"%>
 <%@page import="org.romaframework.aspect.view.html.constants.TransformerConstants"%>
 <%@page import="org.romaframework.aspect.view.html.area.HtmlViewRenderable"%>
 <%@page import="org.romaframework.aspect.view.html.transformer.jsp.directive.JspTransformerHelper"%>
@@ -34,7 +35,6 @@ value="<%=JaniculumWrapper.formatDateContent(component)%>" <%=JaniculumWrapper.d
     <span class="<%=JaniculumWrapper.cssClass(component, "date", "validation_message")%>"><%=JaniculumWrapper.validationMessage(component)==null?"Invalid":JaniculumWrapper.validationMessage(component)%></span>
 <%} %>
 </div>
-
-<%
-JspTransformerHelper.addJs(JaniculumWrapper.id(component, TransformerConstants.PART_ALL), "jQuery('#"+JaniculumWrapper.id(component, "content")+"').datepicker({ dateFormat: 'dd/mm/yy', yearRange: '1900:2050', changeYear: true, changeMonth: true });");
-%>
+<roma:addjs>
+jQuery('#<%=JaniculumWrapper.id(component, "content") %>').datepicker({ dateFormat: 'dd/mm/yy', yearRange: '1900:2050', changeYear: true, changeMonth: true });
+</roma:addjs>

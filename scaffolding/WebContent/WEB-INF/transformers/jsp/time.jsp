@@ -1,3 +1,4 @@
+<%@ taglib uri="/WEB-INF/roma.tld" prefix="roma"%>
 <%@page import="org.romaframework.aspect.view.html.constants.TransformerConstants"%>
 <%@page import="org.romaframework.aspect.view.html.transformer.jsp.directive.JspTransformerHelper"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"	pageEncoding="UTF-8"%>
@@ -45,6 +46,6 @@
 	<%}%>
 </div>
 
-<%
-JspTransformerHelper.addJs(JaniculumWrapper.id(component, TransformerConstants.PART_ALL), "jQuery('#"+JaniculumWrapper.id(component, "time")+"').timeEntry({spinnerImage: 'static/base/image/spinnerDefault.png', show24Hours: true, showSeconds: true});");
-%>
+<roma:addjs>
+jQuery('#<%=JaniculumWrapper.id(component, "time")%>').timeEntry({spinnerImage: 'static/base/image/spinnerDefault.png', show24Hours: true, showSeconds: true});
+</roma:addjs>

@@ -1,3 +1,4 @@
+<%@ taglib uri="/WEB-INF/roma.tld" prefix="roma"%>
 <%@page import="org.romaframework.aspect.view.html.constants.TransformerConstants"%><%@page import="org.romaframework.aspect.view.html.transformer.jsp.directive.JspTransformerHelper"%><%@ page language="java" contentType="text/html; charset=UTF-8"	pageEncoding="UTF-8"%>
 <%@page import="org.romaframework.aspect.view.html.area.HtmlViewRenderable"%>
 <%@page import="org.romaframework.aspect.view.html.constants.RequestConstants"%><%@page import="java.util.Set"%><%@page import="org.romaframework.aspect.view.html.transformer.jsp.JspTransformer"%><%@page import="org.romaframework.aspect.view.html.transformer.helper.JaniculumWrapper"%><%@page import="org.romaframework.aspect.view.html.constants.RequestConstants"%><%@page import="java.util.Map"%><%
@@ -18,18 +19,7 @@
 	</table>
 	<%
 	} %>
-	</div>
-<%
-
-	StringBuffer buffer = new StringBuffer();
-	buffer.append("$(function() {\n");
-	buffer.append("\t$( \"#"+JaniculumWrapper.id(component, "content")+"\" ).progressbar(component, {\n");
-	buffer.append("\t\tvalue: parseFloat(String(" + (JaniculumWrapper.content(component, true)==null ? "0" : JaniculumWrapper.content(component, true))+").replace(component, ',','.'))\n");
-	buffer.append("\t});\n");
-	buffer.append("});\n");
-	System.out.println(buffer);
-	JspTransformerHelper.addJs(JaniculumWrapper.id(component, TransformerConstants.PART_ALL), buffer.toString());
-	
+	</div><%
 	}
 if("raw".equals(part)){
 %><%=JaniculumWrapper.content(component, true)==null?"":JaniculumWrapper.content(component, true)%><%
@@ -38,3 +28,10 @@ if("raw".equals(part)){
 <%
 }
 %>
+<roma:addjs>
+$(function() {
+	$("#<%= JaniculumWrapper.id(component, "content")%>).progressbar(component, {
+		value: parseFloat(String("<%=(JaniculumWrapper.content(component, true)==null ? "0" : JaniculumWrapper.content(component, true)) %>").replace(component, ',','.'))
+	});
+});
+</roma:addjs>

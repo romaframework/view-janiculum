@@ -1,3 +1,4 @@
+<%@ taglib uri="/WEB-INF/roma.tld" prefix="roma"%>
 <%@page import="org.romaframework.aspect.view.html.constants.TransformerConstants"%>
 <%@page import="org.romaframework.aspect.view.html.area.HtmlViewRenderable"%>
 <%@page import="org.romaframework.aspect.view.html.transformer.jsp.directive.JspTransformerHelper"%>
@@ -41,20 +42,19 @@
 else if("label".equals(part)){ %>
 	<label id="<%=JaniculumWrapper.id(component, "label")%>" class="<%=JaniculumWrapper.cssClass(component, "decimal", "label")%>" for="<%=JaniculumWrapper.id(component, "content")%>"><%=JaniculumWrapper.i18NLabel(component)%></label>
 <%}
-StringBuffer buffer = new StringBuffer();
-buffer.append("jQuery(\"#"+JaniculumWrapper.id(component, "content")+"\").keyup(function(component){");
-buffer.append("re = /[^0-9\\.,]/ ;");
-buffer.append("re2 = /[^0-9\\-]/ ;");
-buffer.append("var beginning = jQuery(this).attr(\"value\").substring(0,1);");
-buffer.append("while(beginning.match(re2)){");
-buffer.append("beginning = beginning.replace(re2, \"\");");
-buffer.append("}");
-buffer.append("var end = jQuery(this).attr(\"value\").substring(1);");
-buffer.append("while(end.match(re)){");
-buffer.append("end = end.replace(re, \"\");");
-buffer.append("}");
-buffer.append("jQuery(this).attr(\"value\", beginning+end);");
-buffer.append("}).keyup();");
-JspTransformerHelper.addJs(JaniculumWrapper.id(component, TransformerConstants.PART_ALL), buffer.toString());
-
 %>
+<roma:addjs>
+jQuery('#<%= JaniculumWrapper.id(component, "content")%>').keyup(function(component){
+	re = /[^0-9\\.,]/ ;
+	re2 = /[^0-9\\-]/ ;
+	var beginning = jQuery(this).attr("value").substring(0,1);
+	while(beginning.match(re2)){
+		beginning = beginning.replace(re2, "");
+	}
+	var end = jQuery(this).attr("value").substring(1);
+	while(end.match(re)){
+		end = end.replace(re, "");
+	}
+	jQuery(this).attr("value", beginning+end);
+}).keyup();
+</roma:addjs>
