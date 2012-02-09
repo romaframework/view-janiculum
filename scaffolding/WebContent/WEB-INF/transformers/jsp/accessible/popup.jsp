@@ -32,5 +32,5 @@ HtmlViewAspectHelper.renderByJsp(((HtmlViewScreenPopupAreaInstance)component).ge
 	style.addRule("#screen_main_popups", "z-index", "1000");
 	style.addRule("#screen_main_popups", "width", "100%");
 	style.addRule("#screen_main_popups", "height", "100%");
-	style.addRule("#screen_main_popups", "background-image", "url(/"+Roma.view().getContextPath() + "/static/base/image/test01.png)");
+	style.addRule("#screen_main_popups", "background-image", "url(/"+Roma.view().getContextPath() + "/static/themes/default/image/test01.png)");
 %>

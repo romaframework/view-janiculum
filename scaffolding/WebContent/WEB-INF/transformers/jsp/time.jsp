@@ -47,5 +47,5 @@
 </div>
 
 <roma:addjs>
-jQuery('#<%=JaniculumWrapper.id(component, "time")%>').timeEntry({spinnerImage: 'static/base/image/spinnerDefault.png', show24Hours: true, showSeconds: true});
+jQuery('#<%=JaniculumWrapper.id(component, "time")%>').timeEntry({spinnerImage: 'static/themes/default/image/spinnerDefault.png', show24Hours: true, showSeconds: true});
 </roma:addjs>

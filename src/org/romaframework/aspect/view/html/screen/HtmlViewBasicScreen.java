@@ -15,7 +15,6 @@ import org.romaframework.aspect.view.area.AreaComponent;
 import org.romaframework.aspect.view.html.HtmlViewAspectHelper;
 import org.romaframework.aspect.view.html.HtmlViewSession;
 import org.romaframework.aspect.view.html.area.HtmlViewScreenAreaInstance;
-import org.romaframework.aspect.view.html.constants.RequestConstants;
 import org.romaframework.aspect.view.html.exception.DefaultScreenAreaNotDefinedException;
 import org.romaframework.aspect.view.html.transformer.Transformer;
 import org.romaframework.aspect.view.html.transformer.manager.TransformerManager;
@@ -101,7 +100,7 @@ public class HtmlViewBasicScreen implements HtmlViewScreen, Serializable {
 	}
 
 	public void render(final ServletRequest request, final boolean css, final boolean js, Writer writer) {
-		String jspUrl = RequestConstants.JSP_PATH + "screen/" + getName() + ".jsp";
+		String jspUrl = HtmlViewAspectHelper.getHtmlViewAspect().getPagesPath() + "screen/" + getName() + ".jsp";
 		try {
 			// TODO test jsp existence, instead of catching exception...
 			HtmlViewAspectHelper.getHtmlFromJSP(request, jspUrl, writer);

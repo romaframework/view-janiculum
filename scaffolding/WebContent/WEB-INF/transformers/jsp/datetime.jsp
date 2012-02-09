@@ -96,6 +96,6 @@ value="<%=JaniculumWrapper.formatDateContent(component, "HH:mm:ss")%>" <%=Janicu
 %>
 <roma:addjs>
 jQuery('#<%=JaniculumWrapper.id(component, "content") %>').datepicker({ dateFormat: 'dd/mm/yy' });
-jQuery('#<%=JaniculumWrapper.id(component, "time") %>').timeEntry({spinnerImage: '<%=JaniculumWrapper.contextPath() %>/static/base/image/spinnerDefault.png', show24Hours: true, showSeconds: true});
+jQuery('#<%=JaniculumWrapper.id(component, "time") %>').timeEntry({spinnerImage: '<%=JaniculumWrapper.contextPath() %>/static/themes/default/image/spinnerDefault.png', show24Hours: true, showSeconds: true});
 </roma:addjs>
 </div>

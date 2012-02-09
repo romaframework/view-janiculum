@@ -11,7 +11,7 @@
 	
 	HtmlViewRenderable component = (HtmlViewRenderable)request.getAttribute(RequestConstants.CURRENT_COMPONENT_IN_TRANSFORMER);
 	String part = (String) request.getAttribute(RequestConstants.CURRENT_COMPONENT_PART_IN_TRANSFORMER);
-	String img = Roma.view().getContextPath()+"/static/base/image/basebutton.png"; 
+	String img = Roma.view().getContextPath()+"/static/themes/default/image/basebutton.png"; 
 	if(JaniculumWrapper.isField(component)){
 		%><button id="<%=JaniculumWrapper.id(component, null)%>" type="button"  class="<%=JaniculumWrapper.cssClass(component,"button", null)%>" style="<%=JaniculumWrapper.inlineStyle(component, null)%>" name="<%=JaniculumWrapper.event(component, "change")%>"
 		<%if(JaniculumWrapper.isDisabled(component)){%> disabled="disabled" <%} %>

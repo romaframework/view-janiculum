@@ -644,10 +644,6 @@ public class JaniculumWrapper {
 		return false;
 	}
 
-	public static String imgContextPath() {
-		return contextPath() + "/static/base/image/";
-	}
-
 	@Deprecated
 	public static long currentTime() {
 		return System.currentTimeMillis();

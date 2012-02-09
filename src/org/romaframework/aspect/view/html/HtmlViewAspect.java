@@ -89,9 +89,10 @@ import org.romaframework.web.session.HttpAbstractSessionAspect;
  */
 public class HtmlViewAspect extends ViewAspectAbstract implements SchemaFeaturesChangeListener, FieldRefreshListener, SchemaFieldListener {
 
-	private static Log					log	= LogFactory.getLog(HtmlViewAspect.class);
+	private static Log					log					= LogFactory.getLog(HtmlViewAspect.class);
 	private Map<String, String>	typeRenders;
-	private Set<String>					formRenders;
+	private Set<String>					formRenders	= new HashSet<String>();
+	private String							pagesPath		= "/dynamic/base/view/";
 
 	public HtmlViewAspect() {
 		Controller.getInstance().registerListener(FieldRefreshListener.class, this);
@@ -672,6 +673,14 @@ public class HtmlViewAspect extends ViewAspectAbstract implements SchemaFeatures
 
 	public void setFormRenders(Set<String> formRenders) {
 		this.formRenders = formRenders;
+	}
+
+	public String getPagesPath() {
+		return pagesPath;
+	}
+
+	public void setPagesPath(String pagesPath) {
+		this.pagesPath = pagesPath;
 	}
 
 }

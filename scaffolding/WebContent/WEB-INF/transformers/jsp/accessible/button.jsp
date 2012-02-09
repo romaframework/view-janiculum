@@ -10,7 +10,7 @@
 <%
 	
 	HtmlViewRenderable component = (HtmlViewRenderable)request.getAttribute(RequestConstants.CURRENT_COMPONENT_IN_TRANSFORMER);
-	String img = Roma.view().getContextPath()+"/static/base/image/basebutton.png"; 
+	String img = Roma.view().getContextPath()+"/static/themes/default/image/basebutton.png"; 
 %> <div class="<%=JaniculumWrapper.cssClass(component,"button", null)%>" style="<%=JaniculumWrapper.inlineStyle(component, null)%>" id="<%=JaniculumWrapper.id(component, null)%>">
 
 <%if(JaniculumWrapper.isField(component)){%>

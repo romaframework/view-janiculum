@@ -11,7 +11,8 @@
 					<value>menu</value>
 					<value>vmenu</value>
 				</set>
-			</property>		
+			</property>
+			<property name="pagesPath" value="/dynamic/view/"/>
 	</bean>
 
 	<bean id="DataBindingAspect" depends-on="ViewAspect" class="org.romaframework.aspect.data.DataBindingAspect"

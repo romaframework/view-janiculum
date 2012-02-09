@@ -52,84 +52,6 @@ img.render_button_icon {
 	display: none;
 }
 
-div.render_table ,div.render_tableedit {
-	display: table;
-}
-
-.render_table >div,.render_tableedit >div{
-	display: table-row;
-}
-
-.render_table >div>div,.render_tableedit >div>div{
-	display: table-cell;
-	vertical-align: top;
-}
-table.render_table, table.render_tableedit {
-	width: 100%;
-	border-spacing: 0;
-	border-collapse: collapse;
-	border: 1px solid #DDDDDD;
-}
-
-.render_table th,.render_tableedit th {
-	background-color: #dddddd;
-	border-top: 1px solid #DDDDDD;
-	border-bottom: 1px solid #DDDDDD;
-}
-
-.render_table td,.render_tableedit td {
-	border-top: 1px solid #DDDDDD;
-	border-bottom: 1px solid #DDDDDD;
-	border-collapse: collapse;
-}
-
-.render_table >tr:HOVER >td,.render_tableedit >tr:HOVER >td {
-	background-color: #F5F5F5;
-}
-
-.render_table >tr.odd:HOVER >td,.render_tableedit >tr.odd:HOVER >td {
-	background-color: #F5F5F5;
-}
-
-.render_table tr.odd td,.render_tableedit tr.odd td {
-	background-color: #F9F9F9;
-}
-
-/* RENDER_TABLE */
-button.table_actions_add,button.table_actions_edit,button.table_actions_view,button.table_actions_remove,button.table_actions_up,button.table_actions_down
-{
-	display: block;
-	margin: 2px;
-	width: 24px;
-	height: 24px;
-	background-repeat: no-repeat;
-	background-position: center; 
-}
-
-button.table_actions_add {
-	background-image: url(../image/add.gif);
-}
-
-button.table_actions_edit {
-	background-image: url(../image/edit.gif);
-}
-
-button.table_actions_view {
-	background-image: url(../image/view.gif);
-}
-
-button.table_actions_remove {
-	background-image: url(../image/remove.gif);
-}
-
-button.table_actions_up {
-	background-image: url(../image/up.gif);
-}
-
-button.table_actions_down {
-	background-image: url(../image/down.gif);
-}
-
 /* ALL ACTION RENDER */
 .render_link { /*font-size: 14px;*/
 	color: #333;
@@ -213,10 +135,6 @@ input.render_objectlink_open,input.render_objectlink_reset {
 
 .render_objectlink_reset {
 	background-image: url(../image/reset.gif);
-}
-
-input.table_selection {
-	cursor: pointer;
 }
 
 /* RENDER CHECK */

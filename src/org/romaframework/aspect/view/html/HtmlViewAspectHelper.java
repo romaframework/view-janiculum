@@ -36,14 +36,11 @@ import org.romaframework.aspect.view.feature.ViewClassFeatures;
 import org.romaframework.aspect.view.feature.ViewFieldFeatures;
 import org.romaframework.aspect.view.form.ViewComponent;
 import org.romaframework.aspect.view.html.area.HtmlViewFormArea;
-import org.romaframework.aspect.view.html.area.HtmlViewScreenArea;
 import org.romaframework.aspect.view.html.constants.RequestConstants;
 import org.romaframework.aspect.view.html.css.StyleBuffer;
 import org.romaframework.aspect.view.html.exception.DefaultJspTemplateNotFoundException;
 import org.romaframework.aspect.view.html.http.MockHttpServletResponse;
 import org.romaframework.aspect.view.html.screen.HtmlViewBasicScreen;
-import org.romaframework.aspect.view.html.screen.HtmlViewScreen;
-import org.romaframework.aspect.view.html.transformer.helper.TransformerHelper;
 import org.romaframework.core.Roma;
 import org.romaframework.core.config.RomaApplicationContext;
 import org.romaframework.core.flow.ObjectContext;
@@ -110,40 +107,6 @@ public class HtmlViewAspectHelper {
 		if (result != null) {
 			sessionAspect.setProperty(VA_SESSION, null);
 		}
-	}
-
-	/**
-	 * Get the configure label of an element
-	 * 
-	 * @param iFeatures
-	 *          the schema feature
-	 * @return the label of the element
-	 */
-	public static String getLabel(final SchemaFeatures iFeatures) {
-		String fieldRender;
-		if (iFeatures instanceof SchemaField) {
-			fieldRender = iFeatures.getFeature(ViewFieldFeatures.LABEL);
-		} else {
-			fieldRender = iFeatures.getFeature(ViewActionFeatures.LABEL);
-		}
-		return fieldRender;
-	}
-
-	/**
-	 * Get the configure label of an element
-	 * 
-	 * @param iFeatures
-	 *          the schema feature
-	 * @return the label of the element
-	 */
-	public static String getHint(final SchemaFeatures iFeatures) {
-		String fieldRender;
-		if (iFeatures instanceof SchemaField) {
-			fieldRender = iFeatures.getFeature(ViewFieldFeatures.DESCRIPTION);
-		} else {
-			fieldRender = iFeatures.getFeature(ViewActionFeatures.DESCRIPTION);
-		}
-		return fieldRender;
 	}
 
 	/**
@@ -304,7 +267,7 @@ public class HtmlViewAspectHelper {
 	}
 
 	private static String calculateJspPath(final Class<?> clazz) {
-		return RequestConstants.JSP_PATH + clazz.getSimpleName() + ".jsp";
+		return getHtmlViewAspect().getPagesPath() + clazz.getSimpleName() + ".jsp";
 	}
 
 	public static StyleBuffer getCssBuffer() {
@@ -351,56 +314,6 @@ public class HtmlViewAspectHelper {
 
 	public static String getCurrentPageId() {
 		return (String) getServletRequest().getAttribute(HtmlServlet.PAGE_ID_PARAM);
-	}
-
-	public static Object parseToRightType(final Object value, final SchemaField schemaField) {
-		if (value == null) {
-			final Class<?> type = schemaField.getValue(value).getClass();
-			if (type.equals(short.class)) {
-				return (short) 0;
-			}
-			if (type.equals(int.class)) {
-				return (int) 0;
-			}
-			if (type.equals(long.class)) {
-				return (long) 0;
-			}
-			if (type.equals(float.class)) {
-				return (float) 0;
-			}
-			if (type.equals(double.class)) {
-				return (double) 0;
-			}
-			if (type.equals(boolean.class)) {
-				return false;
-			}
-			return value;
-		}
-		final Class<?> type = schemaField.getValue(value).getClass();
-		if (type.equals(String.class)) {
-			return value;
-		}
-		if (Short.class.equals(type) || short.class.equals(type)) {
-			return Short.parseShort("" + value);
-		}
-		if (Integer.class.isAssignableFrom(type) || int.class.equals(type)) {
-			return Integer.parseInt("" + value);
-		}
-		if (Long.class.isAssignableFrom(type) || long.class.equals(type)) {
-			return Long.parseLong("" + value);
-		}
-		if (Float.class.isAssignableFrom(type) || float.class.equals(type)) {
-			return Float.parseFloat("" + value);
-		}
-		if (Double.class.isAssignableFrom(type) || double.class.equals(type)) {
-			return Double.parseDouble("" + value);
-		}
-		return value;
-	}
-
-	public static String getPopupsScreenAreaId() {
-		final HtmlViewScreen screen = (HtmlViewScreen) Roma.aspect(ViewAspect.class).getScreen();
-		return TransformerHelper.getInstance().getHtmlId((HtmlViewScreenArea) screen.getPopupsScreenArea(), null);
 	}
 
 	public static AreaComponent searchAreaForRendering(final String featureLayout, final SchemaClassElement iField, final HtmlViewFormArea rootArea) {
