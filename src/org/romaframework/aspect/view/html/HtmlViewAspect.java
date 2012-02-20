@@ -239,7 +239,7 @@ public class HtmlViewAspect extends ViewAspectAbstract implements SchemaFeatures
 
 		// There id no form for the component
 		if (form == null) {
-			log.warn("The form for the object " + userObject + " doesn't exist");
+			log.info("The form for the object " + userObject + " doesn't exist");
 			return;
 		}
 
@@ -284,7 +284,7 @@ public class HtmlViewAspect extends ViewAspectAbstract implements SchemaFeatures
 
 		// There id no form for the component
 		if (form == null) {
-			log.warn("The form for the object " + userObject + " doesn't exist");
+			log.info("The form for the object " + userObject + " doesn't exist");
 			return;
 		}
 
@@ -319,7 +319,7 @@ public class HtmlViewAspect extends ViewAspectAbstract implements SchemaFeatures
 
 		// There id no form for the component
 		if (form == null) {
-			log.warn("The form for the object " + userObject + " doesn't exist");
+			log.info("The form for the object " + userObject + " doesn't exist");
 			return;
 		}
 
