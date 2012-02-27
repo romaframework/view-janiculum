@@ -29,7 +29,7 @@
 		on<%=event%>="romaFieldChanged('<%=JaniculumWrapper.fieldName(component)%>'); romaEvent('<%=JaniculumWrapper.fieldName(component)%>', '<%=event%>')"
 		<%
 		}
-			if(existsChangeEvent) {
+			if(!existsChangeEvent) {
 			%> onchange="romaFieldChanged('<%=JaniculumWrapper.fieldName(component)%>')"<%
 			}
 		 %> />
