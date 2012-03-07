@@ -491,9 +491,6 @@ public class HtmlViewAspect extends ViewAspectAbstract implements SchemaFeatures
 						}
 
 						final Object value = SchemaHelper.getFieldValue(form.getSchemaObject(), iField.getName() + "." + fieldName, iContent);
-						if (componentToUpdate instanceof ContentForm) {
-							ViewHelper.invokeOnShow(value);
-						}
 						((HtmlViewAbstractComponent) expandedComponentToUpdate).setDirty(true);
 
 						expandedComponentToUpdate.setContent(value);
