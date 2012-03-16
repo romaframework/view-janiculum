@@ -12,14 +12,15 @@ import org.romaframework.core.domain.type.Stream;
 import org.romaframework.core.schema.SchemaField;
 import org.romaframework.core.schema.SchemaHelper;
 
-public class UploadBinder implements HtmlViewBinder{
-	
+public class UploadBinder implements HtmlViewBinder {
+
 	private static Log	log	= LogFactory.getLog(UploadBinder.class);
 
 	public void bind(final HtmlViewRenderable renderable, final Map<String, Object> values) {
 		final String baseParam = values.keySet().iterator().next().split("_")[0];
-		final Stream value = (Stream)values.get(baseParam);
-		log.debug("binding " + renderable);
+		final Stream value = (Stream) values.get(baseParam);
+		if (log.isDebugEnabled())
+			log.debug("binding " + renderable);
 		final ViewComponent contentComponent = (ViewComponent) renderable;
 		final SchemaField schemaField = contentComponent.getSchemaField();
 		final Object enabled = schemaField.getFeature(ViewFieldFeatures.ENABLED);

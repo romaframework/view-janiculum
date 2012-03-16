@@ -27,10 +27,11 @@ public class DateBinder implements HtmlViewBinder {
 				date = (String) values.get(baseParam);
 		}
 
-		log.debug("binding " + renderable);
+		if (log.isDebugEnabled())
+			log.debug("binding " + renderable);
 		final ViewComponent contentComponent = (ViewComponent) renderable;
 		final SchemaField schemaField = contentComponent.getSchemaField();
-		final Object enabled = schemaField.getFeature( ViewFieldFeatures.ENABLED);
+		final Object enabled = schemaField.getFeature(ViewFieldFeatures.ENABLED);
 		if (enabled != null && Boolean.FALSE.equals(enabled)) {
 			return;
 		}
@@ -76,7 +77,7 @@ public class DateBinder implements HtmlViewBinder {
 			}
 			result = cal.getTime();
 		} else if (result != null) {
-			if(oldValue == null){
+			if (oldValue == null) {
 				cal.set(Calendar.HOUR_OF_DAY, 0);
 				cal.set(Calendar.MINUTE, 0);
 				cal.set(Calendar.SECOND, 0);

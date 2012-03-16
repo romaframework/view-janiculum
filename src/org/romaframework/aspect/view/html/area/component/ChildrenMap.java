@@ -101,9 +101,11 @@ public class ChildrenMap {
 			if (value instanceof HtmlViewGenericComponent) {
 				((HtmlViewGenericComponent) value).clearComponents();
 			}
-			log.debug("Removing component " + value + " from area " + area.getName());
+			if (log.isDebugEnabled())
+				log.debug("Removing component " + value.getContent() + " from area " + area.getName());
 			final boolean res = formArea.removeComponent(value);
-			log.debug("Removed component " + value + " from area " + area.getName() + "  result: " + res);
+			if (log.isDebugEnabled())
+				log.debug("Removed component " + value.getContent() + " from area " + area.getName() + "  result: " + res);
 		}
 	}
 

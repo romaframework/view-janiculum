@@ -20,7 +20,8 @@ public final class NullBinder implements HtmlViewBinder {
 	}
 
 	public void bind(final HtmlViewRenderable renderable, final Map<String, Object> values) {
-		log.debug("null debugger invoked on " + renderable);
+		if (log.isDebugEnabled())
+			log.debug("null debugger invoked on " + renderable);
 	}
 
 }

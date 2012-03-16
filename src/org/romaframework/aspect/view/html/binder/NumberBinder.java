@@ -20,7 +20,8 @@ public class NumberBinder implements HtmlViewBinder {
 	public void bind(final HtmlViewRenderable renderable, final Map<String, Object> values) throws BindingException {
 		final String baseParam = values.keySet().iterator().next().split("_")[0];
 		String value = (String) values.get(baseParam);
-		log.debug("binding " + renderable);
+		if (log.isDebugEnabled())
+			log.debug("binding " + renderable);
 		final ViewComponent contentComponent = (ViewComponent) renderable;
 		final SchemaField schemaField = contentComponent.getSchemaField();
 		final Object enabled = schemaField.getFeature(ViewFieldFeatures.ENABLED);

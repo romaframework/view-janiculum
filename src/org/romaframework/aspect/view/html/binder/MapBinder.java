@@ -17,11 +17,12 @@ public class MapBinder implements HtmlViewBinder {
 
 	public void bind(final HtmlViewRenderable renderable, final Map<String, Object> values) {
 		final String baseParam = values.keySet().iterator().next().split("_")[0];
-		final String value = (String)values.get(baseParam);
-		log.debug("binding " + renderable);
+		final String value = (String) values.get(baseParam);
+		if (log.isDebugEnabled())
+			log.debug("binding " + renderable);
 		final ViewComponent contentComponent = (ViewComponent) renderable;
 		final SchemaField schemaField = contentComponent.getSchemaField();
-		final Object enabled = schemaField.getFeature( ViewFieldFeatures.ENABLED);
+		final Object enabled = schemaField.getFeature(ViewFieldFeatures.ENABLED);
 		if (enabled != null && Boolean.FALSE.equals(enabled)) {
 			return;
 		}
