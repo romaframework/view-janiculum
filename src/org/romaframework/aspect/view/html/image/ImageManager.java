@@ -39,11 +39,10 @@ public class ImageManager {
 	}
 
 	protected void initImagePaths() {
-		final String viewAspectPath = Roma.component(ApplicationConfiguration.class).getApplicationPackage()
-				+ Utility.PACKAGE_SEPARATOR + ViewAspect.ASPECT_NAME;
+		final String viewAspectPath = Roma.component(ApplicationConfiguration.class).getApplicationPackage() + Utility.PACKAGE_SEPARATOR + ViewAspect.ASPECT_NAME;
 		imagePaths.clear();
 		addImagePath(Utility.CLASSPATH_PREFIX + viewAspectPath + IMAGE_PACKAGE, imagePaths);
-		addImagePath("static" + File.separator + "base" + File.separator + "image", imagePaths);
+		addImagePath("static" + File.separator + "themes" + File.separator + "default" + File.separator + "image", imagePaths);
 
 	}
 
