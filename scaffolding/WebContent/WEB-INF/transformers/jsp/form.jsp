@@ -1,3 +1,4 @@
+<%@page import="org.romaframework.aspect.view.html.component.HtmlViewInvisibleContentComponent"%>
 <%@page import="org.romaframework.aspect.view.html.constants.TransformerConstants"%><%@page import="org.romaframework.aspect.view.html.area.HtmlViewRenderable"%><%@page import="org.romaframework.aspect.view.html.transformer.jsp.directive.JspTransformerHelper"%><%@ page language="java" contentType="text/html; charset=UTF-8"	pageEncoding="UTF-8"%>
 <%@page import="org.romaframework.aspect.view.html.area.HtmlViewRenderable"%>
 <%@page import="org.romaframework.aspect.view.html.component.HtmlViewContentComponent"%>
@@ -37,6 +38,8 @@ int row = -1;
 int col = 0;
 for(Object c:JaniculumWrapper.getChildren(component)){
 	HtmlViewRenderable child =(HtmlViewRenderable)c;
+	if (child == null ||child instanceof HtmlViewInvisibleContentComponent){
+		continue;
 	if(col%JaniculumWrapper.areaSize(component)==0){
 
 %>
@@ -64,6 +67,7 @@ for(Object c:JaniculumWrapper.getChildren(component)){
 		JspTransformerHelper.addCss(JaniculumWrapper.id(component, null)+"_"+row+"_"+col+" > div.POJO > table.area_main", "width", "100%");
 	}
 %>
+
 <td id="<%=JaniculumWrapper.id(component, null)%>_<%=row%>_<%=col%>_label" class="<%=JaniculumWrapper.cssClass(child, "label", null)%>"><%
 	%><label class="<%=JaniculumWrapper.cssClass(child, "label", "label")%>" for="<%=JaniculumWrapper.id(child, "content")%>"><%=JaniculumWrapper.i18NLabel(child)%></label><%
 	 %></td>
@@ -71,6 +75,7 @@ for(Object c:JaniculumWrapper.getChildren(component)){
 <%
 	if(col%JaniculumWrapper.areaSize(component)==JaniculumWrapper.areaSize(component)-1){
 %>
+
 </tr>
 <%
 	col = 0;
