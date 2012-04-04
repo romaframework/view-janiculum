@@ -119,7 +119,7 @@ public class FormUtils {
 	}
 
 	private static void createTreeComposedComponent(SchemaField field, HtmlViewContentForm iForm) {
-		final AreaComponent areaForRendering = iForm.searchAreaForRendering(null, field);
+		final AreaComponent areaForRendering = iForm.searchAreaForRendering(field.getFeature(ViewFieldFeatures.POSITION), field);
 		if (areaForRendering == null) {
 			return;
 		}
@@ -139,7 +139,7 @@ public class FormUtils {
 	 * @param iForm
 	 */
 	private static void createCollectionComposedComponent(final SchemaField field, final HtmlViewContentForm iForm) {
-		final AreaComponent areaForRendering = iForm.searchAreaForRendering(null, field);
+		final AreaComponent areaForRendering = iForm.searchAreaForRendering(field.getFeature(ViewFieldFeatures.POSITION), field);
 		if (areaForRendering == null) {
 			return;
 		}
@@ -160,7 +160,7 @@ public class FormUtils {
 	 * @param iForm
 	 */
 	private static void createLabelCollectionComponent(final SchemaField field, final HtmlViewContentForm iForm) {
-		final AreaComponent areaForRendering = iForm.searchAreaForRendering(null, field);
+		final AreaComponent areaForRendering = iForm.searchAreaForRendering(field.getFeature(ViewFieldFeatures.POSITION), field);
 		if (areaForRendering == null) {
 			return;
 		}
@@ -253,7 +253,7 @@ public class FormUtils {
 	}
 
 	private static void createContentComponent(final SchemaField field, final HtmlViewContentForm iForm) {
-		final AreaComponent areaForRendering = iForm.searchAreaForRendering(null, field);
+		final AreaComponent areaForRendering = iForm.searchAreaForRendering(field.getFeature(ViewFieldFeatures.POSITION), field);
 		if (areaForRendering == null) {
 			return;
 		}
@@ -269,7 +269,7 @@ public class FormUtils {
 	}
 
 	private static void createHiddenContentComponent(final SchemaField field, final HtmlViewContentForm iForm) {
-		final AreaComponent areaForRendering = iForm.searchAreaForRendering(null, field);
+		final AreaComponent areaForRendering = iForm.searchAreaForRendering(field.getFeature(ViewFieldFeatures.POSITION), field);
 		if (areaForRendering == null) {
 			return;
 		}
@@ -292,7 +292,7 @@ public class FormUtils {
 	 * @param iForm
 	 */
 	private static void createFormComponent(final SchemaField field, final HtmlViewContentForm iForm, final Object fieldValue) {
-		final AreaComponent areaForRendering = iForm.searchAreaForRendering(null, field);
+		final AreaComponent areaForRendering = iForm.searchAreaForRendering(field.getFeature(ViewFieldFeatures.POSITION), field);
 		if (areaForRendering == null) {
 			return;
 		}
