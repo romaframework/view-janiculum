@@ -18,15 +18,17 @@
 <% ((HtmlViewScreenPopupAreaInstance)component).getForm().render(pageContext.getOut()); %>
 </div>
 <roma:addjs>
+$('#screen_main_popups_popup[toRemove="toRemove"]').remove();
+var size = $('#<%=JaniculumWrapper.id(component, null)%> > div').width();
 $('#<%=JaniculumWrapper.id(component, null)%>').dialog({
 	modal:true,
 	close:function (){ romaEvent('<%=JaniculumWrapper.fieldName(component)%>', 'ClosePopup');},
 	autoOpen: true,
-	width: 600,
+	width: size,
 	title: '<%=JaniculumWrapper.i18NObjectLabel(((HtmlViewScreenPopupAreaInstance)component).getForm())%>'
 });
 romaAddRemove('<%=JaniculumWrapper.id(component, null)%>',function(){
 	$('#<%=JaniculumWrapper.id(component, null)%>').dialog('destroy');
-	$('#<%=JaniculumWrapper.id(component, null)%>').remove();
+	$('#<%=JaniculumWrapper.id(component, null)%>').attr('toRemove','toRemove');
 });
 </roma:addjs>
