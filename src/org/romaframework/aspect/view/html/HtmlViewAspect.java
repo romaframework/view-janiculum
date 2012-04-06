@@ -190,7 +190,7 @@ public class HtmlViewAspect extends ViewAspectAbstract implements SchemaFeatures
 			return where;
 		}
 
-		if (where.startsWith("form:")) {
+		if (where != null && where.startsWith("form:")) {
 			HtmlViewScreenArea screenArea = (HtmlViewScreenArea) desktop.getArea("body");
 			HtmlViewConfigurableEntityForm parentComponent = (HtmlViewConfigurableEntityForm) screenArea.getForm();
 
@@ -269,8 +269,10 @@ public class HtmlViewAspect extends ViewAspectAbstract implements SchemaFeatures
 		}
 
 		if (featureName.equals(ViewActionFeatures.ENABLED)) {
+			//((HtmlViewActionComponent) ((HtmlViewConfigurableEntityForm) form).getChildComponent(actionName)).setDirty(true);
 			((HtmlViewConfigurableEntityForm) form).setDirty(true);
 		}
+
 	}
 
 	/*

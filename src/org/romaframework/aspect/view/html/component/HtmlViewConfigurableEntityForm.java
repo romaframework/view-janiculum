@@ -56,9 +56,8 @@ public class HtmlViewConfigurableEntityForm extends HtmlViewAbstractContentCompo
 
 	protected ChildrenMap																	childrenMap				= new ChildrenMap();
 
-	public HtmlViewConfigurableEntityForm(final HtmlViewContentComponent htmlViewConfigurableEntityForm,
-			final SchemaObject iSchemaObject, final SchemaField field, final HtmlViewScreenArea iScreenArea, Integer rowIndex,
-			Integer colIndex, String label) {
+	public HtmlViewConfigurableEntityForm(final HtmlViewContentComponent htmlViewConfigurableEntityForm, final SchemaObject iSchemaObject, final SchemaField field,
+			final HtmlViewScreenArea iScreenArea, Integer rowIndex, Integer colIndex, String label) {
 		super(htmlViewConfigurableEntityForm, field, null, iScreenArea);
 		// Create the pojo form association
 		schemaObject = iSchemaObject;
@@ -143,8 +142,10 @@ public class HtmlViewConfigurableEntityForm extends HtmlViewAbstractContentCompo
 	}
 
 	public void addChild(final String fieldName, final AreaComponent iAreaComponent, final ViewComponent iComponent) {
+		if (childrenMap.getChild(fieldName) == null) {
+			setDirty(true);
+		}
 		childrenMap.addChild(fieldName, iAreaComponent, (HtmlViewGenericComponent) iComponent);
-		setDirty(true);
 	}
 
 	public Collection<HtmlViewGenericComponent> getChildren() {
@@ -242,8 +243,7 @@ public class HtmlViewConfigurableEntityForm extends HtmlViewAbstractContentCompo
 	public HtmlViewContentComponent getFieldComponent(String name) {
 		if (name.contains(Utility.PACKAGE_SEPARATOR_STRING)) {
 			Object object = SchemaHelper.getFieldObject(getContent(), name);
-			HtmlViewContentForm childComponent = (HtmlViewContentForm) ((HtmlViewAspect) Roma.aspect(ViewAspect.class))
-					.getFormByObject(object);
+			HtmlViewContentForm childComponent = (HtmlViewContentForm) ((HtmlViewAspect) Roma.aspect(ViewAspect.class)).getFormByObject(object);
 			name = Utility.getResourceNamesLastSeparator(name, Utility.PACKAGE_SEPARATOR_STRING, "")[1];
 			return childComponent.getFieldComponent(name);
 		}

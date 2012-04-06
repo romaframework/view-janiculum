@@ -39,6 +39,11 @@
 		rgba(0, 0, 0, 0.05);
 	line-height: normal;
 }
+
+.render_popup > .class_Object {
+	width: 600px;
+} 
+
 table.render_grid,table.render_column,table.render_form, .render_grid > tr >td,.render_row > tr >td,.render_column > tr >td,.render_form > tr >td ,table.render_rowset{
 	width: 100%;
 	height: auto;
