@@ -269,7 +269,6 @@ public class HtmlViewAspect extends ViewAspectAbstract implements SchemaFeatures
 		}
 
 		if (featureName.equals(ViewActionFeatures.ENABLED)) {
-			//((HtmlViewActionComponent) ((HtmlViewConfigurableEntityForm) form).getChildComponent(actionName)).setDirty(true);
 			((HtmlViewConfigurableEntityForm) form).setDirty(true);
 		}
 
@@ -440,9 +439,14 @@ public class HtmlViewAspect extends ViewAspectAbstract implements SchemaFeatures
 
 			Object displayWith = iField.getFeature(ViewFieldFeatures.DISPLAY_WITH);
 			if (displayWith != null && !Roma.schema().getSchemaClass(Bindable.class).equals(displayWith)) {
-				Object content = componentToUpdate.getContent();
-				if (content != null) {
-					((Bindable) content).setSource(iContent, iField.getName());
+				try {
+					Roma.context().create();
+					Object content = componentToUpdate.getContent();
+					if (content != null) {
+						((Bindable) content).setSource(iContent, iField.getName());
+					}
+				} finally {
+					Roma.context().destroy();
 				}
 				return;
 			}

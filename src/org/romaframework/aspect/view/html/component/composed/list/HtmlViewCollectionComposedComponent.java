@@ -129,6 +129,10 @@ public class HtmlViewCollectionComposedComponent extends HtmlViewAbstractCompose
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	private void expandCollection() {
+		if (content instanceof Byte[] || content instanceof byte[] || content instanceof char[] || content instanceof Character[]) {
+			log.debug("Excluding byte[] and char[] from form generation");
+			return;
+		}
 		final Collection<Object> collectionToRender = getContentAsList(content);
 
 		Class<?> typeClass = ((Class<?>) SchemaHelper.getEmbeddedType(getSchemaField()));

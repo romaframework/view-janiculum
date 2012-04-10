@@ -80,14 +80,7 @@ public class HtmlViewScreenAreaInstance extends HtmlViewAbstractAreaInstance imp
 	 * @param iPojo
 	 */
 	public void bindPojo(final Object iPojo) {
-		HtmlViewContentForm formForBinding;
-		if (iPojo == null) {
-			formForBinding = null;
-		} else {
-			formForBinding = new HtmlViewConfigurableEntityForm(null, Roma.session().getSchemaObject(iPojo), null, this, null, null, null);
-			formForBinding.setContent(formForBinding);
-			bindForm(formForBinding);
-		}
+		throw new UnsupportedOperationException();
 	}
 
 	/**
