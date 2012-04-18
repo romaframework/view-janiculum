@@ -251,12 +251,14 @@ public class HtmlViewAspect extends ViewAspectAbstract implements SchemaFeatures
 			return;
 		}
 
-		if (featureName.equals(ViewActionFeatures.VISIBLE) || featureName.equals(ViewActionFeatures.RENDER)) {
+		if (featureName.equals(ViewActionFeatures.VISIBLE) || featureName.equals(ViewActionFeatures.RENDER) || featureName.equals(ViewActionFeatures.POSITION)) {
 			int pos = actionName.lastIndexOf(Utility.PACKAGE_SEPARATOR_STRING);
 			if (pos != -1) {
 				actionName = actionName.substring(pos + 1);
 			}
 			SchemaAction action = form.getSchemaObject().getAction(actionName);
+			if (featureName.equals(ViewFieldFeatures.POSITION))
+				form.removeFieldComponent(actionName);
 			if (action != null) {
 				if (featureValue instanceof Boolean && (Boolean) featureValue) {
 					FormUtils.createActionComponent(action, form);
@@ -344,8 +346,10 @@ public class HtmlViewAspect extends ViewAspectAbstract implements SchemaFeatures
 		if (pos != -1) {
 			fieldName = fieldName.substring(pos + 1);
 		}
-		if (featureName.equals(ViewFieldFeatures.VISIBLE) || featureName.equals(ViewFieldFeatures.RENDER)) {
+		if (featureName.equals(ViewFieldFeatures.VISIBLE) || featureName.equals(ViewFieldFeatures.RENDER) || featureName.equals(ViewFieldFeatures.POSITION)) {
 			SchemaField field = form.getSchemaObject().getField(fieldName);
+			if (featureName.equals(ViewFieldFeatures.POSITION))
+				form.removeFieldComponent(fieldName);
 			FormUtils.createFieldComponent(field, form);
 		}
 
