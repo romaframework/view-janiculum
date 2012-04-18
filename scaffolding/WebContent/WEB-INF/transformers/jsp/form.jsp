@@ -38,7 +38,7 @@ int row = -1;
 int col = 0;
 for(Object c:JaniculumWrapper.getChildren(component)){
 	HtmlViewRenderable child =(HtmlViewRenderable)c;
-	if (child == null ||child instanceof HtmlViewInvisibleContentComponent){
+	if (child == null ||child instanceof HtmlViewInvisibleContentComponent)
 		continue;
 	if(col%JaniculumWrapper.areaSize(component)==0){
 
