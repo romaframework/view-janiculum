@@ -18,7 +18,7 @@
 <% ((HtmlViewScreenPopupAreaInstance)component).getForm().render(pageContext.getOut()); %>
 </div>
 <roma:addjs>
-$('#screen_main_popups_popup[toRemove="toRemove"]').remove();
+$('#<%=JaniculumWrapper.id(component, null)%>[toRemove="toRemove"]').remove();
 var size = $('#<%=JaniculumWrapper.id(component, null)%> > div').width();
 $('#<%=JaniculumWrapper.id(component, null)%>').dialog({
 	modal:true,
