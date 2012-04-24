@@ -23,7 +23,7 @@ import org.romaframework.core.schema.SchemaField;
 public class TableDriver {
 
 	// LEVEL ONE
-	private Set<SchemaClass>					runtimeClasses		= new LinkedHashSet<SchemaClass>();
+	private Set<SchemaClassDefinition>					runtimeClasses		= new LinkedHashSet<SchemaClassDefinition>();
 	private Set<SchemaField>					fields						= new LinkedHashSet<SchemaField>();
 	private Set<SchemaAction>					actions						= new LinkedHashSet<SchemaAction>();
 
@@ -41,14 +41,14 @@ public class TableDriver {
 		if (baseClass != null)
 			runtimeClasses.add(baseClass);
 		for (Object element : implementedObjects) {
-			SchemaClass implementedClass = Roma.schema().getSchemaClass(element);
+			SchemaClassDefinition implementedClass = Roma.session().getSchemaObject(element);
 			if (implementedClass != null)
 				runtimeClasses.add(implementedClass);
 		}
 	}
 
 	private void initFields() {
-		for (SchemaClass clazz : runtimeClasses) {
+		for (SchemaClassDefinition clazz : runtimeClasses) {
 			Iterator<SchemaField> fieldIterator = clazz.getFieldIterator();
 			while (fieldIterator.hasNext()) {
 				SchemaField field = fieldIterator.next();
@@ -68,7 +68,7 @@ public class TableDriver {
 	}
 
 	private void initActions() {
-		for (SchemaClass clazz : runtimeClasses) {
+		for (SchemaClassDefinition clazz : runtimeClasses) {
 			Iterator<SchemaAction> actionIterator = clazz.getActionIterator();
 			while (actionIterator.hasNext()) {
 				SchemaAction action = actionIterator.next();
@@ -153,7 +153,7 @@ public class TableDriver {
 		return true;
 	}
 
-	protected Set<SchemaClass> getRuntimeClasses() {
+	protected Set<SchemaClassDefinition> getRuntimeClasses() {
 		return runtimeClasses;
 	}
 
