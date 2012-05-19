@@ -239,7 +239,8 @@ public class HtmlViewAspect extends ViewAspectAbstract implements SchemaFeatures
 
 		// There id no form for the component
 		if (form == null) {
-			log.info("The form for the object " + userObject + " doesn't exist");
+			if (log.isDebugEnabled())
+				log.debug("The form for the object " + userObject + " doesn't exist");
 			return;
 		}
 
@@ -269,6 +270,16 @@ public class HtmlViewAspect extends ViewAspectAbstract implements SchemaFeatures
 
 			}
 		}
+		if (featureName.equals(ViewFieldFeatures.VISIBLE)) {
+			HtmlViewContentComponent comp = form.getFieldComponent(actionName);
+			if (comp != null) {
+				if (comp.getContainerComponent() instanceof HtmlViewArea) {
+					((HtmlViewArea) comp.getContainerComponent()).setDirty(true);
+				} else if (comp.getContainerComponent() instanceof HtmlViewGenericComponent) {
+					((HtmlViewGenericComponent) comp.getContainerComponent()).setDirty(true);
+				}
+			}
+		}
 
 		if (featureName.equals(ViewActionFeatures.ENABLED)) {
 			((HtmlViewConfigurableEntityForm) form).setDirty(true);
@@ -287,7 +298,8 @@ public class HtmlViewAspect extends ViewAspectAbstract implements SchemaFeatures
 
 		// There id no form for the component
 		if (form == null) {
-			log.info("The form for the object " + userObject + " doesn't exist");
+			if (log.isDebugEnabled())
+				log.debug("The form for the object " + userObject + " doesn't exist");
 			return;
 		}
 
@@ -353,7 +365,7 @@ public class HtmlViewAspect extends ViewAspectAbstract implements SchemaFeatures
 			FormUtils.createFieldComponent(field, form);
 		}
 
-		if (featureName.equals(ViewFieldFeatures.LABEL)) {
+		if (featureName.equals(ViewFieldFeatures.LABEL) || featureName.equals(ViewFieldFeatures.VISIBLE)) {
 			HtmlViewContentComponent comp = form.getFieldComponent(fieldName);
 			if (comp != null) {
 				if (comp.getContainerComponent() instanceof HtmlViewArea) {
