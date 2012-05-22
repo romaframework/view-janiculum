@@ -12,6 +12,7 @@ import java.util.Set;
 import javax.servlet.http.HttpServletRequest;
 
 import org.romaframework.aspect.i18n.I18NType;
+import org.romaframework.aspect.validation.feature.ValidationFieldFeatures;
 import org.romaframework.aspect.view.FormatHelper;
 import org.romaframework.aspect.view.area.AreaComponent;
 import org.romaframework.aspect.view.feature.ViewActionFeatures;
@@ -382,6 +383,17 @@ public class JaniculumWrapper {
 		HtmlViewAbstractContentComponent component = (HtmlViewAbstractContentComponent) iComponent;
 		return component.isValid();
 
+	}
+
+	public static boolean isRequired(HtmlViewRenderable iComponent) {
+		if (iComponent instanceof HtmlViewContentComponent) {
+			if (((HtmlViewGenericComponent) iComponent).getSchemaElement() != null) {
+				SchemaElement element = ((HtmlViewGenericComponent) iComponent).getSchemaElement();
+				if (element instanceof SchemaField && ((SchemaField) element).getFeature(ValidationFieldFeatures.REQUIRED))
+					return true;
+			}
+		}
+		return false;
 	}
 
 	public static String validationMessage(HtmlViewRenderable iComponent) {
