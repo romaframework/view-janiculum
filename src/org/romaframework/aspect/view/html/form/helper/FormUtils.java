@@ -298,7 +298,6 @@ public class FormUtils {
 		}
 		SchemaObject newSchemaObject = Roma.session().getSchemaObject(fieldValue);
 		final HtmlViewConfigurableEntityForm newComponent = new HtmlViewConfigurableEntityForm(iForm, newSchemaObject, field, iForm.getScreenAreaObject(), null, null, null);
-		newComponent.setContent(fieldValue);
 		if (areaForRendering instanceof HtmlViewFormArea) {
 			if (iForm.getFieldComponent(field.getName()) == null) {
 				((HtmlViewFormArea) areaForRendering).addComponent(newComponent);
@@ -312,5 +311,6 @@ public class FormUtils {
 			}
 		}
 		iForm.addChild(field.getName(), areaForRendering, newComponent);
+		newComponent.setContent(fieldValue);
 	}
 }
