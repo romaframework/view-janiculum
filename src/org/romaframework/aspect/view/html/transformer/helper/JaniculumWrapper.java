@@ -218,7 +218,8 @@ public class JaniculumWrapper {
 					return Roma.i18n().get(element, I18NType.LABEL, ViewActionFeatures.LABEL);
 			}
 		} else if (component instanceof HtmlViewFormArea) {
-			if (((HtmlViewFormArea) component).getComponents() != null && ((HtmlViewFormArea) component).getComponents().size() == 1) {
+			if (((HtmlViewFormArea) component).getComponents() != null && ((HtmlViewFormArea) component).getComponents().size() == 1
+					&& !(((HtmlViewFormArea) component).getComponents().get(0) instanceof HtmlViewInvisibleContentComponent)) {
 				return i18NLabel(((HtmlViewFormArea) component).getComponents().get(0));
 			}
 		}
@@ -392,6 +393,9 @@ public class JaniculumWrapper {
 				if (element instanceof SchemaField && ((SchemaField) element).getFeature(ValidationFieldFeatures.REQUIRED))
 					return true;
 			}
+		} else if (iComponent instanceof HtmlViewFormAreaInstance && ((HtmlViewFormAreaInstance) iComponent).getComponents().size() == 1) {
+			HtmlViewRenderable renderable = ((HtmlViewFormAreaInstance) iComponent).getComponents().get(0);
+			return isRequired(renderable);
 		}
 		return false;
 	}
