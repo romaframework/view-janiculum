@@ -1,4 +1,4 @@
-<%@page import="org.romaframework.aspect.view.html.area.HtmlViewRenderable"%>
+<%@page import="org.romaframework.aspect.view.html.component.HtmlViewInvisibleContentComponent"%><%@page import="org.romaframework.aspect.view.html.area.HtmlViewRenderable"%>
 <%@page import="org.romaframework.aspect.view.html.transformer.jsp.directive.JspTransformerHelper"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
@@ -40,6 +40,8 @@
   for(Object c:JaniculumWrapper.getChildren(component)){
   	HtmlViewRenderable child = (HtmlViewRenderable) c;
   	JspTransformerHelper.addCss(JaniculumWrapper.id(component, null)+"_"+row, "vertical-align", JaniculumWrapper.areaVerticalAlignment(child));
+  	if (child == null ||child instanceof HtmlViewInvisibleContentComponent)
+  		continue;
   	
   	String hAlignChild = JaniculumWrapper.areaHorizontalAlignment(child);
   	
@@ -66,9 +68,10 @@
 	  %>
 	    <tr><td id="<%=JaniculumWrapper.id(component, null)%>_<%=row%>" class="row_<%=row%> <%=JaniculumWrapper.cssClass(child,null, null)%> ">
 	    <% String label = JaniculumWrapper.getInAreaLabel(child);
+	    boolean required =JaniculumWrapper.isRequired(child); 
       	if(label != null) {
-	    	%><label class="<%=JaniculumWrapper.cssClass(child, "label", "label")%>" for="<%=JaniculumWrapper.id(child, "content")%>"><%=label%></label><%
-	    } 
+	    	%><label class="<%=JaniculumWrapper.cssClass(child, "label", "label")%>" for="<%=JaniculumWrapper.id(child, "content")%>"><%=label%><%if (JaniculumWrapper.isRequired(child)){%><span class="requiredField"> *</span><%}%></label>
+	    <%} 
 	    JspTransformerHelper.delegate(child, null,pageContext.getOut());%>
 		</td></tr>
 	  <%

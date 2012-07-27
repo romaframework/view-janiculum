@@ -118,7 +118,7 @@ public class HtmlViewCollectionComposedComponent extends HtmlViewAbstractCompose
 
 		for (final Pair<String, Object> obj : listContent) {
 			String label = obj.getKey();
-			if (obj != null && obj.getValue() != null) {
+			if (obj.getValue() != null) {
 				createForm(index, null, obj.getValue(), label, this, (index == selectedMapIndex));
 			} else {
 				log.warn("Null object cannot be rendered in RowSet OR ColumnSet render Type");

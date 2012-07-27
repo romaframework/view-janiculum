@@ -505,7 +505,7 @@ public class HtmlViewAspect extends ViewAspectAbstract implements SchemaFeatures
 						// manage appear/disappear of null ObjectEmbedded
 						if (ViewConstants.RENDER_OBJECTEMBEDDED.equals(iSubField.getFeature(ViewFieldFeatures.RENDER))) {
 							Object content = expandedComponentToUpdate.getContent();
-							if (expandedComponentToUpdate instanceof HtmlViewInvisibleContentComponent || content == null) {
+							if (content == null || expandedComponentToUpdate instanceof HtmlViewInvisibleContentComponent ) {
 								form.removeFieldComponent(fieldName);
 								FormUtils.createFieldComponent(iSubField, form);
 								return;

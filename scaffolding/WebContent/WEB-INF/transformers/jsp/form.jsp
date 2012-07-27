@@ -67,15 +67,14 @@ for(Object c:JaniculumWrapper.getChildren(component)){
 		JspTransformerHelper.addCss(JaniculumWrapper.id(component, null)+"_"+row+"_"+col+" > div.POJO > table.area_main", "width", "100%");
 	}
 %>
-
-<td id="<%=JaniculumWrapper.id(component, null)%>_<%=row%>_<%=col%>_label" class="<%=JaniculumWrapper.cssClass(child, "label", null)%>"><%
-	%><label class="<%=JaniculumWrapper.cssClass(child, "label", "label")%>" for="<%=JaniculumWrapper.id(child, "content")%>"><%=JaniculumWrapper.i18NLabel(child)%></label><%
+<td id="<%=JaniculumWrapper.id(component, null)%>_<%=row%>_<%=col%>_label" class="<%=JaniculumWrapper.cssClass(child, "label", null)%>"><% 
+	%>
+	<label class="<%=JaniculumWrapper.cssClass(child, "form_label", "label")%>" for="<%=JaniculumWrapper.id(child, "content")%>"><%=JaniculumWrapper.i18NLabel(child)%><%if (JaniculumWrapper.isRequired(child)){%><span class="requiredField"> *</span><%}%></label><%
 	 %></td>
-<td id="<%=JaniculumWrapper.id(component, null)%>_<%=row%>_<%=col%>" class="<%=JaniculumWrapper.cssClass(child, "content", null)%>"><% JspTransformerHelper.delegate(child, "content",pageContext.getOut());%></td>
+<td id="<%=JaniculumWrapper.id(component, null)%>_<%=row%>_<%=col%>" class="<%=JaniculumWrapper.cssClass(child, "form_content", null)%>"><% JspTransformerHelper.delegate(child, "content",pageContext.getOut());%></td>
 <%
 	if(col%JaniculumWrapper.areaSize(component)==JaniculumWrapper.areaSize(component)-1){
 %>
-
 </tr>
 <%
 	col = 0;

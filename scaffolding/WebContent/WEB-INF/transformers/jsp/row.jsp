@@ -1,4 +1,4 @@
-<%@page import="org.romaframework.aspect.view.html.area.HtmlViewRenderable"%><%@page import="org.romaframework.aspect.view.html.transformer.jsp.directive.JspTransformerHelper"%><%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%> <%@page import="java.util.Set"%><%@page import="org.romaframework.aspect.view.html.transformer.jsp.JspTransformer"%><%@page import="org.romaframework.aspect.view.html.transformer.helper.JaniculumWrapper"%><%@page import="org.romaframework.aspect.view.html.constants.RequestConstants"%><%@page import="java.util.Map"%><%@page import="org.romaframework.aspect.view.html.component.HtmlViewContentComponent"%><%
+<%@page import="org.romaframework.aspect.view.html.component.HtmlViewInvisibleContentComponent"%><%@page import="org.romaframework.aspect.view.html.area.HtmlViewRenderable"%><%@page import="org.romaframework.aspect.view.html.transformer.jsp.directive.JspTransformerHelper"%><%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%> <%@page import="java.util.Set"%><%@page import="org.romaframework.aspect.view.html.transformer.jsp.JspTransformer"%><%@page import="org.romaframework.aspect.view.html.transformer.helper.JaniculumWrapper"%><%@page import="org.romaframework.aspect.view.html.constants.RequestConstants"%><%@page import="java.util.Map"%><%@page import="org.romaframework.aspect.view.html.component.HtmlViewContentComponent"%><%
 	
 	HtmlViewRenderable component = (HtmlViewRenderable)request.getAttribute(RequestConstants.CURRENT_COMPONENT_IN_TRANSFORMER);
 	
@@ -29,6 +29,8 @@
   int col = 0;
   for(Object c:JaniculumWrapper.getChildren(component)){
   	HtmlViewRenderable child=(HtmlViewRenderable) c;
+  	if (child == null ||child instanceof HtmlViewInvisibleContentComponent)
+  		continue;
  	JspTransformerHelper.addCss(JaniculumWrapper.id(component, null)+"_"+col, "vertical-align", JaniculumWrapper.areaVerticalAlignment(child));
  	String hAlignChild = JaniculumWrapper.areaHorizontalAlignment(child);
  	String marginLeftChild = "";
@@ -51,9 +53,10 @@
  		JspTransformerHelper.addCss(JaniculumWrapper.id(component, null)+"_"+col+" > div.POJO > table.area_main", "width", "100%");
  	}
     String label = JaniculumWrapper.getInAreaLabel(child);
+    boolean required =JaniculumWrapper.isRequired(child); 
     if(label != null) {
-	  	%><td><label class="<%=JaniculumWrapper.cssClass(child, "label", "label")%>" for="<%=JaniculumWrapper.id(child, "content")%>"><%=label%></label></td><%
-	} 
+	  	%><td><label class="<%=JaniculumWrapper.cssClass(child, "label", "label")%>" for="<%=JaniculumWrapper.id(child, "content")%>"><%=label%><%if (JaniculumWrapper.isRequired(child)){%><span class="requiredField"> *</span><%}%></label>
+<%	} 
   	%><td id="<%=JaniculumWrapper.id(component, null)%>_<%=col%>" class="col_<%=col %> <%=JaniculumWrapper.cssClass(child, null, null)%>"><%
       JspTransformerHelper.delegate(child, null,pageContext.getOut()); %></td>
   <%
