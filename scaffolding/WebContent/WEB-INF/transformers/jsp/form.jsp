@@ -3,6 +3,7 @@
 <%@page import="org.romaframework.aspect.view.html.area.HtmlViewRenderable"%>
 <%@page import="org.romaframework.aspect.view.html.component.HtmlViewContentComponent"%>
 <%@page import="org.romaframework.aspect.view.html.constants.RequestConstants"%>
+<%@page import="org.romaframework.aspect.view.html.area.HtmlViewAbstractAreaInstance"%>
 <%@page import="java.util.Set"%><%@page import="org.romaframework.aspect.view.html.transformer.jsp.JspTransformer"%><%@page import="org.romaframework.aspect.view.html.transformer.helper.JaniculumWrapper"%><%@page import="org.romaframework.aspect.view.html.constants.RequestConstants"%><%@page import="java.util.Map"%><%
 	
 	HtmlViewRenderable component = (HtmlViewRenderable)request.getAttribute(RequestConstants.CURRENT_COMPONENT_IN_TRANSFORMER);

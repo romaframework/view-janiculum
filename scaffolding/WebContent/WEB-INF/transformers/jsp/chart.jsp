@@ -44,7 +44,7 @@
 <%} %>
 
 
-<%if (part.equals("label")){%>
+<%if ("label".equals(part)){%>
 <label id="<%=JaniculumWrapper.id(component, "label")%>" for="<%=JaniculumWrapper.id(component, "content")%>"><%=JaniculumWrapper.i18NLabel(component)%></label>
 <% } %>
 
