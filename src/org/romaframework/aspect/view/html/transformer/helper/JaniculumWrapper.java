@@ -673,7 +673,7 @@ public class JaniculumWrapper {
 	}
 
 	public static String getInAreaLabel(HtmlViewRenderable component) {
-		if (!(component instanceof HtmlViewContentComponent) && component instanceof HtmlViewInvisibleContentComponent)
+		if (!(component instanceof HtmlViewContentComponent) || component instanceof HtmlViewInvisibleContentComponent)
 			return null;
 		String label = i18NLabel(component);
 		if ("".equals(label))
