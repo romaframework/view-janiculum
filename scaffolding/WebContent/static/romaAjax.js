@@ -228,8 +228,19 @@ function romaOnSuccess(data, textStatus) {
 	document.body.style.cursor='default';
 	if(lastFocusName!=null){
 		var tmp = document.getElementsByName(lastFocusName);
-		if(tmp!=null && tmp.length>0){
-			tmp[0].focus();
+		if(tmp != null && tmp.length > 0 ){
+			try{
+				var focusEvents = jQuery.data( tmp[0], 'events' ).focus;
+				var existsOnFocus = false;
+				jQuery.each( focusEvents, function(i,o) {
+					existsOnFocus = true;
+				});
+
+				if(!existsOnFocus){
+					tmp[0].focus();
+				}
+			}catch (ex){
+			}
 		}
 	}
 }
