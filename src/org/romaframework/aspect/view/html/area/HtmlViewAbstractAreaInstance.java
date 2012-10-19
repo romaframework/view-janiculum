@@ -124,7 +124,6 @@ public abstract class HtmlViewAbstractAreaInstance extends TreeNodeLinkedHashMap
 		getTransformer().transform(this, writer);
 	}
 
-	@Override
 	public void renderPart(String part, Writer writer) throws IOException {
 		getTransformer().transformPart(this, part, writer);
 	}
@@ -152,7 +151,6 @@ public abstract class HtmlViewAbstractAreaInstance extends TreeNodeLinkedHashMap
 	}
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })
-	@Override
 	public List<HtmlViewRenderable> getComponents() {
 		if (getChildren() != null)
 			return new ArrayList<HtmlViewRenderable>((Collection) getChildren());
