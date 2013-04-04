@@ -51,6 +51,7 @@ import org.romaframework.frontend.domain.message.ErrorMessageTextDetail;
 public class AjaxServlet extends HtmlServlet {
 	@Override
 	public void service(final HttpServletRequest request, final HttpServletResponse response) throws ServletException, IOException {
+		long beginTime = System.currentTimeMillis();
 		try {
 			HttpSession httpSession = request.getSession(true);
 
@@ -154,6 +155,9 @@ public class AjaxServlet extends HtmlServlet {
 		} finally {
 			HtmlViewAspectHelper.removeCssBuffer();
 			HtmlViewAspectHelper.removeJsBuffer();
+			if (log.isDebugEnabled()) {
+				log.debug("execution time (millis): " + (System.currentTimeMillis() - beginTime));
+			}
 		}
 	}
 
@@ -181,8 +185,7 @@ public class AjaxServlet extends HtmlServlet {
 			}
 		}
 
-		DownloadReaderViewCommand pushReaderCommand = (DownloadReaderViewCommand) request.getSession()
-				.getAttribute(DownloadReaderViewCommand.class.getSimpleName());
+		DownloadReaderViewCommand pushReaderCommand = (DownloadReaderViewCommand) request.getSession().getAttribute(DownloadReaderViewCommand.class.getSimpleName());
 		if (pushReaderCommand != null) {
 			if (pushReaderCommand.getFileName() != null) {
 				obj.put("pushDownloadReader", pushReaderCommand.getFileName());
@@ -191,8 +194,7 @@ public class AjaxServlet extends HtmlServlet {
 			}
 		}
 
-		ReportingDownloadViewCommand pushDownloadReport = (ReportingDownloadViewCommand) request.getSession().getAttribute(
-				ReportingDownloadViewCommand.class.getSimpleName());
+		ReportingDownloadViewCommand pushDownloadReport = (ReportingDownloadViewCommand) request.getSession().getAttribute(ReportingDownloadViewCommand.class.getSimpleName());
 		if (pushDownloadReport != null) {
 			if (pushDownloadReport.getFileName() != null) {
 				obj.put("pushDownloadReport", pushDownloadReport.getFileName());
