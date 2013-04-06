@@ -23,12 +23,12 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import javax.xml.bind.ValidationException;
 
 import org.json.CssJSONObject;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.json.JsJSONObject;
+import org.romaframework.aspect.validation.ValidationException;
 import org.romaframework.aspect.view.ViewAspect;
 import org.romaframework.aspect.view.command.impl.DownloadReaderViewCommand;
 import org.romaframework.aspect.view.command.impl.DownloadStreamViewCommand;
