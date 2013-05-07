@@ -4,15 +4,15 @@
 	<bean id="SessionAspect" class="org.romaframework.aspect.session.html.HttpSessionAspect" singleton="true" />
 
 	<bean id="ViewAspect" depends-on="SessionAspect" class="org.romaframework.aspect.view.html.HtmlViewAspect"
-		singleton="true" >
-			<property name="formRenders">
-				<set>
-					<value>objectembedded</value>
-					<value>menu</value>
-					<value>vmenu</value>
-				</set>
-			</property>
-			<property name="pagesPath" value="/dynamic/view/"/>
+		singleton="true">
+		<property name="formRenders">
+			<set>
+				<value>objectembedded</value>
+				<value>menu</value>
+				<value>vmenu</value>
+			</set>
+		</property>
+		<property name="pagesPath" value="/dynamic/view/" />
 	</bean>
 
 	<bean id="DataBindingAspect" depends-on="ViewAspect" class="org.romaframework.aspect.data.DataBindingAspect"
@@ -76,4 +76,5 @@
 	</bean>
 
 	<bean id="ViewTemplateManager" class="org.romaframework.aspect.view.html.transformer.jsp.JspTemplateManager"></bean>
+	<bean class="org.romaframework.aspect.view.ViewAspectConfigurator" singleton="true" lazy-init="false" />
 </beans>

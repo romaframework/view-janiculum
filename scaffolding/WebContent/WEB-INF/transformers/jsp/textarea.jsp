@@ -36,11 +36,11 @@
 	
 	</div>
 	<%
-	SchemaField field = ((HtmlViewContentComponent)component).getSchemaField();
-	if(field.isSettedFeature(ValidationFieldFeatures.MAX)){
-		Integer max = ((HtmlViewContentComponent)component).getSchemaField().getFeature(ValidationFieldFeatures.MAX);
-		if(max!=null && max>0){
-			%>
+		SchemaField field = ((HtmlViewContentComponent)component).getSchemaField();
+		if(field.isSetFeature(ValidationFieldFeatures.MAX)){
+			Integer max = ((HtmlViewContentComponent)component).getSchemaField().getFeature(ValidationFieldFeatures.MAX);
+			if(max!=null && max>0){
+	%>
 			<roma:addjs>
 			jQuery('#<%=JaniculumWrapper.id(component, "content") %>').keyup(function(){
 			    value = ""+jQuery('#<%=JaniculumWrapper.id(component, "content") %>').val();

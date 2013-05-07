@@ -74,7 +74,6 @@ import org.romaframework.core.flow.SchemaFieldListener;
 import org.romaframework.core.schema.Feature;
 import org.romaframework.core.schema.SchemaAction;
 import org.romaframework.core.schema.SchemaClassResolver;
-import org.romaframework.core.schema.SchemaEvent;
 import org.romaframework.core.schema.SchemaFeaturesChangeListener;
 import org.romaframework.core.schema.SchemaField;
 import org.romaframework.core.schema.SchemaHelper;
@@ -658,9 +657,6 @@ public class HtmlViewAspect extends ViewAspectAbstract implements SchemaFeatures
 
 	private void pushDownloadReporting(final ReportingDownloadViewCommand command) {
 		Roma.component(SessionAspect.class).setProperty(ReportingDownloadViewCommand.class.getSimpleName(), command);
-	}
-
-	public void configEvent(SchemaEvent event) {
 	}
 
 	public Object getUnderlyingComponent() {
