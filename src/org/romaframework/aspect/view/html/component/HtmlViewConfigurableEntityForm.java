@@ -7,7 +7,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
-import org.romaframework.aspect.session.SessionInfo;
 import org.romaframework.aspect.validation.MultiValidationException;
 import org.romaframework.aspect.validation.ValidationException;
 import org.romaframework.aspect.view.ViewAspect;
@@ -120,7 +119,7 @@ public class HtmlViewConfigurableEntityForm extends HtmlViewAbstractContentCompo
 				HtmlViewAspectHelper.getHtmlViewSession().removeRenderableBinding((HtmlViewRenderable) component);
 			if (component.getContent() != null) {
 				ViewHelper.invokeOnDispose(component.getContent());
-				((HtmlViewAspect) Roma.aspect(ViewAspect.class)).removeObjectFormAssociation(component.getContent(), null);
+				((HtmlViewAspect) Roma.aspect(ViewAspect.class)).removeObjectFormAssociation(component.getContent());
 			}
 		}
 		expandedChildren.clear();
@@ -303,10 +302,10 @@ public class HtmlViewConfigurableEntityForm extends HtmlViewAbstractContentCompo
 		}
 	}
 
-	public void setContent(final Object content, final SessionInfo session) {
+	public void setContent(final Object content) {
 		if (this.content != null) {
 			ViewHelper.invokeOnDispose(this.content);
-			((HtmlViewAspect) Roma.aspect(ViewAspect.class)).removeObjectFormAssociation(this.content, session);
+			((HtmlViewAspect) Roma.aspect(ViewAspect.class)).removeObjectFormAssociation(this.content);
 		}
 		this.content = content;
 
@@ -316,17 +315,12 @@ public class HtmlViewConfigurableEntityForm extends HtmlViewAbstractContentCompo
 			placeComponents();
 
 		// Create the pojo form association
-		((HtmlViewAspect) Roma.aspect(ViewAspect.class)).createObjectFormAssociation(this.content, this, session);
+		((HtmlViewAspect) Roma.aspect(ViewAspect.class)).createObjectFormAssociation(this.content, this);
 		ViewHelper.invokeOnShow(content);
 	}
 
 	public SchemaObject getSchemaObject() {
 		return schemaObject;
-	}
-
-	@Override
-	public void setContent(final Object content) {
-		setContent(content, null);
 	}
 
 	public boolean hasLabel() {

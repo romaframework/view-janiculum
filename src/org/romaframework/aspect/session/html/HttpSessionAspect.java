@@ -40,12 +40,6 @@ public class HttpSessionAspect extends HttpAbstractSessionAspect {
 		sessions = Collections.synchronizedMap(new HashMap<String, SessionInfo>());
 	}
 
-	// TODO
-	// public Object getActiveSystemSession() {
-	// // GET THREAD'S CURRENT CONTEXT
-	// return HtmlSessionHelper.getInstance().getActiveSession();
-	// }
-
 	public SessionInfo getActiveSessionInfo() {
 		// GET THREAD'S CURRENT CONTEXT
 		final HttpSession httpSession = (HttpSession) getActiveSystemSession();// HtmlSessionHelper.getInstance().getActiveSession();
@@ -102,6 +96,4 @@ public class HttpSessionAspect extends HttpAbstractSessionAspect {
 		return null;
 	}
 
-	
-	
 }

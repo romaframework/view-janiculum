@@ -138,17 +138,16 @@ public class HtmlViewAspect extends ViewAspectAbstract implements SchemaFeatures
 		try {
 			// REMOVE THE ASSOCIATION FROM THE USER OBJECT AND THE FORM
 			((HtmlViewContentForm) formInstance).clearComponents();
-			removeObjectFormAssociation(formInstance.getContent(), null);
+			removeObjectFormAssociation(formInstance.getContent());
 		} catch (final Exception e) {
 			log.error("[FormPool.releaseForm] Error", e);
 		}
 	}
 
 	@Override
-	public void removeObjectFormAssociation(Object iUserObject, SessionInfo iSession) {
-		if (iSession == null)
-			if (iSession == null)
-				iSession = Roma.session().getActiveSessionInfo();
+	public void removeObjectFormAssociation(Object iUserObject) {
+		
+		SessionInfo iSession = Roma.session().getActiveSessionInfo();
 
 		// REMOVE OBJECT-FORM ASSOCIATION
 		Map<Object, ViewComponent> userForms = objectsForms.get(iSession);
@@ -160,11 +159,6 @@ public class HtmlViewAspect extends ViewAspectAbstract implements SchemaFeatures
 
 		}
 
-	}
-
-	@Override
-	public void show(Object content, String position, Screen screen, SessionInfo session, SchemaObject schema) throws ViewException {
-		super.show(content, position, screen, session, schema);
 	}
 
 	/*
@@ -504,7 +498,7 @@ public class HtmlViewAspect extends ViewAspectAbstract implements SchemaFeatures
 						// manage appear/disappear of null ObjectEmbedded
 						if (ViewConstants.RENDER_OBJECTEMBEDDED.equals(iSubField.getFeature(ViewFieldFeatures.RENDER))) {
 							Object content = expandedComponentToUpdate.getContent();
-							if (content == null || expandedComponentToUpdate instanceof HtmlViewInvisibleContentComponent ) {
+							if (content == null || expandedComponentToUpdate instanceof HtmlViewInvisibleContentComponent) {
 								form.removeFieldComponent(fieldName);
 								FormUtils.createFieldComponent(iSubField, form);
 								return;

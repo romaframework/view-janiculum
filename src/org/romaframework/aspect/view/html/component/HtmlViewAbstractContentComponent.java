@@ -177,7 +177,7 @@ public abstract class HtmlViewAbstractContentComponent extends HtmlViewAbstractC
 				HtmlViewAspectHelper.getHtmlViewSession().removeRenderableBinding((HtmlViewRenderable) component);
 			if (component.getContent() != null) {
 				ViewHelper.invokeOnDispose(component.getContent());
-				((HtmlViewAspect) Roma.aspect(ViewAspect.class)).removeObjectFormAssociation(component.getContent(), null);
+				((HtmlViewAspect) Roma.aspect(ViewAspect.class)).removeObjectFormAssociation(component.getContent());
 			}
 		}
 		components.clear();

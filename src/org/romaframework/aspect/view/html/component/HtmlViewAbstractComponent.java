@@ -30,7 +30,6 @@ import org.romaframework.core.schema.SchemaObject;
 
 public abstract class HtmlViewAbstractComponent implements HtmlViewGenericComponent {
 	protected static final String				SEPARATOR	= TransformerHelper.SEPARATOR;
-	protected String										htmlString;
 	protected HtmlViewContentComponent	containerComponent;
 	protected Log												log				= LogFactory.getLog(this.getClass());
 	protected HtmlViewScreenArea				screenArea;
@@ -132,13 +131,6 @@ public abstract class HtmlViewAbstractComponent implements HtmlViewGenericCompon
 		final Screen screen = Roma.aspect(ViewAspect.class).getScreen();
 		final AreaComponent screenAreaToset = screen.getArea(screenArea);
 		this.setScreenArea((HtmlViewScreenArea) screenAreaToset);
-	}
-
-	/**
-	 * @return the htmlString
-	 */
-	String getHtmlString() {
-		return htmlString;
 	}
 
 	public long getId() {

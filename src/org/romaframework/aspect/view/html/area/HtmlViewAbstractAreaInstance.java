@@ -17,10 +17,6 @@ import org.romaframework.core.domain.type.TreeNodeLinkedHashMap;
 
 public abstract class HtmlViewAbstractAreaInstance extends TreeNodeLinkedHashMap implements HtmlViewArea {
 
-	/**
-	 * The previosly generated html
-	 */
-	protected String	htmlString;
 	protected boolean	visible;
 	protected int			areaSize;
 	protected String	areaAlign;
@@ -91,13 +87,6 @@ public abstract class HtmlViewAbstractAreaInstance extends TreeNodeLinkedHashMap
 	 */
 	public void setAreaStyle(final String areaStyle) {
 		this.areaStyle = areaStyle;
-	}
-
-	/**
-	 * @return the htmlString
-	 */
-	public String getHtmlString() {
-		return htmlString;
 	}
 
 	public AreaComponent searchArea(final String areaName) {

@@ -45,11 +45,11 @@ public class ChildrenMap {
 			if (newComponent == null && oldComponent instanceof ContentForm) {
 				((HtmlViewAspect) Roma.aspect(ViewAspect.class)).releaseForm((ContentForm) oldComponent);
 			} else {
-				((HtmlViewAspect) Roma.aspect(ViewAspect.class)).removeObjectFormAssociation(oldComponent, null);
+				((HtmlViewAspect) Roma.aspect(ViewAspect.class)).removeObjectFormAssociation(oldComponent);
 			}
 			((HtmlViewContentForm) oldComponent).clearAreas();
 		} else if (oldComponent instanceof HtmlViewContentComponent) {
-			((HtmlViewAspect) Roma.aspect(ViewAspect.class)).removeObjectFormAssociation(oldComponent, null);
+			((HtmlViewAspect) Roma.aspect(ViewAspect.class)).removeObjectFormAssociation(oldComponent);
 		}
 
 		HtmlViewAspectHelper.getHtmlViewSession().removeRenderableBinding(oldComponent);
