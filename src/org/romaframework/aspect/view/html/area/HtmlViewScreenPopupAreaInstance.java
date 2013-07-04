@@ -1,5 +1,6 @@
 package org.romaframework.aspect.view.html.area;
 
+import org.romaframework.aspect.view.html.DirtyHelper;
 import org.romaframework.aspect.view.html.screen.HtmlViewScreen;
 import org.romaframework.aspect.view.html.transformer.Transformer;
 import org.romaframework.aspect.view.html.transformer.manager.TransformerManager;
@@ -39,6 +40,7 @@ public class HtmlViewScreenPopupAreaInstance extends HtmlViewScreenAreaInstance 
 	@Override
 	public void clear() {
 		getParent().removeChild(this);
+		DirtyHelper.getInstance().makeDirty(this, this);
 		((HtmlViewScreenAreaInstance) getParent()).setDirty(true);
 		super.clear();
 	}

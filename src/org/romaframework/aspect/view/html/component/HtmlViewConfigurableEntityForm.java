@@ -16,6 +16,7 @@ import org.romaframework.aspect.view.area.AreaComponent;
 import org.romaframework.aspect.view.feature.ViewClassFeatures;
 import org.romaframework.aspect.view.feature.ViewFieldFeatures;
 import org.romaframework.aspect.view.form.ViewComponent;
+import org.romaframework.aspect.view.html.DirtyHelper;
 import org.romaframework.aspect.view.html.HtmlViewAspect;
 import org.romaframework.aspect.view.html.HtmlViewAspectHelper;
 import org.romaframework.aspect.view.html.area.HtmlViewFormArea;
@@ -84,6 +85,7 @@ public class HtmlViewConfigurableEntityForm extends HtmlViewAbstractContentCompo
 	public void placeComponents() {
 		clearComponents();
 		setDirty(true);
+		DirtyHelper.getInstance().makeDirty(getContent(), this);
 		clearAreas();
 		if (content == null)
 			return;
@@ -143,6 +145,7 @@ public class HtmlViewConfigurableEntityForm extends HtmlViewAbstractContentCompo
 	public void addChild(final String fieldName, final AreaComponent iAreaComponent, final ViewComponent iComponent) {
 		if (childrenMap.getChild(fieldName) == null) {
 			setDirty(true);
+			DirtyHelper.getInstance().makeDirty(getContent(), this);
 		}
 		childrenMap.addChild(fieldName, iAreaComponent, (HtmlViewGenericComponent) iComponent);
 	}

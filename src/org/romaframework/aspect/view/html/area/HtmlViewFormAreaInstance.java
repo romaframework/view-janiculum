@@ -6,6 +6,8 @@ import java.util.List;
 
 import org.romaframework.aspect.view.form.ContentForm;
 import org.romaframework.aspect.view.form.ViewComponent;
+import org.romaframework.aspect.view.html.DirtyHelper;
+import org.romaframework.aspect.view.html.component.HtmlViewContentForm;
 import org.romaframework.aspect.view.html.component.HtmlViewGenericComponent;
 import org.romaframework.aspect.view.html.transformer.helper.TransformerHelper;
 import org.romaframework.core.domain.type.TreeNodeLinkedHashMap;
@@ -58,6 +60,7 @@ public class HtmlViewFormAreaInstance extends HtmlViewAbstractAreaInstance imple
 		if (components == null) {
 			components = new ArrayList<HtmlViewGenericComponent>();
 		}
+		DirtyHelper.getInstance().makeDirty(component.getContent(), this);
 		components.add(component);
 		setDirty(true);
 	}
@@ -90,6 +93,7 @@ public class HtmlViewFormAreaInstance extends HtmlViewAbstractAreaInstance imple
 	}
 
 	public boolean removeComponent(final ViewComponent component) {
+		DirtyHelper.getInstance().makeDirty(component.getContent(), this);
 		setDirty(true);
 		return components.remove(component);
 	}
@@ -98,6 +102,7 @@ public class HtmlViewFormAreaInstance extends HtmlViewAbstractAreaInstance imple
 		int pos = components.indexOf(oldComponent);
 		components.remove(pos);
 		components.add(pos, newComponent);
+		DirtyHelper.getInstance().makeDirty(newComponent.getContent(), this);
 		setDirty(true);
 	}
 
@@ -143,6 +148,10 @@ public class HtmlViewFormAreaInstance extends HtmlViewAbstractAreaInstance imple
 	public void clear() {
 		if (components != null)
 			components.clear();
+	}
+
+	public HtmlViewContentForm getForm() {
+		return (HtmlViewContentForm) contentForm;
 	}
 
 }

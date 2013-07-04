@@ -7,6 +7,7 @@ import org.apache.commons.logging.LogFactory;
 import org.romaframework.aspect.view.FormatHelper;
 import org.romaframework.aspect.view.feature.ViewFieldFeatures;
 import org.romaframework.aspect.view.form.ViewComponent;
+import org.romaframework.aspect.view.html.DirtyHelper;
 import org.romaframework.aspect.view.html.area.HtmlViewBinder;
 import org.romaframework.aspect.view.html.area.HtmlViewRenderable;
 import org.romaframework.aspect.view.html.component.HtmlViewAbstractContentComponent;
@@ -36,6 +37,7 @@ public class NumberBinder implements HtmlViewBinder {
 				contentComponent.setContent(SchemaHelper.getFieldValue(schemaField, contentComponent.getContainerComponent().getContent()));
 			} catch (Exception e) {
 				((HtmlViewAbstractContentComponent) contentComponent).setValid(false);
+				DirtyHelper.getInstance().makeDirty(contentComponent.getContent(), contentComponent);
 				((HtmlViewAbstractContentComponent) contentComponent).setDirty(true);
 				log.info("invalid number inserted");
 			}

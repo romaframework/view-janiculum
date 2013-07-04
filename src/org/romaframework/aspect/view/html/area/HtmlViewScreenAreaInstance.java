@@ -96,6 +96,7 @@ public class HtmlViewScreenAreaInstance extends HtmlViewAbstractAreaInstance imp
 			}
 		}
 		this.form = form;
+		this.form.setScreenArea(this);
 	}
 
 	private void disposeForm(HtmlViewGenericComponent root) {

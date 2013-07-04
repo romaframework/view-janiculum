@@ -161,4 +161,8 @@ public abstract class HtmlViewAbstractAreaInstance extends TreeNodeLinkedHashMap
 	public void setStyle(String areaStyle) {
 		this.areaStyle = areaStyle;
 	}
+
+	public HtmlViewArea getParentArea() {
+		return (HtmlViewArea) super.getParent();
+	}
 }

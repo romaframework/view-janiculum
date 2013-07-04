@@ -35,6 +35,7 @@ import org.romaframework.aspect.view.command.impl.DownloadStreamViewCommand;
 import org.romaframework.aspect.view.command.impl.OpenWindowViewCommand;
 import org.romaframework.aspect.view.command.impl.RedirectViewCommand;
 import org.romaframework.aspect.view.command.impl.ReportingDownloadViewCommand;
+import org.romaframework.aspect.view.html.area.HtmlViewRenderable;
 import org.romaframework.aspect.view.html.area.HtmlViewScreenAreaInstance;
 import org.romaframework.aspect.view.html.component.HtmlViewAbstractComponent;
 import org.romaframework.aspect.view.html.component.HtmlViewConfigurableEntityForm;
@@ -134,10 +135,15 @@ public class AjaxServlet extends HtmlServlet {
 					obj.put("bindingExecuted", fieldsBound);
 					obj.put("status", "ok");
 					obj.put("pageId", pageId);
-
+					
+					for(HtmlViewRenderable render :DirtyHelper.getInstance().getChanges()){
+						changes.put(render.getHtmlId(), new ComponentWritable(render));
+						System.out.println(render.getHtmlId());
+					}
+					/*
 					for (Map.Entry<String, ComponentWritable> entry : getChanges(screen).entrySet()) {
 						changes.put(entry.getKey(), entry.getValue());
-					}
+					}*/
 					obj.put("changes", changes);
 
 					addPushCommands(obj, request);
@@ -147,6 +153,7 @@ public class AjaxServlet extends HtmlServlet {
 				}
 
 				((HtmlViewAspect) Roma.view()).cleanDirtyComponents();
+				DirtyHelper.getInstance().clear();
 
 			} catch (JSONException jsonx) {
 				jsonx.printStackTrace();

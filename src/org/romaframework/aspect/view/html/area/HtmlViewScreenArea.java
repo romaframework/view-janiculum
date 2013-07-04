@@ -8,6 +8,4 @@ public interface HtmlViewScreenArea extends HtmlViewArea {
 
 	public void bindForm(HtmlViewContentForm iPojo);
 
-	public HtmlViewContentForm getForm();
-
 }

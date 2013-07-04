@@ -40,5 +40,5 @@ public interface HtmlViewFormArea extends HtmlViewArea {
 	public void replaceComponent(final ViewComponent oldComponent, final HtmlViewGenericComponent newComponent);
 	
 	public AreaComponent searchArea(String iAreaName);
-
+	
 }

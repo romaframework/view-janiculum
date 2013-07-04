@@ -146,7 +146,7 @@ public class HtmlViewAspect extends ViewAspectAbstract implements SchemaFeatures
 
 	@Override
 	public void removeObjectFormAssociation(Object iUserObject) {
-		
+
 		SessionInfo iSession = Roma.session().getActiveSessionInfo();
 
 		// REMOVE OBJECT-FORM ASSOCIATION
@@ -173,6 +173,7 @@ public class HtmlViewAspect extends ViewAspectAbstract implements SchemaFeatures
 			HtmlViewScreenAreaInstance area = (HtmlViewScreenAreaInstance) desktop.getArea(HtmlViewScreen.POPUPS);
 			HtmlViewScreenPopupAreaInstance popupArea = new HtmlViewScreenPopupAreaInstance(area, "popup");
 			area.addChild((TreeNodeMap) popupArea);
+			DirtyHelper.getInstance().makeDirty(form.getContent(), area);
 			area.setDirty(true);
 			popupArea.bindForm((HtmlViewContentForm) form);
 			if (where.startsWith(HtmlViewScreen.SCREEN_DOUBLE_DOTS))
@@ -191,6 +192,8 @@ public class HtmlViewAspect extends ViewAspectAbstract implements SchemaFeatures
 
 			((HtmlViewFormAreaInstance) area).addComponent((HtmlViewGenericComponent) form);
 			form.setScreenArea("body");
+			DirtyHelper.getInstance().makeDirty(form.getContent(),parentComponent);
+			DirtyHelper.getInstance().makeDirty(form.getContent(),area);
 			parentComponent.setDirty(true);
 			((HtmlViewFormAreaInstance) area).setDirty(true);
 			return area.getName();
@@ -259,6 +262,7 @@ public class HtmlViewAspect extends ViewAspectAbstract implements SchemaFeatures
 				} else {
 					form.removeFieldComponent(actionName);
 					form.setDirty(true);
+					DirtyHelper.getInstance().makeDirty(userObject, form);
 				}
 
 			}
@@ -267,14 +271,17 @@ public class HtmlViewAspect extends ViewAspectAbstract implements SchemaFeatures
 			HtmlViewContentComponent comp = form.getFieldComponent(actionName);
 			if (comp != null) {
 				if (comp.getContainerComponent() instanceof HtmlViewArea) {
+					DirtyHelper.getInstance().makeDirty(userObject, comp.getContainerComponent());
 					((HtmlViewArea) comp.getContainerComponent()).setDirty(true);
 				} else if (comp.getContainerComponent() instanceof HtmlViewGenericComponent) {
+					DirtyHelper.getInstance().makeDirty(userObject, comp.getContainerComponent());
 					((HtmlViewGenericComponent) comp.getContainerComponent()).setDirty(true);
 				}
 			}
 		}
 
 		if (featureName.equals(ViewActionFeatures.ENABLED)) {
+			DirtyHelper.getInstance().makeDirty(userObject, (ViewComponent)form);
 			((HtmlViewConfigurableEntityForm) form).setDirty(true);
 		}
 
@@ -309,6 +316,7 @@ public class HtmlViewAspect extends ViewAspectAbstract implements SchemaFeatures
 		}
 
 		if (featureName.equals(ViewClassFeatures.STYLE)) {
+			DirtyHelper.getInstance().makeDirty(userObject, (ViewComponent)form);
 			((HtmlViewConfigurableEntityForm) form).setDirty(true);
 		}
 
@@ -362,8 +370,10 @@ public class HtmlViewAspect extends ViewAspectAbstract implements SchemaFeatures
 			HtmlViewContentComponent comp = form.getFieldComponent(fieldName);
 			if (comp != null) {
 				if (comp.getContainerComponent() instanceof HtmlViewArea) {
+					DirtyHelper.getInstance().makeDirty(userObject, comp.getContainerComponent());
 					((HtmlViewArea) comp.getContainerComponent()).setDirty(true);
 				} else if (comp.getContainerComponent() instanceof HtmlViewGenericComponent) {
+					DirtyHelper.getInstance().makeDirty(userObject, comp.getContainerComponent());
 					((HtmlViewGenericComponent) comp.getContainerComponent()).setDirty(true);
 				}
 			}
@@ -474,6 +484,7 @@ public class HtmlViewAspect extends ViewAspectAbstract implements SchemaFeatures
 			if (componentToUpdate instanceof ContentForm) {
 				ViewHelper.invokeOnShow(value);
 			}
+			DirtyHelper.getInstance().makeDirty(iContent, componentToUpdate);
 			((HtmlViewAbstractComponent) componentToUpdate).setDirty(true);
 
 			componentToUpdate.setContent(value);
@@ -506,6 +517,7 @@ public class HtmlViewAspect extends ViewAspectAbstract implements SchemaFeatures
 						}
 
 						final Object value = SchemaHelper.getFieldValue(form.getSchemaObject(), iField.getName() + "." + fieldName, iContent);
+						DirtyHelper.getInstance().makeDirty(iContent, expandedComponentToUpdate);
 						((HtmlViewAbstractComponent) expandedComponentToUpdate).setDirty(true);
 
 						expandedComponentToUpdate.setContent(value);

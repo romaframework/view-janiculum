@@ -5,6 +5,7 @@ import java.util.Map;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.romaframework.aspect.view.feature.ViewFieldFeatures;
+import org.romaframework.aspect.view.html.DirtyHelper;
 import org.romaframework.aspect.view.html.area.HtmlViewBinder;
 import org.romaframework.aspect.view.html.area.HtmlViewRenderable;
 import org.romaframework.aspect.view.html.component.HtmlViewAbstractContentComponent;
@@ -27,6 +28,7 @@ public class TreeNodeBinder implements HtmlViewBinder {
 			LOG.debug("binding " + renderable);
 		final HtmlViewContentComponent contentComponent = (HtmlViewContentComponent) renderable;
 		if (contentComponent instanceof HtmlViewAbstractContentComponent) {
+			DirtyHelper.getInstance().makeDirty(contentComponent.getContent(), contentComponent);
 			((HtmlViewAbstractContentComponent) contentComponent).setDirty(true);
 		}
 

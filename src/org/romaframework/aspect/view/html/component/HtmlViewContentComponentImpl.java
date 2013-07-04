@@ -6,6 +6,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import org.romaframework.aspect.view.form.ViewComponent;
+import org.romaframework.aspect.view.html.DirtyHelper;
 import org.romaframework.aspect.view.html.area.HtmlViewRenderable;
 import org.romaframework.aspect.view.html.area.HtmlViewScreenArea;
 import org.romaframework.core.schema.SchemaField;
@@ -23,8 +25,10 @@ public class HtmlViewContentComponentImpl extends HtmlViewAbstractContentCompone
 	}
 
 	public void resetValidation() {
-		if (!isValid())
+		if (!isValid()){
 			setDirty(true);
+			DirtyHelper.getInstance().makeDirty(getContent(),(ViewComponent)this);
+		}
 		setValid(true);
 	}
 
