@@ -40,8 +40,7 @@ public class HtmlViewScreenPopupAreaInstance extends HtmlViewScreenAreaInstance 
 	@Override
 	public void clear() {
 		getParent().removeChild(this);
-		DirtyHelper.getInstance().makeDirty(this, this);
-		((HtmlViewScreenAreaInstance) getParent()).setDirty(true);
+		DirtyHelper.getInstance().makeDirty(this, (HtmlViewArea)getParent());
 		super.clear();
 	}
 

@@ -28,8 +28,4 @@ public interface HtmlViewGenericComponent extends HtmlViewRenderable, ViewCompon
 
 	public void clearComponents();
 
-	public boolean isDirty();
-
-	public void setDirty(boolean dirty);
-
 }

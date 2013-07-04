@@ -61,9 +61,8 @@ public class HtmlViewFormAreaInstance extends HtmlViewAbstractAreaInstance imple
 			components = new ArrayList<HtmlViewGenericComponent>();
 		}
 		component.setContainerArea(this);
-		DirtyHelper.getInstance().makeDirty(component.getContent(), this);
 		components.add(component);
-		setDirty(true);
+		DirtyHelper.getInstance().makeDirty(component.getContent(), this);
 	}
 
 	/*
@@ -95,7 +94,6 @@ public class HtmlViewFormAreaInstance extends HtmlViewAbstractAreaInstance imple
 
 	public boolean removeComponent(final ViewComponent component) {
 		DirtyHelper.getInstance().makeDirty(component.getContent(), this);
-		setDirty(true);
 		return components.remove(component);
 	}
 
@@ -105,7 +103,6 @@ public class HtmlViewFormAreaInstance extends HtmlViewAbstractAreaInstance imple
 		components.add(pos, newComponent);
 		newComponent.setContainerArea(this);
 		DirtyHelper.getInstance().makeDirty(newComponent.getContent(), this);
-		setDirty(true);
 	}
 
 	public boolean validate() {

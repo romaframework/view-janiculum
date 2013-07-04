@@ -16,8 +16,6 @@
 package org.romaframework.aspect.view.html;
 
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -36,15 +34,9 @@ import org.romaframework.aspect.view.command.impl.OpenWindowViewCommand;
 import org.romaframework.aspect.view.command.impl.RedirectViewCommand;
 import org.romaframework.aspect.view.command.impl.ReportingDownloadViewCommand;
 import org.romaframework.aspect.view.html.area.HtmlViewRenderable;
-import org.romaframework.aspect.view.html.area.HtmlViewScreenAreaInstance;
-import org.romaframework.aspect.view.html.component.HtmlViewAbstractComponent;
-import org.romaframework.aspect.view.html.component.HtmlViewConfigurableEntityForm;
-import org.romaframework.aspect.view.html.component.HtmlViewContentForm;
-import org.romaframework.aspect.view.html.component.HtmlViewGenericComponent;
 import org.romaframework.aspect.view.html.screen.HtmlViewScreen;
 import org.romaframework.core.Roma;
 import org.romaframework.core.binding.BindingException;
-import org.romaframework.core.domain.type.TreeNode;
 import org.romaframework.core.exception.ExceptionHelper;
 import org.romaframework.core.exception.UserException;
 import org.romaframework.frontend.domain.message.ErrorMessageTextDetail;
@@ -135,15 +127,12 @@ public class AjaxServlet extends HtmlServlet {
 					obj.put("bindingExecuted", fieldsBound);
 					obj.put("status", "ok");
 					obj.put("pageId", pageId);
-					
-					for(HtmlViewRenderable render :DirtyHelper.getInstance().getChanges()){
+
+					for (HtmlViewRenderable render : DirtyHelper.getInstance().getChanges()) {
 						changes.put(render.getHtmlId(), new ComponentWritable(render));
-						System.out.println(render.getHtmlId());
+						if (log.isDebugEnabled())
+							log.debug(render.getHtmlId());
 					}
-					/*
-					for (Map.Entry<String, ComponentWritable> entry : getChanges(screen).entrySet()) {
-						changes.put(entry.getKey(), entry.getValue());
-					}*/
 					obj.put("changes", changes);
 
 					addPushCommands(obj, request);
@@ -152,7 +141,6 @@ public class AjaxServlet extends HtmlServlet {
 
 				}
 
-				((HtmlViewAspect) Roma.view()).cleanDirtyComponents();
 				DirtyHelper.getInstance().clear();
 
 			} catch (JSONException jsonx) {
@@ -188,8 +176,7 @@ public class AjaxServlet extends HtmlServlet {
 			}
 		}
 
-		DownloadReaderViewCommand pushReaderCommand = (DownloadReaderViewCommand) request.getSession()
-				.getAttribute(DownloadReaderViewCommand.class.getSimpleName());
+		DownloadReaderViewCommand pushReaderCommand = (DownloadReaderViewCommand) request.getSession().getAttribute(DownloadReaderViewCommand.class.getSimpleName());
 		if (pushReaderCommand != null) {
 			if (pushReaderCommand.getFileName() != null) {
 				obj.put("pushDownloadReader", pushReaderCommand.getFileName());
@@ -198,8 +185,7 @@ public class AjaxServlet extends HtmlServlet {
 			}
 		}
 
-		ReportingDownloadViewCommand pushDownloadReport = (ReportingDownloadViewCommand) request.getSession().getAttribute(
-				ReportingDownloadViewCommand.class.getSimpleName());
+		ReportingDownloadViewCommand pushDownloadReport = (ReportingDownloadViewCommand) request.getSession().getAttribute(ReportingDownloadViewCommand.class.getSimpleName());
 		if (pushDownloadReport != null) {
 			if (pushDownloadReport.getFileName() != null) {
 				obj.put("pushDownloadReport", pushDownloadReport.getFileName());
@@ -232,68 +218,6 @@ public class AjaxServlet extends HtmlServlet {
 			return true;
 		}
 		return false;
-	}
-
-	protected Map<String, ComponentWritable> getChanges(HtmlViewScreen screen) throws IOException {
-		Map<String, ComponentWritable> buffer = new HashMap<String, ComponentWritable>();
-		synchronized (screen) {
-			for (TreeNode child : screen.getRootArea().getChildren()) {
-				if (child instanceof HtmlViewScreenAreaInstance) {
-					buffer.putAll(getScreenAreaChanges((HtmlViewScreenAreaInstance) child));
-				} else if (child instanceof HtmlViewAbstractComponent) {
-					buffer.putAll(getComponentChanges((HtmlViewAbstractComponent) child));
-				}
-			}
-		}
-		return buffer;
-	}
-
-	protected Map<String, ComponentWritable> getScreenAreaChanges(HtmlViewScreenAreaInstance area) throws IOException {
-		Map<String, ComponentWritable> buffer = new HashMap<String, ComponentWritable>();
-		if (area.isDirty()) {
-			buffer.put(area.getHtmlId(), new ComponentWritable(area));
-		} else {
-			HtmlViewContentForm form = area.getForm();
-			if (form != null && form instanceof HtmlViewConfigurableEntityForm) {
-				buffer.putAll(getFormChanges((HtmlViewConfigurableEntityForm) form));
-			} else if (area.getChildren() != null) {
-				for (Object child : area.getChildren()) {
-					HtmlViewScreenAreaInstance childArea = (HtmlViewScreenAreaInstance) child;
-					buffer.putAll(getScreenAreaChanges(childArea));
-				}
-			}
-		}
-		return buffer;
-	}
-
-	protected Map<String, ComponentWritable> getComponentChanges(HtmlViewAbstractComponent component) throws IOException {
-		Map<String, ComponentWritable> buffer = new HashMap<String, ComponentWritable>();
-		if (component.isDirty() && component.getTransformer() != null) {
-			buffer.put(component.getHtmlId(), new ComponentWritable(component));
-		} else if (component.getChildren() != null) {
-			for (HtmlViewGenericComponent child : component.getChildren()) {
-				if (child instanceof HtmlViewAbstractComponent)
-					buffer.putAll(getComponentChanges((HtmlViewAbstractComponent) child));
-				else if (child instanceof HtmlViewConfigurableEntityForm)
-					buffer.putAll(getFormChanges((HtmlViewConfigurableEntityForm) child));
-			}
-		}
-		return buffer;
-	}
-
-	protected Map<String, ComponentWritable> getFormChanges(HtmlViewConfigurableEntityForm component) throws IOException {
-		Map<String, ComponentWritable> buffer = new HashMap<String, ComponentWritable>();
-		if (component.isDirty()) {
-			buffer.put(component.getHtmlId(), new ComponentWritable(component));
-		} else if (component.getChildren() != null) {
-			for (HtmlViewGenericComponent child : component.getChildren()) {
-				if (child instanceof HtmlViewAbstractComponent)
-					buffer.putAll(getComponentChanges((HtmlViewAbstractComponent) child));
-				else if (child instanceof HtmlViewConfigurableEntityForm)
-					buffer.putAll(getFormChanges((HtmlViewConfigurableEntityForm) child));
-			}
-		}
-		return buffer;
 	}
 
 }

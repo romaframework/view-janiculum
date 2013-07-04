@@ -23,7 +23,6 @@ import org.romaframework.aspect.view.ViewHelper;
 import org.romaframework.aspect.view.area.AreaComponent;
 import org.romaframework.aspect.view.html.DirtyHelper;
 import org.romaframework.aspect.view.html.HtmlViewAspect;
-import org.romaframework.aspect.view.html.component.HtmlViewConfigurableEntityForm;
 import org.romaframework.aspect.view.html.component.HtmlViewContentForm;
 import org.romaframework.aspect.view.html.component.HtmlViewGenericComponent;
 import org.romaframework.aspect.view.html.screen.HtmlViewScreen;
@@ -167,16 +166,6 @@ public class HtmlViewScreenAreaInstance extends HtmlViewAbstractAreaInstance imp
 
 	public String getType() {
 		return type;
-	}
-
-	public boolean isDirty() {
-		if (super.isDirty()) {
-			return true;
-		}
-		if (form != null && form instanceof HtmlViewConfigurableEntityForm) {
-			return ((HtmlViewConfigurableEntityForm) form).isDirty();
-		}
-		return false;
 	}
 
 	@Override

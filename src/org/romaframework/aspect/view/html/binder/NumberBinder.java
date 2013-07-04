@@ -38,7 +38,6 @@ public class NumberBinder implements HtmlViewBinder {
 			} catch (Exception e) {
 				((HtmlViewAbstractContentComponent) contentComponent).setValid(false);
 				DirtyHelper.getInstance().makeDirty(contentComponent.getContent(), contentComponent);
-				((HtmlViewAbstractContentComponent) contentComponent).setDirty(true);
 				log.info("invalid number inserted");
 			}
 		}

@@ -25,11 +25,6 @@ public class HtmlViewTreeChildComponent extends HtmlViewTreeComposedComponent {
 		return super.getHtmlId() + "_" + level +"_"+elemIndex;
 	}
 	
-	
-	public boolean isDirty() {
-		return false;
-	}
-	
 	public  List<?> orderedContent() {
 		List<Object> result = new ArrayList<Object>();
 		

@@ -32,7 +32,6 @@ import org.romaframework.aspect.session.SessionInfo;
 import org.romaframework.aspect.view.ViewAspect;
 import org.romaframework.aspect.view.ViewAspectAbstract;
 import org.romaframework.aspect.view.ViewConstants;
-import org.romaframework.aspect.view.ViewException;
 import org.romaframework.aspect.view.ViewHelper;
 import org.romaframework.aspect.view.area.AreaComponent;
 import org.romaframework.aspect.view.command.ViewCommand;
@@ -55,7 +54,6 @@ import org.romaframework.aspect.view.html.area.HtmlViewRenderable;
 import org.romaframework.aspect.view.html.area.HtmlViewScreenArea;
 import org.romaframework.aspect.view.html.area.HtmlViewScreenAreaInstance;
 import org.romaframework.aspect.view.html.area.HtmlViewScreenPopupAreaInstance;
-import org.romaframework.aspect.view.html.component.HtmlViewAbstractComponent;
 import org.romaframework.aspect.view.html.component.HtmlViewConfigurableEntityForm;
 import org.romaframework.aspect.view.html.component.HtmlViewContentComponent;
 import org.romaframework.aspect.view.html.component.HtmlViewContentForm;
@@ -173,7 +171,6 @@ public class HtmlViewAspect extends ViewAspectAbstract implements SchemaFeatures
 			HtmlViewScreenPopupAreaInstance popupArea = new HtmlViewScreenPopupAreaInstance(area, "popup");
 			area.addChild((TreeNodeMap) popupArea);
 			DirtyHelper.getInstance().makeDirty(form.getContent(), area);
-			area.setDirty(true);
 			popupArea.bindForm((HtmlViewContentForm) form);
 			if (where.startsWith(HtmlViewScreen.SCREEN_DOUBLE_DOTS))
 				where = where.substring(HtmlViewScreen.SCREEN_DOUBLE_DOTS.length());
@@ -191,10 +188,7 @@ public class HtmlViewAspect extends ViewAspectAbstract implements SchemaFeatures
 
 			((HtmlViewFormAreaInstance) area).addComponent((HtmlViewGenericComponent) form);
 			form.setScreenArea("body");
-			DirtyHelper.getInstance().makeDirty(form.getContent(),parentComponent);
-			DirtyHelper.getInstance().makeDirty(form.getContent(),area);
-			parentComponent.setDirty(true);
-			((HtmlViewFormAreaInstance) area).setDirty(true);
+			DirtyHelper.getInstance().makeDirty(form.getContent(), parentComponent);
 			return area.getName();
 
 		} else {
@@ -260,7 +254,6 @@ public class HtmlViewAspect extends ViewAspectAbstract implements SchemaFeatures
 					FormUtils.createActionComponent(action, form);
 				} else {
 					form.removeFieldComponent(actionName);
-					form.setDirty(true);
 					DirtyHelper.getInstance().makeDirty(userObject, form);
 				}
 
@@ -271,17 +264,14 @@ public class HtmlViewAspect extends ViewAspectAbstract implements SchemaFeatures
 			if (comp != null) {
 				if (comp.getContainerComponent() instanceof HtmlViewArea) {
 					DirtyHelper.getInstance().makeDirty(userObject, comp.getContainerComponent());
-					((HtmlViewArea) comp.getContainerComponent()).setDirty(true);
 				} else if (comp.getContainerComponent() instanceof HtmlViewGenericComponent) {
 					DirtyHelper.getInstance().makeDirty(userObject, comp.getContainerComponent());
-					((HtmlViewGenericComponent) comp.getContainerComponent()).setDirty(true);
 				}
 			}
 		}
 
 		if (featureName.equals(ViewActionFeatures.ENABLED)) {
-			DirtyHelper.getInstance().makeDirty(userObject, (ViewComponent)form);
-			((HtmlViewConfigurableEntityForm) form).setDirty(true);
+			DirtyHelper.getInstance().makeDirty(userObject, form);
 		}
 
 	}
@@ -315,8 +305,7 @@ public class HtmlViewAspect extends ViewAspectAbstract implements SchemaFeatures
 		}
 
 		if (featureName.equals(ViewClassFeatures.STYLE)) {
-			DirtyHelper.getInstance().makeDirty(userObject, (ViewComponent)form);
-			((HtmlViewConfigurableEntityForm) form).setDirty(true);
+			DirtyHelper.getInstance().makeDirty(userObject, (ViewComponent) form);
 		}
 
 	}
@@ -370,15 +359,13 @@ public class HtmlViewAspect extends ViewAspectAbstract implements SchemaFeatures
 			if (comp != null) {
 				if (comp.getContainerComponent() instanceof HtmlViewArea) {
 					DirtyHelper.getInstance().makeDirty(userObject, comp.getContainerComponent());
-					((HtmlViewArea) comp.getContainerComponent()).setDirty(true);
 				} else if (comp.getContainerComponent() instanceof HtmlViewGenericComponent) {
 					DirtyHelper.getInstance().makeDirty(userObject, comp.getContainerComponent());
-					((HtmlViewGenericComponent) comp.getContainerComponent()).setDirty(true);
 				}
 			}
 		}
 		if (featureName.equals(ViewFieldFeatures.ENABLED)) {
-			form.setDirty(true);
+			DirtyHelper.getInstance().makeDirty(userObject, form);
 		}
 
 	}
@@ -484,7 +471,6 @@ public class HtmlViewAspect extends ViewAspectAbstract implements SchemaFeatures
 				ViewHelper.invokeOnShow(value);
 			}
 			DirtyHelper.getInstance().makeDirty(iContent, componentToUpdate);
-			((HtmlViewAbstractComponent) componentToUpdate).setDirty(true);
 
 			componentToUpdate.setContent(value);
 			// FIX FOR FIELD REFRESH OF EXPANDED COMPONENTS
@@ -517,8 +503,6 @@ public class HtmlViewAspect extends ViewAspectAbstract implements SchemaFeatures
 
 						final Object value = SchemaHelper.getFieldValue(form.getSchemaObject(), iField.getName() + "." + fieldName, iContent);
 						DirtyHelper.getInstance().makeDirty(iContent, expandedComponentToUpdate);
-						((HtmlViewAbstractComponent) expandedComponentToUpdate).setDirty(true);
-
 						expandedComponentToUpdate.setContent(value);
 					}
 				}
@@ -527,17 +511,6 @@ public class HtmlViewAspect extends ViewAspectAbstract implements SchemaFeatures
 
 	}
 
-	public void cleanDirtyComponents() {
-		cleanDirtyComponents(getScreen());
-	}
-
-	public void cleanDirtyComponents(Screen iScreen) {
-		HtmlViewScreen screen = (HtmlViewScreen) iScreen;
-		if (screen != null) {
-			HtmlViewScreenAreaInstance area = screen.getRootArea();
-			cleanDirtyArea(area);
-		}
-	}
 
 	private void changeFieldDepends(String fieldName, final HtmlViewContentForm form, final Object featureValue) {
 		SchemaField field = form.getSchemaObject().getField(fieldName);
@@ -567,41 +540,6 @@ public class HtmlViewAspect extends ViewAspectAbstract implements SchemaFeatures
 			values.add(fieldName);
 		}
 		field.setFeature(ViewFieldFeatures.DEPENDS_ON, dependsOn.toArray(new String[] {}));
-	}
-
-	private void cleanDirtyArea(HtmlViewScreenAreaInstance area) {
-		area.setDirty(false);
-		if (area.getComponents() != null)
-			for (Object child : area.getComponents()) {
-				if (child instanceof HtmlViewScreenAreaInstance) {
-					HtmlViewScreenAreaInstance childArea = (HtmlViewScreenAreaInstance) child;
-					cleanDirtyArea(childArea);
-				}
-			}
-		if (area.getComponentInArea() != null)
-			cleanDirtyForm((HtmlViewConfigurableEntityForm) area.getComponentInArea());
-	}
-
-	private void cleanDirtyForm(HtmlViewConfigurableEntityForm component) {
-		component.setDirty(false);
-		if (component.getChildren() != null)
-			for (HtmlViewGenericComponent child : component.getChildren()) {
-				if (child instanceof HtmlViewAbstractComponent)
-					cleanDirtyComponent((HtmlViewAbstractComponent) child);
-				else if (child instanceof HtmlViewConfigurableEntityForm)
-					cleanDirtyForm((HtmlViewConfigurableEntityForm) child);
-			}
-	}
-
-	private void cleanDirtyComponent(HtmlViewAbstractComponent component) {
-		component.setDirty(false);
-		if (component.getChildren() != null)
-			for (HtmlViewGenericComponent child : component.getChildren()) {
-				if (child instanceof HtmlViewAbstractComponent)
-					cleanDirtyComponent((HtmlViewAbstractComponent) child);
-				else if (child instanceof HtmlViewConfigurableEntityForm)
-					cleanDirtyForm((HtmlViewConfigurableEntityForm) child);
-			}
 	}
 
 	/*

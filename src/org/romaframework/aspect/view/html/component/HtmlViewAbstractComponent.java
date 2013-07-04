@@ -36,7 +36,6 @@ public abstract class HtmlViewAbstractComponent implements HtmlViewGenericCompon
 	protected HtmlViewScreenArea				screenArea;
 	protected HtmlViewFormArea					containerArea;
 	protected SchemaClassElement				schemaElement;
-	protected boolean										dirty			= true;
 	protected Long											id;
 
 	public HtmlViewAbstractComponent(final HtmlViewContentComponent containerComponent, final HtmlViewScreenArea screenArea,
@@ -181,14 +180,6 @@ public abstract class HtmlViewAbstractComponent implements HtmlViewGenericCompon
 			buffer.append(getSchemaElement().toString());
 		}
 		return buffer.toString();
-	}
-
-	public boolean isDirty() {
-		return dirty;
-	}
-
-	public void setDirty(boolean dirty) {
-		this.dirty = dirty;
 	}
 
 	protected boolean isCollectionField() {

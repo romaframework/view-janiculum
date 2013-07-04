@@ -84,7 +84,6 @@ public class HtmlViewConfigurableEntityForm extends HtmlViewAbstractContentCompo
 	 */
 	public void placeComponents() {
 		clearComponents();
-		setDirty(true);
 		DirtyHelper.getInstance().makeDirty(getContent(), this);
 		clearAreas();
 		if (content == null)
@@ -144,7 +143,6 @@ public class HtmlViewConfigurableEntityForm extends HtmlViewAbstractContentCompo
 
 	public void addChild(final String fieldName, final AreaComponent iAreaComponent, final ViewComponent iComponent) {
 		if (childrenMap.getChild(fieldName) == null) {
-			setDirty(true);
 			DirtyHelper.getInstance().makeDirty(getContent(), this);
 		}
 		childrenMap.addChild(fieldName, iAreaComponent, (HtmlViewGenericComponent) iComponent);

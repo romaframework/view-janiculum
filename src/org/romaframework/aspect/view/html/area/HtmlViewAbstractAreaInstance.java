@@ -21,7 +21,6 @@ public abstract class HtmlViewAbstractAreaInstance extends TreeNodeLinkedHashMap
 	protected int			areaSize;
 	protected String	areaAlign;
 	protected String	areaStyle;
-	protected boolean	dirty	= true;
 	protected Long		id;
 
 	public HtmlViewAbstractAreaInstance(final TreeNodeLinkedHashMap parent, final String name) {
@@ -144,14 +143,6 @@ public abstract class HtmlViewAbstractAreaInstance extends TreeNodeLinkedHashMap
 		if (getChildren() != null)
 			return new ArrayList<HtmlViewRenderable>((Collection) getChildren());
 		return new ArrayList<HtmlViewRenderable>();
-	}
-
-	public boolean isDirty() {
-		return dirty;
-	}
-
-	public void setDirty(boolean dirty) {
-		this.dirty = dirty;
 	}
 
 	public String getStyle() {

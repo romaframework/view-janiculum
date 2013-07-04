@@ -91,8 +91,4 @@ public class HtmlViewTreeComposedComponent extends HtmlViewAbstractComposedCompo
 		return result;
 	}
 
-	public boolean isDirty() {
-		return super.isDirty();
-	}
-
 }

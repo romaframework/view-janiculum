@@ -11,10 +11,6 @@ import org.romaframework.aspect.view.html.area.HtmlViewArea;
 import org.romaframework.aspect.view.html.area.HtmlViewFormArea;
 import org.romaframework.aspect.view.html.area.HtmlViewRenderable;
 import org.romaframework.aspect.view.html.area.HtmlViewScreenArea;
-import org.romaframework.aspect.view.html.area.HtmlViewScreenAreaInstance;
-import org.romaframework.aspect.view.html.component.HtmlViewConfigurableEntityForm;
-import org.romaframework.aspect.view.html.component.HtmlViewContentComponent;
-import org.romaframework.aspect.view.html.component.HtmlViewContentForm;
 import org.romaframework.aspect.view.html.component.HtmlViewGenericComponent;
 import org.romaframework.core.Roma;
 

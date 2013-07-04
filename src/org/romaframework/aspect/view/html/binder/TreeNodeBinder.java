@@ -29,7 +29,6 @@ public class TreeNodeBinder implements HtmlViewBinder {
 		final HtmlViewContentComponent contentComponent = (HtmlViewContentComponent) renderable;
 		if (contentComponent instanceof HtmlViewAbstractContentComponent) {
 			DirtyHelper.getInstance().makeDirty(contentComponent.getContent(), contentComponent);
-			((HtmlViewAbstractContentComponent) contentComponent).setDirty(true);
 		}
 
 		final SchemaField schemaField = contentComponent.getSchemaField();

@@ -9,11 +9,7 @@ public interface HtmlViewArea extends AreaComponent, HtmlViewRenderable {
 
 	public List<HtmlViewRenderable> getComponents();
 
-	public boolean isDirty();
-
-	public void setDirty(boolean dirty);
-	
 	public HtmlViewContentForm getForm();
-	
+
 	public HtmlViewArea getParentArea();
 }

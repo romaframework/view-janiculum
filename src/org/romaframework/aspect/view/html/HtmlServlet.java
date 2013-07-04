@@ -135,7 +135,7 @@ public class HtmlServlet extends RomaServlet {
 			String buff = out.toString();
 			buff = flushBuffers(buff);
 			response.getWriter().append(buff);
-			((HtmlViewAspect) Roma.view()).cleanDirtyComponents();
+			DirtyHelper.getInstance().clear();
 		}
 	}
 

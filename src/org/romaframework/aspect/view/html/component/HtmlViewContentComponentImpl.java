@@ -26,7 +26,6 @@ public class HtmlViewContentComponentImpl extends HtmlViewAbstractContentCompone
 
 	public void resetValidation() {
 		if (!isValid()){
-			setDirty(true);
 			DirtyHelper.getInstance().makeDirty(getContent(),(ViewComponent)this);
 		}
 		setValid(true);
