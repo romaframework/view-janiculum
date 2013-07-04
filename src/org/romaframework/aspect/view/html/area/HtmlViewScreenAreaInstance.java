@@ -21,6 +21,7 @@ import java.util.List;
 import org.romaframework.aspect.view.ViewAspect;
 import org.romaframework.aspect.view.ViewHelper;
 import org.romaframework.aspect.view.area.AreaComponent;
+import org.romaframework.aspect.view.html.DirtyHelper;
 import org.romaframework.aspect.view.html.HtmlViewAspect;
 import org.romaframework.aspect.view.html.component.HtmlViewConfigurableEntityForm;
 import org.romaframework.aspect.view.html.component.HtmlViewContentForm;
@@ -96,7 +97,7 @@ public class HtmlViewScreenAreaInstance extends HtmlViewAbstractAreaInstance imp
 			}
 		}
 		this.form = form;
-		this.form.setScreenArea(this);
+		DirtyHelper.getInstance().makeDirty(form.getContent(), this);
 	}
 
 	private void disposeForm(HtmlViewGenericComponent root) {

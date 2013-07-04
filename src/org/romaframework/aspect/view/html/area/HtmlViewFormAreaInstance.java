@@ -60,6 +60,7 @@ public class HtmlViewFormAreaInstance extends HtmlViewAbstractAreaInstance imple
 		if (components == null) {
 			components = new ArrayList<HtmlViewGenericComponent>();
 		}
+		component.setContainerArea(this);
 		DirtyHelper.getInstance().makeDirty(component.getContent(), this);
 		components.add(component);
 		setDirty(true);
@@ -102,6 +103,7 @@ public class HtmlViewFormAreaInstance extends HtmlViewAbstractAreaInstance imple
 		int pos = components.indexOf(oldComponent);
 		components.remove(pos);
 		components.add(pos, newComponent);
+		newComponent.setContainerArea(this);
 		DirtyHelper.getInstance().makeDirty(newComponent.getContent(), this);
 		setDirty(true);
 	}

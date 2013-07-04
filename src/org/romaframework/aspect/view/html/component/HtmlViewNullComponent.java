@@ -4,6 +4,7 @@ import java.io.Writer;
 import java.util.Collection;
 
 import org.romaframework.aspect.view.form.ViewComponent;
+import org.romaframework.aspect.view.html.area.HtmlViewFormArea;
 import org.romaframework.aspect.view.html.area.HtmlViewScreenArea;
 import org.romaframework.aspect.view.html.transformer.Transformer;
 import org.romaframework.core.schema.SchemaClassElement;
@@ -99,6 +100,13 @@ public class HtmlViewNullComponent implements HtmlViewGenericComponent {
 
 	public void setSchemaObject(SchemaObject iSchemaObject) {
 
+	}
+
+	public void setContainerArea(HtmlViewFormArea screenArea) {
+	}
+
+	public HtmlViewFormArea getContainerArea() {
+		return null;
 	}
 
 	public Collection<HtmlViewGenericComponent> getChildrenFilled() {

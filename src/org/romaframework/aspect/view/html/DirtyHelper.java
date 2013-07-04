@@ -13,6 +13,7 @@ import org.romaframework.aspect.view.html.area.HtmlViewRenderable;
 import org.romaframework.aspect.view.html.area.HtmlViewScreenArea;
 import org.romaframework.aspect.view.html.area.HtmlViewScreenAreaInstance;
 import org.romaframework.aspect.view.html.component.HtmlViewConfigurableEntityForm;
+import org.romaframework.aspect.view.html.component.HtmlViewContentComponent;
 import org.romaframework.aspect.view.html.component.HtmlViewContentForm;
 import org.romaframework.aspect.view.html.component.HtmlViewGenericComponent;
 import org.romaframework.core.Roma;
@@ -39,8 +40,6 @@ public class DirtyHelper {
 	}
 
 	private void addDirty(Object object, HtmlViewRenderable component) {
-		if (component instanceof HtmlViewConfigurableEntityForm && ((HtmlViewConfigurableEntityForm) component).getAreaForComponentPlacement() instanceof HtmlViewScreenAreaInstance)
-			component = ((HtmlViewConfigurableEntityForm) component).getAreaForComponentPlacement();
 		Set<HtmlViewRenderable> comps = dirtyObjects.get(object);
 		if (comps == null) {
 			comps = new HashSet<HtmlViewRenderable>();
@@ -58,17 +57,19 @@ public class DirtyHelper {
 			HtmlViewRenderable cur = htmlViewRenderable;
 			while (cur != null) {
 				if (cur instanceof HtmlViewFormArea) {
-					HtmlViewRenderable newCur = ((HtmlViewArea) cur).getParentArea();
-					if (newCur == null)
-						cur = ((HtmlViewArea) cur).getForm();
+					if (((HtmlViewArea) cur).getParentArea() != null)
+						cur = ((HtmlViewArea) cur).getParentArea();
 					else
-						cur = newCur;
+						cur = ((HtmlViewArea) cur).getForm();
 				} else if (cur instanceof HtmlViewScreenArea) {
 					cur = ((HtmlViewScreenArea) cur).getParentArea();
-				} else if (cur instanceof HtmlViewContentForm) {
-					cur = ((HtmlViewContentForm) cur).getScreenAreaObject();
 				} else if (cur instanceof HtmlViewGenericComponent) {
-					cur = (HtmlViewRenderable) ((HtmlViewGenericComponent) cur).getContainerComponent();
+					if (((HtmlViewGenericComponent) cur).getContainerArea() != null)
+						cur = ((HtmlViewGenericComponent) cur).getContainerArea();
+					else if ((HtmlViewRenderable) ((HtmlViewGenericComponent) cur).getContainerComponent() != null)
+						cur = (HtmlViewRenderable) ((HtmlViewGenericComponent) cur).getContainerComponent();
+					else
+						cur = ((HtmlViewGenericComponent) cur).getScreenAreaObject();
 				}
 				if (all.contains(cur)) {
 					toRemove.add(htmlViewRenderable);

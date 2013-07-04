@@ -144,7 +144,6 @@ public class HtmlViewAspect extends ViewAspectAbstract implements SchemaFeatures
 		}
 	}
 
-	@Override
 	public void removeObjectFormAssociation(Object iUserObject) {
 
 		SessionInfo iSession = Roma.session().getActiveSessionInfo();

@@ -13,6 +13,7 @@ import org.romaframework.aspect.view.feature.ViewFieldFeatures;
 import org.romaframework.aspect.view.form.ViewComponent;
 import org.romaframework.aspect.view.html.HtmlViewAspectHelper;
 import org.romaframework.aspect.view.html.HtmlViewSession;
+import org.romaframework.aspect.view.html.area.HtmlViewFormArea;
 import org.romaframework.aspect.view.html.area.HtmlViewRenderable;
 import org.romaframework.aspect.view.html.area.HtmlViewScreenArea;
 import org.romaframework.aspect.view.html.exception.TransformerRuntimeException;
@@ -33,6 +34,7 @@ public abstract class HtmlViewAbstractComponent implements HtmlViewGenericCompon
 	protected HtmlViewContentComponent	containerComponent;
 	protected Log												log				= LogFactory.getLog(this.getClass());
 	protected HtmlViewScreenArea				screenArea;
+	protected HtmlViewFormArea					containerArea;
 	protected SchemaClassElement				schemaElement;
 	protected boolean										dirty			= true;
 	protected Long											id;
@@ -245,6 +247,16 @@ public abstract class HtmlViewAbstractComponent implements HtmlViewGenericCompon
 		return getChildren();
 	}
 
+	public void setContainerArea(HtmlViewFormArea containerArea) {
+		this.containerArea=containerArea;
+		
+	}
+	
+	public HtmlViewFormArea getContainerArea() {
+		return containerArea;
+	}
+	
+	
 	public void destroy() {
 
 	}
