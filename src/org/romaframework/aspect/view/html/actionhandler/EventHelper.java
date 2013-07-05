@@ -15,9 +15,6 @@
  */
 package org.romaframework.aspect.view.html.actionhandler;
 
-import java.util.HashSet;
-import java.util.Set;
-
 import org.romaframework.aspect.view.html.component.HtmlViewGenericComponent;
 import org.romaframework.aspect.view.html.transformer.helper.TransformerHelper;
 
@@ -25,32 +22,6 @@ public class EventHelper {
 
 	private static final int		COMPONENT_ID_INDEX			= 1;
 	private static final int		EVENT_NAME_INDEX				= 2;
-	private static Set<String>	standardEvents					= new HashSet<String>();
-
-	static {
-		standardEvents.add("click");
-		standardEvents.add("change");
-		standardEvents.add("blur");
-		standardEvents.add("dblclick");
-		standardEvents.add("focus");
-		standardEvents.add("keydown");
-		standardEvents.add("keyup");
-		standardEvents.add("mousedown");
-		standardEvents.add("mousemove");
-		standardEvents.add("mouseout");
-		standardEvents.add("mouseover");
-		standardEvents.add("mouseup");
-		standardEvents.add("resize");
-	}
-
-	public Set<String> getStandardEvents() {
-		return standardEvents;
-	}
-
-	public void setEvents(Set<String> events){
-		standardEvents.addAll(events);
-	}
-	
 	
 	public static String getEventHtmlName(HtmlViewGenericComponent fieldComponent, String eventName) {
 		return TransformerHelper.POJO_EVENT_PREFIX + TransformerHelper.SEPARATOR + fieldComponent.getId() + TransformerHelper.SEPARATOR

@@ -20,6 +20,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.romaframework.aspect.view.html.ViewSettings;
 import org.romaframework.aspect.view.html.screen.HtmlViewScreen;
 import org.romaframework.aspect.view.html.template.ViewTemplateManager;
 import org.romaframework.aspect.view.html.transformer.Transformer;
@@ -29,12 +30,13 @@ import org.romaframework.core.config.RomaApplicationContext;
 
 public class JspTransformerManager implements TransformerManager {
 
-	private Map<String, Transformer>							transformers		= new HashMap<String, Transformer>();
+	private Map<String, Transformer>							transformers;
 	private Map<String, Map<String, Transformer>>	setTransformers	= new HashMap<String, Map<String, Transformer>>();
 
 	public JspTransformerManager() {
+		transformers = ViewSettings.getInstance().getTransformers();
 		ViewTemplateManager mgr = Roma.component(ViewTemplateManager.class);
-		loadTransformers(mgr.getTemplatesPath(), this.transformers, null);
+		loadTransformers(mgr.getTemplatesPath(), transformers, null);
 	}
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })

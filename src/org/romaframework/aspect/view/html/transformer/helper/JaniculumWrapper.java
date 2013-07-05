@@ -19,6 +19,7 @@ import org.romaframework.aspect.view.feature.ViewActionFeatures;
 import org.romaframework.aspect.view.feature.ViewBaseFeatures;
 import org.romaframework.aspect.view.feature.ViewClassFeatures;
 import org.romaframework.aspect.view.feature.ViewFieldFeatures;
+import org.romaframework.aspect.view.html.ViewSettings;
 import org.romaframework.aspect.view.html.actionhandler.EventHelper;
 import org.romaframework.aspect.view.html.area.HtmlViewArea;
 import org.romaframework.aspect.view.html.area.HtmlViewFormArea;
@@ -327,7 +328,7 @@ public class JaniculumWrapper {
 		Set<String> result = new HashSet<String>();
 		SchemaClassElement element = getSchemaElement(component);
 		if (element instanceof SchemaField) {
-			Set<String> standardEvents = Roma.component(EventHelper.class).getStandardEvents();
+			Set<String> standardEvents = ViewSettings.getInstance().getEvents();
 			Iterator<SchemaEvent> eventIterator = ((SchemaField) element).getEventIterator();
 			while (eventIterator.hasNext()) {
 				String name = eventIterator.next().getName();

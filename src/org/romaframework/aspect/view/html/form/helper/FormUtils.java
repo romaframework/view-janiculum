@@ -9,8 +9,8 @@ import org.romaframework.aspect.view.ViewConstants;
 import org.romaframework.aspect.view.area.AreaComponent;
 import org.romaframework.aspect.view.feature.ViewActionFeatures;
 import org.romaframework.aspect.view.feature.ViewFieldFeatures;
-import org.romaframework.aspect.view.html.HtmlViewAspect;
 import org.romaframework.aspect.view.html.HtmlViewAspectHelper;
+import org.romaframework.aspect.view.html.ViewSettings;
 import org.romaframework.aspect.view.html.area.HtmlViewFormArea;
 import org.romaframework.aspect.view.html.area.HtmlViewScreenArea;
 import org.romaframework.aspect.view.html.component.HtmlViewActionComponent;
@@ -79,7 +79,7 @@ public class FormUtils {
 				return;
 			} else if (TreeNode.class.isAssignableFrom(fieldType) && featureRender != null && featureRender.equals(ViewConstants.RENDER_TREE)) {
 				createTreeComposedComponent(field, iForm);
-			} else if (featureRender != null && ((HtmlViewAspect) Roma.view()).getFormRenders() != null && ((HtmlViewAspect) Roma.view()).getFormRenders().contains(featureRender)) {
+			} else if (featureRender != null && ViewSettings.getInstance().getFormRenders() != null && ViewSettings.getInstance().getFormRenders().contains(featureRender)) {
 				Object content = iForm.getContent();
 				Object value = field.getValue(content);
 				if (content != null && value == null) {

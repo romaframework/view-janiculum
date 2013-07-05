@@ -139,10 +139,10 @@ public class HtmlViewAspectHelper {
 		} else {
 			final SchemaField schemaField = (SchemaField) schemaFeatures;
 			Class<?> fieldType = (Class<?>) schemaField.getLanguageType();
-			String render = getHtmlViewAspect().getRender(fieldType.getName());
+			String render = ViewSettings.getInstance().getRender(fieldType.getName());
 			if (render != null)
 				return render;
-			render = getHtmlViewAspect().getRender(fieldType.getSimpleName());
+			render = ViewSettings.getInstance().getRender(fieldType.getSimpleName());
 			if (render != null)
 				return render;
 			if (String.class.isAssignableFrom(fieldType)) {
@@ -194,7 +194,7 @@ public class HtmlViewAspectHelper {
 	}
 
 	private static String getRender(String type, String def) {
-		String render = getHtmlViewAspect().getRender(type);
+		String render = ViewSettings.getInstance().getRender(type);
 		return render != null ? render : def;
 	}
 
@@ -267,7 +267,7 @@ public class HtmlViewAspectHelper {
 	}
 
 	private static String calculateJspPath(final Class<?> clazz) {
-		return getHtmlViewAspect().getPagesPath() + clazz.getSimpleName() + ".jsp";
+		return ViewSettings.getInstance().getPagesPath() + clazz.getSimpleName() + ".jsp";
 	}
 
 	public static StyleBuffer getCssBuffer() {

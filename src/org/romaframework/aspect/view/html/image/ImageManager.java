@@ -27,17 +27,6 @@ public class ImageManager {
 	private List<String>											imagePaths			= new ArrayList<String>();
 	public List<String>												additionalPaths	= new ArrayList<String>();								;
 
-	private ApplicationConfiguration					config;
-
-	public ApplicationConfiguration getConfig() {
-		return config;
-	}
-
-	public void setConfig(ApplicationConfiguration romaConfig) {
-		config = romaConfig;
-		initImagePaths();
-	}
-
 	protected void initImagePaths() {
 		final String viewAspectPath = Roma.component(ApplicationConfiguration.class).getApplicationPackage() + Utility.PACKAGE_SEPARATOR + ViewAspect.ASPECT_NAME;
 		imagePaths.clear();

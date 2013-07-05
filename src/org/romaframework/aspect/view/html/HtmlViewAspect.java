@@ -86,10 +86,7 @@ import org.romaframework.web.session.HttpAbstractSessionAspect;
  */
 public class HtmlViewAspect extends ViewAspectAbstract implements SchemaFeaturesChangeListener, FieldRefreshListener, SchemaFieldListener {
 
-	private static Log					log					= LogFactory.getLog(HtmlViewAspect.class);
-	private Map<String, String>	typeRenders;
-	private Set<String>					formRenders	= new HashSet<String>();
-	private String							pagesPath		= "/dynamic/base/view/";
+	private static Log	log	= LogFactory.getLog(HtmlViewAspect.class);
 
 	public HtmlViewAspect() {
 		Controller.getInstance().registerListener(FieldRefreshListener.class, this);
@@ -511,7 +508,6 @@ public class HtmlViewAspect extends ViewAspectAbstract implements SchemaFeatures
 
 	}
 
-
 	private void changeFieldDepends(String fieldName, final HtmlViewContentForm form, final Object featureValue) {
 		SchemaField field = form.getSchemaObject().getField(fieldName);
 		Set<String> dependencies = new HashSet<String>();
@@ -608,37 +604,6 @@ public class HtmlViewAspect extends ViewAspectAbstract implements SchemaFeatures
 
 	public String getContextPath() {
 		return ((HttpServletRequest) Roma.context().component(HttpAbstractSessionAspect.CONTEXT_REQUEST_PAR)).getContextPath();
-	}
-
-	public Map<String, String> getTypeRenders() {
-		return typeRenders;
-	}
-
-	public void setTypeRenders(Map<String, String> typeRenders) {
-		this.typeRenders = typeRenders;
-	}
-
-	public String getRender(String typeName) {
-		if (typeRenders != null) {
-			typeRenders.get(typeName);
-		}
-		return null;
-	}
-
-	public Set<String> getFormRenders() {
-		return formRenders;
-	}
-
-	public void setFormRenders(Set<String> formRenders) {
-		this.formRenders = formRenders;
-	}
-
-	public String getPagesPath() {
-		return pagesPath;
-	}
-
-	public void setPagesPath(String pagesPath) {
-		this.pagesPath = pagesPath;
 	}
 
 }
