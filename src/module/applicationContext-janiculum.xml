@@ -76,9 +76,5 @@
 				<value>resize</value>
 			</set>
 		</property>
-		<property name="components">
-			<!-- not jsp transformers -->
-			<list></list>
-		</property>
 	</bean>
 </beans>

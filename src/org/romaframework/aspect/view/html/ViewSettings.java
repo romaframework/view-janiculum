@@ -13,7 +13,7 @@ public class ViewSettings {
 	private Map<String, String>				typeRenders;
 	private Set<String>								formRenders		= new HashSet<String>();
 	private String										pagesPath			= "/dynamic/base/view/";
-	private Set<String>								events;
+	private Set<String>								events				= new HashSet<String>();
 	private Map<String, Transformer>	transformers	= new HashMap<String, Transformer>();
 
 	public static ViewSettings getInstance() {
